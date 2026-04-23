@@ -455,6 +455,10 @@ function renderGardeTypes() {
 function selectGardeType(id) {
   selectedGardeType = id;
   renderGardeTypes();
+  // Rafraîchir la note FDS si pertinent
+  if (['fds-2','fds-3','fds-4'].includes(id)) {
+    setWhoFds(whoFds);
+  }
 }
 
 function updateParents() {
@@ -481,11 +485,13 @@ function updateParents() {
   if (fdsBtn1) { fdsBtn1.textContent = `${nom1} (${fdsLbl})`; fdsBtn1.classList.toggle('active', whoFds===1); }
   if (fdsBtn2) { fdsBtn2.textContent = `${nom2} (${fdsLbl})`; fdsBtn2.classList.toggle('active', whoFds===2); }
   const fdsNote = document.getElementById('whoFdsNote');
-  if (fdsNote) {
-    const autreNom = whoFds===1 ? nom2 : nom1;
+  if (fdsNote && ['fds-2','fds-3','fds-4'].includes(selectedGardeType)) {
+    const parentPrincipal = whoFds===1 ? nom1 : nom2;
+    const parentFds = whoFds===1 ? nom2 : nom1;
+    const freq = selectedGardeType.split('-')[1];
     fdsNote.textContent = lang==='fr'
-      ? `💡 ${autreNom} aura les enfants les fins de semaine selon la fréquence choisie.`
-      : `💡 ${autreNom} will have the children on weekends according to the chosen frequency.`;
+      ? `💡 ${parentPrincipal} a les enfants la majorité du temps. ${parentFds} les aura 1 fin de semaine sur ${freq}.`
+      : `💡 ${parentPrincipal} has the children most of the time. ${parentFds} will have them 1 weekend out of ${freq}.`;
   }
   updateWhoBtns();
 }
@@ -509,8 +515,17 @@ function setWhoFds(n) {
   whoFds = n;
   const nom1 = document.getElementById('nom1').value || (lang==='fr'?'Maman':'Mom');
   const nom2 = document.getElementById('nom2').value || (lang==='fr'?'Papa':'Dad');
+  const parentPrincipal = whoFds===1 ? nom1 : nom2;
+  const parentFds = whoFds===1 ? nom2 : nom1;
   document.getElementById('whoFdsBtn1').classList.toggle('active', whoFds===1);
   document.getElementById('whoFdsBtn2').classList.toggle('active', whoFds===2);
+  const fdsNote = document.getElementById('whoFdsNote');
+  if (fdsNote) {
+    const freq = selectedGardeType.split('-')[1];
+    fdsNote.textContent = lang==='fr'
+      ? `💡 ${parentPrincipal} a les enfants la majorité du temps. ${parentFds} les aura 1 fin de semaine sur ${freq}.`
+      : `💡 ${parentPrincipal} has the children most of the time. ${parentFds} will have them 1 weekend out of ${freq}.`;
+  }
 }
 
 // ── Génération du calendrier ──────────────────────────────────────────────
