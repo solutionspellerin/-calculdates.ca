@@ -363,6 +363,12 @@ const i18n = {
     whoCommence: (nom) => `${nom} commence`,
     statLabel1: (n) => `Jours avec`,
     statLabel2: (n) => `Jours avec`,
+    labelWho52: 'Qui a les 5 jours ?',
+    labelWhoFds: 'Qui a la garde principale (jours de semaine) ?',
+    gardePrincipale: 'garde principale',
+    joursUnit: 'jours',
+    defaultNom1: 'Maman', defaultNom2: 'Papa',
+    noteFds: (principal, autre, freq) => `💡 ${principal} a les enfants la majorité du temps. ${autre} les aura 1 fin de semaine sur ${freq}.`,
   },
   en: {
     nav: [{label:'Home',href:'index.html',key:'home'},{label:'Shared Custody',href:'garde.html',key:'garde'},{label:'About',href:'about.html',key:'about'},{label:'Privacy Policy',href:'privacy-policy.html',key:'privacy'}],
@@ -389,6 +395,12 @@ const i18n = {
     whoCommence: (nom) => `${nom} starts`,
     statLabel1: (n) => `Days with`,
     statLabel2: (n) => `Days with`,
+    labelWho52: 'Who has the 5 days?',
+    labelWhoFds: 'Who has primary custody (weekdays)?',
+    gardePrincipale: 'primary custody',
+    joursUnit: 'days',
+    defaultNom1: 'Mom', defaultNom2: 'Dad',
+    noteFds: (principal, autre, freq) => `💡 ${principal} has the children most of the time. ${autre} will have them 1 weekend out of ${freq}.`,
   }
 };
 
@@ -430,6 +442,24 @@ function applyTranslations() {
   document.getElementById('footerPrivacy').textContent = t.footerPrivacy;
   document.getElementById('footerText').textContent = t.footerText;
   document.getElementById('calTitre').textContent = t.calTitre;
+  // Traductions sections dynamiques
+  document.getElementById('labelWho52').textContent = t.labelWho52;
+  document.getElementById('labelWhoFds').textContent = t.labelWhoFds;
+  // Mettre à jour le select 5/2 avec les noms actuels
+  const nom1cur = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2cur = document.getElementById('nom2').value || t.defaultNom2;
+  const sel = document.getElementById('who52Select');
+  if (sel) {
+    sel.options[0].text = `${nom1cur} (5 ${t.joursUnit}) — ${nom2cur} (2 ${t.joursUnit})`;
+    sel.options[1].text = `${nom2cur} (5 ${t.joursUnit}) — ${nom1cur} (2 ${t.joursUnit})`;
+  }
+  // Boutons FDS
+  const fdsBtn1 = document.getElementById('whoFdsBtn1');
+  const fdsBtn2 = document.getElementById('whoFdsBtn2');
+  if (fdsBtn1) fdsBtn1.textContent = `${nom1cur} (${t.gardePrincipale})`;
+  if (fdsBtn2) fdsBtn2.textContent = `${nom2cur} (${t.gardePrincipale})`;
+  // Note FDS
+  if (['fds-2','fds-3','fds-4'].includes(selectedGardeType)) setWhoFds(whoFds);
   // Durée options
   const dureeOpts = ['1','3','6','12','24'];
   const sel = document.getElementById('duree');
@@ -473,25 +503,23 @@ function updateParents() {
   const nom1 = document.getElementById('nom1').value || (lang==='fr'?'Maman':'Mom');
   const nom2 = document.getElementById('nom2').value || (lang==='fr'?'Papa':'Dad');
   // Mettre à jour le select 5/2
+  const t = i18n[lang];
   const sel = document.getElementById('who52Select');
   if (sel) {
-    sel.options[0].text = `${nom1} (5 ${lang==='fr'?'jours':'days'}) — ${nom2} (2 ${lang==='fr'?'jours':'days'})`;
-    sel.options[1].text = `${nom2} (5 ${lang==='fr'?'jours':'days'}) — ${nom1} (2 ${lang==='fr'?'jours':'days'})`;
+    sel.options[0].text = `${nom1} (5 ${t.joursUnit}) — ${nom2} (2 ${t.joursUnit})`;
+    sel.options[1].text = `${nom2} (5 ${t.joursUnit}) — ${nom1} (2 ${t.joursUnit})`;
   }
   // Mettre à jour les boutons FDS
-  const fdsLbl = lang==='fr' ? 'garde principale' : 'primary custody';
   const fdsBtn1 = document.getElementById('whoFdsBtn1');
   const fdsBtn2 = document.getElementById('whoFdsBtn2');
-  if (fdsBtn1) { fdsBtn1.textContent = `${nom1} (${fdsLbl})`; fdsBtn1.classList.toggle('active', whoFds===1); }
-  if (fdsBtn2) { fdsBtn2.textContent = `${nom2} (${fdsLbl})`; fdsBtn2.classList.toggle('active', whoFds===2); }
+  if (fdsBtn1) { fdsBtn1.textContent = `${nom1} (${t.gardePrincipale})`; fdsBtn1.classList.toggle('active', whoFds===1); }
+  if (fdsBtn2) { fdsBtn2.textContent = `${nom2} (${t.gardePrincipale})`; fdsBtn2.classList.toggle('active', whoFds===2); }
   const fdsNote = document.getElementById('whoFdsNote');
   if (fdsNote && ['fds-2','fds-3','fds-4'].includes(selectedGardeType)) {
     const parentPrincipal = whoFds===1 ? nom1 : nom2;
     const parentFds = whoFds===1 ? nom2 : nom1;
     const freq = selectedGardeType.split('-')[1];
-    fdsNote.textContent = lang==='fr'
-      ? `💡 ${parentPrincipal} a les enfants la majorité du temps. ${parentFds} les aura 1 fin de semaine sur ${freq}.`
-      : `💡 ${parentPrincipal} has the children most of the time. ${parentFds} will have them 1 weekend out of ${freq}.`;
+    fdsNote.textContent = t.noteFds(parentPrincipal, parentFds, freq);
   }
   updateWhoBtns();
 }
@@ -513,18 +541,17 @@ function setWho(n) {
 
 function setWhoFds(n) {
   whoFds = n;
-  const nom1 = document.getElementById('nom1').value || (lang==='fr'?'Maman':'Mom');
-  const nom2 = document.getElementById('nom2').value || (lang==='fr'?'Papa':'Dad');
+  const t = i18n[lang];
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
   const parentPrincipal = whoFds===1 ? nom1 : nom2;
   const parentFds = whoFds===1 ? nom2 : nom1;
   document.getElementById('whoFdsBtn1').classList.toggle('active', whoFds===1);
   document.getElementById('whoFdsBtn2').classList.toggle('active', whoFds===2);
   const fdsNote = document.getElementById('whoFdsNote');
-  if (fdsNote) {
+  if (fdsNote && ['fds-2','fds-3','fds-4'].includes(selectedGardeType)) {
     const freq = selectedGardeType.split('-')[1];
-    fdsNote.textContent = lang==='fr'
-      ? `💡 ${parentPrincipal} a les enfants la majorité du temps. ${parentFds} les aura 1 fin de semaine sur ${freq}.`
-      : `💡 ${parentPrincipal} has the children most of the time. ${parentFds} will have them 1 weekend out of ${freq}.`;
+    fdsNote.textContent = t.noteFds(parentPrincipal, parentFds, freq);
   }
 }
 
