@@ -438,17 +438,17 @@ function calculate() {
   let resultDate  = new Date(inputDate);
 
   if(direction === 'forward') {
-    // Départ + durée = échéance
-    if(unit==='day')   resultDate.setDate(resultDate.getDate()+qty);
-    if(unit==='week')  resultDate.setDate(resultDate.getDate()+qty*7);
-    if(unit==='month') resultDate.setMonth(resultDate.getMonth()+qty);
-    if(unit==='year')  resultDate.setFullYear(resultDate.getFullYear()+qty);
+    // Départ + durée = échéance (-1 car le jour de départ compte)
+    if(unit==='day')   resultDate.setDate(resultDate.getDate()+qty-1);
+    if(unit==='week')  resultDate.setDate(resultDate.getDate()+qty*7-1);
+    if(unit==='month') { resultDate.setMonth(resultDate.getMonth()+qty); resultDate.setDate(resultDate.getDate()-1); }
+    if(unit==='year')  { resultDate.setFullYear(resultDate.getFullYear()+qty); resultDate.setDate(resultDate.getDate()-1); }
   } else {
-    // Échéance - durée = départ
-    if(unit==='day')   resultDate.setDate(resultDate.getDate()-qty);
-    if(unit==='week')  resultDate.setDate(resultDate.getDate()-qty*7);
-    if(unit==='month') resultDate.setMonth(resultDate.getMonth()-qty);
-    if(unit==='year')  resultDate.setFullYear(resultDate.getFullYear()-qty);
+    // Échéance - durée = départ (+1 car le jour d'échéance compte)
+    if(unit==='day')   resultDate.setDate(resultDate.getDate()-qty+1);
+    if(unit==='week')  resultDate.setDate(resultDate.getDate()-qty*7+1);
+    if(unit==='month') { resultDate.setMonth(resultDate.getMonth()-qty); resultDate.setDate(resultDate.getDate()+1); }
+    if(unit==='year')  { resultDate.setFullYear(resultDate.getFullYear()-qty); resultDate.setDate(resultDate.getDate()+1); }
   }
 
   const diff   = Math.abs(Math.round((resultDate-inputDate)/(1000*60*60*24)));
