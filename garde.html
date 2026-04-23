@@ -462,8 +462,8 @@ function applyTranslations() {
   if (['fds-2','fds-3','fds-4'].includes(selectedGardeType)) setWhoFds(whoFds);
   // Durée options
   const dureeOpts = ['1','3','6','12','24'];
-  const sel = document.getElementById('duree');
-  [...sel.options].forEach((o,i) => o.textContent = t.dureeOpts[i]);
+  const selDuree = document.getElementById('duree');
+  [...selDuree.options].forEach((o,i) => o.textContent = t.dureeOpts[i]);
   updateWhoBtns();
   renderGardeTypes();
   renderNav();
