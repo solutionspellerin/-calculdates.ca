@@ -6,6 +6,7 @@
 <meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
 <title>Calculateur de dates — Date Calculator | CalculDates.ca</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
 <style>
   :root {
     --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
@@ -59,10 +60,12 @@
     gap: 12px; margin-bottom: 28px;
     background: var(--fond); border-radius: 12px; padding: 14px 20px;
     border: 1.5px solid var(--gris-clair);
+    flex-wrap: wrap;
   }
   .dir-label {
     font-size: 0.82rem; font-weight: 500; color: var(--gris);
     transition: color 0.25s; white-space: nowrap;
+    text-align: center;
   }
   .dir-label.active { color: var(--bleu); font-weight: 600; }
   .dir-switch {
@@ -135,6 +138,10 @@
 
   @media (max-width: 700px) { main { grid-template-columns: 1fr; } .scenarios-grid { grid-template-columns: 1fr 1fr; } .sidebar { display: none; } }
   @media (max-width: 480px) { .scenarios-grid { grid-template-columns: 1fr; } .row-2 { grid-template-columns: 1fr; } header { padding: 14px 16px; } .lang-label { display: none; } }
+  @media (max-width: 540px) {
+    .direction-toggle { flex-direction: column; gap: 8px; padding: 12px 16px; }
+    .dir-label { font-size: 0.78rem; }
+  }
 </style>
 </head>
 <body>
@@ -271,7 +278,7 @@ const i18n = {
     footerHome:'Accueil', footerAbout:'À propos', footerPrivacy:'Politique de confidentialité',
     days:['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
     months:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
-    nav:[{label:'Accueil',href:'index.html',key:'home'},{label:'À propos',href:'about.html',key:'about'},{label:'Politique de conf.',href:'privacy-policy.html',key:'privacy'}],
+    nav:[{label:'Accueil',href:'index.html',key:'home'},{label:'Garde partagée',href:'garde.html',key:'garde'},{label:'À propos',href:'about.html',key:'about'},{label:'Politique de conf.',href:'privacy-policy.html',key:'privacy'}],
     scenarios:[
       {title:'🤱 Maternité — secteur public',desc:'21 semaines (convention collective)',qty:21,unit:'week',dir:'forward'},
       {title:'🤱 Maternité — régime de base',desc:'18 semaines (RQAP)',qty:18,unit:'week',dir:'forward'},
@@ -310,7 +317,7 @@ const i18n = {
     footerHome:'Home', footerAbout:'About', footerPrivacy:'Privacy Policy',
     days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
     months:['January','February','March','April','May','June','July','August','September','October','November','December'],
-    nav:[{label:'Home',href:'index.html',key:'home'},{label:'About',href:'about.html',key:'about'},{label:'Privacy Policy',href:'privacy-policy.html',key:'privacy'}],
+    nav:[{label:'Home',href:'index.html',key:'home'},{label:'Shared Custody',href:'garde.html',key:'garde'},{label:'About',href:'about.html',key:'about'},{label:'Privacy Policy',href:'privacy-policy.html',key:'privacy'}],
     scenarios:[
       {title:'🤱 Maternity — public sector',desc:'21 weeks (collective agreement)',qty:21,unit:'week',dir:'forward'},
       {title:'🤱 Maternity — base plan',desc:'18 weeks (QPIP)',qty:18,unit:'week',dir:'forward'},
