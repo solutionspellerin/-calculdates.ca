@@ -27,163 +27,195 @@
   color: var(--bleu, #1a3a5c);
 }
 
-/* ── CFO masqué — Pub principale ─────────────────────────── */
-.ad-cfo {
+/* ── Base commune aux 3 pubs ─────────────────────────────── */
+.ad-cfo, .ad-alch, .ad-amz {
   display: block;
   text-decoration: none;
-  background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
-  border-radius: 14px;
-  padding: 18px 20px;
+  border-radius: 16px;
   position: relative;
-  box-shadow: 0 4px 18px rgba(26,58,92,0.15);
-  transition: transform 0.2s, box-shadow 0.2s;
   overflow: hidden;
+  transition: transform 0.25s cubic-bezier(.2,.9,.3,1.1), box-shadow 0.25s;
+  isolation: isolate;
 }
-.ad-cfo:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,58,92,0.25); }
-.ad-cfo-inner { display: flex; align-items: center; gap: 16px; }
-.ad-cfo-logo { width: 90px; height: auto; flex-shrink: 0; border-radius: 6px; }
-.ad-cfo-text { flex: 1; }
+.ad-cfo:hover, .ad-alch:hover, .ad-amz:hover {
+  transform: translateY(-3px);
+}
+
+/* ── CFO masqué — couverture sombre « finance » ─────────── */
+.ad-cfo {
+  background: linear-gradient(135deg, #0e2540 0%, #1f4e7e 55%, #2d6a9f 100%);
+  padding: 20px 22px 18px;
+  box-shadow: 0 6px 22px rgba(14,37,64,0.18);
+}
+.ad-cfo::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 85% 10%, rgba(232,197,71,0.18) 0%, rgba(232,197,71,0) 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+.ad-cfo:hover { box-shadow: 0 14px 32px rgba(14,37,64,0.32); }
+.ad-cfo-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 18px; }
+.ad-cfo-logo {
+  width: 86px; height: auto; flex-shrink: 0; border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  background: #1c1c1c;
+}
+.ad-cfo-text { flex: 1; min-width: 0; }
 .ad-cfo-headline {
   font-family: 'Playfair Display', serif;
-  font-size: 1rem;
+  font-size: 1.02rem;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.25;
-  margin-bottom: 4px;
+  line-height: 1.2;
+  margin-bottom: 5px;
+  letter-spacing: -0.005em;
 }
 .ad-cfo-subline {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.75);
-  line-height: 1.4;
-  margin-bottom: 8px;
+  font-size: 0.8rem;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.45;
+  margin-bottom: 10px;
 }
 .ad-cfo-promo {
-  font-size: 0.74rem;
-  color: rgba(255,255,255,0.65);
-  margin-bottom: 6px;
+  font-size: 0.72rem;
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 8px;
+  letter-spacing: 0.01em;
 }
 .ad-cfo-code {
   display: inline-block;
-  background: #e8c547;
-  color: #1a3a5c;
+  background: linear-gradient(180deg, #f3d85a 0%, #e8c547 100%);
+  color: #0e2540;
   font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 4px;
+  padding: 3px 9px;
+  border-radius: 5px;
   font-family: 'DM Sans', monospace;
-  font-size: 0.74rem;
+  font-size: 0.75rem;
   letter-spacing: 0.02em;
+  margin-left: 4px;
+  box-shadow: 0 2px 6px rgba(232,197,71,0.35), inset 0 1px 0 rgba(255,255,255,0.35);
 }
 .ad-cfo-cta {
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: #e8c547;
   letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* ── Alchimix — Pub ──────────────────────────────────────── */
+/* ── Alchimix — couverture mystique/magique ─────────────── */
 .ad-alch {
-  display: block;
-  text-decoration: none;
-  background: #2d1b5c;
-  border-radius: 14px;
-  overflow: hidden;
-  position: relative;
-  box-shadow: 0 4px 18px rgba(45,27,92,0.2);
-  transition: transform 0.2s, box-shadow 0.2s;
+  background: linear-gradient(160deg, #2d1b5c 0%, #4e2487 50%, #6b2e8f 100%);
+  box-shadow: 0 6px 22px rgba(45,27,92,0.22);
 }
-.ad-alch:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,27,92,0.3); }
-.ad-alch-banner { width: 100%; display: block; }
-.ad-alch-text { padding: 14px 18px; }
+.ad-alch::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 15% 15%, rgba(255,217,63,0.14) 0%, rgba(255,217,63,0) 45%),
+              radial-gradient(circle at 85% 85%, rgba(180,255,63,0.1) 0%, rgba(180,255,63,0) 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+.ad-alch:hover { box-shadow: 0 14px 32px rgba(45,27,92,0.38); }
+.ad-alch-banner {
+  width: 100%;
+  display: block;
+  position: relative; z-index: 1;
+  border-bottom: 1px solid rgba(255,217,63,0.2);
+}
+.ad-alch-text { padding: 14px 18px 16px; position: relative; z-index: 1; }
 .ad-alch-headline {
   font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #ffd93f;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
+  letter-spacing: 0.005em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 .ad-alch-subline {
-  font-size: 0.76rem;
-  color: rgba(255,255,255,0.8);
-  line-height: 1.4;
-  margin-bottom: 8px;
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.82);
+  line-height: 1.45;
+  margin-bottom: 10px;
 }
 .ad-alch-cta {
-  font-size: 0.8rem;
-  font-weight: 600;
+  font-size: 0.82rem;
+  font-weight: 700;
   color: #b4ff3f;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* ── Amazon — Pub ────────────────────────────────────────── */
+/* ── Amazon — look officiel ──────────────────────────────── */
 .ad-amz {
-  display: block;
-  text-decoration: none;
-  background: #ffffff;
+  background: linear-gradient(180deg, #ffffff 0%, #fafaf7 100%);
   border: 1.5px solid #e8e4dc;
-  border-radius: 14px;
-  padding: 16px 18px;
-  position: relative;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  padding: 18px 20px 16px;
+  box-shadow: 0 3px 12px rgba(0,0,0,0.05);
 }
-.ad-amz:hover { transform: translateY(-2px); border-color: #ff9900; box-shadow: 0 6px 18px rgba(255,153,0,0.15); }
-.ad-amz-inner { display: flex; align-items: center; gap: 14px; }
+.ad-amz:hover {
+  border-color: #ff9900;
+  box-shadow: 0 10px 26px rgba(255,153,0,0.18);
+}
+.ad-amz-inner { display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; }
 .ad-amz-logo {
-  font-family: 'Arial', sans-serif;
-  font-size: 1.6rem;
-  font-weight: 700;
-  color: #232f3e;
-  letter-spacing: -0.02em;
+  width: 110px; height: auto;
   flex-shrink: 0;
-  position: relative;
 }
-.ad-amz-logo::after {
-  content: '';
-  position: absolute;
-  bottom: 2px;
-  left: 0;
-  right: 6px;
-  height: 3px;
-  background: #ff9900;
-  border-radius: 2px;
-}
-.ad-amz-text { flex: 1; }
+.ad-amz-text { flex: 1; min-width: 0; }
 .ad-amz-headline {
   font-family: 'Playfair Display', serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #232f3e;
-  line-height: 1.25;
-  margin-bottom: 3px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+  letter-spacing: -0.005em;
 }
 .ad-amz-subline {
-  font-size: 0.76rem;
-  color: #666;
-  line-height: 1.4;
-  margin-bottom: 6px;
+  font-size: 0.78rem;
+  color: #5a5a5a;
+  line-height: 1.45;
+  margin-bottom: 8px;
 }
 .ad-amz-cta {
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #ff9900;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #c7790a;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
 }
 
 /* ── Label « Annonce / Ad / Anuncio » commun ─────────────── */
 .ad-label {
   position: absolute;
-  top: 6px;
-  right: 8px;
-  font-size: 0.62rem;
-  letter-spacing: 0.1em;
+  top: 8px;
+  right: 10px;
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: rgba(0,0,0,0.35);
-  background: rgba(255,255,255,0.6);
-  padding: 1px 6px;
+  color: rgba(0,0,0,0.38);
+  background: rgba(255,255,255,0.78);
+  padding: 2px 7px;
   border-radius: 3px;
   pointer-events: none;
+  font-weight: 600;
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  z-index: 2;
 }
 .ad-cfo .ad-label, .ad-alch .ad-label {
-  color: rgba(255,255,255,0.6);
-  background: rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.65);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.14);
 }
 
 /* ── Grille des pubs côté droit ─────────────────────────── */
