@@ -929,4 +929,203 @@ function genererPDF() {
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const t = i18n[lang];
   const nom1 = document.getElementById('nom1').value || t.defaultNom1;
-  const nom2 = document.getElementById('no
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  const c1hex = document.getElementById('couleur1').value;
+  const c2hex = document.getElementById('couleur2').value;
+  const gt = gardeTypes.find(g=>g.id===selectedGardeType);
+  const dateVal = document.getElementById('dateDebut').value;
+  const nbMois = parseInt(document.getElementById('duree').value);
+  const assignments = getJoursCalendrier(dateVal, nbMois, selectedGardeType);
+
+  function hexToRgb(hex) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return [r,g,b];
+  }
+  const rgb1 = hexToRgb(c1hex);
+  const rgb2 = hexToRgb(c2hex);
+
+  // En-tête
+  doc.setFillColor(26,58,92);
+  doc.rect(0,0,210,28,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.text(t.pdfMainTitle, 14, 12);
+  doc.setFontSize(9);
+  doc.setTextColor(232,197,71);
+  doc.text(`${gt.icon} ${gt.titre} — ${nom1} & ${nom2}`, 14, 20);
+  doc.text('CalculDates.ca', 160, 20);
+
+  // Légende
+  doc.setFillColor(...rgb1);
+  doc.roundedRect(14,31,8,5,1,1,'F');
+  doc.setTextColor(50,50,50);
+  doc.setFontSize(9);
+  doc.text(nom1, 24, 35);
+  doc.setFillColor(...rgb2);
+  doc.roundedRect(60,31,8,5,1,1,'F');
+  doc.text(nom2, 70, 35);
+
+  const joursMin = t.joursMin;
+  const colW = 26, rowH = 7, startX = 14;
+  let curY = 42;
+
+  const debut = new Date(dateVal + 'T00:00:00');
+  for (let m = 0; m < nbMois; m++) {
+    const date = new Date(debut.getFullYear(), debut.getMonth() + m, 1);
+    const moisNom = t.mois[date.getMonth()];
+    const anneeAff = date.getFullYear();
+    const dernierJour = new Date(anneeAff, date.getMonth()+1, 0).getDate();
+    const premierJour = date.getDay();
+    const lignes = Math.ceil((premierJour + dernierJour) / 7);
+    const hauteurMois = 10 + rowH + lignes * rowH + 4;
+
+    if (curY + hauteurMois > 280) {
+      doc.addPage();
+      curY = 14;
+    }
+
+    // Header du mois
+    doc.setFillColor(26,58,92);
+    doc.roundedRect(startX, curY, 182, 8, 2, 2, 'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(9);
+    doc.setFont(undefined,'bold');
+    doc.text(`${moisNom} ${anneeAff}`, 105, curY+5.5, {align:'center'});
+    curY += 9;
+
+    // En-têtes jours
+    doc.setFont(undefined,'normal');
+    doc.setFontSize(7);
+    for (let j=0; j<7; j++) {
+      doc.setTextColor(100,100,100);
+      doc.text(joursMin[j], startX + j*26 + 13, curY+4.5, {align:'center'});
+    }
+    curY += rowH;
+
+    // Cellules jours
+    let col = premierJour;
+    let row = 0;
+    for (let d=1; d<=dernierJour; d++) {
+      const cur2 = new Date(anneeAff, date.getMonth(), d);
+      const iso = cur2.toISOString().split('T')[0];
+      const parent = assignments[iso];
+      const x = startX + col * colW;
+      const y = curY + row * rowH;
+
+      if (parent === 1) {
+        doc.setFillColor(...rgb1);
+        doc.roundedRect(x+0.5, y+0.5, colW-1, rowH-1, 1,1,'F');
+        doc.setTextColor(255,255,255);
+      } else if (parent === 2) {
+        doc.setFillColor(...rgb2);
+        doc.roundedRect(x+0.5, y+0.5, colW-1, rowH-1, 1,1,'F');
+        doc.setTextColor(255,255,255);
+      } else {
+        doc.setTextColor(180,180,180);
+      }
+      doc.setFontSize(8);
+      doc.setFont(undefined,'normal');
+      doc.text(String(d), x + colW/2, y + rowH/2 + 1, {align:'center'});
+
+      col++;
+      if (col === 7) { col=0; row++; }
+    }
+    curY += (row + (col>0?1:0)) * rowH + 5;
+  }
+
+  // Stats
+  let jours1=0, jours2=0;
+  Object.values(assignments).forEach(p => p===1?jours1++:jours2++);
+  const total = jours1+jours2;
+  if (curY + 20 > 280) { doc.addPage(); curY = 14; }
+  doc.setFillColor(244,241,235);
+  doc.roundedRect(14, curY, 85, 14, 2,2,'F');
+  doc.setFillColor(...rgb1);
+  doc.rect(14, curY, 3, 14, 'F');
+  doc.setTextColor(50,50,50);
+  doc.setFontSize(8);
+  doc.text(`${nom1}: ${jours1} ${t.statsJours} (${Math.round(jours1/total*100)}%)`, 22, curY+9);
+  doc.setFillColor(244,241,235);
+  doc.roundedRect(111, curY, 85, 14, 2,2,'F');
+  doc.setFillColor(...rgb2);
+  doc.rect(111, curY, 3, 14, 'F');
+  doc.text(`${nom2}: ${jours2} ${t.statsJours} (${Math.round(jours2/total*100)}%)`, 119, curY+9);
+
+  // Footer
+  doc.setTextColor(150,150,150);
+  doc.setFontSize(7);
+  doc.text('© 2026 CalculDates.ca — calculdates.ca/garde.html', 105, 292, {align:'center'});
+
+  return doc;
+}
+
+function envoyerCourriel() {
+  const email = document.getElementById('emailInput').value;
+  if (!email) return;
+  const t = i18n[lang];
+
+  try {
+    const doc = genererPDF();
+    const pdfBlob = doc.output('blob');
+    const url = URL.createObjectURL(pdfBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'garde-partagee-calculdates.pdf';
+    a.click();
+    URL.revokeObjectURL(url);
+
+    const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+    const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+    const gt = gardeTypes.find(g=>g.id===selectedGardeType);
+    const descGt = t.gardeTypesDesc[gt.id] || gt.desc;
+    const sujet = encodeURIComponent(t.mailSubject(gt.titre));
+    const corps = encodeURIComponent(t.mailBody(gt.titre, descGt, nom1, nom2));
+    setTimeout(() => {
+      window.location.href = `mailto:${email}?subject=${sujet}&body=${corps}`;
+    }, 500);
+  } catch(e) {
+    alert(t.alertPdfErr);
+  }
+  fermerModal();
+}
+
+// Init
+(function init() {
+  const stored = CDSite.getStoredLang();
+  if (stored && ['fr','en','es'].includes(stored)) lang = stored;
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  document.getElementById('dateDebut').value = new Date().toISOString().split('T')[0];
+  updateParents();
+  renderGardeTypes();
+  applyTranslations();
+  renderAll();
+})();
+</script>
+
+<!-- Filet de sécurité : garantit le rendu du menu même si le script principal échoue -->
+<script>
+(function(){
+  function renderMenus(){
+    if(!window.CDSite) return;
+    try{
+      var stored=null; try{stored=localStorage.getItem('calculdates_lang');}catch(e){}
+      var lang=(stored&&['fr','en','es'].indexOf(stored)>=0)?stored:'fr';
+      var nav=document.getElementById('siteNav');
+      if(nav && !nav.innerHTML.trim()) CDSite.renderNav(lang,'garde');
+      var foot=document.getElementById('footerLinks');
+      if(foot && !foot.innerHTML.trim()) CDSite.renderFooterLinks(lang,'footerLinks');
+    }catch(e){console.warn('[nav fallback]',e);}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderMenus);
+  else renderMenus();
+  window.addEventListener('load',function(){setTimeout(renderMenus,300);});
+})();
+</script>
+</body>
+</html>
