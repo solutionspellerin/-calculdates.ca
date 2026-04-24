@@ -665,6 +665,108 @@ function telechargerPDF() {
   }
 }
 
+// ── PDF : même layout que la page (grille colorée + légende + stats) ─────
+function drawRotationMonthPDF(doc, x, y, monthW, cellW, cellH, headerH, dayH, annee, mois, t, assignments, rgbT, rgbC) {
+  const date = new Date(annee, mois, 1);
+  const anneeN = date.getFullYear();
+  const moisN = date.getMonth();
+  const dernierJour = new Date(anneeN, moisN + 1, 0).getDate();
+  const premierJour = date.getDay();
+  const totalH = headerH + dayH + 6 * cellH;
+
+  doc.setDrawColor(232, 228, 220);
+  doc.setLineWidth(0.3);
+  doc.roundedRect(x, y, monthW, totalH, 1.8, 1.8, 'S');
+
+  // En-tête mois
+  doc.setFillColor(26, 58, 92);
+  doc.rect(x, y, monthW, headerH, 'F');
+  doc.setFont('times', 'bold');
+  doc.setFontSize(9.5);
+  doc.setTextColor(255, 255, 255);
+  doc.text(`${t.mois[moisN]} ${anneeN}`, x + monthW / 2, y + headerH - 2.2, { align: 'center' });
+
+  // En-têtes jours
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(6);
+  doc.setTextColor(138, 138, 138);
+  for (let d = 0; d < 7; d++) {
+    doc.text(t.joursMin[d].toUpperCase(),
+             x + d * cellW + cellW / 2,
+             y + headerH + dayH - 1.2, { align: 'center' });
+  }
+
+  // Cellules jours
+  const gridY = y + headerH + dayH;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(7);
+
+  for (let d = 1; d <= dernierJour; d++) {
+    const col = (premierJour + d - 1) % 7;
+    const row = Math.floor((premierJour + d - 1) / 7);
+    const cx = x + col * cellW;
+    const cy = gridY + row * cellH;
+    const iso = new Date(anneeN, moisN, d).toISOString().split('T')[0];
+    const etat = assignments[iso];
+
+    if (etat === 'travail') {
+      doc.setFillColor(rgbT[0], rgbT[1], rgbT[2]);
+      doc.roundedRect(cx + 0.5, cy + 0.5, cellW - 1, cellH - 1, 0.8, 0.8, 'F');
+      doc.setTextColor(255, 255, 255);
+    } else if (etat === 'conge') {
+      doc.setFillColor(rgbC[0], rgbC[1], rgbC[2]);
+      doc.roundedRect(cx + 0.5, cy + 0.5, cellW - 1, cellH - 1, 0.8, 0.8, 'F');
+      doc.setTextColor(255, 255, 255);
+    } else {
+      doc.setTextColor(40, 40, 40);
+    }
+    doc.text(String(d), cx + cellW / 2, cy + cellH / 2 + 1.4, { align: 'center' });
+  }
+}
+
+function drawRotationStatsPDF(doc, assignments, travailDays, congeDays, rgbT, rgbC, t, marginX, usableW, yTop) {
+  let jT = 0, jC = 0;
+  Object.values(assignments).forEach(v => v === 'travail' ? jT++ : jC++);
+  const total = jT + jC;
+  const cycle = travailDays + congeDays;
+  const cycles = cycle > 0 ? Math.floor(total / cycle) : 0;
+  const pctT = total > 0 ? Math.round(jT / total * 100) : 0;
+  const pctC = 100 - pctT;
+
+  const gap = 4;
+  const boxW = (usableW - gap * 2) / 3;
+  const boxH = 18;
+  const rgbAccent = [232, 197, 71];
+
+  function bloc(x, label, val, valUnit, sub, rgb) {
+    doc.setFillColor(244, 241, 235);
+    doc.roundedRect(x, yTop, boxW, boxH, 2, 2, 'F');
+    doc.setDrawColor(rgb[0], rgb[1], rgb[2]);
+    doc.setLineWidth(1.2);
+    doc.line(x, yTop, x, yTop + boxH);
+    doc.setLineWidth(0.3);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(138, 138, 138);
+    doc.text(label.toUpperCase(), x + 3, yTop + 5);
+    doc.setFont('times', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(26, 58, 92);
+    doc.text(`${val}`, x + 3, yTop + 11);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(90, 90, 90);
+    doc.text(` ${valUnit}`, x + 3 + doc.getTextWidth(`${val}`) + 0.5, yTop + 11);
+    doc.setFontSize(7.5);
+    doc.setTextColor(138, 138, 138);
+    doc.text(sub, x + 3, yTop + 15.5);
+  }
+
+  bloc(marginX,                    t.statTravail, jT,      t.statsJours, `${pctT}%`, rgbT);
+  bloc(marginX + boxW + gap,       t.statConge,   jC,      t.statsJours, `${pctC}%`, rgbC);
+  bloc(marginX + 2*(boxW + gap),   t.statCycles,  cycles,  t.cyclesUnit, `${travailDays}+${congeDays}=${cycle} ${t.statsJours}`, rgbAccent);
+}
+
 function genererPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
@@ -674,111 +776,82 @@ function genererPDF() {
   const rgbT = [38, 114, 200];
   const rgbC = [52, 168, 83];
 
-  // En-tête
-  doc.setFillColor(26,58,92);
-  doc.rect(0,0,210,28,'F');
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(18);
-  doc.text(t.pdfTitle, 14, 12);
-  doc.setFontSize(9);
-  doc.setTextColor(232,197,71);
-  doc.text(`${travailDays}j ${t.icsTravail} / ${congeDays}j ${t.icsConge}`, 14, 20);
-  doc.text('CalculDates.ca', 160, 20);
+  // Géométrie (A4 portrait 210 × 297 mm) — identique à garde.html
+  const pageW = 210, pageH = 297;
+  const marginX = 10;
+  const marginTop = 32;
+  const marginBot = 32;
+  const usableW = pageW - 2 * marginX;
+  const cols = 3;
+  const gapX = 4, gapY = 5;
+  const monthW = (usableW - gapX * (cols - 1)) / cols;
+  const cellW = monthW / 7;
+  const cellH = cellW;
+  const headerMH = 7, dayH = 4.2;
+  const monthH = headerMH + dayH + 6 * cellH;
 
-  // Légende
-  doc.setFillColor(...rgbT);
-  doc.roundedRect(14,31,8,5,1,1,'F');
-  doc.setTextColor(50,50,50);
-  doc.setFontSize(9);
-  doc.text(t.travailLabel, 24, 35);
-  doc.setFillColor(...rgbC);
-  doc.roundedRect(60,31,8,5,1,1,'F');
-  doc.text(t.congeLabel, 70, 35);
+  function drawPageHeader() {
+    doc.setFont('times', 'bold');
+    doc.setFontSize(16);
+    doc.setTextColor(26, 58, 92);
+    doc.text(t.pdfTitle, marginX, 14);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10);
+    doc.setTextColor(90, 90, 90);
+    doc.text(`${travailDays}${t.icsTravail.charAt(0).toLowerCase()} ${t.icsTravail} / ${congeDays}${t.icsConge.charAt(0).toLowerCase()} ${t.icsConge}`, marginX, 20);
 
-  const colW = 26, rowH = 7, startX = 14;
-  let curY = 42;
+    // Légende
+    const legY = 27;
+    doc.setFillColor(rgbT[0], rgbT[1], rgbT[2]);
+    doc.roundedRect(marginX, legY - 3.2, 3.8, 3.8, 0.6, 0.6, 'F');
+    doc.setTextColor(40, 40, 40);
+    doc.setFontSize(9);
+    doc.text(t.travailLabel, marginX + 5.5, legY - 0.2);
+    const w1 = doc.getTextWidth(t.travailLabel);
+    const x2 = marginX + 5.5 + w1 + 10;
+    doc.setFillColor(rgbC[0], rgbC[1], rgbC[2]);
+    doc.roundedRect(x2 - 5.5, legY - 3.2, 3.8, 3.8, 0.6, 0.6, 'F');
+    doc.text(t.congeLabel, x2, legY - 0.2);
+  }
+
+  const rowsPerPage = Math.floor((pageH - marginTop - marginBot) / (monthH + gapY));
+  const monthsPerPage = rowsPerPage * cols;
+
   const debut = new Date(lastDateDebut + 'T00:00:00');
 
   for (let m = 0; m < nbMois; m++) {
-    const date = new Date(debut.getFullYear(), debut.getMonth() + m, 1);
-    const moisNom = t.mois[date.getMonth()];
-    const anneeAff = date.getFullYear();
-    const dernierJour = new Date(anneeAff, date.getMonth()+1, 0).getDate();
-    const premierJour = date.getDay();
-    const lignes = Math.ceil((premierJour + dernierJour) / 7);
-    const hauteurMois = 10 + rowH + lignes * rowH + 4;
+    const inPageIdx = m % monthsPerPage;
+    const row = Math.floor(inPageIdx / cols);
+    const col = inPageIdx % cols;
 
-    if (curY + hauteurMois > 280) {
-      doc.addPage();
-      curY = 14;
-    }
+    if (m > 0 && inPageIdx === 0) doc.addPage();
+    if (inPageIdx === 0) drawPageHeader();
 
-    doc.setFillColor(26,58,92);
-    doc.roundedRect(startX, curY, 182, 8, 2, 2, 'F');
-    doc.setTextColor(255,255,255);
-    doc.setFontSize(9);
-    doc.setFont(undefined,'bold');
-    doc.text(`${moisNom} ${anneeAff}`, 105, curY+5.5, {align:'center'});
-    curY += 9;
+    const x = marginX + col * (monthW + gapX);
+    const y = marginTop + row * (monthH + gapY);
 
-    doc.setFont(undefined,'normal');
-    doc.setFontSize(7);
-    for (let j=0; j<7; j++) {
-      doc.setTextColor(100,100,100);
-      doc.text(t.joursMin[j], startX + j*26 + 13, curY+4.5, {align:'center'});
-    }
-    curY += rowH;
-
-    let col = premierJour;
-    let row = 0;
-    for (let d=1; d<=dernierJour; d++) {
-      const cur2 = new Date(anneeAff, date.getMonth(), d);
-      const iso = cur2.toISOString().split('T')[0];
-      const etat = lastAssignments[iso];
-      const x = startX + col * colW;
-      const y = curY + row * rowH;
-
-      if (etat === 'travail') {
-        doc.setFillColor(...rgbT);
-        doc.roundedRect(x+0.5, y+0.5, colW-1, rowH-1, 1,1,'F');
-        doc.setTextColor(255,255,255);
-      } else if (etat === 'conge') {
-        doc.setFillColor(...rgbC);
-        doc.roundedRect(x+0.5, y+0.5, colW-1, rowH-1, 1,1,'F');
-        doc.setTextColor(255,255,255);
-      } else {
-        doc.setTextColor(180,180,180);
-      }
-      doc.setFontSize(8);
-      doc.setFont(undefined,'normal');
-      doc.text(String(d), x + colW/2, y + rowH/2 + 1, {align:'center'});
-
-      col++;
-      if (col === 7) { col=0; row++; }
-    }
-    curY += (row + (col>0?1:0)) * rowH + 5;
+    drawRotationMonthPDF(doc, x, y, monthW, cellW, cellH, headerMH, dayH,
+                         debut.getFullYear(), debut.getMonth() + m,
+                         t, lastAssignments, rgbT, rgbC);
   }
 
-  // Stats
-  let jT = 0, jC = 0;
-  Object.values(lastAssignments).forEach(v => v === 'travail' ? jT++ : jC++);
-  if (curY + 20 > 280) { doc.addPage(); curY = 14; }
-  doc.setFillColor(244,241,235);
-  doc.roundedRect(14, curY, 85, 14, 2,2,'F');
-  doc.setFillColor(...rgbT);
-  doc.rect(14, curY, 3, 14, 'F');
-  doc.setTextColor(50,50,50);
-  doc.setFontSize(8);
-  doc.text(`${t.statTravail}: ${jT} ${t.statsJours}`, 22, curY+9);
-  doc.setFillColor(244,241,235);
-  doc.roundedRect(111, curY, 85, 14, 2,2,'F');
-  doc.setFillColor(...rgbC);
-  doc.rect(111, curY, 3, 14, 'F');
-  doc.text(`${t.statConge}: ${jC} ${t.statsJours}`, 119, curY+9);
+  // Stats-bar sur la dernière page
+  doc.setPage(doc.internal.getNumberOfPages());
+  drawRotationStatsPDF(doc, lastAssignments, travailDays, congeDays, rgbT, rgbC, t,
+                       marginX, usableW, pageH - 26);
 
-  doc.setTextColor(150,150,150);
-  doc.setFontSize(7);
-  doc.text('© 2026 CalculDates.ca — calculdates.ca/rotation.html', 105, 292, {align:'center'});
+  // Pagination + URL
+  const pagesCount = doc.internal.getNumberOfPages();
+  for (let p = 1; p <= pagesCount; p++) {
+    doc.setPage(p);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(130, 130, 130);
+    doc.text('CalculDates.ca', pageW / 2, pageH - 6, { align: 'center' });
+    if (pagesCount > 1) {
+      doc.text(`${p} / ${pagesCount}`, pageW - marginX, pageH - 6, { align: 'right' });
+    }
+  }
 
   return doc;
 }
