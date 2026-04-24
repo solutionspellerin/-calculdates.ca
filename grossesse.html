@@ -622,92 +622,154 @@ function telechargerPDF() {
   }
 }
 
+// Sanitise les caractères que la police standard jsPDF (WinAnsi) ne gère pas.
+// Convertit em/en dash, middot, ≥, guillemets courbes, etc. en équivalents ASCII.
+function pdfSan(s) {
+  if (s == null) return '';
+  return String(s)
+    .replace(/\u2014/g, '-')     // em dash —
+    .replace(/\u2013/g, '-')     // en dash –
+    .replace(/\u00B7/g, '-')     // middle dot ·
+    .replace(/\u2022/g, '-')     // bullet •
+    .replace(/[\u2018\u2019\u201A\u2032]/g, "'")  // quotes simples courbes
+    .replace(/[\u201C\u201D\u201E\u2033]/g, '"')  // quotes doubles courbes
+    .replace(/\u2026/g, '...')   // ellipsis …
+    .replace(/\u00A0/g, ' ')     // nbsp
+    .replace(/\u2264/g, '<=')    // ≤
+    .replace(/\u2265/g, '>=')    // ≥
+    .replace(/\u00D7/g, 'x')     // ×
+    .replace(/\u00B0/g, 'deg')   // °
+    .replace(/[\u{1F300}-\u{1FAFF}\u{1F000}-\u{1F2FF}\u{2600}-\u{27BF}]/gu, ''); // emojis/symboles
+}
+
 function genererPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const t = i18n[lang];
   const { lmpDate, dueDate, currentWeek, daysSinceLmp } = computedData;
 
-  // En-tête
-  doc.setFillColor(26,58,92);
-  doc.rect(0,0,210,28,'F');
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(18);
-  doc.text(t.pdfTitle, 14, 13);
+  const pageW = 210, pageH = 297;
+  const marginX = 14;
+  const contentW = pageW - marginX * 2;
+  const bottomSafe = 285; // garde de la place pour le footer
+
+  // En-tête bleu
+  doc.setFillColor(26, 58, 92);
+  doc.rect(0, 0, pageW, 28, 'F');
+  doc.setTextColor(255, 255, 255);
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(16);
+  doc.text(pdfSan(t.pdfTitle), marginX, 13);
+  doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  doc.setTextColor(232,197,71);
-  doc.text('CalculDates.ca · ' + (lang==='fr'?'calculdates.ca/grossesse.html':lang==='es'?'calculdates.ca/grossesse.html':'calculdates.ca/grossesse.html'), 14, 22);
+  doc.setTextColor(232, 197, 71);
+  doc.text('CalculDates.ca - calculdates.ca/grossesse.html', marginX, 22);
 
   // Résumé
-  let y = 36;
-  doc.setTextColor(40,40,40);
+  let y = 38;
+  doc.setTextColor(40, 40, 40);
   doc.setFontSize(10);
-  doc.setFont(undefined, 'bold');
-  doc.text(`${t.sumLmp}: ${fmt(lmpDate)}`, 14, y); y += 6;
-  doc.text(`${t.sumDue}: ${fmt(dueDate)}`, 14, y); y += 6;
-  doc.text(`${t.sumNow}: ${t.sumWeek} ${currentWeek}  (${daysSinceLmp} ${t.sumDays})`, 14, y); y += 8;
-  doc.setFont(undefined, 'normal');
+  doc.setFont('helvetica', 'bold');
+  doc.text(`${pdfSan(t.sumLmp)}: ${pdfSan(fmt(lmpDate))}`, marginX, y); y += 6;
+  doc.text(`${pdfSan(t.sumDue)}: ${pdfSan(fmt(dueDate))}`, marginX, y); y += 6;
+  doc.text(`${pdfSan(t.sumNow)}: ${pdfSan(t.sumWeek)} ${currentWeek}  (${daysSinceLmp} ${pdfSan(t.sumDays)})`, marginX, y);
+  y += 9;
+  doc.setFont('helvetica', 'normal');
 
-  // Disclaimer
+  // Disclaimer - hauteur calculée dynamiquement
+  doc.setFontSize(8);
+  const disc = pdfSan(t.disclaimer.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim());
+  const discLines = doc.splitTextToSize(disc, contentW - 6);
+  const discH = discLines.length * 3.8 + 5;
   doc.setFillColor(255, 247, 224);
   doc.setDrawColor(232, 197, 71);
-  doc.roundedRect(14, y, 182, 14, 2, 2, 'FD');
-  doc.setFontSize(8);
-  doc.setTextColor(80,80,80);
-  const disc = t.disclaimer.replace(/<[^>]+>/g, '').replace(/\s+/g,' ').trim();
-  const lines = doc.splitTextToSize(disc, 176);
-  doc.text(lines, 17, y + 5);
-  y += 20;
+  doc.setLineWidth(0.3);
+  doc.roundedRect(marginX, y, contentW, discH, 2, 2, 'FD');
+  doc.setTextColor(80, 80, 80);
+  doc.text(discLines, marginX + 3, y + 4.5);
+  y += discH + 6;
 
-  // Milestones
-  doc.setFontSize(10);
+  // Milestones - on mesure chaque bloc avant de l'écrire
+  const bubbleW = 34;
+  const bubbleH = 9;
+  const textX = marginX + bubbleW + 4;
+  const descX = marginX;
+
   milestones.forEach(ms => {
     const info = t.milestones[ms.key];
     if (!info) return;
     const d = new Date(lmpDate);
     d.setDate(d.getDate() + ms.week * 7);
 
-    if (y > 262) { doc.addPage(); y = 20; }
+    // Pré-mesure : titre wrap + desc wrap => hauteur du bloc
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(10);
+    const titleLines = doc.splitTextToSize(pdfSan(info.title), contentW - bubbleW - 6);
+    const titleH = titleLines.length * 4.2;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    const descLines = doc.splitTextToSize(pdfSan(info.desc), contentW);
+    const descH = descLines.length * 3.8;
+
+    const headerH = Math.max(bubbleH + 2, titleH + 4 + 4); // titre + date
+    const blockH = headerH + 2 + descH + 6;
+
+    // Saut de page si le bloc complet ne rentre pas
+    if (y + blockH > bottomSafe) {
+      doc.addPage();
+      y = 20;
+    }
 
     // Bulle date
     const isCritical = ms.critical;
     const isPast = d < computedData.today;
-    const isNow = Math.abs(Math.floor((d - computedData.today)/(1000*60*60*24))) <= 3;
+    const isNow = Math.abs(Math.floor((d - computedData.today) / (1000 * 60 * 60 * 24))) <= 3;
 
     if (isNow) doc.setFillColor(52, 168, 83);
     else if (isCritical) doc.setFillColor(217, 54, 54);
     else if (isPast) doc.setFillColor(160, 160, 160);
     else doc.setFillColor(45, 106, 159);
-    doc.roundedRect(14, y, 30, 9, 2, 2, 'F');
-    doc.setTextColor(255,255,255);
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${t.sumWeek} ${ms.week}`, 29, y + 6, {align:'center'});
 
-    // Titre
+    doc.roundedRect(marginX, y, bubbleW, bubbleH, 2, 2, 'F');
+    doc.setTextColor(255, 255, 255);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.text(`${pdfSan(t.sumWeek)} ${ms.week}`, marginX + bubbleW / 2, y + bubbleH - 3, { align: 'center' });
+
+    // Titre (peut être multi-lignes)
     doc.setTextColor(26, 58, 92);
     doc.setFontSize(10);
-    doc.text(info.title, 48, y + 4);
-    doc.setFont(undefined, 'normal');
+    doc.text(titleLines, textX, y + 4);
+
+    // Date
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(8);
     doc.setTextColor(100, 100, 100);
-    doc.text(fmt(d), 48, y + 9);
+    doc.text(pdfSan(fmt(d)), textX, y + 4 + titleH + 1);
 
     // Description
+    const descY = y + headerH + 2;
     doc.setFontSize(8);
     doc.setTextColor(60, 60, 60);
-    const descLines = doc.splitTextToSize(info.desc, 182);
-    doc.text(descLines, 14, y + 15);
-    y += 15 + descLines.length * 4 + 5;
+    doc.text(descLines, descX, descY);
+
+    y += blockH;
   });
 
-  // Footer
+  // Footer sur toutes les pages
   const pages = doc.internal.getNumberOfPages();
+  const footerText = pdfSan(
+    lang === 'fr' ? '© 2026 CalculDates.ca - Outil informatif. Consultez votre medecin et la CNESST.' :
+    lang === 'es' ? '© 2026 CalculDates.ca - Herramienta informativa. Consulte a su medico y a la CNESST.' :
+    '© 2026 CalculDates.ca - Informational tool. Consult your doctor and CNESST.'
+  );
   for (let i = 1; i <= pages; i++) {
     doc.setPage(i);
     doc.setTextColor(150, 150, 150);
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(7);
-    doc.text('© 2026 CalculDates.ca — Outil informatif. Consultez votre médecin et la CNESST.', 105, 292, {align:'center'});
+    doc.text(footerText, pageW / 2, 292, { align: 'center' });
   }
 
   return doc;
