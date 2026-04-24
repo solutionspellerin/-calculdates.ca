@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
-<meta name="description" content="Calculatrice de grossesse — semaines et étapes clés pour le Programme Pour une maternité sans danger (CNESST). Retrait préventif, charges, dates RQAP.">
-<title>Grossesse — Programme Pour une maternité sans danger (CNESST) | CalculDates.ca</title>
+<meta name="description" content="Calendrier de garde partagée gratuit — 7/7, 3-2-2-3, 2-2-3, 5/2, fin de semaine et plus. Exportez en PDF ou ajoutez à Apple/Outlook/Google Calendar.">
+<title>Calendrier de garde partagée | CalculDates.ca</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/ads.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
@@ -16,108 +16,166 @@
     --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
     --fond: #f4f1eb; --blanc: #ffffff; --gris: #8a8a8a;
     --gris-clair: #e8e4dc; --texte: #1a1a1a;
-    --rose: #e88ca6; --rose-fonce: #b86680; --vert: #34a853;
     --ombre: 0 4px 24px rgba(26,58,92,0.10);
+    --couleur1: #4a90d9; --couleur2: #e8734a;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--fond); color: var(--texte); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
 
+  /* ── Header ── */
   header { width: 100%; background: var(--bleu); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
   .logo { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.3rem; letter-spacing: 0.03em; text-decoration: none; }
   .logo span { color: var(--blanc); font-weight: 300; }
   .lang-toggle { display: flex; align-items: center; gap: 10px; }
   .lang-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.05em; }
+  .toggle-track { position: relative; width: 72px; height: 30px; background: rgba(255,255,255,0.12); border-radius: 15px; cursor: pointer; border: 1.5px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: space-between; padding: 0 7px; transition: background 0.3s; }
+  .toggle-track:hover { background: rgba(255,255,255,0.18); }
+  .toggle-track .t-fr { color: var(--accent); font-size: 0.7rem; font-weight: 600; z-index: 1; transition: color 0.3s; }
+  .toggle-track .t-en { color: rgba(255,255,255,0.4); font-size: 0.7rem; font-weight: 600; z-index: 1; transition: color 0.3s; }
+  .toggle-thumb { position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; background: var(--accent); border-radius: 50%; transition: transform 0.3s cubic-bezier(.4,0,.2,1); }
+  body.lang-en .toggle-thumb { transform: translateX(42px); }
+  body.lang-en .toggle-track .t-fr { color: rgba(255,255,255,0.4); }
+  body.lang-en .toggle-track .t-en { color: var(--accent); }
 
+  /* ── Nav ── */
   nav.site-nav { width: 100%; background: #142d47; border-bottom: 2px solid rgba(232,197,71,0.2); }
   nav.site-nav .nav-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; padding: 0 16px; gap: 4px; overflow-x: auto; }
   nav.site-nav .nav-link { display: inline-block; padding: 12px 18px; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
   nav.site-nav .nav-link:hover { color: var(--blanc); }
   nav.site-nav .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
 
+  /* ── Main layout ── */
   main { width: 100%; max-width: 960px; padding: 32px 16px 64px; display: flex; flex-direction: column; gap: 28px; }
 
+  /* ── Card ── */
   .card { background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); overflow: hidden; }
-  .card-header { background: linear-gradient(135deg, var(--bleu) 0%, #3b5c8f 100%); padding: 24px 32px 20px; position: relative; overflow: hidden; }
-  .card-header::before { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(232,140,166,0.18); }
+  .card-header { background: var(--bleu); padding: 24px 32px 20px; position: relative; overflow: hidden; }
+  .card-header::before { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(232,197,71,0.12); }
   .card-header h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--blanc); margin-bottom: 6px; position: relative; z-index: 1; }
-  .card-header p { color: rgba(255,255,255,0.75); font-size: 0.9rem; font-weight: 300; position: relative; z-index: 1; }
+  .card-header p { color: rgba(255,255,255,0.65); font-size: 0.88rem; font-weight: 300; position: relative; z-index: 1; }
   .card-body { padding: 28px 32px; }
 
-  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  /* ── Form grid ── */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .form-group { margin-bottom: 0; }
+  .form-group-full { grid-column: 1 / -1; }
   label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
-  input[type="date"], select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--texte); background: var(--fond); outline: none; }
+  input[type="date"], select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--texte); background: var(--fond); transition: border-color 0.2s; appearance: none; -webkit-appearance: none; outline: none; }
   input[type="date"]:focus, select:focus { border-color: var(--bleu-clair); box-shadow: 0 0 0 3px rgba(45,106,159,0.12); background: var(--blanc); }
+  .select-wrapper { position: relative; }
+  .select-wrapper::after { content: '▾'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--gris); pointer-events: none; }
 
-  .mode-btns { display: flex; gap: 10px; margin-bottom: 18px; }
-  .mode-btn { flex: 1; padding: 12px; border: 2px solid var(--gris-clair); background: var(--fond); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
-  .mode-btn.active { background: var(--bleu); color: white; border-color: var(--bleu); }
+  /* ── Parent config ── */
+  .parents-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .parent-card { border-radius: 12px; padding: 18px; border: 2px solid var(--gris-clair); }
+  .parent-card .parent-top { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .parent-dot { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; }
+  .parent-name-input { flex: 1; padding: 8px 12px; border: 1.5px solid var(--gris-clair); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; background: var(--fond); outline: none; transition: border-color 0.2s; }
+  .parent-name-input:focus { border-color: var(--bleu-clair); background: var(--blanc); }
+  .color-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gris); margin-bottom: 6px; }
+  input[type="color"] { width: 100%; height: 36px; border: 1.5px solid var(--gris-clair); border-radius: 8px; cursor: pointer; background: none; padding: 2px; }
 
-  .btn-generate { width: 100%; padding: 16px; background: var(--bleu); color: var(--blanc); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s; letter-spacing: 0.02em; }
+  /* ── Qui commence ── */
+  .who-first { margin-bottom: 24px; }
+  .who-btns { display: flex; gap: 10px; }
+  .who-btn { flex: 1; padding: 10px 16px; border: 2px solid var(--gris-clair); border-radius: 10px; background: var(--fond); font-family: 'DM Sans', sans-serif; font-size: 0.88rem; font-weight: 500; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .who-btn.active { background: var(--bleu); color: var(--blanc); border-color: var(--bleu); }
+
+  /* ── Bouton générer ── */
+  .btn-generate { width: 100%; padding: 16px; background: var(--bleu); color: var(--blanc); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.02em; }
   .btn-generate:hover { background: var(--bleu-clair); }
+  .btn-generate:active { transform: scale(0.99); }
 
-  .result-section { display: none; }
-  .result-section.visible { display: block; }
+  /* ── Types de garde ── */
+  .garde-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 0; }
+  .garde-type-btn { background: var(--fond); border: 2px solid var(--gris-clair); border-radius: 10px; padding: 12px 14px; cursor: pointer; text-align: center; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .garde-type-btn:hover { border-color: var(--bleu-clair); background: var(--blanc); }
+  .garde-type-btn.selected { border-color: var(--bleu); background: #eef3f9; }
+  .gt-title { font-size: 0.85rem; font-weight: 600; color: var(--bleu); margin-bottom: 3px; }
+  .gt-desc { font-size: 0.72rem; color: var(--gris); }
 
-  .cal-actions { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
-  .cal-actions h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--bleu); flex: 1; }
-  .btn-action { padding: 10px 20px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: none; color: white; transition: all 0.2s; }
-  .btn-pdf { background: #d93636; } .btn-pdf:hover { background: #b92e2e; }
-  .btn-ical { background: #34a853; } .btn-ical:hover { background: #2d9147; }
-  .btn-print { background: var(--bleu); } .btn-print:hover { background: var(--bleu-clair); }
+  /* ── Calendrier ── */
+  .calendrier-section { display: none; }
+  .calendrier-section.visible { display: block; }
+  .cal-actions { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+  .cal-actions h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--bleu); flex: 1; }
+  .btn-action { padding: 10px 20px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; }
+  .btn-print { background: var(--bleu); color: var(--blanc); }
+  .btn-print:hover { background: var(--bleu-clair); }
+  .btn-email { background: var(--accent); color: var(--bleu); }
+  .btn-email:hover { background: #d4b13c; }
+  .btn-ical { background: #34a853; color: var(--blanc); }
+  .btn-ical:hover { background: #2d9147; }
+  .btn-pdf { background: #d93636; color: var(--blanc); }
+  .btn-pdf:hover { background: #b92e2e; }
 
-  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
-  .summary-item { background: var(--fond); border-radius: 12px; padding: 14px 18px; border-left: 4px solid var(--bleu); }
-  .summary-item.due { border-left-color: var(--rose-fonce); background: linear-gradient(135deg, #fef1f5 0%, #faeaf0 100%); }
-  .summary-item.now { border-left-color: var(--vert); }
-  .sum-label { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 4px; }
-  .sum-val { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--bleu); font-weight: 700; }
-  .sum-sub { font-size: 0.78rem; color: var(--gris); margin-top: 2px; }
+  /* ── Légende ── */
+  .legende { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+  .legende-item { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 500; }
+  .legende-dot { width: 16px; height: 16px; border-radius: 4px; }
 
-  .timeline { position: relative; padding-left: 40px; margin-bottom: 28px; }
-  .timeline::before { content: ''; position: absolute; left: 16px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(to bottom, var(--rose), var(--bleu-clair), var(--rose-fonce)); }
-  .tl-item { position: relative; margin-bottom: 20px; padding: 14px 16px; background: var(--fond); border-radius: 10px; border-left: 3px solid var(--bleu-clair); }
-  .tl-item::before { content: ''; position: absolute; left: -32px; top: 18px; width: 14px; height: 14px; border-radius: 50%; background: var(--bleu); border: 3px solid var(--blanc); box-shadow: 0 0 0 2px var(--bleu-clair); }
-  .tl-item.past::before { background: var(--gris); box-shadow: 0 0 0 2px var(--gris-clair); }
-  .tl-item.now { border-left-color: var(--vert); background: linear-gradient(135deg, #e8f5ea 0%, #f4f1eb 100%); }
-  .tl-item.now::before { background: var(--vert); box-shadow: 0 0 0 2px var(--vert); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-  .tl-item.critical { border-left-color: #d93636; background: linear-gradient(135deg, #fef1f1 0%, #faeaea 100%); }
-  .tl-item.critical::before { background: #d93636; box-shadow: 0 0 0 2px #d93636; }
+  /* ── Mois calendrier ── */
+  .calendrier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mois-card { background: var(--blanc); border-radius: 12px; border: 1px solid var(--gris-clair); overflow: hidden; }
+  .mois-header { background: var(--bleu); color: var(--blanc); padding: 10px 14px; font-family: 'Playfair Display', serif; font-size: 0.95rem; text-align: center; }
+  .mois-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .jour-header { text-align: center; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em; color: var(--gris); padding: 8px 0 4px; text-transform: uppercase; }
+  .jour-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 500; cursor: default; transition: opacity 0.1s; border-radius: 4px; margin: 1px; }
+  .jour-cell.vide { background: none; }
+  .jour-cell.autre-mois { opacity: 0.25; }
+  .jour-cell.parent1 { background: var(--couleur1); color: white; }
+  .jour-cell.parent2 { background: var(--couleur2); color: white; }
+  .jour-cell.weekend-marker { font-weight: 700; }
 
-  .tl-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
-  .tl-week { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--bleu); font-weight: 700; }
-  .tl-date { font-size: 0.85rem; font-weight: 600; color: var(--bleu-clair); }
-  .tl-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; color: var(--texte); }
-  .tl-desc { font-size: 0.85rem; color: #444; line-height: 1.5; }
-  .tl-badge { display: inline-block; background: var(--accent); color: var(--bleu); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; letter-spacing: 0.03em; }
-  .tl-badge.critical { background: #d93636; color: white; }
-  .tl-badge.now { background: var(--vert); color: white; }
+  /* ── Stats ── */
+  .stats-bar { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+  .stat-item { background: var(--fond); border-radius: 10px; padding: 12px 18px; flex: 1; min-width: 140px; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 4px; }
+  .stat-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--bleu); }
+  .stat-sub { font-size: 0.75rem; color: var(--gris); }
 
-  .disclaimer { background: #fff7e0; border-left: 4px solid var(--accent); padding: 14px 18px; border-radius: 10px; font-size: 0.85rem; color: var(--texte); line-height: 1.5; margin-bottom: 20px; }
-  .disclaimer a { color: var(--bleu); font-weight: 600; }
+  /* ── Email modal ── */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 100; display: none; align-items: center; justify-content: center; padding: 20px; }
+  .modal-overlay.open { display: flex; }
+  .modal { background: var(--blanc); border-radius: 16px; padding: 28px; max-width: 420px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
+  .modal h3 { font-family: 'Playfair Display', serif; color: var(--bleu); margin-bottom: 16px; font-size: 1.2rem; }
+  .modal input[type="email"] { width: 100%; padding: 12px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; outline: none; margin-bottom: 14px; }
+  .modal input[type="email"]:focus { border-color: var(--bleu-clair); }
+  .modal-btns { display: flex; gap: 10px; }
+  .btn-send { flex: 1; padding: 12px; background: var(--bleu); color: var(--blanc); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; }
+  .btn-cancel { flex: 1; padding: 12px; background: var(--gris-clair); color: var(--texte); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; }
+  .modal-note { font-size: 0.78rem; color: var(--gris); margin-top: 10px; line-height: 1.5; }
 
+  /* ── Footer ── */
   footer { width: 100%; background: var(--bleu); padding: 18px 32px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: auto; }
   footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 8px; }
   footer a:hover { color: var(--accent); }
   .footer-links { margin-bottom: 8px; }
 
   @media print {
-    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-    header, nav.site-nav, .form-card, .cal-actions .btn-action, footer, .ads-stack, .ads-row, .ad-cfo, .ad-alch, .ad-amz { display: none !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    header, nav.site-nav, .card-header p, .form-card, .cal-actions .btn-print, .cal-actions .btn-email, .cal-actions .btn-ical, .cal-actions .btn-pdf, footer, .ads-stack, .ads-row, .ad-cfo, .ad-alch, .ad-amz { display: none !important; }
+    .calendrier-grid { grid-template-columns: repeat(3, 1fr); }
+    .mois-card { break-inside: avoid; }
     body { background: white; }
-    .tl-item { break-inside: avoid; }
+    .cal-actions h2 { font-size: 1.4rem; }
+    .legende { margin-bottom: 16px; }
+    .jour-cell.parent1, .jour-cell.parent2 { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   }
 
   @media (max-width: 700px) {
     .form-grid { grid-template-columns: 1fr; }
-    .summary { grid-template-columns: 1fr; }
+    .parents-grid { grid-template-columns: 1fr 1fr; }
+    .garde-types { grid-template-columns: 1fr 1fr; }
+    .calendrier-grid { grid-template-columns: 1fr; }
     .card-body { padding: 20px 16px; }
-    .timeline { padding-left: 28px; }
-    .tl-item::before { left: -26px; }
   }
   @media (max-width: 480px) {
+    .garde-types { grid-template-columns: 1fr; }
     header { padding: 14px 16px; }
     .lang-label { display: none; }
+    .parents-grid { grid-template-columns: 1fr; }
+    .who-btns { flex-direction: column; }
   }
 </style>
 </head>
@@ -140,62 +198,120 @@
 </nav>
 
 <main>
+  <!-- Formulaire de configuration -->
   <div class="card form-card">
     <div class="card-header">
-      <h1 id="pageTitle">🤰 Grossesse — Pour une maternité sans danger</h1>
-      <p id="pageSubtitle">Calculez les semaines de grossesse et les dates clés du programme CNESST</p>
+      <h1 id="pageTitle">📅 Calendrier de garde partagée</h1>
+      <p id="pageSubtitle">Générez un calendrier visuel personnalisé pour votre garde partagée</p>
     </div>
     <div class="card-body">
 
-      <div class="mode-btns" id="modeBtns">
-        <button class="mode-btn active" id="modeDueBtn" onclick="setMode('due')">📆 <span id="modeDueLabel">Date prévue d'accouchement</span></button>
-        <button class="mode-btn" id="modeLmpBtn" onclick="setMode('lmp')">🩸 <span id="modeLmpLabel">Dernières règles</span></button>
+      <!-- Dates et durée -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label id="labelDebut">Date de début</label>
+          <input type="date" id="dateDebut" />
+        </div>
+        <div class="form-group">
+          <label id="labelDuree">Durée</label>
+          <div class="select-wrapper">
+            <select id="duree">
+              <option value="1">1 mois</option>
+              <option value="3">3 mois</option>
+              <option value="6">6 mois</option>
+              <option value="12" selected>1 an</option>
+              <option value="24">2 ans</option>
+            </select>
+          </div>
+        </div>
       </div>
 
-      <div class="form-grid">
-        <div id="inputDueWrap">
-          <label id="labelDue">Date prévue d'accouchement</label>
-          <input type="date" id="dueDate" />
-        </div>
-        <div id="inputLmpWrap" style="display:none;">
-          <label id="labelLmp">Date des dernières règles</label>
-          <input type="date" id="lmpDate" />
-        </div>
-        <div id="cycleWrap" style="display:none;">
-          <label id="labelCycle">Durée du cycle (jours)</label>
-          <select id="cycleLen">
-            <option value="28" selected>28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-            <option value="32">32</option>
+      <!-- Type de garde -->
+      <div class="form-group form-group-full" style="margin-bottom:24px;">
+        <label id="labelTypeGarde">Type de garde partagée</label>
+        <div class="garde-types" id="gardeTypesGrid"></div>
+      </div>
+
+      <!-- Qui a les 5 jours (seulement pour 5/2) -->
+      <div id="who52Section" style="display:none;margin-bottom:20px;">
+        <label id="labelWho52" style="margin-bottom:8px;display:block;">Qui a les 5 jours ?</label>
+        <div class="select-wrapper">
+          <select id="who52Select">
+            <option value="1">Maman (5 jours) — Papa (2 jours)</option>
+            <option value="2">Papa (5 jours) — Maman (2 jours)</option>
           </select>
         </div>
       </div>
 
-      <button class="btn-generate" onclick="calculer()" id="btnCalc">✨ Calculer les semaines clés</button>
-    </div>
-  </div>
-
-  <div class="card result-section" id="resultSection">
-    <div class="card-body">
-      <div class="cal-actions">
-        <h2 id="resultTitle">Vos étapes clés</h2>
-        <button class="btn-action btn-pdf" onclick="telechargerPDF()" id="btnPdf">📄 PDF</button>
-        <button class="btn-action btn-print" onclick="imprimerRes()" id="btnPrint">🖨️ Imprimer</button>
-        <button class="btn-action btn-ical" onclick="exporterICal()" id="btnIcal">📲 Calendrier (.ics)</button>
+      <!-- Qui garde le plus souvent (pour FDS/2, FDS/3, FDS/4) -->
+      <div id="whoFdsSection" style="display:none;margin-bottom:20px;">
+        <label id="labelWhoFds" style="margin-bottom:8px;display:block;">Qui a la garde principale (jours de semaine) ?</label>
+        <div class="who-btns" id="whoFdsBtns">
+          <button class="who-btn active" id="whoFdsBtn1" onclick="setWhoFds(1)">Maman (garde principale)</button>
+          <button class="who-btn" id="whoFdsBtn2" onclick="setWhoFds(2)">Papa (garde principale)</button>
+        </div>
+        <div style="font-size:0.78rem;color:var(--gris);margin-top:8px;" id="whoFdsNote">
+          💡 L'autre parent aura les enfants les fins de semaine selon la fréquence choisie.
+        </div>
       </div>
 
-      <div class="summary" id="summary"></div>
+      <!-- Parents -->
+      <label id="labelParents" style="margin-bottom:12px;display:block;">Personnalisation</label>
+      <div class="parents-grid">
+        <div class="parent-card" id="parent1Card">
+          <div class="parent-top">
+            <div class="parent-dot" id="dot1"></div>
+            <input type="text" class="parent-name-input" id="nom1" value="Maman" placeholder="Nom du parent 1" oninput="updateParents()" />
+          </div>
+          <div class="color-label" id="labelCouleur1">Couleur</div>
+          <input type="color" id="couleur1" value="#4a90d9" oninput="updateParents()" />
+        </div>
+        <div class="parent-card" id="parent2Card">
+          <div class="parent-top">
+            <div class="parent-dot" id="dot2"></div>
+            <input type="text" class="parent-name-input" id="nom2" value="Papa" placeholder="Nom du parent 2" oninput="updateParents()" />
+          </div>
+          <div class="color-label" id="labelCouleur2">Couleur</div>
+          <input type="color" id="couleur2" value="#e8734a" oninput="updateParents()" />
+        </div>
+      </div>
 
-      <div class="disclaimer" id="disclaimer"></div>
+      <!-- Qui commence -->
+      <div class="who-first" style="margin-top:16px;">
+        <label id="labelPremier">Qui prend la première garde ?</label>
+        <div class="who-btns" id="whoBtns">
+          <button class="who-btn active" id="whoBtn1" onclick="setWho(1)">Maman commence</button>
+          <button class="who-btn" id="whoBtn2" onclick="setWho(2)">Papa commence</button>
+        </div>
+      </div>
 
-      <div class="timeline" id="timeline"></div>
+      <div style="margin-top:24px;">
+        <button class="btn-generate" onclick="genererCalendrier()" id="btnGenerer">✨ Générer le calendrier</button>
+      </div>
     </div>
   </div>
 
+  <!-- Calendrier résultat -->
+  <div class="card calendrier-section" id="calendrierSection">
+    <div class="card-body">
+      <div class="cal-actions">
+        <h2 id="calTitre">Calendrier de garde</h2>
+        <button class="btn-action btn-pdf" onclick="telechargerPDF()" id="btnPdf">📄 Exporter en PDF</button>
+        <button class="btn-action btn-print" onclick="imprimerCalendrier()" id="btnImprimer">🖨️ Imprimer</button>
+        <button class="btn-action btn-email" onclick="ouvrirModal()" id="btnEmail">📧 Envoyer par courriel</button>
+        <button class="btn-action btn-ical" onclick="exporterICal()" id="btnIcal">📲 Apple / Outlook</button>
+      </div>
+
+      <div class="legende" id="legende"></div>
+      <div class="calendrier-grid" id="calendrierGrid"></div>
+      <div class="stats-bar" id="statsBar"></div>
+    </div>
+  </div>
+
+  <!-- Pubs (bas de page) -->
   <div class="ads-row" id="bottomAds"></div>
 
+  <!-- Avis d'affiliation -->
   <p style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;" id="affiliateDisclosure"></p>
 </main>
 
@@ -205,168 +321,193 @@
   <div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
 </footer>
 
+<!-- Modal email -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <h3 id="modalTitle">📧 Envoyer par courriel</h3>
+    <input type="email" id="emailInput" placeholder="votre@courriel.com" />
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="fermerModal()" id="btnAnnuler">Annuler</button>
+      <button class="btn-send" onclick="envoyerCourriel()" id="btnEnvoyer">Envoyer</button>
+    </div>
+    <p class="modal-note" id="modalNote">⚠️ Cette fonctionnalité ouvrira votre client de messagerie avec le calendrier en pièce jointe.</p>
+  </div>
+</div>
+
 <script>
-const ACTIVE_PAGE = 'grossesse';
+const ACTIVE_PAGE = 'garde';
 let lang = 'fr';
-let mode = 'due'; // 'due' ou 'lmp'
-let computedData = null;
+let whoFirst = 1;
+let whoFds = 1; // qui a la garde principale (jours de semaine) pour les FDS
+let selectedGardeType = '7-7';
 
-const GESTATION_DAYS = 280; // 40 semaines depuis DDR (règle de Naegele)
-
-// Jalons CNESST / grossesse (semaines depuis DDR)
-const milestones = [
-  { week: 0,  critical: true,  key: 'start',    keyDate: 'lmp' },
-  { week: 4,  critical: false, key: 'w4' },
-  { week: 7,  critical: false, key: 'w7' },
-  { week: 12, critical: false, key: 'w12' },
-  { week: 14, critical: false, key: 'w14' },
-  { week: 16, critical: false, key: 'w16' },
-  { week: 20, critical: false, key: 'w20' },
-  { week: 24, critical: true,  key: 'w24' },
-  { week: 28, critical: false, key: 'w28' },
-  { week: 32, critical: false, key: 'w32' },
-  { week: 34, critical: false, key: 'w34' },
-  { week: 36, critical: true,  key: 'w36' },
-  { week: 40, critical: true,  key: 'w40', keyDate: 'due' },
-  // RQAP: congé maternité possible à partir de 16 sem avant DPA (≈ 24 sem de gestation)
-  // Ces dates sont déjà capturées par w24 (début possible RQAP) et w36 (retrait préventif usuel)
+const gardeTypes = [
+  { id: '7-7',    titre: '7/7',         desc: 'Semaines alternées',        pattern: [7,7],     icon: '📆' },
+  { id: '3-2-2-3',titre: '3-2-2-3',     desc: 'Plus fréquent au Québec',   pattern: [3,2,2,3], icon: '⭐' },
+  { id: '2-2-3',  titre: '2-2-3',       desc: 'Semaine de 7 jours',        pattern: [2,2,3],   icon: '📅' },
+  { id: '5-2',    titre: '5/2',         desc: 'Semaine + week-end',        pattern: [5,2],     icon: '🗓️', asymetrique: true },
+  { id: '2-2-5-5',titre: '2-2-5-5',     desc: 'Quinzaine alternée',        pattern: [2,2,5,5], icon: '📊' },
+  { id: 'fds-2',  titre: 'FDS/2',       desc: '1 fin de semaine sur 2',    pattern: null, special: 'fds-2', icon: '🏡' },
+  { id: 'fds-3',  titre: 'FDS/3',       desc: '1 fin de semaine sur 3',    pattern: null, special: 'fds-3', icon: '🌙' },
+  { id: 'fds-4',  titre: 'FDS/4',       desc: '1 fin de semaine sur 4',    pattern: null, special: 'fds-4', icon: '🌟' },
 ];
 
 const i18n = {
   fr: {
+    pageTitle: '📅 Calendrier de garde partagée',
+    pageSubtitle: 'Générez un calendrier visuel personnalisé pour votre garde partagée',
+    labelDebut: 'Date de début', labelDuree: 'Durée',
+    labelTypeGarde: 'Type de garde partagée',
+    labelParents: 'Personnalisation',
+    labelCouleur1: 'Couleur', labelCouleur2: 'Couleur',
+    labelPremier: 'Qui prend la première garde ?',
+    btnGenerer: '✨ Générer le calendrier',
+    btnPdf: '📄 Exporter en PDF',
+    btnImprimer: '🖨️ Imprimer', btnEmail: '📧 Envoyer par courriel', btnIcal: '📲 Apple / Outlook',
+    modalTitle: '📧 Envoyer par courriel',
+    modalNote: '⚠️ Le PDF sera téléchargé automatiquement, puis votre client courriel s\'ouvrira avec un message à joindre.',
+    btnAnnuler: 'Annuler', btnEnvoyer: 'Envoyer',
+    footerText: '© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.',
     headerSubtitle: 'Outil gratuit · Québec',
-    pageTitle: '🤰 Grossesse — Pour une maternité sans danger',
-    pageSubtitle: 'Calculez les semaines de grossesse et les dates clés du programme CNESST',
-    modeDueLabel: "Date prévue d'accouchement",
-    modeLmpLabel: 'Dernières règles',
-    labelDue: "Date prévue d'accouchement",
-    labelLmp: 'Date des dernières règles',
-    labelCycle: 'Durée du cycle (jours)',
-    btnCalc: '✨ Calculer les semaines clés',
-    resultTitle: 'Vos étapes clés',
-    btnPdf: '📄 PDF', btnPrint: '🖨️ Imprimer', btnIcal: '📲 Calendrier (.ics)',
-    sumDue: "Date prévue d'accouchement",
-    sumLmp: 'Date des dernières règles',
-    sumNow: 'Semaine actuelle',
-    sumWeek: 'semaine',
-    sumDays: 'jours',
-    footerText: '© 2026 CalculDates.ca — Outil informatif uniquement. Consultez votre médecin et la CNESST pour votre situation personnelle.',
-    disclaimer: '⚠️ Outil informatif — les dates sont estimées (règle de Naegele). Pour un avis officiel, consultez votre médecin et le site de la <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — Pour une maternité sans danger</a>.',
-    alertDate: 'Veuillez choisir une date.',
-    alertFuture: 'La date choisie semble trop éloignée (plus de 12 mois dans le futur ou passé).',
-    printTip: '🖨️ Conseil d\'impression\n\nPour conserver les couleurs, cochez « Graphiques d\'arrière-plan » dans la boîte de dialogue.',
-    icalMsg: '✅ Fichier .ics téléchargé !\n\n📱 iPhone / Mac : Double-cliquez pour importer dans Calendrier.\n💻 Outlook : Fichier → Ouvrir → Importer.\n📅 Google Calendar : Paramètres → Importer.',
+    dureeOpts: ['1 mois','3 mois','6 mois','1 an','2 ans'],
+    joursMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+    mois: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+    statsJours: 'jours', statsPourcent: 'du temps',
+    calTitre: 'Calendrier de garde',
+    whoCommence: (nom) => `${nom} commence`,
+    statLabel1: (n) => `Jours avec`,
+    statLabel2: (n) => `Jours avec`,
+    labelWho52: 'Qui a les 5 jours ?',
+    labelWhoFds: 'Qui a la garde principale (jours de semaine) ?',
+    gardePrincipale: 'garde principale',
+    joursUnit: 'jours',
+    defaultNom1: 'Maman', defaultNom2: 'Papa',
+    noteFds: (principal, autre, freq) => `💡 ${principal} a les enfants la majorité du temps. ${autre} les aura 1 fin de semaine sur ${freq}.`,
+    gardeTypesDesc: {
+      '7-7': 'Semaines alternées',
+      '3-2-2-3': 'Plus fréquent au Québec',
+      '2-2-3': 'Semaine de 7 jours',
+      '5-2': 'Semaine + week-end',
+      '2-2-5-5': 'Quinzaine alternée',
+      'fds-2': '1 fin de semaine sur 2',
+      'fds-3': '1 fin de semaine sur 3',
+      'fds-4': '1 fin de semaine sur 4',
+    },
+    alertDate: 'Veuillez choisir une date de début.',
+    alertCalPremier: 'Veuillez d\'abord générer le calendrier.',
     alertPdfErr: 'Erreur lors de la génération du PDF.',
-    pdfTitle: 'Grossesse — Étapes CNESST',
-    today: "Aujourd'hui",
-    past: 'Passée',
-    now: 'Maintenant',
-    future: 'À venir',
-    milestones: {
-      start:  { title: 'Début de grossesse (DDR)', desc: 'Premier jour des dernières règles. Dès ce moment, plusieurs restrictions CNESST peuvent s\'appliquer : aucune charge ≥ 15 kg, charges de 10–15 kg limitées à 10× par quart de travail. Évaluez les risques chimiques, biologiques et physiques avec votre médecin.' },
-      w4:     { title: 'Semaine 4 — Test de grossesse', desc: 'Un test de grossesse devient généralement positif. Informez votre médecin dès que possible pour évaluer les risques au travail.' },
-      w7:     { title: 'Semaine 7-8 — Première visite prénatale', desc: 'Rendez-vous initial. C\'est le moment idéal pour obtenir le Certificat visant le retrait préventif (formulaire CNESST) si votre poste présente des dangers.' },
-      w12:    { title: 'Semaine 12 — Fin du 1er trimestre', desc: 'Diminution des nausées habituellement. Les risques de fausse-couche diminuent. Bon moment pour annoncer la grossesse à l\'employeur si ce n\'est pas fait.' },
-      w14:    { title: 'Semaine 14 — 2e trimestre', desc: 'Demande de retrait préventif possible si votre poste comporte des dangers. La CNESST évalue les risques : agents chimiques, biologiques, charges physiques, exposition aux radiations, etc.' },
-      w16:    { title: 'Semaine 16 — Mouvements du bébé', desc: 'Les premiers mouvements fœtaux sont souvent perçus. Échographie morphologique possible entre 18 et 22 semaines.' },
-      w20:    { title: 'Semaine 20 — Échographie morphologique', desc: 'Examen détaillé du bébé. Au travail : évitez la station debout prolongée (plus de 4 h d\'affilée déconseillée selon la CNESST).' },
-      w24:    { title: 'Semaine 24 — Viabilité fœtale', desc: 'Seuil médical de viabilité. À partir de maintenant, le congé de maternité RQAP peut débuter (jusqu\'à 16 semaines avant la DPA). Restrictions accrues au travail.' },
-      w28:    { title: 'Semaine 28 — 3e trimestre', desc: 'Fatigue, lombalgie, essoufflement fréquents. La CNESST recommande des pauses plus fréquentes et un aménagement du poste si non déjà fait.' },
-      w32:    { title: 'Semaine 32 — Préparation', desc: 'Retrait préventif fréquent à ce stade pour les postes physiques. Préparez votre dossier RQAP / assurance-emploi si non déjà soumis.' },
-      w34:    { title: 'Semaine 34 — Limites physiques', desc: 'Évitez les déplacements prolongés et les charges même légères. Consultation prénatale usuellement aux 2 semaines à partir d\'ici.' },
-      w36:    { title: 'Semaine 36 — Retrait recommandé', desc: '4 semaines avant le terme. Pour de nombreux postes physiques, la CNESST autorise un retrait préventif. Évaluation finale des risques avec votre médecin.' },
-      w40:    { title: 'Semaine 40 — Date prévue d\'accouchement', desc: 'Date estimée selon la règle de Naegele (DDR + 280 jours). L\'accouchement peut survenir entre la semaine 37 (à terme) et 42. Bon courage!' },
-    }
+    icalMsg: '✅ Fichier .ics téléchargé !\n\n📱 iPhone / Mac : Double-cliquez le fichier pour l\'importer dans Calendrier Apple.\n\n💻 Outlook : Fichier → Ouvrir → Importer.\n\n📅 Google Calendar : Paramètres → Importer.',
+    printTip: '🖨️ Conseil d\'impression\n\nPour que les couleurs du calendrier apparaissent correctement, veuillez cocher l\'option :\n\n✅ « Graphiques d\'arrière-plan »\n\ndans la boîte de dialogue d\'impression.\n\nCliquez OK pour continuer.',
+    pdfMainTitle: 'Calendrier de garde partagée',
+    icsCalName: (titre) => `Garde partagée — ${titre}`,
+    icsEventTitle: (nom) => `Garde — ${nom}`,
+    icsEventDesc: (nom, titre) => `Garde partagée avec ${nom}. Type: ${titre}.`,
+    mailSubject: (titre) => `Calendrier de garde partagée — ${titre}`,
+    mailBody: (titre, desc, nom1, nom2) => `Bonjour,\n\nVeuillez trouver ci-joint le calendrier de garde partagée généré sur CalculDates.ca.\n\nType: ${titre} — ${desc}\nParents: ${nom1} & ${nom2}\n\nCalculDates.ca — outil gratuit`,
   },
   en: {
+    pageTitle: '📅 Shared Custody Calendar',
+    pageSubtitle: 'Generate a personalized visual calendar for your custody schedule',
+    labelDebut: 'Start date', labelDuree: 'Duration',
+    labelTypeGarde: 'Custody schedule type',
+    labelParents: 'Customization',
+    labelCouleur1: 'Color', labelCouleur2: 'Color',
+    labelPremier: 'Who takes the first custody period?',
+    btnGenerer: '✨ Generate calendar',
+    btnPdf: '📄 Export as PDF',
+    btnImprimer: '🖨️ Print', btnEmail: '📧 Send by email', btnIcal: '📲 Apple / Outlook',
+    modalTitle: '📧 Send by email',
+    modalNote: '⚠️ The PDF will download automatically, then your email client will open with a message to attach.',
+    btnAnnuler: 'Cancel', btnEnvoyer: 'Send',
+    footerText: '© 2026 CalculDates.ca — For informational purposes only. Please consult a professional.',
     headerSubtitle: 'Free tool · Québec',
-    pageTitle: '🤰 Pregnancy — Safe Maternity Program',
-    pageSubtitle: 'Calculate pregnancy weeks and key dates for the CNESST program',
-    modeDueLabel: 'Due date',
-    modeLmpLabel: 'Last period (LMP)',
-    labelDue: 'Expected due date',
-    labelLmp: 'Last menstrual period (LMP)',
-    labelCycle: 'Cycle length (days)',
-    btnCalc: '✨ Calculate key weeks',
-    resultTitle: 'Your key milestones',
-    btnPdf: '📄 PDF', btnPrint: '🖨️ Print', btnIcal: '📲 Calendar (.ics)',
-    sumDue: 'Expected due date',
-    sumLmp: 'LMP date',
-    sumNow: 'Current week',
-    sumWeek: 'week',
-    sumDays: 'days',
-    footerText: '© 2026 CalculDates.ca — For informational purposes only. Please consult your doctor and CNESST for your personal situation.',
-    disclaimer: '⚠️ Informational tool — dates are estimates (Naegele\'s rule). For official advice, consult your doctor and the <a href="https://www.cnesst.gouv.qc.ca/en/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — For a safe maternity experience</a>.',
-    alertDate: 'Please choose a date.',
-    alertFuture: 'The chosen date seems too far (more than 12 months into the future or past).',
-    printTip: '🖨️ Print tip\n\nTo keep colors, check "Background graphics" in the print dialog.',
-    icalMsg: '✅ .ics file downloaded!\n\n📱 iPhone / Mac: Double-click to import into Calendar.\n💻 Outlook: File → Open → Import.\n📅 Google Calendar: Settings → Import.',
+    dureeOpts: ['1 month','3 months','6 months','1 year','2 years'],
+    joursMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+    mois: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+    statsJours: 'days', statsPourcent: 'of time',
+    calTitre: 'Custody Calendar',
+    whoCommence: (nom) => `${nom} starts`,
+    statLabel1: (n) => `Days with`,
+    statLabel2: (n) => `Days with`,
+    labelWho52: 'Who has the 5 days?',
+    labelWhoFds: 'Who has primary custody (weekdays)?',
+    gardePrincipale: 'primary custody',
+    joursUnit: 'days',
+    defaultNom1: 'Mom', defaultNom2: 'Dad',
+    noteFds: (principal, autre, freq) => `💡 ${principal} has the children most of the time. ${autre} will have them 1 weekend out of ${freq}.`,
+    gardeTypesDesc: {
+      '7-7': 'Alternating weeks',
+      '3-2-2-3': 'Most common in Québec',
+      '2-2-3': '7-day week',
+      '5-2': 'Week + weekend',
+      '2-2-5-5': 'Alternating fortnight',
+      'fds-2': '1 weekend out of 2',
+      'fds-3': '1 weekend out of 3',
+      'fds-4': '1 weekend out of 4',
+    },
+    alertDate: 'Please choose a start date.',
+    alertCalPremier: 'Please generate the calendar first.',
     alertPdfErr: 'Error generating PDF.',
-    pdfTitle: 'Pregnancy — CNESST Milestones',
-    today: 'Today',
-    past: 'Past',
-    now: 'Now',
-    future: 'Upcoming',
-    milestones: {
-      start:  { title: 'Pregnancy start (LMP)', desc: 'First day of last menstrual period. From this moment, several CNESST restrictions may apply: no load ≥ 15 kg, loads of 10–15 kg limited to 10× per shift. Evaluate chemical, biological and physical risks with your doctor.' },
-      w4:     { title: 'Week 4 — Pregnancy test', desc: 'A pregnancy test usually turns positive. Inform your doctor as soon as possible to assess workplace risks.' },
-      w7:     { title: 'Week 7-8 — First prenatal visit', desc: 'Initial appointment. Best time to obtain the Preventive Withdrawal Certificate (CNESST form) if your job presents hazards.' },
-      w12:    { title: 'Week 12 — End of 1st trimester', desc: 'Nausea usually decreases. Miscarriage risks decrease. Good time to tell your employer if not done yet.' },
-      w14:    { title: 'Week 14 — 2nd trimester', desc: 'Preventive withdrawal request is possible if your job has hazards. CNESST assesses risks: chemical, biological, physical loads, radiation, etc.' },
-      w16:    { title: 'Week 16 — Baby movements', desc: 'First fetal movements often perceived. Morphology ultrasound possible between weeks 18 and 22.' },
-      w20:    { title: 'Week 20 — Morphology ultrasound', desc: 'Detailed exam of the baby. At work: avoid prolonged standing (more than 4 hours straight is discouraged per CNESST).' },
-      w24:    { title: 'Week 24 — Fetal viability', desc: 'Medical viability threshold. From now, RQAP maternity leave can begin (up to 16 weeks before due date). Increased workplace restrictions.' },
-      w28:    { title: 'Week 28 — 3rd trimester', desc: 'Fatigue, lower back pain, shortness of breath are common. CNESST recommends more frequent breaks and workstation adjustments if not already done.' },
-      w32:    { title: 'Week 32 — Preparation', desc: 'Preventive withdrawal often occurs at this stage for physical jobs. Prepare your RQAP / EI file if not already submitted.' },
-      w34:    { title: 'Week 34 — Physical limits', desc: 'Avoid long trips and even light loads. Prenatal consultations usually every 2 weeks from here.' },
-      w36:    { title: 'Week 36 — Withdrawal recommended', desc: '4 weeks before term. For many physical jobs, CNESST authorizes preventive withdrawal. Final risk assessment with your doctor.' },
-      w40:    { title: 'Week 40 — Expected due date', desc: 'Date estimated via Naegele\'s rule (LMP + 280 days). Birth may occur between week 37 (full-term) and 42. Good luck!' },
-    }
+    icalMsg: '✅ .ics file downloaded!\n\n📱 iPhone / Mac: Double-click the file to import into Apple Calendar.\n\n💻 Outlook: File → Open → Import.\n\n📅 Google Calendar: Settings → Import.',
+    printTip: '🖨️ Print tip\n\nTo display the calendar colors correctly, please check the option:\n\n✅ "Background graphics"\n\nin the print dialog.\n\nClick OK to continue.',
+    pdfMainTitle: 'Shared Custody Calendar',
+    icsCalName: (titre) => `Shared Custody — ${titre}`,
+    icsEventTitle: (nom) => `Custody — ${nom}`,
+    icsEventDesc: (nom, titre) => `Shared custody with ${nom}. Schedule: ${titre}.`,
+    mailSubject: (titre) => `Shared Custody Calendar — ${titre}`,
+    mailBody: (titre, desc, nom1, nom2) => `Hello,\n\nPlease find attached the shared custody calendar generated on CalculDates.ca.\n\nType: ${titre} — ${desc}\nParents: ${nom1} & ${nom2}\n\nCalculDates.ca — free tool`,
   },
   es: {
+    pageTitle: '📅 Calendario de custodia compartida',
+    pageSubtitle: 'Genere un calendario visual personalizado para su horario de custodia',
+    labelDebut: 'Fecha de inicio', labelDuree: 'Duración',
+    labelTypeGarde: 'Tipo de custodia',
+    labelParents: 'Personalización',
+    labelCouleur1: 'Color', labelCouleur2: 'Color',
+    labelPremier: '¿Quién empieza la custodia?',
+    btnGenerer: '✨ Generar calendario',
+    btnPdf: '📄 Exportar en PDF',
+    btnImprimer: '🖨️ Imprimir', btnEmail: '📧 Enviar por correo', btnIcal: '📲 Apple / Outlook',
+    modalTitle: '📧 Enviar por correo',
+    modalNote: '⚠️ El PDF se descargará automáticamente, luego se abrirá su cliente de correo con un mensaje para adjuntar.',
+    btnAnnuler: 'Cancelar', btnEnvoyer: 'Enviar',
+    footerText: '© 2026 CalculDates.ca — Solo con fines informativos. Consulte a un profesional para su situación personal.',
     headerSubtitle: 'Herramienta gratuita · Québec',
-    pageTitle: '🤰 Embarazo — Programa Para una maternidad sin peligro',
-    pageSubtitle: 'Calcule las semanas de embarazo y las fechas clave del programa CNESST',
-    modeDueLabel: 'Fecha prevista del parto',
-    modeLmpLabel: 'Última menstruación',
-    labelDue: 'Fecha prevista del parto',
-    labelLmp: 'Fecha de la última menstruación (FUM)',
-    labelCycle: 'Duración del ciclo (días)',
-    btnCalc: '✨ Calcular las semanas clave',
-    resultTitle: 'Sus hitos clave',
-    btnPdf: '📄 PDF', btnPrint: '🖨️ Imprimir', btnIcal: '📲 Calendario (.ics)',
-    sumDue: 'Fecha prevista del parto',
-    sumLmp: 'FUM',
-    sumNow: 'Semana actual',
-    sumWeek: 'semana',
-    sumDays: 'días',
-    footerText: '© 2026 CalculDates.ca — Solo con fines informativos. Consulte a su médico y a la CNESST para su situación personal.',
-    disclaimer: '⚠️ Herramienta informativa — las fechas son estimaciones (regla de Naegele). Para una opinión oficial, consulte a su médico y el sitio de la <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — Para una maternidad sin peligro</a>.',
-    alertDate: 'Por favor, elija una fecha.',
-    alertFuture: 'La fecha elegida parece demasiado lejana (más de 12 meses en el futuro o pasado).',
-    printTip: '🖨️ Consejo de impresión\n\nPara conservar los colores, marque «Gráficos de fondo» en el cuadro de diálogo.',
-    icalMsg: '✅ ¡Archivo .ics descargado!\n\n📱 iPhone / Mac: Haga doble clic para importar al Calendario.\n💻 Outlook: Archivo → Abrir → Importar.\n📅 Google Calendar: Configuración → Importar.',
+    dureeOpts: ['1 mes','3 meses','6 meses','1 año','2 años'],
+    joursMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+    mois: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+    statsJours: 'días', statsPourcent: 'del tiempo',
+    calTitre: 'Calendario de custodia',
+    whoCommence: (nom) => `${nom} empieza`,
+    statLabel1: (n) => `Días con`,
+    statLabel2: (n) => `Días con`,
+    labelWho52: '¿Quién tiene los 5 días?',
+    labelWhoFds: '¿Quién tiene la custodia principal (días de semana)?',
+    gardePrincipale: 'custodia principal',
+    joursUnit: 'días',
+    defaultNom1: 'Mamá', defaultNom2: 'Papá',
+    noteFds: (principal, autre, freq) => `💡 ${principal} tiene a los niños la mayor parte del tiempo. ${autre} los tendrá 1 fin de semana de cada ${freq}.`,
+    gardeTypesDesc: {
+      '7-7': 'Semanas alternadas',
+      '3-2-2-3': 'Más común en Quebec',
+      '2-2-3': 'Semana de 7 días',
+      '5-2': 'Semana + fin de semana',
+      '2-2-5-5': 'Quincena alternada',
+      'fds-2': '1 fin de semana de cada 2',
+      'fds-3': '1 fin de semana de cada 3',
+      'fds-4': '1 fin de semana de cada 4',
+    },
+    alertDate: 'Por favor, elija una fecha de inicio.',
+    alertCalPremier: 'Por favor, genere el calendario primero.',
     alertPdfErr: 'Error al generar el PDF.',
-    pdfTitle: 'Embarazo — Hitos CNESST',
-    today: 'Hoy',
-    past: 'Pasada',
-    now: 'Ahora',
-    future: 'Próxima',
-    milestones: {
-      start:  { title: 'Inicio del embarazo (FUM)', desc: 'Primer día de la última menstruación. Desde este momento, varias restricciones de la CNESST pueden aplicar: ninguna carga ≥ 15 kg, cargas de 10–15 kg limitadas a 10 por turno. Evalúe los riesgos químicos, biológicos y físicos con su médico.' },
-      w4:     { title: 'Semana 4 — Prueba de embarazo', desc: 'Una prueba de embarazo generalmente se vuelve positiva. Informe a su médico lo antes posible para evaluar los riesgos laborales.' },
-      w7:     { title: 'Semana 7-8 — Primera consulta prenatal', desc: 'Cita inicial. Es el mejor momento para obtener el Certificado de retiro preventivo (formulario CNESST) si su puesto presenta peligros.' },
-      w12:    { title: 'Semana 12 — Fin del 1er trimestre', desc: 'Las náuseas generalmente disminuyen. El riesgo de aborto disminuye. Buen momento para informar al empleador si aún no lo ha hecho.' },
-      w14:    { title: 'Semana 14 — 2º trimestre', desc: 'La solicitud de retiro preventivo es posible si su puesto tiene peligros. La CNESST evalúa los riesgos: químicos, biológicos, cargas físicas, radiación, etc.' },
-      w16:    { title: 'Semana 16 — Movimientos del bebé', desc: 'Se perciben a menudo los primeros movimientos fetales. Ecografía morfológica posible entre las semanas 18 y 22.' },
-      w20:    { title: 'Semana 20 — Ecografía morfológica', desc: 'Examen detallado del bebé. En el trabajo: evite estar de pie más de 4 horas seguidas (desaconsejado por la CNESST).' },
-      w24:    { title: 'Semana 24 — Viabilidad fetal', desc: 'Umbral médico de viabilidad. A partir de ahora, el permiso de maternidad RQAP puede comenzar (hasta 16 semanas antes de la fecha prevista). Mayores restricciones laborales.' },
-      w28:    { title: 'Semana 28 — 3er trimestre', desc: 'Fatiga, lumbalgia y falta de aire son frecuentes. La CNESST recomienda pausas más frecuentes y ajustes del puesto de trabajo si aún no se han hecho.' },
-      w32:    { title: 'Semana 32 — Preparación', desc: 'Retiro preventivo frecuente en esta etapa para trabajos físicos. Prepare su expediente RQAP / seguro de empleo si aún no lo ha enviado.' },
-      w34:    { title: 'Semana 34 — Límites físicos', desc: 'Evite desplazamientos largos e incluso cargas ligeras. Consultas prenatales usualmente cada 2 semanas desde ahora.' },
-      w36:    { title: 'Semana 36 — Retiro recomendado', desc: '4 semanas antes del término. Para muchos trabajos físicos, la CNESST autoriza el retiro preventivo. Evaluación final de riesgos con su médico.' },
-      w40:    { title: 'Semana 40 — Fecha prevista del parto', desc: 'Fecha estimada según la regla de Naegele (FUM + 280 días). El parto puede ocurrir entre la semana 37 (a término) y la 42. ¡Mucho ánimo!' },
-    }
+    icalMsg: '✅ ¡Archivo .ics descargado!\n\n📱 iPhone / Mac: Haga doble clic en el archivo para importar al Calendario de Apple.\n\n💻 Outlook: Archivo → Abrir → Importar.\n\n📅 Google Calendar: Configuración → Importar.',
+    printTip: '🖨️ Consejo de impresión\n\nPara que los colores del calendario aparezcan correctamente, marque la opción:\n\n✅ «Gráficos de fondo»\n\nen el cuadro de diálogo de impresión.\n\nHaga clic en OK para continuar.',
+    pdfMainTitle: 'Calendario de custodia compartida',
+    icsCalName: (titre) => `Custodia compartida — ${titre}`,
+    icsEventTitle: (nom) => `Custodia — ${nom}`,
+    icsEventDesc: (nom, titre) => `Custodia compartida con ${nom}. Horario: ${titre}.`,
+    mailSubject: (titre) => `Calendario de custodia compartida — ${titre}`,
+    mailBody: (titre, desc, nom1, nom2) => `Hola,\n\nAdjunto el calendario de custodia compartida generado en CalculDates.ca.\n\nTipo: ${titre} — ${desc}\nPadres: ${nom1} & ${nom2}\n\nCalculDates.ca — herramienta gratuita`,
   }
 };
 
@@ -382,6 +523,7 @@ function cycleLang() {
   CDSite.setStoredLang(lang);
   document.documentElement.lang = lang;
   document.body.className = 'lang-' + lang;
+  // Update toggle UI
   document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
     o.classList.toggle('active', o.dataset.lang === lang);
   });
@@ -390,363 +532,693 @@ function cycleLang() {
 
 function applyTranslations() {
   const t = i18n[lang];
-  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
-  set('headerSubtitle', t.headerSubtitle);
-  set('pageTitle', t.pageTitle);
-  set('pageSubtitle', t.pageSubtitle);
-  set('modeDueLabel', t.modeDueLabel);
-  set('modeLmpLabel', t.modeLmpLabel);
-  set('labelDue', t.labelDue);
-  set('labelLmp', t.labelLmp);
-  set('labelCycle', t.labelCycle);
-  set('btnCalc', t.btnCalc);
-  set('resultTitle', t.resultTitle);
-  set('btnPdf', t.btnPdf);
-  set('btnPrint', t.btnPrint);
-  set('btnIcal', t.btnIcal);
-  set('footerText', t.footerText);
-  document.getElementById('disclaimer').innerHTML = t.disclaimer;
+  document.getElementById('headerSubtitle').textContent = t.headerSubtitle;
+  document.getElementById('pageTitle').textContent = t.pageTitle;
+  document.getElementById('pageSubtitle').textContent = t.pageSubtitle;
+  document.getElementById('labelDebut').textContent = t.labelDebut;
+  document.getElementById('labelDuree').textContent = t.labelDuree;
+  document.getElementById('labelTypeGarde').textContent = t.labelTypeGarde;
+  document.getElementById('labelParents').textContent = t.labelParents;
+  document.getElementById('labelCouleur1').textContent = t.labelCouleur1;
+  document.getElementById('labelCouleur2').textContent = t.labelCouleur2;
+  document.getElementById('labelPremier').textContent = t.labelPremier;
+  document.getElementById('btnGenerer').textContent = t.btnGenerer;
+  document.getElementById('btnPdf').textContent = t.btnPdf;
+  document.getElementById('btnImprimer').textContent = t.btnImprimer;
+  document.getElementById('btnEmail').textContent = t.btnEmail;
+  document.getElementById('btnIcal').textContent = t.btnIcal;
+  document.getElementById('modalTitle').textContent = t.modalTitle;
+  document.getElementById('modalNote').textContent = t.modalNote;
+  document.getElementById('btnAnnuler').textContent = t.btnAnnuler;
+  document.getElementById('btnEnvoyer').textContent = t.btnEnvoyer;
+  document.getElementById('footerText').textContent = t.footerText;
+  document.getElementById('calTitre').textContent = t.calTitre;
+  document.getElementById('labelWho52').textContent = t.labelWho52;
+  document.getElementById('labelWhoFds').textContent = t.labelWhoFds;
+  // Select 5/2
+  const nom1cur = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2cur = document.getElementById('nom2').value || t.defaultNom2;
+  const sel = document.getElementById('who52Select');
+  if (sel) {
+    sel.options[0].text = `${nom1cur} (5 ${t.joursUnit}) — ${nom2cur} (2 ${t.joursUnit})`;
+    sel.options[1].text = `${nom2cur} (5 ${t.joursUnit}) — ${nom1cur} (2 ${t.joursUnit})`;
+  }
+  const fdsBtn1 = document.getElementById('whoFdsBtn1');
+  const fdsBtn2 = document.getElementById('whoFdsBtn2');
+  if (fdsBtn1) fdsBtn1.textContent = `${nom1cur} (${t.gardePrincipale})`;
+  if (fdsBtn2) fdsBtn2.textContent = `${nom2cur} (${t.gardePrincipale})`;
+  if (['fds-2','fds-3','fds-4'].includes(selectedGardeType)) setWhoFds(whoFds);
+  const selDuree = document.getElementById('duree');
+  [...selDuree.options].forEach((o,i) => o.textContent = t.dureeOpts[i]);
+  updateWhoBtns();
+  renderGardeTypes();
   renderAll();
-  if (computedData) renderResult();
 }
 
-function setMode(m) {
-  mode = m;
-  document.getElementById('modeDueBtn').classList.toggle('active', m === 'due');
-  document.getElementById('modeLmpBtn').classList.toggle('active', m === 'lmp');
-  document.getElementById('inputDueWrap').style.display = m === 'due' ? 'block' : 'none';
-  document.getElementById('inputLmpWrap').style.display = m === 'lmp' ? 'block' : 'none';
-  // La durée du cycle n'est pertinente que si on part des DDR (règles).
-  // En mode DPA (date donnée par le médecin), on la masque pour éviter la confusion.
-  var cw = document.getElementById('cycleWrap');
-  if (cw) cw.style.display = m === 'lmp' ? 'block' : 'none';
-}
-
-function formatDate(d, lang) {
+function renderGardeTypes() {
   const t = i18n[lang];
-  const j = d.getDate();
-  const m = t.mois ? t.mois[d.getMonth()] : d.toLocaleDateString(lang==='fr'?'fr-CA':lang==='es'?'es-CA':'en-CA', {month:'long'});
-  const y = d.getFullYear();
-  return `${j} ${m} ${y}`;
+  document.getElementById('gardeTypesGrid').innerHTML = gardeTypes.map(g =>
+    `<button class="garde-type-btn${selectedGardeType===g.id?' selected':''}" onclick="selectGardeType('${g.id}')">
+      <div class="gt-title">${g.icon} ${g.titre}</div>
+      <div class="gt-desc">${t.gardeTypesDesc[g.id] || g.desc}</div>
+    </button>`
+  ).join('');
+  const show52  = selectedGardeType === '5-2';
+  const showFds = ['fds-2','fds-3','fds-4'].includes(selectedGardeType);
+  document.getElementById('who52Section').style.display  = show52  ? 'block' : 'none';
+  document.getElementById('whoFdsSection').style.display = showFds ? 'block' : 'none';
 }
 
-function calculer() {
-  const t = i18n[lang];
-  // Popup don (1× par session)
-  if (window.CDSite) setTimeout(function(){ CDSite.showDonatePopup(lang); }, 600);
-  let lmpDate, dueDate;
-  const cycleLen = parseInt(document.getElementById('cycleLen').value);
-  // En mode DPA, la date fournie par le médecin tient déjà compte du cycle :
-  // on ne double-ajuste pas. En mode DDR, on corrige selon la longueur du cycle.
-  const ajust = (mode === 'due') ? 0 : (cycleLen - 28);
+function selectGardeType(id) {
+  selectedGardeType = id;
+  renderGardeTypes();
+  // Rafraîchir la note FDS si pertinent
+  if (['fds-2','fds-3','fds-4'].includes(id)) {
+    setWhoFds(whoFds);
+  }
+}
 
-  if (mode === 'due') {
-    const v = document.getElementById('dueDate').value;
-    if (!v) { alert(t.alertDate); return; }
-    dueDate = new Date(v + 'T00:00:00');
-    lmpDate = new Date(dueDate);
-    lmpDate.setDate(lmpDate.getDate() - GESTATION_DAYS - ajust);
+function updateParents() {
+  const c1 = document.getElementById('couleur1').value;
+  const c2 = document.getElementById('couleur2').value;
+  document.getElementById('dot1').style.background = c1;
+  document.getElementById('dot2').style.background = c2;
+  document.getElementById('parent1Card').style.borderColor = c1;
+  document.getElementById('parent2Card').style.borderColor = c2;
+  document.documentElement.style.setProperty('--couleur1', c1);
+  document.documentElement.style.setProperty('--couleur2', c2);
+  const t = i18n[lang];
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  const sel = document.getElementById('who52Select');
+  if (sel) {
+    sel.options[0].text = `${nom1} (5 ${t.joursUnit}) — ${nom2} (2 ${t.joursUnit})`;
+    sel.options[1].text = `${nom2} (5 ${t.joursUnit}) — ${nom1} (2 ${t.joursUnit})`;
+  }
+  // Mettre à jour les boutons FDS
+  const fdsBtn1 = document.getElementById('whoFdsBtn1');
+  const fdsBtn2 = document.getElementById('whoFdsBtn2');
+  if (fdsBtn1) { fdsBtn1.textContent = `${nom1} (${t.gardePrincipale})`; fdsBtn1.classList.toggle('active', whoFds===1); }
+  if (fdsBtn2) { fdsBtn2.textContent = `${nom2} (${t.gardePrincipale})`; fdsBtn2.classList.toggle('active', whoFds===2); }
+  const fdsNote = document.getElementById('whoFdsNote');
+  if (fdsNote && ['fds-2','fds-3','fds-4'].includes(selectedGardeType)) {
+    const parentPrincipal = whoFds===1 ? nom1 : nom2;
+    const parentFds = whoFds===1 ? nom2 : nom1;
+    const freq = selectedGardeType.split('-')[1];
+    fdsNote.textContent = t.noteFds(parentPrincipal, parentFds, freq);
+  }
+  updateWhoBtns();
+}
+
+function updateWhoBtns() {
+  const t = i18n[lang];
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  document.getElementById('whoBtn1').textContent = t.whoCommence(nom1);
+  document.getElementById('whoBtn2').textContent = t.whoCommence(nom2);
+  document.getElementById('whoBtn1').classList.toggle('active', whoFirst===1);
+  document.getElementById('whoBtn2').classList.toggle('active', whoFirst===2);
+}
+
+function setWho(n) {
+  whoFirst = n;
+  updateWhoBtns();
+}
+
+function setWhoFds(n) {
+  whoFds = n;
+  const t = i18n[lang];
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  const parentPrincipal = whoFds===1 ? nom1 : nom2;
+  const parentFds = whoFds===1 ? nom2 : nom1;
+  document.getElementById('whoFdsBtn1').classList.toggle('active', whoFds===1);
+  document.getElementById('whoFdsBtn2').classList.toggle('active', whoFds===2);
+  const fdsNote = document.getElementById('whoFdsNote');
+  if (fdsNote && ['fds-2','fds-3','fds-4'].includes(selectedGardeType)) {
+    const freq = selectedGardeType.split('-')[1];
+    fdsNote.textContent = t.noteFds(parentPrincipal, parentFds, freq);
+  }
+}
+
+// ── Génération du calendrier ──────────────────────────────────────────────
+function getJoursCalendrier(dateDebut, nbMois, gardeType) {
+  const assignments = {};
+  const gt = gardeTypes.find(g => g.id === gardeType);
+  const debut = new Date(dateDebut + 'T00:00:00');
+  const fin = new Date(debut);
+  fin.setMonth(fin.getMonth() + nbMois);
+
+  // Qui a les 5 jours pour le type 5/2
+  const who5 = parseInt(document.getElementById('who52Select')?.value || '1');
+  const who2 = who5 === 1 ? 2 : 1;
+
+  if (gt.special) {
+    const freq = parseInt(gt.special.split('-')[1]);
+    // whoFds = parent qui a la garde principale (jours de semaine)
+    // L'AUTRE parent a les fins de semaine selon la fréquence
+    const parentSemaine = whoFds;
+    const parentFds = whoFds === 1 ? 2 : 1;
+    const cur = new Date(debut);
+    // Compter les fins de semaine depuis le début
+    let fdsIndex = 0;
+    let lastFdsWeek = -1;
+    while (cur < fin) {
+      const jourSemaine = cur.getDay();
+      const iso = cur.toISOString().split('T')[0];
+      if (jourSemaine === 6) { // Samedi = début de FDS
+        fdsIndex++;
+      }
+      if (jourSemaine === 0 || jourSemaine === 6) {
+        // FDS: le parent FDS l'a selon la fréquence
+        const thisFdsNum = jourSemaine === 6 ? fdsIndex : fdsIndex; // sam et dim = même FDS
+        assignments[iso] = (thisFdsNum % freq === 1) ? parentFds : parentSemaine;
+      } else {
+        assignments[iso] = parentSemaine;
+      }
+      cur.setDate(cur.getDate() + 1);
+    }
+  } else if (gardeType === '5-2') {
+    // Pattern asymétrique: who5 a 5 jours, who2 a 2 jours
+    const pattern = [5, 2];
+    let patternIdx = 0;
+    let joursDansBloc = 0;
+    // whoFirst détermine qui commence, who5/who2 détermine qui a les 5 jours
+    let parents = whoFirst === who5 ? [who5, who2] : [who2, who5];
+    let currentParentIdx = 0;
+    const cur = new Date(debut);
+    while (cur < fin) {
+      const iso = cur.toISOString().split('T')[0];
+      assignments[iso] = parents[currentParentIdx];
+      joursDansBloc++;
+      if (joursDansBloc >= pattern[patternIdx]) {
+        patternIdx = (patternIdx + 1) % pattern.length;
+        joursDansBloc = 0;
+        currentParentIdx = (currentParentIdx + 1) % 2;
+      }
+      cur.setDate(cur.getDate() + 1);
+    }
   } else {
-    const v = document.getElementById('lmpDate').value;
-    if (!v) { alert(t.alertDate); return; }
-    lmpDate = new Date(v + 'T00:00:00');
-    dueDate = new Date(lmpDate);
-    dueDate.setDate(dueDate.getDate() + GESTATION_DAYS + ajust);
+    const pattern = gt.pattern;
+    let patternIdx = 0;
+    let joursDansBloc = 0;
+    let currentParent = whoFirst;
+    const cur = new Date(debut);
+    while (cur < fin) {
+      const iso = cur.toISOString().split('T')[0];
+      assignments[iso] = currentParent;
+      joursDansBloc++;
+      if (joursDansBloc >= pattern[patternIdx]) {
+        patternIdx = (patternIdx + 1) % pattern.length;
+        joursDansBloc = 0;
+        currentParent = currentParent === 1 ? 2 : 1;
+      }
+      cur.setDate(cur.getDate() + 1);
+    }
   }
+  return assignments;
+}
 
-  // Sanity check
-  const today = new Date(); today.setHours(0,0,0,0);
-  const diffMs = dueDate - today;
-  const diffMonths = diffMs / (1000*60*60*24*30);
-  if (Math.abs(diffMonths) > 15) {
-    alert(t.alertFuture);
-    return;
+function genererCalendrier() {
+  const t = i18n[lang];
+  const dateVal = document.getElementById('dateDebut').value;
+  if (!dateVal) { alert(t.alertDate); return; }
+  // Popup don (1× par session) — délai pour laisser le calendrier s'afficher
+  if (window.CDSite) setTimeout(function(){ CDSite.showDonatePopup(lang); }, 600);
+
+  const nbMois = parseInt(document.getElementById('duree').value);
+  const assignments = getJoursCalendrier(dateVal, nbMois, selectedGardeType);
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  const c1 = document.getElementById('couleur1').value;
+  const c2 = document.getElementById('couleur2').value;
+
+  // Légende
+  document.getElementById('legende').innerHTML = `
+    <div class="legende-item"><div class="legende-dot" style="background:${c1}"></div><span>${nom1}</span></div>
+    <div class="legende-item"><div class="legende-dot" style="background:${c2}"></div><span>${nom2}</span></div>
+  `;
+
+  // Calendriers mensuels
+  const debut = new Date(dateVal + 'T00:00:00');
+  let html = '';
+  for (let m = 0; m < nbMois; m++) {
+    const annee = debut.getFullYear();
+    const mois = debut.getMonth() + m;
+    const date = new Date(annee, mois, 1);
+    const moisNom = t.mois[date.getMonth()];
+    const anneeAff = date.getFullYear();
+    const premierJour = date.getDay();
+    const dernierJour = new Date(anneeAff, date.getMonth()+1, 0).getDate();
+
+    html += `<div class="mois-card">
+      <div class="mois-header">${moisNom} ${anneeAff}</div>
+      <div class="mois-grid">
+        ${t.joursMin.map(j=>`<div class="jour-header">${j}</div>`).join('')}
+        ${Array(premierJour).fill().map(()=>`<div class="jour-cell vide"></div>`).join('')}`;
+
+    for (let d = 1; d <= dernierJour; d++) {
+      const cur = new Date(anneeAff, date.getMonth(), d);
+      const iso = cur.toISOString().split('T')[0];
+      const parent = assignments[iso];
+      const cls = parent===1?'parent1':parent===2?'parent2':'';
+      html += `<div class="jour-cell ${cls}">${d}</div>`;
+    }
+    html += `</div></div>`;
   }
+  document.getElementById('calendrierGrid').innerHTML = html;
 
-  // Calcul semaine actuelle
-  const daysSinceLmp = Math.floor((today - lmpDate) / (1000*60*60*24));
-  const currentWeek = Math.max(0, Math.floor(daysSinceLmp / 7));
-  const currentDaysInWeek = Math.max(0, daysSinceLmp % 7);
+  // Stats
+  let jours1=0, jours2=0;
+  Object.values(assignments).forEach(p => p===1?jours1++:jours2++);
+  const total = jours1+jours2;
+  const pct1 = total>0?Math.round(jours1/total*100):0;
+  const pct2 = 100-pct1;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-item" style="border-left:4px solid ${c1}">
+      <div class="stat-label">${t.statLabel1(nom1)} ${nom1}</div>
+      <div class="stat-val">${jours1} <span style="font-family:'DM Sans';font-size:0.9rem;">${t.statsJours}</span></div>
+      <div class="stat-sub">${pct1}% ${t.statsPourcent}</div>
+    </div>
+    <div class="stat-item" style="border-left:4px solid ${c2}">
+      <div class="stat-label">${t.statLabel2(nom2)} ${nom2}</div>
+      <div class="stat-val">${jours2} <span style="font-family:'DM Sans';font-size:0.9rem;">${t.statsJours}</span></div>
+      <div class="stat-sub">${pct2}% ${t.statsPourcent}</div>
+    </div>
+  `;
 
-  computedData = {
-    lmpDate, dueDate, today, currentWeek, currentDaysInWeek, daysSinceLmp
-  };
-
-  renderResult();
-  const section = document.getElementById('resultSection');
+  // Afficher le calendrier
+  const section = document.getElementById('calendrierSection');
   section.classList.add('visible');
   section.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-// Le tableau mois doit exister dans chaque langue: déjà dans rotation, ici on ajoute...
-// On référence i18n[lang].mois — s'il n'existe pas on fallback locale.
-const MOIS = {
-  fr: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
-  en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
-  es: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
-};
-
-function fmt(d) {
-  const j = d.getDate();
-  const m = MOIS[lang][d.getMonth()];
-  const y = d.getFullYear();
-  return `${j} ${m} ${y}`;
-}
-
-function renderResult() {
-  if (!computedData) return;
-  const t = i18n[lang];
-  const { lmpDate, dueDate, today, currentWeek, currentDaysInWeek, daysSinceLmp } = computedData;
-
-  // Résumé
-  document.getElementById('summary').innerHTML = `
-    <div class="summary-item">
-      <div class="sum-label">${t.sumLmp}</div>
-      <div class="sum-val">${fmt(lmpDate)}</div>
-    </div>
-    <div class="summary-item now">
-      <div class="sum-label">${t.sumNow}</div>
-      <div class="sum-val">${t.sumWeek} ${currentWeek}${currentDaysInWeek>0?' + '+currentDaysInWeek+'j':''}</div>
-      <div class="sum-sub">${daysSinceLmp} ${t.sumDays}</div>
-    </div>
-    <div class="summary-item due">
-      <div class="sum-label">${t.sumDue}</div>
-      <div class="sum-val">${fmt(dueDate)}</div>
-    </div>
-  `;
-
-  // Timeline
-  let html = '';
-  milestones.forEach(ms => {
-    const ms_date = new Date(lmpDate);
-    ms_date.setDate(ms_date.getDate() + ms.week * 7);
-    const info = t.milestones[ms.key];
-    if (!info) return;
-
-    let statusClass = '';
-    let badge = '';
-    const diff = Math.floor((ms_date - today) / (1000*60*60*24));
-    if (currentWeek === ms.week || (ms.week > 0 && currentWeek < ms.week + 1 && currentWeek >= ms.week - 1 && Math.abs(diff) <= 3)) {
-      statusClass = 'now';
-      badge = `<span class="tl-badge now">${t.now}</span>`;
-    } else if (ms_date < today) {
-      statusClass = 'past';
-      badge = `<span class="tl-badge">${t.past}</span>`;
-    } else {
-      // future — show critical styling if applicable
-    }
-    if (ms.critical && statusClass !== 'past') {
-      statusClass = statusClass ? statusClass + ' critical' : 'critical';
-      if (!badge.includes('now')) badge = `<span class="tl-badge critical">${ms.critical && statusClass.includes('critical') ? 'CNESST' : ''}</span>`;
-    }
-
-    html += `
-      <div class="tl-item ${statusClass}">
-        <div class="tl-top">
-          <div class="tl-week">${t.sumWeek} ${ms.week}${badge}</div>
-          <div class="tl-date">${fmt(ms_date)}</div>
-        </div>
-        <div class="tl-title">${info.title}</div>
-        <div class="tl-desc">${info.desc}</div>
-      </div>
-    `;
-  });
-  document.getElementById('timeline').innerHTML = html;
-}
-
-function imprimerRes() {
-  if (!computedData) return;
-  if (confirm(i18n[lang].printTip)) { window.print(); }
-}
-
 function exporterICal() {
   const t = i18n[lang];
-  if (!computedData) return;
-  const { lmpDate } = computedData;
+  const dateVal = document.getElementById('dateDebut').value;
+  if (!dateVal) { alert(t.alertCalPremier); return; }
+
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  const nbMois = parseInt(document.getElementById('duree').value);
+  const assignments = getJoursCalendrier(dateVal, nbMois, selectedGardeType);
+  const gt = gardeTypes.find(g=>g.id===selectedGardeType);
+
+  // Regrouper les jours consécutifs en blocs par parent
+  const dates = Object.keys(assignments).sort();
+  const blocs = [];
+  let blocDebut = null, blocParent = null, blocFin = null;
+
+  for (let i = 0; i < dates.length; i++) {
+    const d = dates[i];
+    const p = assignments[d];
+    if (p !== blocParent || !estConsecutif(dates[i-1], d)) {
+      if (blocDebut) blocs.push({ debut: blocDebut, fin: blocFin, parent: blocParent });
+      blocDebut = d; blocParent = p; blocFin = d;
+    } else {
+      blocFin = d;
+    }
+  }
+  if (blocDebut) blocs.push({ debut: blocDebut, fin: blocFin, parent: blocParent });
+
+  function estConsecutif(d1, d2) {
+    if (!d1) return false;
+    const a = new Date(d1+'T00:00:00'), b = new Date(d2+'T00:00:00');
+    return (b - a) === 86400000;
+  }
+
+  function toICalDate(iso) {
+    return iso.replace(/-/g,'');
+  }
+
+  function uid() {
+    return Math.random().toString(36).substr(2,9).toUpperCase() + '@calculdates.ca';
+  }
 
   const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  const calNom = t.icsCalName(gt.titre);
+
   let ics = [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
-    'PRODID:-//CalculDates.ca//Grossesse//EN',
+    'PRODID:-//CalculDates.ca//Garde Partagée//FR',
     'CALSCALE:GREGORIAN',
     'METHOD:PUBLISH',
-    `X-WR-CALNAME:${t.pdfTitle}`,
+    `X-WR-CALNAME:${calNom}`,
     'X-WR-TIMEZONE:America/Toronto',
   ];
 
-  milestones.forEach(ms => {
-    const d = new Date(lmpDate);
-    d.setDate(d.getDate() + ms.week * 7);
-    const info = t.milestones[ms.key];
-    if (!info) return;
-    const debutIso = d.toISOString().split('T')[0].replace(/-/g,'');
-    const finDate = new Date(d); finDate.setDate(finDate.getDate()+1);
+  blocs.forEach(b => {
+    const nomParent = b.parent === 1 ? nom1 : nom2;
+    const titre = t.icsEventTitle(nomParent);
+    const desc = t.icsEventDesc(nomParent, gt.titre);
+
+    // DTEND = lendemain du dernier jour (convention iCal all-day)
+    const finDate = new Date(b.fin+'T00:00:00');
+    finDate.setDate(finDate.getDate()+1);
     const finIso = finDate.toISOString().split('T')[0].replace(/-/g,'');
-    const uid = Math.random().toString(36).substr(2,9).toUpperCase() + '@calculdates.ca';
-    const desc = info.desc.replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
 
     ics = ics.concat([
       'BEGIN:VEVENT',
-      `UID:${uid}`,
+      `UID:${uid()}`,
       `DTSTAMP:${now}`,
-      `DTSTART;VALUE=DATE:${debutIso}`,
+      `DTSTART;VALUE=DATE:${toICalDate(b.debut)}`,
       `DTEND;VALUE=DATE:${finIso}`,
-      `SUMMARY:${info.title}`,
+      `SUMMARY:${titre}`,
       `DESCRIPTION:${desc}`,
       'TRANSP:TRANSPARENT',
       'END:VEVENT',
     ]);
   });
+
   ics.push('END:VCALENDAR');
 
   const blob = new Blob([ics.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = 'grossesse-cnesst.ics';
+  a.download = `garde-partagee-${selectedGardeType}.ics`;
   a.click();
   URL.revokeObjectURL(url);
+
   alert(t.icalMsg);
+}
+
+function imprimerCalendrier() {
+  if (confirm(i18n[lang].printTip)) { window.print(); }
 }
 
 function telechargerPDF() {
   const t = i18n[lang];
-  if (!computedData) return;
+  const dateVal = document.getElementById('dateDebut').value;
+  if (!dateVal) { alert(t.alertCalPremier); return; }
   try {
     const doc = genererPDF();
-    doc.save('grossesse-cnesst.pdf');
+    doc.save(`garde-partagee-${selectedGardeType}.pdf`);
   } catch(e) {
     console.error(e);
     alert(t.alertPdfErr);
   }
 }
 
+function ouvrirModal() { document.getElementById('modalOverlay').classList.add('open'); }
+function fermerModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+// ── PDF : même layout que la page (grille colorée + légende + stats) ─────
+function hexToRgb(hex) {
+  const h = hex.replace('#', '');
+  return {
+    r: parseInt(h.substring(0,2), 16),
+    g: parseInt(h.substring(2,4), 16),
+    b: parseInt(h.substring(4,6), 16),
+  };
+}
+
+function drawMonthPDF(doc, x, y, monthW, cellW, cellH, headerH, dayH, annee, mois, t, assignments, c1rgb, c2rgb) {
+  const date = new Date(annee, mois, 1);
+  const anneeN = date.getFullYear();
+  const moisN = date.getMonth();
+  const dernierJour = new Date(anneeN, moisN + 1, 0).getDate();
+  const premierJour = date.getDay();
+  const totalH = headerH + dayH + 6 * cellH;
+
+  // Bordure de carte
+  doc.setDrawColor(232, 228, 220);
+  doc.setLineWidth(0.3);
+  doc.roundedRect(x, y, monthW, totalH, 1.8, 1.8, 'S');
+
+  // En-tête mois (bleu foncé)
+  doc.setFillColor(26, 58, 92);
+  doc.rect(x, y, monthW, headerH, 'F');
+  doc.setFont('times', 'bold');
+  doc.setFontSize(9.5);
+  doc.setTextColor(255, 255, 255);
+  doc.text(`${t.mois[moisN]} ${anneeN}`, x + monthW / 2, y + headerH - 2.2, { align: 'center' });
+
+  // En-têtes de jours (DI LU MA ...)
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(6);
+  doc.setTextColor(138, 138, 138);
+  for (let d = 0; d < 7; d++) {
+    doc.text(t.joursMin[d].toUpperCase(),
+             x + d * cellW + cellW / 2,
+             y + headerH + dayH - 1.2,
+             { align: 'center' });
+  }
+
+  // Cellules de jours
+  const gridY = y + headerH + dayH;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(7);
+
+  for (let d = 1; d <= dernierJour; d++) {
+    const col = (premierJour + d - 1) % 7;
+    const row = Math.floor((premierJour + d - 1) / 7);
+    const cx = x + col * cellW;
+    const cy = gridY + row * cellH;
+
+    const iso = new Date(anneeN, moisN, d).toISOString().split('T')[0];
+    const parent = assignments[iso];
+
+    if (parent === 1) {
+      doc.setFillColor(c1rgb.r, c1rgb.g, c1rgb.b);
+      doc.roundedRect(cx + 0.5, cy + 0.5, cellW - 1, cellH - 1, 0.8, 0.8, 'F');
+      doc.setTextColor(255, 255, 255);
+    } else if (parent === 2) {
+      doc.setFillColor(c2rgb.r, c2rgb.g, c2rgb.b);
+      doc.roundedRect(cx + 0.5, cy + 0.5, cellW - 1, cellH - 1, 0.8, 0.8, 'F');
+      doc.setTextColor(255, 255, 255);
+    } else {
+      doc.setTextColor(40, 40, 40);
+    }
+    doc.text(String(d), cx + cellW / 2, cy + cellH / 2 + 1.4, { align: 'center' });
+  }
+
+  return totalH;
+}
+
+function drawStatsBarPDF(doc, assignments, nom1, nom2, c1rgb, c2rgb, t, marginX, usableW, yTop) {
+  let j1 = 0, j2 = 0;
+  Object.values(assignments).forEach(p => p === 1 ? j1++ : j2++);
+  const total = j1 + j2;
+  const pct1 = total > 0 ? Math.round(j1 / total * 100) : 0;
+  const pct2 = 100 - pct1;
+
+  const gap = 4;
+  const boxW = (usableW - gap) / 2;
+  const boxH = 18;
+
+  function bloc(x, nom, jours, pct, rgb) {
+    doc.setFillColor(244, 241, 235);
+    doc.roundedRect(x, yTop, boxW, boxH, 2, 2, 'F');
+    doc.setDrawColor(rgb.r, rgb.g, rgb.b);
+    doc.setLineWidth(1.2);
+    doc.line(x, yTop, x, yTop + boxH);
+    doc.setLineWidth(0.3);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(6.5);
+    doc.setTextColor(138, 138, 138);
+    doc.text(`${t.statLabel1(nom)} ${nom}`.toUpperCase(), x + 3, yTop + 5);
+    doc.setFont('times', 'bold');
+    doc.setFontSize(13);
+    doc.setTextColor(26, 58, 92);
+    doc.text(`${jours}`, x + 3, yTop + 11);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(90, 90, 90);
+    doc.text(` ${t.statsJours}`, x + 3 + doc.getTextWidth(`${jours}`) + 0.5, yTop + 11);
+    doc.setFontSize(7.5);
+    doc.setTextColor(138, 138, 138);
+    doc.text(`${pct}% ${t.statsPourcent}`, x + 3, yTop + 15.5);
+  }
+
+  bloc(marginX, nom1, j1, pct1, c1rgb);
+  bloc(marginX + boxW + gap, nom2, j2, pct2, c2rgb);
+}
+
 function genererPDF() {
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
   const t = i18n[lang];
-  const { lmpDate, dueDate, currentWeek, daysSinceLmp } = computedData;
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  const c1hex = document.getElementById('couleur1').value;
+  const c2hex = document.getElementById('couleur2').value;
+  const c1rgb = hexToRgb(c1hex);
+  const c2rgb = hexToRgb(c2hex);
+  const gt = gardeTypes.find(g => g.id === selectedGardeType);
+  const dateVal = document.getElementById('dateDebut').value;
+  const nbMois = parseInt(document.getElementById('duree').value);
+  const assignments = getJoursCalendrier(dateVal, nbMois, selectedGardeType);
 
-  // En-tête
-  doc.setFillColor(26,58,92);
-  doc.rect(0,0,210,28,'F');
-  doc.setTextColor(255,255,255);
-  doc.setFontSize(18);
-  doc.text(t.pdfTitle, 14, 13);
-  doc.setFontSize(9);
-  doc.setTextColor(232,197,71);
-  doc.text('CalculDates.ca · ' + (lang==='fr'?'calculdates.ca/grossesse.html':lang==='es'?'calculdates.ca/grossesse.html':'calculdates.ca/grossesse.html'), 14, 22);
+  // Géométrie (A4 portrait 210 × 297 mm)
+  const pageW = 210, pageH = 297;
+  const marginX = 10;
+  const marginTop = 32;   // espace pour entête + légende
+  const marginBot = 32;   // espace pour stats-bar + pagination
+  const usableW = pageW - 2 * marginX;
+  const cols = 3;
+  const gapX = 4, gapY = 5;
+  const monthW = (usableW - gapX * (cols - 1)) / cols;
+  const cellW = monthW / 7;
+  const cellH = cellW;
+  const headerMH = 7, dayH = 4.2;
+  const monthH = headerMH + dayH + 6 * cellH;
 
-  // Résumé
-  let y = 36;
-  doc.setTextColor(40,40,40);
-  doc.setFontSize(10);
-  doc.setFont(undefined, 'bold');
-  doc.text(`${t.sumLmp}: ${fmt(lmpDate)}`, 14, y); y += 6;
-  doc.text(`${t.sumDue}: ${fmt(dueDate)}`, 14, y); y += 6;
-  doc.text(`${t.sumNow}: ${t.sumWeek} ${currentWeek}  (${daysSinceLmp} ${t.sumDays})`, 14, y); y += 8;
-  doc.setFont(undefined, 'normal');
-
-  // Disclaimer
-  doc.setFillColor(255, 247, 224);
-  doc.setDrawColor(232, 197, 71);
-  doc.roundedRect(14, y, 182, 14, 2, 2, 'FD');
-  doc.setFontSize(8);
-  doc.setTextColor(80,80,80);
-  const disc = t.disclaimer.replace(/<[^>]+>/g, '').replace(/\s+/g,' ').trim();
-  const lines = doc.splitTextToSize(disc, 176);
-  doc.text(lines, 17, y + 5);
-  y += 20;
-
-  // Milestones
-  doc.setFontSize(10);
-  milestones.forEach(ms => {
-    const info = t.milestones[ms.key];
-    if (!info) return;
-    const d = new Date(lmpDate);
-    d.setDate(d.getDate() + ms.week * 7);
-
-    if (y > 262) { doc.addPage(); y = 20; }
-
-    // Bulle date
-    const isCritical = ms.critical;
-    const isPast = d < computedData.today;
-    const isNow = Math.abs(Math.floor((d - computedData.today)/(1000*60*60*24))) <= 3;
-
-    if (isNow) doc.setFillColor(52, 168, 83);
-    else if (isCritical) doc.setFillColor(217, 54, 54);
-    else if (isPast) doc.setFillColor(160, 160, 160);
-    else doc.setFillColor(45, 106, 159);
-    doc.roundedRect(14, y, 30, 9, 2, 2, 'F');
-    doc.setTextColor(255,255,255);
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${t.sumWeek} ${ms.week}`, 29, y + 6, {align:'center'});
-
-    // Titre
+  function drawPageHeader(pageNum, totalPages) {
+    doc.setFont('times', 'bold');
+    doc.setFontSize(16);
     doc.setTextColor(26, 58, 92);
+    doc.text(t.pdfMainTitle, marginX, 14);
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(10);
-    doc.text(info.title, 48, y + 4);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text(fmt(d), 48, y + 9);
+    doc.setTextColor(90, 90, 90);
+    doc.text(`${gt.titre} — ${nom1} & ${nom2}`, marginX, 20);
 
-    // Description
-    doc.setFontSize(8);
-    doc.setTextColor(60, 60, 60);
-    const descLines = doc.splitTextToSize(info.desc, 182);
-    doc.text(descLines, 14, y + 15);
-    y += 15 + descLines.length * 4 + 5;
-  });
+    // Légende
+    const legY = 27;
+    doc.setFillColor(c1rgb.r, c1rgb.g, c1rgb.b);
+    doc.roundedRect(marginX, legY - 3.2, 3.8, 3.8, 0.6, 0.6, 'F');
+    doc.setTextColor(40, 40, 40);
+    doc.setFontSize(9);
+    doc.text(nom1, marginX + 5.5, legY - 0.2);
+    const w1 = doc.getTextWidth(nom1);
+    const x2 = marginX + 5.5 + w1 + 10;
+    doc.setFillColor(c2rgb.r, c2rgb.g, c2rgb.b);
+    doc.roundedRect(x2 - 5.5, legY - 3.2, 3.8, 3.8, 0.6, 0.6, 'F');
+    doc.text(nom2, x2, legY - 0.2);
+  }
 
-  // Footer
-  const pages = doc.internal.getNumberOfPages();
-  for (let i = 1; i <= pages; i++) {
-    doc.setPage(i);
-    doc.setTextColor(150, 150, 150);
-    doc.setFontSize(7);
-    doc.text('© 2026 CalculDates.ca — Outil informatif. Consultez votre médecin et la CNESST.', 105, 292, {align:'center'});
+  // Calcul du nombre de lignes par page
+  const rowsPerPage = Math.floor((pageH - marginTop - marginBot) / (monthH + gapY));
+  const monthsPerPage = rowsPerPage * cols;
+  const totalPages = Math.ceil(nbMois / monthsPerPage);
+
+  const debut = new Date(dateVal + 'T00:00:00');
+
+  for (let m = 0; m < nbMois; m++) {
+    const pageIdx = Math.floor(m / monthsPerPage);
+    const inPageIdx = m % monthsPerPage;
+    const row = Math.floor(inPageIdx / cols);
+    const col = inPageIdx % cols;
+
+    if (m > 0 && inPageIdx === 0) doc.addPage();
+    if (inPageIdx === 0) drawPageHeader(pageIdx + 1, totalPages);
+
+    const x = marginX + col * (monthW + gapX);
+    const y = marginTop + row * (monthH + gapY);
+
+    drawMonthPDF(doc, x, y, monthW, cellW, cellH, headerMH, dayH,
+                 debut.getFullYear(), debut.getMonth() + m,
+                 t, assignments, c1rgb, c2rgb);
+  }
+
+  // Stats-bar en bas de la dernière page
+  doc.setPage(doc.internal.getNumberOfPages());
+  drawStatsBarPDF(doc, assignments, nom1, nom2, c1rgb, c2rgb, t,
+                  marginX, usableW, pageH - 26);
+
+  // Pagination + URL bas de page
+  const pagesCount = doc.internal.getNumberOfPages();
+  for (let p = 1; p <= pagesCount; p++) {
+    doc.setPage(p);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(130, 130, 130);
+    doc.text('CalculDates.ca', pageW / 2, pageH - 6, { align: 'center' });
+    if (pagesCount > 1) {
+      doc.text(`${p} / ${pagesCount}`, pageW - marginX, pageH - 6, { align: 'right' });
+    }
   }
 
   return doc;
 }
 
-// Init
-(function init() {
-  const stored = CDSite.getStoredLang();
-  if (stored && ['fr','en','es'].includes(stored)) lang = stored;
+// ── Envoi courriel : télécharge le PDF + ouvre mailto ─────────────────────
+function envoyerCourriel() {
+  const t = i18n[lang];
+  const email = document.getElementById('emailInput').value.trim();
+  if (!email || !email.includes('@')) { return; }
+  try {
+    const doc = genererPDF();
+    doc.save(`garde-partagee-${selectedGardeType}.pdf`);
+  } catch(e) { console.error(e); }
+  const gt = gardeTypes.find(g => g.id === selectedGardeType);
+  const nom1 = document.getElementById('nom1').value || t.defaultNom1;
+  const nom2 = document.getElementById('nom2').value || t.defaultNom2;
+  const desc = t.gardeTypesDesc[gt.id] || gt.desc;
+  const subject = encodeURIComponent(t.mailSubject(gt.titre));
+  const body = encodeURIComponent(t.mailBody(gt.titre, desc, nom1, nom2));
+  window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  fermerModal();
+}
+
+// ── Initialisation de la page ─────────────────────────────────────────────
+function initGardePage() {
+  try {
+    if (window.CDSite && typeof CDSite.getStoredLang === 'function') {
+      lang = CDSite.getStoredLang() || 'fr';
+    }
+  } catch(e) { lang = 'fr'; }
   document.documentElement.lang = lang;
   document.body.className = 'lang-' + lang;
   document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
     o.classList.toggle('active', o.dataset.lang === lang);
   });
-  // Default date: 9 months from today
-  const def = new Date();
-  def.setMonth(def.getMonth() + 7);
-  document.getElementById('dueDate').value = def.toISOString().split('T')[0];
-  applyTranslations();
-})();
+  // Date par défaut : aujourd'hui
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const dd = document.getElementById('dateDebut');
+    if (dd && !dd.value) dd.value = today;
+  } catch(e) {}
+  // Rendu complet
+  try { applyTranslations(); } catch(e) { console.warn('applyTranslations:', e); }
+  try { updateParents(); } catch(e) { console.warn('updateParents:', e); }
+  try { renderGardeTypes(); } catch(e) { console.warn('renderGardeTypes:', e); }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGardePage);
+} else {
+  initGardePage();
+}
 </script>
 
-<!-- Filet de sécurité : garantit le rendu du menu même si le script principal échoue -->
+<!-- Filet de sécurité : garantit le menu, le footer, les pubs et la date -->
 <script>
 (function(){
-  function renderMenus(){
-    if(!window.CDSite) return;
-    try{
-      var stored=null; try{stored=localStorage.getItem('calculdates_lang');}catch(e){}
-      var lang=(stored&&['fr','en','es'].indexOf(stored)>=0)?stored:'fr';
-      var nav=document.getElementById('siteNav');
-      if(nav && !nav.innerHTML.trim()) CDSite.renderNav(lang,'grossesse');
-      var foot=document.getElementById('footerLinks');
-      if(foot && !foot.innerHTML.trim()) CDSite.renderFooterLinks(lang,'footerLinks');
-    }catch(e){console.warn('[nav fallback]',e);}
+  function safetyRender() {
+    try {
+      if (!window.CDSite) return;
+      var curLang = (typeof lang === 'string' && lang) ? lang : 'fr';
+      var nav = document.getElementById('siteNav');
+      if (nav && nav.innerHTML.trim().length === 0) {
+        CDSite.renderNav(curLang, 'garde', 'siteNav');
+      }
+      var fl = document.getElementById('footerLinks');
+      if (fl && fl.innerHTML.trim().length === 0) {
+        CDSite.renderFooterLinks(curLang, 'footerLinks');
+      }
+      var ads = document.getElementById('bottomAds');
+      if (ads && ads.innerHTML.trim().length === 0) {
+        ads.innerHTML = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      }
+      var disc = document.getElementById('affiliateDisclosure');
+      if (disc && !disc.textContent.trim()) {
+        disc.textContent = CDSite.SHARED[curLang].affiliateDisclosure;
+      }
+      var dd = document.getElementById('dateDebut');
+      if (dd && !dd.value) {
+        dd.value = new Date().toISOString().split('T')[0];
+      }
+    } catch(e) { console.warn('safetyRender garde:', e); }
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderMenus);
-  else renderMenus();
-  window.addEventListener('load',function(){setTimeout(renderMenus,300);});
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safetyRender);
+  } else {
+    safetyRender();
+  }
+  window.addEventListener('load', safetyRender);
 })();
 </script>
 
