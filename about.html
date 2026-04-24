@@ -157,4 +157,114 @@ const i18n = {
     s3title: 'Aviso importante',
     disclaimerText: "⚠️ Los cálculos proporcionados por CalculDates.ca son solo con fines informativos. No constituyen asesoramiento legal, médico, financiero ni profesional. Los plazos legales y las recomendaciones de la CNESST pueden variar según su situación personal. Consulte siempre a un profesional calificado (médico, abogado, asesor) para su situación específica.",
     affTitle: 'Asociaciones y afiliación',
-    affBody: "Para mantener CalculDates.ca gratuito, mostramos algunos anuncios y participamos en programas de afiliados. <strong>Como Afiliado de Amazon, CalculDates.ca obtiene ingresos por compras que cumplan los requisitos.</strong> También participamos en el programa de afiliados de <a h
+    affBody: "Para mantener CalculDates.ca gratuito, mostramos algunos anuncios y participamos en programas de afiliados. <strong>Como Afiliado de Amazon, CalculDates.ca obtiene ingresos por compras que cumplan los requisitos.</strong> También participamos en el programa de afiliados de <a href=\"https://lecfomasque.com/ref/107/\" target=\"_blank\" rel=\"sponsored noopener\">Le CFO masqué</a> (formaciones Excel &amp; Power BI). Estos enlaces no le cuestan nada extra — ¡gracias por su apoyo!",
+    s4title: 'Contacto', s4p1: '¿Tiene una sugerencia o un error que reportar? Escríbanos a ',
+  }
+};
+
+function renderAll() {
+  if (!window.CDSite) return;
+  CDSite.renderNav(lang, ACTIVE_PAGE, 'siteNav');
+  CDSite.renderFooterLinks(lang, 'footerLinks');
+  var ads = document.getElementById('bottomAds');
+  if (ads) ads.innerHTML = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+}
+
+function cycleLang() {
+  lang = CDSite.cycleLang(lang);
+  CDSite.setStoredLang(lang);
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(function(o){
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  applyTranslations();
+}
+
+function applyTranslations() {
+  var t = i18n[lang];
+  var setText = function(id, val) { var el = document.getElementById(id); if (el) el.textContent = val; };
+  var setHtml = function(id, val) { var el = document.getElementById(id); if (el) el.innerHTML = val; };
+  setText('headerSubtitle', t.headerSubtitle);
+  setText('breadcrumbLabel', t.breadcrumb);
+  setText('pageTitle', t.pageTitle);
+  setHtml('heroText', t.heroText);
+  setText('s1title', t.s1title);
+  setText('s1p1', t.s1p1);
+  setText('s2title', t.s2title);
+  setText('c1title', t.c1title); setText('c1desc', t.c1desc);
+  setText('c2title', t.c2title); setText('c2desc', t.c2desc);
+  setText('c3title', t.c3title); setText('c3desc', t.c3desc);
+  setText('c4title', t.c4title); setText('c4desc', t.c4desc);
+  setText('s3title', t.s3title);
+  setText('disclaimerText', t.disclaimerText);
+  setText('affTitle', t.affTitle);
+  setHtml('affBody', t.affBody);
+  setText('s4title', t.s4title);
+  var s4 = document.getElementById('s4p1');
+  if (s4) s4.innerHTML = t.s4p1 + '<a href="mailto:info@calculdates.ca">info@calculdates.ca</a>.';
+  var ft = document.getElementById('footerText');
+  if (ft && window.CDSite && CDSite.SHARED && CDSite.SHARED[lang] && CDSite.SHARED[lang].footerText) {
+    ft.textContent = CDSite.SHARED[lang].footerText;
+  }
+  renderAll();
+}
+
+function initAboutPage() {
+  try {
+    if (window.CDSite && typeof CDSite.getStoredLang === 'function') {
+      lang = CDSite.getStoredLang() || 'fr';
+    }
+  } catch(e) { lang = 'fr'; }
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(function(o){
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  try { applyTranslations(); } catch(e) { console.warn('applyTranslations about:', e); }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initAboutPage);
+} else {
+  initAboutPage();
+}
+</script>
+
+<!-- Filet de sécurité : garantit menu, footer, pubs et contenu traduit -->
+<script>
+(function(){
+  function safetyRender() {
+    try {
+      if (!window.CDSite) return;
+      var curLang = (typeof lang === 'string' && lang) ? lang : 'fr';
+      var nav = document.getElementById('siteNav');
+      if (nav && nav.innerHTML.trim().length === 0) {
+        CDSite.renderNav(curLang, 'about', 'siteNav');
+      }
+      var fl = document.getElementById('footerLinks');
+      if (fl && fl.innerHTML.trim().length === 0) {
+        CDSite.renderFooterLinks(curLang, 'footerLinks');
+      }
+      var ads = document.getElementById('bottomAds');
+      if (ads && ads.innerHTML.trim().length === 0) {
+        ads.innerHTML = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      }
+      // Réappliquer les traductions si le hero ou les sections sont encore vides
+      var hero = document.getElementById('heroText');
+      if (hero && hero.innerHTML.trim().length === 0 && typeof applyTranslations === 'function') {
+        try { applyTranslations(); } catch(e) {}
+      }
+    } catch(e) { console.warn('safetyRender about:', e); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safetyRender);
+  } else {
+    safetyRender();
+  }
+  window.addEventListener('load', safetyRender);
+})();
+</script>
+
+</body>
+</html>
