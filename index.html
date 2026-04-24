@@ -447,4 +447,35 @@ updateLangToggleUI();
 applyTranslations();
 </script>
 
-<!-- F
+<!-- Filet de sécurité : garantit menu, footer et pubs même si une erreur plus haut interrompt l'initialisation -->
+<script>
+(function(){
+  function safetyRender() {
+    try {
+      if (!window.CDSite) return;
+      var curLang = (typeof lang === 'string' && lang) ? lang : ((CDSite.getStoredLang && CDSite.getStoredLang()) || 'fr');
+      var nav = document.getElementById('siteNav');
+      if (nav && nav.innerHTML.trim().length === 0) {
+        CDSite.renderNav(curLang, 'home', 'siteNav');
+      }
+      var fl = document.getElementById('footerLinks');
+      if (fl && fl.innerHTML.trim().length === 0) {
+        CDSite.renderFooterLinks(curLang, 'footerLinks');
+      }
+      var ads = document.getElementById('bottomAds');
+      if (ads && ads.innerHTML.trim().length === 0) {
+        ads.innerHTML = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      }
+    } catch(e) { console.warn('safetyRender index:', e); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safetyRender);
+  } else {
+    safetyRender();
+  }
+  window.addEventListener('load', safetyRender);
+})();
+</script>
+
+</body>
+</html>
