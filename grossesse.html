@@ -713,5 +713,71 @@ function genererPDF() {
   return doc;
 }
 
-// Init
-(function
+// ── Initialisation de la page ─────────────────────────────────────────────
+function initGrossessePage() {
+  try {
+    if (window.CDSite && typeof CDSite.getStoredLang === 'function') {
+      lang = CDSite.getStoredLang() || 'fr';
+    }
+  } catch(e) { lang = 'fr'; }
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  // Assurer l'état initial du mode (DPA par défaut, cycle masqué)
+  try { setMode(mode || 'due'); } catch(e) { console.warn('setMode:', e); }
+  // Rendu complet
+  try { applyTranslations(); } catch(e) { console.warn('applyTranslations:', e); }
+  try { renderAll(); } catch(e) { console.warn('renderAll:', e); }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initGrossessePage);
+} else {
+  initGrossessePage();
+}
+</script>
+
+<!-- Filet de sécurité : garantit le menu, le footer, les pubs et l'état du mode -->
+<script>
+(function(){
+  function safetyRender() {
+    try {
+      if (!window.CDSite) return;
+      var curLang = (typeof lang === 'string' && lang) ? lang : 'fr';
+      var nav = document.getElementById('siteNav');
+      if (nav && nav.innerHTML.trim().length === 0) {
+        CDSite.renderNav(curLang, 'grossesse', 'siteNav');
+      }
+      var fl = document.getElementById('footerLinks');
+      if (fl && fl.innerHTML.trim().length === 0) {
+        CDSite.renderFooterLinks(curLang, 'footerLinks');
+      }
+      var ads = document.getElementById('bottomAds');
+      if (ads && ads.innerHTML.trim().length === 0) {
+        ads.innerHTML = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      }
+      var disc = document.getElementById('affiliateDisclosure');
+      if (disc && !disc.textContent.trim()) {
+        disc.textContent = CDSite.SHARED[curLang].affiliateDisclosure;
+      }
+      // Corriger la visibilité du champ cycle selon le mode (sécurité)
+      try {
+        var cw = document.getElementById('cycleWrap');
+        var curMode = (typeof mode === 'string' && mode) ? mode : 'due';
+        if (cw) cw.style.display = curMode === 'lmp' ? 'block' : 'none';
+      } catch(e) {}
+    } catch(e) { console.warn('safetyRender grossesse:', e); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safetyRender);
+  } else {
+    safetyRender();
+  }
+  window.addEventListener('load', safetyRender);
+})();
+</script>
+
+</body>
+</html>
