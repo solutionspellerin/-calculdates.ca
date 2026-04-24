@@ -171,7 +171,6 @@
       <div class="info-item"><span class="label" id="labelDayOfWeek">Jour de la semaine</span><span class="value" id="infoJourSemaine">—</span></div>
       <div class="info-item"><span class="label" id="labelSundayWeek">Semaine civile débute</span><span class="value" id="infoDimanche">—</span></div>
     </div>
-    <div class="ads-stack" id="sidebarAds"></div>
   </aside>
 
   <div class="scenarios">
@@ -374,7 +373,6 @@ function applyTranslations() {
   updateDirectionLabels();
   CDSite.renderNav(lang, ACTIVE_PAGE);
   CDSite.renderFooterLinks(lang, 'footerLinks');
-  document.getElementById('sidebarAds').innerHTML  = CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
   document.getElementById('bottomAds').innerHTML   = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
 }
 
