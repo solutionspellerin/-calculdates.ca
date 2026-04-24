@@ -792,4 +792,30 @@ function genererPDF() {
   document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
     o.classList.toggle('active', o.dataset.lang === lang);
   });
-  document.getElementById('
+  document.getElementById('dateDebut').value = new Date().toISOString().split('T')[0];
+  applyTranslations();
+})();
+</script>
+
+<!-- Filet de sécurité : garantit le rendu du menu même si le script principal échoue -->
+<script>
+(function(){
+  function renderMenus(){
+    if(!window.CDSite) return;
+    try{
+      var stored=null; try{stored=localStorage.getItem('calculdates_lang');}catch(e){}
+      var lang=(stored&&['fr','en','es'].indexOf(stored)>=0)?stored:'fr';
+      var nav=document.getElementById('siteNav');
+      if(nav && !nav.innerHTML.trim()) CDSite.renderNav(lang,'rotation');
+      var foot=document.getElementById('footerLinks');
+      if(foot && !foot.innerHTML.trim()) CDSite.renderFooterLinks(lang,'footerLinks');
+    }catch(e){console.warn('[nav fallback]',e);}
+  }
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderMenus);
+  else renderMenus();
+  window.addEventListener('load',function(){setTimeout(renderMenus,300);});
+})();
+</script>
+
+</body>
+</html>
