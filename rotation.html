@@ -7,10 +7,10 @@
 <meta name="description" content="Calculateur de rotation de travail — 2 semaines travail / 2 semaines congé, 14/14, 7/7, rotation flexible. Exportez en PDF ou ajoutez à Google/Apple/Outlook Calendar.">
 <title>Rotation de travail — Horaire 2/2, 14/14, 7/7 | CalculDates.ca</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/ads.css">
+<link rel="stylesheet" href="assets/ads.css?v=20260424a">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="assets/site-config.js"></script>
+<script src="assets/site-config.js?v=20260424a"></script>
 <style>
   :root {
     --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
@@ -776,119 +776,4 @@ function genererPDF() {
   const rgbT = [38, 114, 200];
   const rgbC = [52, 168, 83];
 
-  // Géométrie (A4 portrait 210 × 297 mm) — identique à garde.html
-  const pageW = 210, pageH = 297;
-  const marginX = 10;
-  const marginTop = 32;
-  const marginBot = 32;
-  const usableW = pageW - 2 * marginX;
-  const cols = 3;
-  const gapX = 4, gapY = 5;
-  const monthW = (usableW - gapX * (cols - 1)) / cols;
-  const cellW = monthW / 7;
-  const cellH = cellW;
-  const headerMH = 7, dayH = 4.2;
-  const monthH = headerMH + dayH + 6 * cellH;
-
-  function drawPageHeader() {
-    doc.setFont('times', 'bold');
-    doc.setFontSize(16);
-    doc.setTextColor(26, 58, 92);
-    doc.text(t.pdfTitle, marginX, 14);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(10);
-    doc.setTextColor(90, 90, 90);
-    doc.text(`${travailDays}${t.icsTravail.charAt(0).toLowerCase()} ${t.icsTravail} / ${congeDays}${t.icsConge.charAt(0).toLowerCase()} ${t.icsConge}`, marginX, 20);
-
-    // Légende
-    const legY = 27;
-    doc.setFillColor(rgbT[0], rgbT[1], rgbT[2]);
-    doc.roundedRect(marginX, legY - 3.2, 3.8, 3.8, 0.6, 0.6, 'F');
-    doc.setTextColor(40, 40, 40);
-    doc.setFontSize(9);
-    doc.text(t.travailLabel, marginX + 5.5, legY - 0.2);
-    const w1 = doc.getTextWidth(t.travailLabel);
-    const x2 = marginX + 5.5 + w1 + 10;
-    doc.setFillColor(rgbC[0], rgbC[1], rgbC[2]);
-    doc.roundedRect(x2 - 5.5, legY - 3.2, 3.8, 3.8, 0.6, 0.6, 'F');
-    doc.text(t.congeLabel, x2, legY - 0.2);
-  }
-
-  const rowsPerPage = Math.floor((pageH - marginTop - marginBot) / (monthH + gapY));
-  const monthsPerPage = rowsPerPage * cols;
-
-  const debut = new Date(lastDateDebut + 'T00:00:00');
-
-  for (let m = 0; m < nbMois; m++) {
-    const inPageIdx = m % monthsPerPage;
-    const row = Math.floor(inPageIdx / cols);
-    const col = inPageIdx % cols;
-
-    if (m > 0 && inPageIdx === 0) doc.addPage();
-    if (inPageIdx === 0) drawPageHeader();
-
-    const x = marginX + col * (monthW + gapX);
-    const y = marginTop + row * (monthH + gapY);
-
-    drawRotationMonthPDF(doc, x, y, monthW, cellW, cellH, headerMH, dayH,
-                         debut.getFullYear(), debut.getMonth() + m,
-                         t, lastAssignments, rgbT, rgbC);
-  }
-
-  // Stats-bar sur la dernière page
-  doc.setPage(doc.internal.getNumberOfPages());
-  drawRotationStatsPDF(doc, lastAssignments, travailDays, congeDays, rgbT, rgbC, t,
-                       marginX, usableW, pageH - 26);
-
-  // Pagination + URL
-  const pagesCount = doc.internal.getNumberOfPages();
-  for (let p = 1; p <= pagesCount; p++) {
-    doc.setPage(p);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
-    doc.setTextColor(130, 130, 130);
-    doc.text('CalculDates.ca', pageW / 2, pageH - 6, { align: 'center' });
-    if (pagesCount > 1) {
-      doc.text(`${p} / ${pagesCount}`, pageW - marginX, pageH - 6, { align: 'right' });
-    }
-  }
-
-  return doc;
-}
-
-// Init
-(function init() {
-  const stored = CDSite.getStoredLang();
-  if (stored && ['fr','en','es'].includes(stored)) lang = stored;
-  document.documentElement.lang = lang;
-  document.body.className = 'lang-' + lang;
-  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
-    o.classList.toggle('active', o.dataset.lang === lang);
-  });
-  document.getElementById('dateDebut').value = new Date().toISOString().split('T')[0];
-  applyTranslations();
-})();
-</script>
-
-<!-- Filet de sécurité : garantit le rendu du menu même si le script principal échoue -->
-<script>
-(function(){
-  function renderMenus(){
-    if(!window.CDSite) return;
-    try{
-      var stored=null; try{stored=localStorage.getItem('calculdates_lang');}catch(e){}
-      var lang=(stored&&['fr','en','es'].indexOf(stored)>=0)?stored:'fr';
-      var nav=document.getElementById('siteNav');
-      if(nav && !nav.innerHTML.trim()) CDSite.renderNav(lang,'rotation');
-      var foot=document.getElementById('footerLinks');
-      if(foot && !foot.innerHTML.trim()) CDSite.renderFooterLinks(lang,'footerLinks');
-    }catch(e){console.warn('[nav fallback]',e);}
-  }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',renderMenus);
-  else renderMenus();
-  window.addEventListener('load',function(){setTimeout(renderMenus,300);});
-})();
-</script>
-
-</body>
-</html>
+  // Géométrie
