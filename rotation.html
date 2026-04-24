@@ -776,4 +776,176 @@ function genererPDF() {
   const rgbT = [38, 114, 200];
   const rgbC = [52, 168, 83];
 
-  // Géométrie
+  // Géométrie A4
+  const pageW = 210, pageH = 297;
+  const marginX = 10, marginTop = 14, marginBottom = 12;
+  const cols = 3, gapX = 4, gapY = 5;
+  const usableW = pageW - marginX * 2;
+  const monthW = (usableW - gapX * (cols - 1)) / cols;
+  const cellW = monthW / 7;
+  const cellH = cellW * 0.95;
+  const headerH = 7;
+  const dayH = 4.2;
+  const monthH = headerH + dayH + 6 * cellH;
+
+  // Titre
+  doc.setFont('times', 'bold');
+  doc.setFontSize(16);
+  doc.setTextColor(26, 58, 92);
+  doc.text(t.pdfTitle, pageW / 2, marginTop, { align: 'center' });
+
+  // Sous-titre (pattern)
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.setTextColor(90, 90, 90);
+  const tL = parseInt(document.getElementById('travailLen').value);
+  const tU = document.getElementById('travailUnit').value === 'semaines' ? t.unitSemaines : t.unitJours;
+  const cL = parseInt(document.getElementById('congeLen').value);
+  const cU = document.getElementById('congeUnit').value === 'semaines' ? t.unitSemaines : t.unitJours;
+  const sub = `${tL} ${tU} ${t.travailLabel.toLowerCase()} / ${cL} ${cU} ${t.congeLabel.toLowerCase()}`;
+  doc.text(sub, pageW / 2, marginTop + 5.5, { align: 'center' });
+
+  // Légende
+  let legY = marginTop + 9;
+  doc.setFontSize(8);
+  const legItems = [
+    { rgb: rgbT, label: t.travailLabel },
+    { rgb: rgbC, label: t.congeLabel }
+  ];
+  const legGap = 6;
+  const legW = legItems.reduce((a, it) => a + 4 + 1.5 + doc.getTextWidth(it.label) + legGap, 0) - legGap;
+  let legX = (pageW - legW) / 2;
+  legItems.forEach(it => {
+    doc.setFillColor(it.rgb[0], it.rgb[1], it.rgb[2]);
+    doc.roundedRect(legX, legY - 2.6, 4, 3.2, 0.6, 0.6, 'F');
+    doc.setTextColor(40, 40, 40);
+    doc.text(it.label, legX + 5.5, legY);
+    legX += 4 + 1.5 + doc.getTextWidth(it.label) + legGap;
+  });
+
+  // Grille mois
+  const debut = new Date(lastDateDebut + 'T00:00:00');
+  let startY = legY + 6;
+  let y = startY;
+  let x = marginX;
+  let colIdx = 0;
+
+  for (let m = 0; m < nbMois; m++) {
+    const date = new Date(debut.getFullYear(), debut.getMonth() + m, 1);
+    // Saut de page si besoin
+    if (y + monthH > pageH - marginBottom - 22) {
+      doc.addPage();
+      y = marginTop;
+      x = marginX;
+      colIdx = 0;
+    }
+    drawRotationMonthPDF(doc, x, y, monthW, cellW, cellH, headerH, dayH, date.getFullYear(), date.getMonth(), t, lastAssignments, rgbT, rgbC);
+    colIdx++;
+    if (colIdx >= cols) {
+      colIdx = 0;
+      x = marginX;
+      y += monthH + gapY;
+    } else {
+      x += monthW + gapX;
+    }
+  }
+
+  // Stats en bas
+  // Si on a fini une ligne partielle, on passe à la ligne suivante
+  if (colIdx !== 0) {
+    y += monthH + gapY;
+  }
+  if (y + 22 > pageH - marginBottom) {
+    doc.addPage();
+    y = marginTop;
+  }
+  drawRotationStatsPDF(doc, lastAssignments, travailDays, congeDays, rgbT, rgbC, t, marginX, usableW, y);
+
+  // Pied de page
+  const pageCount = doc.internal.getNumberOfPages();
+  for (let p = 1; p <= pageCount; p++) {
+    doc.setPage(p);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7.5);
+    doc.setTextColor(138, 138, 138);
+    doc.text('CalculDates.ca', pageW / 2, pageH - 5, { align: 'center' });
+  }
+
+  return doc;
+}
+
+// ── Initialisation de la page ─────────────────────────────────────────────
+function initRotationPage() {
+  try {
+    if (window.CDSite && typeof CDSite.getStoredLang === 'function') {
+      lang = CDSite.getStoredLang() || 'fr';
+    }
+  } catch(e) { lang = 'fr'; }
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  // Date par défaut : aujourd'hui
+  try {
+    const today = new Date().toISOString().split('T')[0];
+    const dd = document.getElementById('dateDebut');
+    if (dd && !dd.value) dd.value = today;
+  } catch(e) {}
+  // Rendu complet (applyTranslations appelle renderPresets + renderAll)
+  try { applyTranslations(); } catch(e) { console.warn('applyTranslations:', e); }
+  try { renderPresets(); } catch(e) { console.warn('renderPresets:', e); }
+  try { renderAll(); } catch(e) { console.warn('renderAll:', e); }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initRotationPage);
+} else {
+  initRotationPage();
+}
+</script>
+
+<!-- Filet de sécurité : garantit le menu, le footer, les pubs, les presets et la date -->
+<script>
+(function(){
+  function safetyRender() {
+    try {
+      if (!window.CDSite) return;
+      var curLang = (typeof lang === 'string' && lang) ? lang : 'fr';
+      var nav = document.getElementById('siteNav');
+      if (nav && nav.innerHTML.trim().length === 0) {
+        CDSite.renderNav(curLang, 'rotation', 'siteNav');
+      }
+      var fl = document.getElementById('footerLinks');
+      if (fl && fl.innerHTML.trim().length === 0) {
+        CDSite.renderFooterLinks(curLang, 'footerLinks');
+      }
+      var ads = document.getElementById('bottomAds');
+      if (ads && ads.innerHTML.trim().length === 0) {
+        ads.innerHTML = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      }
+      var disc = document.getElementById('affiliateDisclosure');
+      if (disc && !disc.textContent.trim()) {
+        disc.textContent = CDSite.SHARED[curLang].affiliateDisclosure;
+      }
+      var dd = document.getElementById('dateDebut');
+      if (dd && !dd.value) {
+        dd.value = new Date().toISOString().split('T')[0];
+      }
+      var pre = document.getElementById('presets');
+      if (pre && pre.innerHTML.trim().length === 0 && typeof renderPresets === 'function') {
+        try { renderPresets(); } catch(e) {}
+      }
+    } catch(e) { console.warn('safetyRender rotation:', e); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safetyRender);
+  } else {
+    safetyRender();
+  }
+  window.addEventListener('load', safetyRender);
+})();
+</script>
+
+</body>
+</html>
