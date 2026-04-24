@@ -3,9 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Calcul dates — outil gratuit pour calculer dates, garde partagée, rotation de travail et semaines de grossesse (CNESST).">
 <meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
-<title>Calculateur de dates — Date Calculator | CalculDates.ca</title>
+<title>Calcul dates — Date Calculator | CalculDates.ca</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/ads.css">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
 <style>
   :root {
@@ -17,35 +19,20 @@
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: 'DM Sans', sans-serif; background: var(--fond); color: var(--texte); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
 
-  /* ── Header ── */
   header { width: 100%; background: var(--bleu); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
   .logo { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.3rem; letter-spacing: 0.03em; text-decoration: none; }
   .logo span { color: var(--blanc); font-weight: 300; }
-  .lang-toggle { display: flex; align-items: center; gap: 10px; }
-  .lang-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.05em; }
-  .toggle-track { position: relative; width: 72px; height: 30px; background: rgba(255,255,255,0.12); border-radius: 15px; cursor: pointer; border: 1.5px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: space-between; padding: 0 7px; transition: background 0.3s; }
-  .toggle-track:hover { background: rgba(255,255,255,0.18); }
-  .toggle-track .t-fr { color: var(--accent); font-size: 0.7rem; font-weight: 600; z-index: 1; transition: color 0.3s; }
-  .toggle-track .t-en { color: rgba(255,255,255,0.4); font-size: 0.7rem; font-weight: 600; z-index: 1; transition: color 0.3s; }
-  .toggle-thumb { position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; background: var(--accent); border-radius: 50%; transition: transform 0.3s cubic-bezier(.4,0,.2,1); }
-  body.lang-en .toggle-thumb { transform: translateX(42px); }
-  body.lang-en .toggle-track .t-fr { color: rgba(255,255,255,0.4); }
-  body.lang-en .toggle-track .t-en { color: var(--accent); }
+  .header-right { display: flex; align-items: center; gap: 14px; }
+  .lang-label { color: rgba(255,255,255,0.55); font-size: 0.78rem; letter-spacing: 0.05em; }
 
-  /* ── Nav ── */
   nav.site-nav { width: 100%; background: #142d47; border-bottom: 2px solid rgba(232,197,71,0.2); }
-  nav.site-nav .nav-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; padding: 0 16px; gap: 4px; overflow-x: auto; }
-  nav.site-nav .nav-link { display: inline-block; padding: 12px 18px; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  nav.site-nav .nav-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; padding: 0 16px; gap: 4px; overflow-x: auto; }
+  nav.site-nav .nav-link { display: inline-block; padding: 12px 16px; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
   nav.site-nav .nav-link:hover { color: var(--blanc); }
   nav.site-nav .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
 
-  /* ── Ad banner ── */
-  .ad-banner { width: 100%; max-width: 728px; margin: 24px auto 0; background: var(--gris-clair); border: 1px dashed #c0bab0; border-radius: 6px; height: 90px; display: flex; align-items: center; justify-content: center; color: var(--gris); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; }
+  main { width: 100%; max-width: 1080px; padding: 24px 16px 64px; display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start; }
 
-  /* ── Main grid ── */
-  main { width: 100%; max-width: 960px; padding: 32px 16px 64px; display: grid; grid-template-columns: 1fr 320px; gap: 32px; align-items: start; }
-
-  /* ── Card ── */
   .card { background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); overflow: hidden; }
   .card-header { background: var(--bleu); padding: 24px 32px 20px; position: relative; overflow: hidden; }
   .card-header::before { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(232,197,71,0.12); }
@@ -54,40 +41,13 @@
   .card-header p { color: rgba(255,255,255,0.65); font-size: 0.88rem; font-weight: 300; position: relative; z-index: 1; }
   .card-body { padding: 32px; }
 
-  /* ── Direction toggle ── */
-  .direction-toggle {
-    display: flex; align-items: center; justify-content: center;
-    gap: 12px; margin-bottom: 28px;
-    background: var(--fond); border-radius: 12px; padding: 14px 20px;
-    border: 1.5px solid var(--gris-clair);
-    flex-wrap: wrap;
-  }
-  .dir-label {
-    font-size: 0.82rem; font-weight: 500; color: var(--gris);
-    transition: color 0.25s; white-space: nowrap;
-    text-align: center;
-  }
+  .direction-toggle { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 28px; background: var(--fond); border-radius: 12px; padding: 14px 20px; border: 1.5px solid var(--gris-clair); flex-wrap: wrap; }
+  .dir-label { font-size: 0.82rem; font-weight: 500; color: var(--gris); transition: color 0.25s; white-space: nowrap; text-align: center; }
   .dir-label.active { color: var(--bleu); font-weight: 600; }
-  .dir-switch {
-    position: relative; width: 52px; height: 26px;
-    background: var(--bleu); border-radius: 13px;
-    cursor: pointer; flex-shrink: 0;
-    transition: background 0.3s;
-    border: none; outline: none;
-  }
-  .dir-switch-thumb {
-    position: absolute; left: 3px; top: 3px;
-    width: 20px; height: 20px;
-    background: var(--accent); border-radius: 50%;
-    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-  }
+  .dir-switch { position: relative; width: 52px; height: 26px; background: var(--bleu); border-radius: 13px; cursor: pointer; flex-shrink: 0; border: none; outline: none; }
+  .dir-switch-thumb { position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; background: var(--accent); border-radius: 50%; transition: transform 0.3s cubic-bezier(.4,0,.2,1); }
   body.dir-backward .dir-switch-thumb { transform: translateX(26px); }
-  .dir-arrow {
-    font-size: 1rem; color: var(--accent); font-weight: 700;
-    transition: all 0.3s;
-  }
 
-  /* ── Form ── */
   .form-group { margin-bottom: 22px; }
   label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
   input[type="date"], input[type="number"], select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--texte); background: var(--fond); transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; outline: none; }
@@ -96,7 +56,6 @@
   .select-wrapper::after { content: '▾'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--gris); pointer-events: none; }
   .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-  /* ── Result ── */
   .result-box { margin-top: 8px; background: var(--bleu); border-radius: 12px; padding: 24px 28px; position: relative; overflow: hidden; }
   .result-box::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); border-radius: 4px 0 0 4px; }
   .result-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 8px; }
@@ -105,17 +64,14 @@
   .result-delta { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 4px; min-height: 1rem; }
   .result-date.empty { color: rgba(255,255,255,0.2); font-size: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 300; padding-top: 6px; }
 
-  /* ── Sidebar ── */
-  .sidebar { display: flex; flex-direction: column; gap: 20px; }
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
   .info-card { background: var(--blanc); border-radius: 14px; box-shadow: var(--ombre); padding: 22px 24px; }
   .info-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--bleu); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1.5px solid var(--gris-clair); }
   .info-item { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--gris-clair); font-size: 0.88rem; }
   .info-item:last-child { border-bottom: none; }
-  .info-item .label { color: var(--gris); }
+  .info-item .label { color: var(--gris); text-transform: none; letter-spacing: 0; font-weight: 400; margin-bottom: 0; }
   .info-item .value { font-weight: 500; color: var(--bleu); }
-  .ad-sidebar { background: var(--gris-clair); border: 1px dashed #c0bab0; border-radius: 10px; height: 250px; display: flex; align-items: center; justify-content: center; color: var(--gris); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; }
 
-  /* ── Scenarios ── */
   .scenarios { grid-column: 1 / -1; background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); padding: 28px 32px; }
   .scenarios h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--bleu); margin-bottom: 20px; }
   .scenarios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -124,35 +80,30 @@
   .scenario-btn .s-title { font-size: 0.85rem; font-weight: 500; color: var(--bleu); margin-bottom: 3px; }
   .scenario-btn .s-desc  { font-size: 0.75rem; color: var(--gris); }
 
-  /* ── Disclaimer scenarios ── */
   .disclaimer-scenarios { margin-top: 20px; padding: 14px 18px; background: #fff8e6; border-left: 3px solid var(--accent); border-radius: 8px; font-size: 0.8rem; line-height: 1.7; color: #666; }
 
-  /* ── Footer ── */
-  footer { width: 100%; background: var(--bleu); padding: 18px 32px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: auto; }
+  footer { width: 100%; background: var(--bleu); padding: 20px 32px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: auto; }
   footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 8px; }
   footer a:hover { color: var(--accent); }
-  .footer-links { margin-bottom: 8px; }
+  .footer-links { margin-bottom: 10px; }
 
   @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
   .animate { animation: fadeUp 0.3s ease forwards; }
 
-  @media (max-width: 700px) { main { grid-template-columns: 1fr; } .scenarios-grid { grid-template-columns: 1fr 1fr; } .sidebar { display: none; } }
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } .scenarios-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 480px) { .scenarios-grid { grid-template-columns: 1fr; } .row-2 { grid-template-columns: 1fr; } header { padding: 14px 16px; } .lang-label { display: none; } }
-  @media (max-width: 540px) {
-    .direction-toggle { flex-direction: column; gap: 8px; padding: 12px 16px; }
-    .dir-label { font-size: 0.78rem; }
-  }
 </style>
 </head>
 <body>
 
 <header>
   <a href="index.html" class="logo">Calcul<span>Dates</span>.ca</a>
-  <div class="lang-toggle">
+  <div class="header-right">
     <span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
-    <div class="toggle-track" onclick="toggleLang()">
-      <span class="t-fr">FR</span><span class="t-en">EN</span>
-      <div class="toggle-thumb"></div>
+    <div class="lang-toggle-3" onclick="toggleLang()" id="langToggle" title="Language">
+      <span class="lang-opt" data-lang="fr">FR</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+      <span class="lang-opt" data-lang="es">ES</span>
     </div>
   </div>
 </header>
@@ -161,17 +112,14 @@
   <div class="nav-inner" id="siteNav"></div>
 </nav>
 
-<div class="ad-banner" id="adBannerLabel">Espace publicitaire — 728×90</div>
-
 <main>
   <div class="card">
     <div class="card-header">
-      <h1 id="mainTitle">Calculateur de dates</h1>
+      <h1 id="mainTitle">Calcul dates</h1>
       <p id="mainSubtitle">Ajoutez des jours, semaines, mois ou années à une date de début</p>
     </div>
     <div class="card-body">
 
-      <!-- Direction toggle -->
       <div class="direction-toggle">
         <span class="dir-label active" id="dirLabelForward">Date de début → Date d'échéance</span>
         <button class="dir-switch" onclick="toggleDirection()" id="dirSwitch" title="Inverser le sens">
@@ -180,7 +128,6 @@
         <span class="dir-label" id="dirLabelBackward">Date d'échéance → Date de début</span>
       </div>
 
-      <!-- Champ date principal -->
       <div class="form-group">
         <label id="labelStart">Date de départ <span id="startDayLabel" style="color:var(--bleu-clair);font-weight:500;text-transform:none;letter-spacing:0;font-size:0.85rem;"></span></label>
         <input type="date" id="startDate" />
@@ -215,7 +162,7 @@
     </div>
   </div>
 
-  <div class="sidebar">
+  <aside class="sidebar">
     <div class="info-card">
       <h3 id="infoTitle">📋 Infos calculées</h3>
       <div class="info-item"><span class="label" id="labelTotalDays">Jours totaux</span><span class="value" id="infoJours">—</span></div>
@@ -224,61 +171,58 @@
       <div class="info-item"><span class="label" id="labelDayOfWeek">Jour de la semaine</span><span class="value" id="infoJourSemaine">—</span></div>
       <div class="info-item"><span class="label" id="labelSundayWeek">Semaine civile débute</span><span class="value" id="infoDimanche">—</span></div>
     </div>
-    <div class="ad-sidebar" id="adSidebarLabel">Espace pub — 300×250</div>
-  </div>
+    <div class="ads-stack" id="sidebarAds"></div>
+  </aside>
 
   <div class="scenarios">
     <h2 id="scenariosTitle">⚡ Scénarios fréquents au Québec</h2>
     <div class="scenarios-grid" id="scenariosGrid"></div>
     <div class="disclaimer-scenarios" id="disclaimerScenarios">
-      ⚠️ Ces scénarios sont fournis à titre indicatif seulement. Les délais légaux peuvent varier selon votre situation personnelle, votre convention collective ou les lois en vigueur. L'utilisateur est seul responsable de valider les informations avec les autorités compétentes ou un professionnel qualifié.
+      ⚠️ Ces scénarios sont fournis à titre indicatif seulement. Les délais légaux peuvent varier selon votre situation personnelle, votre convention collective ou les lois en vigueur.
     </div>
+  </div>
+
+  <div style="grid-column: 1 / -1;">
+    <div class="ads-row" id="bottomAds"></div>
   </div>
 </main>
 
 <footer>
-  <div class="footer-links">
-    <a href="index.html"          id="footerHome">Accueil</a>
-    <a href="about.html"          id="footerAbout">À propos</a>
-    <a href="privacy-policy.html" id="footerPrivacy">Politique de confidentialité</a>
-  </div>
+  <div class="footer-links" id="footerLinks"></div>
   <div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
+  <div style="margin-top:8px;font-size:0.72rem;">
+    <a href="mailto:info@calculdates.ca">info@calculdates.ca</a>
+  </div>
 </footer>
 
+<script src="assets/site-config.js"></script>
 <script>
 const ACTIVE_PAGE = 'home';
-let lang = 'fr';
-let direction = 'forward'; // 'forward' = début→échéance | 'backward' = échéance→début
+let lang = (window.CDSite && CDSite.getStoredLang()) || 'fr';
+let direction = 'forward';
 
 const i18n = {
   fr: {
-    headerSubtitle:'Outil gratuit · Québec',
-    mainTitle:'Calculateur de dates',
+    mainTitle:'Calcul dates',
     mainSubtitleForward:'Ajoutez des jours, semaines, mois ou années à une date de début',
     mainSubtitleBackward:"Calculez la date de début à partir d'une date d'échéance",
     dirLabelForward:"Date de début → Date d'échéance",
     dirLabelBackward:"Date d'échéance → Date de début",
-    labelStartForward:'Date de début',
-    labelStartBackward:"Date d'échéance",
+    labelStartForward:'Date de début', labelStartBackward:"Date d'échéance",
     labelQty:'Quantité', labelUnit:'Unité',
     optChoose:'— Choisir —', optDay:'Jour(s)', optWeek:'Semaine(s)', optMonth:'Mois', optYear:'Année(s)',
-    resultLabelForward:"Date d'échéance",
-    resultLabelBackward:'Date de début',
+    resultLabelForward:"Date d'échéance", resultLabelBackward:'Date de début',
     resultEmpty:'Remplissez les champs ci-dessus',
     infoTitle:'📋 Infos calculées',
     labelTotalDays:'Jours totaux', labelWeeks:'Semaines complètes', labelMonths:'Mois complets',
     labelDayOfWeek:'Jour de la semaine', labelSundayWeek:'Semaine civile débute',
-    adBanner:'Espace publicitaire — 728×90', adSidebar:'Espace pub — 300×250',
     scenariosTitle:'⚡ Scénarios fréquents au Québec',
-    disclaimerScenarios:"⚠️ Ces scénarios sont fournis à titre indicatif seulement. Les délais légaux peuvent varier selon votre situation personnelle, votre convention collective ou les lois en vigueur. L'utilisateur est seul responsable de valider les informations avec les autorités compétentes ou un professionnel qualifié.",
+    disclaimerScenarios:"⚠️ Ces scénarios sont fournis à titre indicatif seulement. Les délais légaux peuvent varier selon votre situation personnelle, votre convention collective ou les lois en vigueur.",
     deltaTextForward:(n)=>`${n} jours après la date de début`,
     deltaTextBackward:(n)=>`${n} jours avant la date d'échéance`,
     daysUnit:'j', weeksUnit:'sem.', monthsUnit:'mois',
-    footer:'© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.',
-    footerHome:'Accueil', footerAbout:'À propos', footerPrivacy:'Politique de confidentialité',
     days:['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
     months:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
-    nav:[{label:'Accueil',href:'index.html',key:'home'},{label:'Garde partagée',href:'garde.html',key:'garde'},{label:'À propos',href:'about.html',key:'about'},{label:'Politique de conf.',href:'privacy-policy.html',key:'privacy'}],
     scenarios:[
       {title:'🤱 Maternité — secteur public',desc:'21 semaines (convention collective)',qty:21,unit:'week',dir:'forward'},
       {title:'🤱 Maternité — régime de base',desc:'18 semaines (RQAP)',qty:18,unit:'week',dir:'forward'},
@@ -286,38 +230,30 @@ const i18n = {
       {title:'👨 Congé paternité',desc:'5 semaines (RQAP)',qty:5,unit:'week',dir:'forward'},
       {title:'👶 Congé parental',desc:'32 semaines partageables',qty:32,unit:'week',dir:'forward'},
       {title:'⚖️ Plainte congédiement',desc:'45 jours (Normes du travail)',qty:45,unit:'day',dir:'forward'},
-      {title:'🏠 Préavis résiliation bail',desc:'Entrez la date de fin de bail → calcule quand envoyer le préavis (3 mois)',qty:3,unit:'month',dir:'backward'},
+      {title:'🏠 Préavis résiliation bail',desc:'Date de fin de bail → quand envoyer le préavis (3 mois)',qty:3,unit:'month',dir:'backward'},
       {title:'📅 Fin de garantie',desc:'1 an après achat/construction',qty:1,unit:'year',dir:'forward'},
     ]
   },
   en: {
-    headerSubtitle:'Free tool · Québec',
     mainTitle:'Date Calculator',
     mainSubtitleForward:'Add days, weeks, months or years to a start date',
     mainSubtitleBackward:'Calculate the start date from a deadline',
-    dirLabelForward:'Start date → Deadline',
-    dirLabelBackward:'Deadline → Start date',
-    labelStartForward:'Start date',
-    labelStartBackward:'Deadline',
+    dirLabelForward:'Start date → Deadline', dirLabelBackward:'Deadline → Start date',
+    labelStartForward:'Start date', labelStartBackward:'Deadline',
     labelQty:'Quantity', labelUnit:'Unit',
     optChoose:'— Choose —', optDay:'Day(s)', optWeek:'Week(s)', optMonth:'Month(s)', optYear:'Year(s)',
-    resultLabelForward:'Deadline',
-    resultLabelBackward:'Start date',
+    resultLabelForward:'Deadline', resultLabelBackward:'Start date',
     resultEmpty:'Fill in the fields above',
     infoTitle:'📋 Calculated info',
     labelTotalDays:'Total days', labelWeeks:'Full weeks', labelMonths:'Full months',
     labelDayOfWeek:'Day of the week', labelSundayWeek:'Civil week starts',
-    adBanner:'Ad space — 728×90', adSidebar:'Ad space — 300×250',
     scenariosTitle:'⚡ Common Québec scenarios',
-    disclaimerScenarios:"⚠️ These scenarios are provided for informational purposes only. Legal deadlines may vary based on your personal situation, collective agreement, or applicable laws. The user is solely responsible for validating this information with the relevant authorities or a qualified professional.",
+    disclaimerScenarios:"⚠️ These scenarios are for informational purposes only. Legal deadlines vary based on your situation, collective agreement, or applicable laws.",
     deltaTextForward:(n)=>`${n} days after the start date`,
     deltaTextBackward:(n)=>`${n} days before the deadline`,
     daysUnit:'d', weeksUnit:'wks', monthsUnit:'mo',
-    footer:'© 2026 CalculDates.ca — For informational purposes only. Please consult a professional for your personal situation.',
-    footerHome:'Home', footerAbout:'About', footerPrivacy:'Privacy Policy',
     days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
     months:['January','February','March','April','May','June','July','August','September','October','November','December'],
-    nav:[{label:'Home',href:'index.html',key:'home'},{label:'Shared Custody',href:'garde.html',key:'garde'},{label:'About',href:'about.html',key:'about'},{label:'Privacy Policy',href:'privacy-policy.html',key:'privacy'}],
     scenarios:[
       {title:'🤱 Maternity — public sector',desc:'21 weeks (collective agreement)',qty:21,unit:'week',dir:'forward'},
       {title:'🤱 Maternity — base plan',desc:'18 weeks (QPIP)',qty:18,unit:'week',dir:'forward'},
@@ -325,13 +261,43 @@ const i18n = {
       {title:'👨 Paternity leave',desc:'5 weeks (QPIP)',qty:5,unit:'week',dir:'forward'},
       {title:'👶 Parental leave',desc:'32 shareable weeks',qty:32,unit:'week',dir:'forward'},
       {title:'⚖️ Wrongful dismissal',desc:'45 days (Labour Standards)',qty:45,unit:'day',dir:'forward'},
-      {title:'🏠 Lease termination',desc:'Enter lease end date → calculates when to send notice (3 months)',qty:3,unit:'month',dir:'backward'},
+      {title:'🏠 Lease termination',desc:'Lease end date → when to send notice (3 months)',qty:3,unit:'month',dir:'backward'},
       {title:'📅 Warranty expiry',desc:'1 year after purchase/construction',qty:1,unit:'year',dir:'forward'},
+    ]
+  },
+  es: {
+    mainTitle:'Calcular fechas',
+    mainSubtitleForward:'Agregue días, semanas, meses o años a una fecha de inicio',
+    mainSubtitleBackward:'Calcule la fecha de inicio a partir de una fecha límite',
+    dirLabelForward:'Fecha inicio → Fecha límite', dirLabelBackward:'Fecha límite → Fecha inicio',
+    labelStartForward:'Fecha de inicio', labelStartBackward:'Fecha límite',
+    labelQty:'Cantidad', labelUnit:'Unidad',
+    optChoose:'— Elegir —', optDay:'Día(s)', optWeek:'Semana(s)', optMonth:'Mes(es)', optYear:'Año(s)',
+    resultLabelForward:'Fecha límite', resultLabelBackward:'Fecha de inicio',
+    resultEmpty:'Complete los campos arriba',
+    infoTitle:'📋 Información calculada',
+    labelTotalDays:'Días totales', labelWeeks:'Semanas completas', labelMonths:'Meses completos',
+    labelDayOfWeek:'Día de la semana', labelSundayWeek:'Inicio semana civil',
+    scenariosTitle:'⚡ Escenarios frecuentes en Quebec',
+    disclaimerScenarios:"⚠️ Estos escenarios son solo informativos. Los plazos legales varían según su situación, convenio colectivo o leyes vigentes.",
+    deltaTextForward:(n)=>`${n} días después de la fecha de inicio`,
+    deltaTextBackward:(n)=>`${n} días antes de la fecha límite`,
+    daysUnit:'d', weeksUnit:'sem.', monthsUnit:'mes',
+    days:['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+    months:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+    scenarios:[
+      {title:'🤱 Maternidad — sector público',desc:'21 semanas (convenio colectivo)',qty:21,unit:'week',dir:'forward'},
+      {title:'🤱 Maternidad — plan base',desc:'18 semanas (RQAP)',qty:18,unit:'week',dir:'forward'},
+      {title:'🤱 Maternidad — plan especial',desc:'15 semanas (RQAP)',qty:15,unit:'week',dir:'forward'},
+      {title:'👨 Permiso paternidad',desc:'5 semanas (RQAP)',qty:5,unit:'week',dir:'forward'},
+      {title:'👶 Permiso parental',desc:'32 semanas compartibles',qty:32,unit:'week',dir:'forward'},
+      {title:'⚖️ Denuncia despido',desc:'45 días (Normas laborales)',qty:45,unit:'day',dir:'forward'},
+      {title:'🏠 Terminación arrendamiento',desc:'Fin contrato → cuándo enviar aviso (3 meses)',qty:3,unit:'month',dir:'backward'},
+      {title:'📅 Fin garantía',desc:'1 año tras compra/construcción',qty:1,unit:'year',dir:'forward'},
     ]
   }
 };
 
-// ── Direction toggle ──────────────────────────────────────────────────────
 function toggleDirection() {
   direction = direction === 'forward' ? 'backward' : 'forward';
   document.body.classList.toggle('dir-backward', direction === 'backward');
@@ -366,71 +332,64 @@ function resetResult() {
   ['infoJours','infoSemaines','infoMois','infoJourSemaine','infoDimanche'].forEach(id=>document.getElementById(id).textContent='—');
 }
 
-// ── Lang toggle ───────────────────────────────────────────────────────────
-function renderNav() {
-  document.getElementById('siteNav').innerHTML = i18n[lang].nav.map(l =>
-    `<a href="${l.href}" class="nav-link ${l.key===ACTIVE_PAGE?'active':''}">${l.label}</a>`
-  ).join('');
+function updateLangToggleUI() {
+  document.querySelectorAll('#langToggle .lang-opt').forEach(el => {
+    el.classList.toggle('active', el.dataset.lang === lang);
+  });
 }
 
 function toggleLang() {
-  lang = lang==='fr'?'en':'fr';
+  lang = CDSite.cycleLang(lang);
+  CDSite.setStoredLang(lang);
   document.documentElement.lang = lang;
-  document.body.classList.toggle('lang-en', lang==='en');
+  updateLangToggleUI();
   applyTranslations();
   calculate();
 }
 
 function applyTranslations() {
   const t = i18n[lang];
-  document.getElementById('headerSubtitle').textContent  = t.headerSubtitle;
-  document.getElementById('mainTitle').textContent       = t.mainTitle;
-  document.getElementById('labelQty').textContent        = t.labelQty;
-  document.getElementById('labelUnit').textContent       = t.labelUnit;
-  document.getElementById('optChoose').textContent       = t.optChoose;
-  document.getElementById('optDay').textContent          = t.optDay;
-  document.getElementById('optWeek').textContent         = t.optWeek;
-  document.getElementById('optMonth').textContent        = t.optMonth;
-  document.getElementById('optYear').textContent         = t.optYear;
-  document.getElementById('infoTitle').textContent       = t.infoTitle;
-  document.getElementById('labelTotalDays').textContent  = t.labelTotalDays;
-  document.getElementById('labelWeeks').textContent      = t.labelWeeks;
-  document.getElementById('labelMonths').textContent     = t.labelMonths;
-  document.getElementById('labelDayOfWeek').textContent  = t.labelDayOfWeek;
-  document.getElementById('labelSundayWeek').textContent = t.labelSundayWeek;
-  document.getElementById('adBannerLabel').textContent   = t.adBanner;
-  document.getElementById('adSidebarLabel').textContent  = t.adSidebar;
-  document.getElementById('scenariosTitle').textContent  = t.scenariosTitle;
+  const s = CDSite.SHARED[lang];
+  document.getElementById('headerSubtitle').textContent = s.headerSubtitle;
+  document.getElementById('mainTitle').textContent      = t.mainTitle;
+  document.getElementById('labelQty').textContent       = t.labelQty;
+  document.getElementById('labelUnit').textContent      = t.labelUnit;
+  document.getElementById('optChoose').textContent      = t.optChoose;
+  document.getElementById('optDay').textContent         = t.optDay;
+  document.getElementById('optWeek').textContent        = t.optWeek;
+  document.getElementById('optMonth').textContent       = t.optMonth;
+  document.getElementById('optYear').textContent        = t.optYear;
+  document.getElementById('infoTitle').textContent      = t.infoTitle;
+  document.getElementById('labelTotalDays').textContent = t.labelTotalDays;
+  document.getElementById('labelWeeks').textContent     = t.labelWeeks;
+  document.getElementById('labelMonths').textContent    = t.labelMonths;
+  document.getElementById('labelDayOfWeek').textContent = t.labelDayOfWeek;
+  document.getElementById('labelSundayWeek').textContent= t.labelSundayWeek;
+  document.getElementById('scenariosTitle').textContent = t.scenariosTitle;
   document.getElementById('disclaimerScenarios').textContent = t.disclaimerScenarios;
-  document.getElementById('footerText').textContent      = t.footer;
-  document.getElementById('footerHome').textContent      = t.footerHome;
-  document.getElementById('footerAbout').textContent     = t.footerAbout;
-  document.getElementById('footerPrivacy').textContent   = t.footerPrivacy;
-  document.getElementById('scenariosGrid').innerHTML = t.scenarios.map(s =>
-    `<button class="scenario-btn" onclick="applyScenario(${s.qty},'${s.unit}','${s.dir}')"><div class="s-title">${s.title}</div><div class="s-desc">${s.desc}</div></button>`
+  document.getElementById('footerText').textContent     = s.footerText;
+  document.getElementById('scenariosGrid').innerHTML = t.scenarios.map(sc =>
+    `<button class="scenario-btn" onclick="applyScenario(${sc.qty},'${sc.unit}','${sc.dir}')"><div class="s-title">${sc.title}</div><div class="s-desc">${sc.desc}</div></button>`
   ).join('');
   updateDirectionLabels();
-  renderNav();
+  CDSite.renderNav(lang, ACTIVE_PAGE);
+  CDSite.renderFooterLinks(lang, 'footerLinks');
+  document.getElementById('sidebarAds').innerHTML  = CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+  document.getElementById('bottomAds').innerHTML   = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
 }
 
-// ── Calcul ────────────────────────────────────────────────────────────────
-function formatDate(d) {
-  const t = i18n[lang];
-  return `${d.getDate()} ${t.months[d.getMonth()]} ${d.getFullYear()}`;
-}
+function formatDate(d) { const t = i18n[lang]; return `${d.getDate()} ${t.months[d.getMonth()]} ${d.getFullYear()}`; }
 function getSunday(d) { const c=new Date(d); c.setDate(c.getDate()-c.getDay()); return c; }
 
 function calculate() {
-  const t        = i18n[lang];
-  const dateVal  = document.getElementById('startDate').value;
-  const qty      = parseInt(document.getElementById('quantity').value);
-  const unit     = document.getElementById('unit').value;
-  const sdl      = document.getElementById('startDayLabel');
+  const t       = i18n[lang];
+  const dateVal = document.getElementById('startDate').value;
+  const qty     = parseInt(document.getElementById('quantity').value);
+  const unit    = document.getElementById('unit').value;
+  const sdl     = document.getElementById('startDayLabel');
 
-  if(dateVal) {
-    const sd = new Date(dateVal+'T00:00:00');
-    sdl.textContent = '— ' + t.days[sd.getDay()];
-  } else { sdl.textContent = ''; }
+  if(dateVal) { const sd = new Date(dateVal+'T00:00:00'); sdl.textContent = '— ' + t.days[sd.getDay()]; }
+  else { sdl.textContent = ''; }
 
   if(!dateVal || isNaN(qty) || qty < 0 || !unit) { resetResult(); return; }
 
@@ -438,13 +397,11 @@ function calculate() {
   let resultDate  = new Date(inputDate);
 
   if(direction === 'forward') {
-    // Départ + durée = échéance (-1 car le jour de départ compte)
     if(unit==='day')   resultDate.setDate(resultDate.getDate()+qty-1);
     if(unit==='week')  resultDate.setDate(resultDate.getDate()+qty*7-1);
     if(unit==='month') { resultDate.setMonth(resultDate.getMonth()+qty); resultDate.setDate(resultDate.getDate()-1); }
     if(unit==='year')  { resultDate.setFullYear(resultDate.getFullYear()+qty); resultDate.setDate(resultDate.getDate()-1); }
   } else {
-    // Échéance - durée = départ (+1 car le jour d'échéance compte)
     if(unit==='day')   resultDate.setDate(resultDate.getDate()-qty+1);
     if(unit==='week')  resultDate.setDate(resultDate.getDate()-qty*7+1);
     if(unit==='month') { resultDate.setMonth(resultDate.getMonth()-qty); resultDate.setDate(resultDate.getDate()+1); }
@@ -461,7 +418,6 @@ function calculate() {
 
   document.getElementById('resultDay').textContent   = t.days[resultDate.getDay()];
   document.getElementById('resultDelta').textContent = direction==='forward' ? t.deltaTextForward(diff) : t.deltaTextBackward(diff);
-
   document.getElementById('infoJours').textContent       = diff+' '+t.daysUnit;
   document.getElementById('infoSemaines').textContent    = Math.floor(diff/7)+' '+t.weeksUnit;
   document.getElementById('infoMois').textContent        = Math.floor(diff/30.44).toFixed(0)+' '+t.monthsUnit;
@@ -470,30 +426,20 @@ function calculate() {
 }
 
 function applyScenario(qty, unit, dir) {
-  // Bascule automatiquement la direction si nécessaire
   if(dir && dir !== direction) {
     direction = dir;
     document.body.classList.toggle('dir-backward', direction === 'backward');
-    updateDirectionLabels();
-    resetResult();
+    updateDirectionLabels(); resetResult();
   }
   if(!document.getElementById('startDate').value)
     document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
   document.getElementById('quantity').value = qty;
   document.getElementById('unit').value = unit;
   calculate();
+  // Popup don (1× par session) — délai pour laisser le résultat s'afficher
+  if (window.CDSite) setTimeout(function(){ CDSite.showDonatePopup(lang); }, 600);
 }
 
 document.getElementById('startDate').addEventListener('change', calculate);
 document.getElementById('quantity').addEventListener('input', calculate);
-document.getElementById('unit').addEventListener('change', calculate);
-
-// Init
-document.getElementById('scenariosGrid').innerHTML = i18n.fr.scenarios.map(s =>
-  `<button class="scenario-btn" onclick="applyScenario(${s.qty},'${s.unit}','${s.dir}')"><div class="s-title">${s.title}</div><div class="s-desc">${s.desc}</div></button>`
-).join('');
-renderNav();
-updateDirectionLabels();
-</script>
-</body>
-</html>
+document.getEle

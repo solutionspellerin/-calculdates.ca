@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
+<meta name="description" content="Calculateur de rotation de travail — 2 semaines travail / 2 semaines congé, 14/14, 7/7, rotation flexible. Exportez en PDF ou ajoutez à Google/Apple/Outlook Calendar.">
+<title>Rotation de travail — Horaire 2/2, 14/14, 7/7 | CalculDates.ca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/ads.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="assets/site-config.js"></script>
+<style>
+  :root {
+    --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
+    --fond: #f4f1eb; --blanc: #ffffff; --gris: #8a8a8a;
+    --gris-clair: #e8e4dc; --texte: #1a1a1a;
+    --ombre: 0 4px 24px rgba(26,58,92,0.10);
+    --travail: #2672c8; --conge: #34a853;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--fond); color: var(--texte); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+  header { width: 100%; background: var(--bleu); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.3rem; letter-spacing: 0.03em; text-decoration: none; }
+  .logo span { color: var(--blanc); font-weight: 300; }
+  .lang-toggle { display: flex; align-items: center; gap: 10px; }
+  .lang-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.05em; }
+
+  nav.site-nav { width: 100%; background: #142d47; border-bottom: 2px solid rgba(232,197,71,0.2); }
+  nav.site-nav .nav-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; padding: 0 16px; gap: 4px; overflow-x: auto; }
+  nav.site-nav .nav-link { display: inline-block; padding: 12px 18px; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  nav.site-nav .nav-link:hover { color: var(--blanc); }
+  nav.site-nav .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main { width: 100%; max-width: 960px; padding: 32px 16px 64px; display: flex; flex-direction: column; gap: 28px; }
+
+  .card { background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); overflow: hidden; }
+  .card-header { background: var(--bleu); padding: 24px 32px 20px; position: relative; overflow: hidden; }
+  .card-header::before { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(232,197,71,0.12); }
+  .card-header h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--blanc); margin-bottom: 6px; position: relative; z-index: 1; }
+  .card-header p { color: rgba(255,255,255,0.65); font-size: 0.88rem; font-weight: 300; position: relative; z-index: 1; }
+  .card-body { padding: 28px 32px; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  .form-group-full { grid-column: 1 / -1; }
+  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+  input[type="date"], input[type="number"], select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--texte); background: var(--fond); transition: border-color 0.2s; appearance: none; -webkit-appearance: none; outline: none; }
+  input[type="date"]:focus, input[type="number"]:focus, select:focus { border-color: var(--bleu-clair); box-shadow: 0 0 0 3px rgba(45,106,159,0.12); background: var(--blanc); }
+
+  .pattern-input-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .pattern-input { display: flex; align-items: center; gap: 10px; background: var(--fond); border: 1.5px solid var(--gris-clair); border-radius: 10px; padding: 10px 12px; }
+  .pattern-input label { margin-bottom: 0; font-size: 0.72rem; white-space: nowrap; }
+  .pattern-input input[type="number"] { border: none; background: transparent; padding: 6px 8px; font-weight: 600; font-size: 1rem; width: 60px; }
+  .pattern-unit-select { width: auto; padding: 6px 8px; border: none; background: var(--blanc); border-radius: 6px; font-size: 0.82rem; }
+
+  .presets { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .preset-btn { padding: 8px 14px; background: var(--fond); border: 1.5px solid var(--gris-clair); border-radius: 20px; font-family: 'DM Sans', sans-serif; font-size: 0.82rem; cursor: pointer; color: var(--bleu); transition: all 0.2s; }
+  .preset-btn:hover { background: var(--blanc); border-color: var(--bleu-clair); }
+  .preset-btn.active { background: var(--bleu); color: var(--blanc); border-color: var(--bleu); }
+
+  .who-btns { display: flex; gap: 10px; }
+  .who-btn { flex: 1; padding: 12px 16px; border: 2px solid var(--gris-clair); border-radius: 10px; background: var(--fond); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.2s; text-align: center; }
+  .who-btn.active-travail { background: var(--travail); color: var(--blanc); border-color: var(--travail); }
+  .who-btn.active-conge { background: var(--conge); color: var(--blanc); border-color: var(--conge); }
+
+  .btn-generate { width: 100%; padding: 16px; background: var(--bleu); color: var(--blanc); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.02em; }
+  .btn-generate:hover { background: var(--bleu-clair); }
+
+  .calendrier-section { display: none; }
+  .calendrier-section.visible { display: block; }
+  .cal-actions { display: flex; gap: 12px; margin-bottom: 24px; flex-wrap: wrap; align-items: center; }
+  .cal-actions h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--bleu); flex: 1; }
+  .btn-action { padding: 10px 20px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; color: var(--blanc); }
+  .btn-pdf { background: #d93636; }
+  .btn-pdf:hover { background: #b92e2e; }
+  .btn-print { background: var(--bleu); }
+  .btn-print:hover { background: var(--bleu-clair); }
+  .btn-ical { background: #34a853; }
+  .btn-ical:hover { background: #2d9147; }
+  .btn-google { background: #4285f4; }
+  .btn-google:hover { background: #357ae8; }
+
+  .legende { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+  .legende-item { display: flex; align-items: center; gap: 8px; font-size: 0.88rem; font-weight: 500; }
+  .legende-dot { width: 16px; height: 16px; border-radius: 4px; }
+
+  .calendrier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .mois-card { background: var(--blanc); border-radius: 12px; border: 1px solid var(--gris-clair); overflow: hidden; }
+  .mois-header { background: var(--bleu); color: var(--blanc); padding: 10px 14px; font-family: 'Playfair Display', serif; font-size: 0.95rem; text-align: center; }
+  .mois-grid { display: grid; grid-template-columns: repeat(7, 1fr); }
+  .jour-header { text-align: center; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.05em; color: var(--gris); padding: 8px 0 4px; text-transform: uppercase; }
+  .jour-cell { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; font-weight: 500; transition: opacity 0.1s; border-radius: 4px; margin: 1px; }
+  .jour-cell.vide { background: none; }
+  .jour-cell.travail { background: var(--travail); color: white; }
+  .jour-cell.conge { background: var(--conge); color: white; }
+
+  .stats-bar { display: flex; gap: 16px; margin-top: 20px; flex-wrap: wrap; }
+  .stat-item { background: var(--fond); border-radius: 10px; padding: 12px 18px; flex: 1; min-width: 140px; }
+  .stat-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 4px; }
+  .stat-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--bleu); }
+  .stat-sub { font-size: 0.75rem; color: var(--gris); }
+
+  footer { width: 100%; background: var(--bleu); padding: 18px 32px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: auto; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 8px; }
+  footer a:hover { color: var(--accent); }
+  .footer-links { margin-bottom: 8px; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    header, nav.site-nav, .card-header p, .form-card, .cal-actions .btn-action, footer, .ads-stack, .ads-row, .ad-cfo, .ad-alch, .ad-amz { display: none !important; }
+    .calendrier-grid { grid-template-columns: repeat(3, 1fr); }
+    .mois-card { break-inside: avoid; }
+    body { background: white; }
+  }
+
+  @media (max-width: 700px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .calendrier-grid { grid-template-columns: 1fr; }
+    .card-body { padding: 20px 16px; }
+    .pattern-input-grid { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    header { padding: 14px 16px; }
+    .lang-label { display: none; }
+    .who-btns { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Calcul<span>Dates</span>.ca</a>
+  <div class="lang-toggle">
+    <span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
+    <div class="lang-toggle-3" onclick="cycleLang()" id="langToggle">
+      <span class="lang-opt active" data-lang="fr">FR</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+      <span class="lang-opt" data-lang="es">ES</span>
+    </div>
+  </div>
+</header>
+
+<nav class="site-nav">
+  <div class="nav-inner" id="siteNav"></div>
+</nav>
+
+<main>
+  <div class="card form-card">
+    <div class="card-header">
+      <h1 id="pageTitle">🔁 Rotation de travail</h1>
+      <p id="pageSubtitle">Calculez votre horaire de travail/congé (2/2, 14/14, 7/7 ou personnalisé)</p>
+    </div>
+    <div class="card-body">
+
+      <label id="labelPresets">Horaires courants</label>
+      <div class="presets" id="presets"></div>
+
+      <label id="labelPattern" style="margin-top:6px;">Rotation personnalisée</label>
+      <div class="pattern-input-grid" style="margin-bottom:20px;">
+        <div class="pattern-input">
+          <label id="labelTravailLen">Travail</label>
+          <input type="number" id="travailLen" value="14" min="1" max="60" />
+          <select class="pattern-unit-select" id="travailUnit">
+            <option value="jours">jours</option>
+            <option value="semaines">semaines</option>
+          </select>
+        </div>
+        <div class="pattern-input">
+          <label id="labelCongeLen">Congé</label>
+          <input type="number" id="congeLen" value="14" min="1" max="60" />
+          <select class="pattern-unit-select" id="congeUnit">
+            <option value="jours">jours</option>
+            <option value="semaines">semaines</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-grid">
+        <div>
+          <label id="labelDebut">Date de début de rotation</label>
+          <input type="date" id="dateDebut" />
+        </div>
+        <div>
+          <label id="labelDuree">Durée à afficher</label>
+          <select id="duree">
+            <option value="1">1 mois</option>
+            <option value="3">3 mois</option>
+            <option value="6" selected>6 mois</option>
+            <option value="12">1 an</option>
+            <option value="24">2 ans</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="margin-bottom:24px;">
+        <label id="labelStart">La date de début est en…</label>
+        <div class="who-btns">
+          <button class="who-btn active-travail" id="startTravail" onclick="setStart('travail')">💼 Travail</button>
+          <button class="who-btn" id="startConge" onclick="setStart('conge')">🌴 Congé</button>
+        </div>
+      </div>
+
+      <button class="btn-generate" onclick="genererRotation()" id="btnGenerer">✨ Générer la rotation</button>
+    </div>
+  </div>
+
+  <div class="card calendrier-section" id="calendrierSection">
+    <div class="card-body">
+      <div class="cal-actions">
+        <h2 id="calTitre">Votre horaire de rotation</h2>
+        <button class="btn-action btn-pdf" onclick="telechargerPDF()" id="btnPdf">📄 PDF</button>
+        <button class="btn-action btn-print" onclick="imprimerCal()" id="btnImprimer">🖨️ Imprimer</button>
+        <button class="btn-action btn-ical" onclick="exporterICal()" id="btnIcal">📲 Apple / Outlook (.ics)</button>
+        <button class="btn-action btn-google" onclick="ouvrirGoogle()" id="btnGoogle">📅 Google Calendar</button>
+      </div>
+
+      <div class="legende" id="legende"></div>
+      <div class="calendrier-grid" id="calendrierGrid"></div>
+      <div class="stats-bar" id="statsBar"></div>
+    </div>
+  </div>
+
+  <!-- Pubs -->
+  <div class="ads-row" id="bottomAds"></div>
+
+  <p style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;" id="affiliateDisclosure"></p>
+</main>
+
+<footer>
+  <div class="footer-links" id="footerLinks"></div>
+  <div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
+  <div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
+</footer>
+
+<script>
+const ACTIVE_PAGE = 'rotation';
+let lang = 'fr';
+let startType = 'travail'; // 'travail' ou 'conge'
+let lastAssignments = null;
+let lastDateDebut = null;
+
+const presets = [
+  { id: '2s-2s',  travail: 2,  tUnit: 'semaines', conge: 2,  cUnit: 'semaines', label: {fr:'2 sem. / 2 sem.', en:'2 wk / 2 wk',  es:'2 sem. / 2 sem.'} },
+  { id: '14-14',  travail: 14, tUnit: 'jours',    conge: 14, cUnit: 'jours',    label: {fr:'14 / 14 jours',   en:'14 / 14 days',  es:'14 / 14 días'} },
+  { id: '7-7',    travail: 7,  tUnit: 'jours',    conge: 7,  cUnit: 'jours',    label: {fr:'7 / 7 jours',     en:'7 / 7 days',    es:'7 / 7 días'} },
+  { id: '4-4',    travail: 4,  tUnit: 'jours',    conge: 4,  cUnit: 'jours',    label: {fr:'4 / 4 jours',     en:'4 / 4 days',    es:'4 / 4 días'} },
+  { id: '21-7',   travail: 21, tUnit: 'jours',    conge: 7,  cUnit: 'jours',    label: {fr:'21 / 7 jours',    en:'21 / 7 days',   es:'21 / 7 días'} },
+  { id: '28-28',  travail: 28, tUnit: 'jours',    conge: 28, cUnit: 'jours',    label: {fr:'28 / 28 jours',   en:'28 / 28 days',  es:'28 / 28 días'} },
+  { id: '5-2',    travail: 5,  tUnit: 'jours',    conge: 2,  cUnit: 'jours',    label: {fr:'5 / 2 jours',     en:'5 / 2 days',    es:'5 / 2 días'} },
+];
+
+const i18n = {
+  fr: {
+    headerSubtitle: 'Outil gratuit · Québec',
+    pageTitle: '🔁 Rotation de travail',
+    pageSubtitle: 'Calculez votre horaire de travail/congé (2/2, 14/14, 7/7 ou personnalisé)',
+    labelPresets: 'Horaires courants',
+    labelPattern: 'Rotation personnalisée',
+    labelTravailLen: 'Travail', labelCongeLen: 'Congé',
+    unitJours: 'jours', unitSemaines: 'semaines',
+    labelDebut: 'Date de début de rotation',
+    labelDuree: 'Durée à afficher',
+    dureeOpts: ['1 mois','3 mois','6 mois','1 an','2 ans'],
+    labelStart: 'La date de début est en…',
+    startTravail: '💼 Travail',
+    startConge: '🌴 Congé',
+    btnGenerer: '✨ Générer la rotation',
+    calTitre: 'Votre horaire de rotation',
+    btnPdf: '📄 PDF', btnImprimer: '🖨️ Imprimer', btnIcal: '📲 Apple / Outlook (.ics)', btnGoogle: '📅 Google Calendar',
+    travailLabel: 'Travail', congeLabel: 'Congé',
+    joursMin: ['Di','Lu','Ma','Me','Je','Ve','Sa'],
+    mois: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+    statsJours: 'jours',
+    statTravail: 'Jours de travail',
+    statConge: 'Jours de congé',
+    statCycles: 'Cycles complets',
+    cyclesUnit: 'cycles',
+    footerText: '© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.',
+    alertDate: 'Veuillez choisir une date de début.',
+    alertCalPremier: 'Veuillez d\'abord générer la rotation.',
+    alertPdfErr: 'Erreur lors de la génération du PDF.',
+    printTip: '🖨️ Conseil d\'impression\n\nPour que les couleurs apparaissent correctement, cochez « Graphiques d\'arrière-plan » dans la boîte de dialogue d\'impression.',
+    icalMsg: '✅ Fichier .ics téléchargé !\n\n📱 iPhone / Mac : Double-cliquez pour importer dans Calendrier Apple.\n💻 Outlook : Fichier → Ouvrir → Importer.\n📅 Google Calendar : Paramètres → Importer.',
+    pdfTitle: 'Rotation de travail',
+    icsTravail: 'Travail', icsConge: 'Congé',
+    icsCalName: 'Rotation de travail',
+  },
+  en: {
+    headerSubtitle: 'Free tool · Québec',
+    pageTitle: '🔁 Work Rotation',
+    pageSubtitle: 'Calculate your work/off schedule (2/2, 14/14, 7/7, or custom)',
+    labelPresets: 'Common rotations',
+    labelPattern: 'Custom rotation',
+    labelTravailLen: 'Work', labelCongeLen: 'Off',
+    unitJours: 'days', unitSemaines: 'weeks',
+    labelDebut: 'Rotation start date',
+    labelDuree: 'Duration to display',
+    dureeOpts: ['1 month','3 months','6 months','1 year','2 years'],
+    labelStart: 'The start date is…',
+    startTravail: '💼 Work',
+    startConge: '🌴 Off',
+    btnGenerer: '✨ Generate rotation',
+    calTitre: 'Your rotation schedule',
+    btnPdf: '📄 PDF', btnImprimer: '🖨️ Print', btnIcal: '📲 Apple / Outlook (.ics)', btnGoogle: '📅 Google Calendar',
+    travailLabel: 'Work', congeLabel: 'Off',
+    joursMin: ['Su','Mo','Tu','We','Th','Fr','Sa'],
+    mois: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+    statsJours: 'days',
+    statTravail: 'Work days',
+    statConge: 'Off days',
+    statCycles: 'Full cycles',
+    cyclesUnit: 'cycles',
+    footerText: '© 2026 CalculDates.ca — For informational purposes only. Please consult a professional.',
+    alertDate: 'Please choose a start date.',
+    alertCalPremier: 'Please generate the rotation first.',
+    alertPdfErr: 'Error generating PDF.',
+    printTip: '🖨️ Print tip\n\nTo display colors correctly, check "Background graphics" in the print dialog.',
+    icalMsg: '✅ .ics file downloaded!\n\n📱 iPhone / Mac: Double-click to import into Apple Calendar.\n💻 Outlook: File → Open → Import.\n📅 Google Calendar: Settings → Import.',
+    pdfTitle: 'Work Rotation',
+    icsTravail: 'Work', icsConge: 'Off',
+    icsCalName: 'Work Rotation',
+  },
+  es: {
+    headerSubtitle: 'Herramienta gratuita · Québec',
+    pageTitle: '🔁 Rotación laboral',
+    pageSubtitle: 'Calcule su horario de trabajo/descanso (2/2, 14/14, 7/7 o personalizado)',
+    labelPresets: 'Rotaciones comunes',
+    labelPattern: 'Rotación personalizada',
+    labelTravailLen: 'Trabajo', labelCongeLen: 'Descanso',
+    unitJours: 'días', unitSemaines: 'semanas',
+    labelDebut: 'Fecha de inicio de la rotación',
+    labelDuree: 'Duración a mostrar',
+    dureeOpts: ['1 mes','3 meses','6 meses','1 año','2 años'],
+    labelStart: 'La fecha de inicio está en…',
+    startTravail: '💼 Trabajo',
+    startConge: '🌴 Descanso',
+    btnGenerer: '✨ Generar rotación',
+    calTitre: 'Su horario de rotación',
+    btnPdf: '📄 PDF', btnImprimer: '🖨️ Imprimir', btnIcal: '📲 Apple / Outlook (.ics)', btnGoogle: '📅 Google Calendar',
+    travailLabel: 'Trabajo', congeLabel: 'Descanso',
+    joursMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+    mois: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+    statsJours: 'días',
+    statTravail: 'Días de trabajo',
+    statConge: 'Días de descanso',
+    statCycles: 'Ciclos completos',
+    cyclesUnit: 'ciclos',
+    footerText: '© 2026 CalculDates.ca — Solo con fines informativos. Consulte a un profesional para su situación personal.',
+    alertDate: 'Por favor, elija una fecha de inicio.',
+    alertCalPremier: 'Por favor, genere la rotación primero.',
+    alertPdfErr: 'Error al generar el PDF.',
+    printTip: '🖨️ Consejo de impresión\n\nPara que los colores aparezcan correctamente, marque «Gráficos de fondo» en el cuadro de diálogo de impresión.',
+    icalMsg: '✅ ¡Archivo .ics descargado!\n\n📱 iPhone / Mac: Haga doble clic para importar al Calendario de Apple.\n💻 Outlook: Archivo → Abrir → Importar.\n📅 Google Calendar: Configuración → Importar.',
+    pdfTitle: 'Rotación laboral',
+    icsTravail: 'Trabajo', icsConge: 'Descanso',
+    icsCalName: 'Rotación laboral',
+  }
+};
+
+function renderAll() {
+  CDSite.renderNav(lang, ACTIVE_PAGE, 'siteNav');
+  CDSite.renderFooterLinks(lang, 'footerLinks');
+  document.getElementById('bottomAds').innerHTML = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+  document.getElementById('affiliateDisclosure').textContent = CDSite.SHARED[lang].affiliateDisclosure;
+}
+
+function cycleLang() {
+  lang = CDSite.cycleLang(lang);
+  CDSite.setStoredLang(lang);
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const t = i18n[lang];
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('headerSubtitle', t.headerSubtitle);
+  set('pageTitle', t.pageTitle);
+  set('pageSubtitle', t.pageSubtitle);
+  set('labelPresets', t.labelPresets);
+  set('labelPattern', t.labelPattern);
+  set('labelTravailLen', t.labelTravailLen);
+  set('labelCongeLen', t.labelCongeLen);
+  set('labelDebut', t.labelDebut);
+  set('labelDuree', t.labelDuree);
+  set('labelStart', t.labelStart);
+  set('startTravail', t.startTravail);
+  set('startConge', t.startConge);
+  set('btnGenerer', t.btnGenerer);
+  set('calTitre', t.calTitre);
+  set('btnPdf', t.btnPdf);
+  set('btnImprimer', t.btnImprimer);
+  set('btnIcal', t.btnIcal);
+  set('btnGoogle', t.btnGoogle);
+  set('footerText', t.footerText);
+
+  // Unit selects
+  const tu = document.getElementById('travailUnit');
+  const cu = document.getElementById('congeUnit');
+  [tu, cu].forEach(sel => {
+    sel.options[0].text = t.unitJours;
+    sel.options[1].text = t.unitSemaines;
+  });
+  // Duration opts
+  const dSel = document.getElementById('duree');
+  [...dSel.options].forEach((o, i) => o.textContent = t.dureeOpts[i]);
+
+  // Presets
+  renderPresets();
+  renderAll();
+
+  // Re-render result if any
+  if (lastAssignments) renderResult();
+}
+
+function renderPresets() {
+  const curT = parseInt(document.getElementById('travailLen').value);
+  const curTu = document.getElementById('travailUnit').value;
+  const curC = parseInt(document.getElementById('congeLen').value);
+  const curCu = document.getElementById('congeUnit').value;
+  document.getElementById('presets').innerHTML = presets.map(p => {
+    const isActive = p.travail === curT && p.tUnit === curTu && p.conge === curC && p.cUnit === curCu;
+    return `<button class="preset-btn${isActive?' active':''}" onclick="applyPreset('${p.id}')">${p.label[lang]}</button>`;
+  }).join('');
+}
+
+function applyPreset(id) {
+  const p = presets.find(x => x.id === id);
+  if (!p) return;
+  document.getElementById('travailLen').value = p.travail;
+  document.getElementById('travailUnit').value = p.tUnit;
+  document.getElementById('congeLen').value = p.conge;
+  document.getElementById('congeUnit').value = p.cUnit;
+  renderPresets();
+}
+
+function setStart(type) {
+  startType = type;
+  const btnT = document.getElementById('startTravail');
+  const btnC = document.getElementById('startConge');
+  btnT.classList.toggle('active-travail', type === 'travail');
+  btnC.classList.toggle('active-conge', type === 'conge');
+}
+
+function computeAssignments(dateDebut, nbMois, travailDays, congeDays, startType) {
+  const assignments = {};
+  const debut = new Date(dateDebut + 'T00:00:00');
+  const fin = new Date(debut);
+  fin.setMonth(fin.getMonth() + nbMois);
+
+  const cycle = travailDays + congeDays;
+  // Index dans le cycle: 0 .. cycle-1
+  // Si startType === 'travail': premiers `travailDays` jours = travail, puis conge
+  // Sinon inverse
+  const cur = new Date(debut);
+  let idx = 0;
+  while (cur < fin) {
+    const iso = cur.toISOString().split('T')[0];
+    const posInCycle = idx % cycle;
+    let isTravail;
+    if (startType === 'travail') {
+      isTravail = posInCycle < travailDays;
+    } else {
+      isTravail = posInCycle >= congeDays;
+    }
+    assignments[iso] = isTravail ? 'travail' : 'conge';
+    cur.setDate(cur.getDate() + 1);
+    idx++;
+  }
+  return assignments;
+}
+
+function getPatternDays() {
+  const tLen = parseInt(document.getElementById('travailLen').value) || 1;
+  const tUnit = document.getElementById('travailUnit').value;
+  const cLen = parseInt(document.getElementById('congeLen').value) || 1;
+  const cUnit = document.getElementById('congeUnit').value;
+  const travailDays = tUnit === 'semaines' ? tLen * 7 : tLen;
+  const congeDays = cUnit === 'semaines' ? cLen * 7 : cLen;
+  return { travailDays, congeDays };
+}
+
+function genererRotation() {
+  const t = i18n[lang];
+  const dateVal = document.getElementById('dateDebut').value;
+  if (!dateVal) { alert(t.alertDate); return; }
+  // Popup don (1× par session)
+  if (window.CDSite) setTimeout(function(){ CDSite.showDonatePopup(lang); }, 600);
+  const nbMois = parseInt(document.getElementById('duree').value);
+  const { travailDays, congeDays } = getPatternDays();
+  lastAssignments = computeAssignments(dateVal, nbMois, travailDays, congeDays, startType);
+  lastDateDebut = dateVal;
+  renderResult();
+  const section = document.getElementById('calendrierSection');
+  section.classList.add('visible');
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  renderPresets();
+}
+
+function renderResult() {
+  if (!lastAssignments || !lastDateDebut) return;
+  const t = i18n[lang];
+  const nbMois = parseInt(document.getElementById('duree').value);
+  const { travailDays, congeDays } = getPatternDays();
+
+  // Légende
+  document.getElementById('legende').innerHTML = `
+    <div class="legende-item"><div class="legende-dot" style="background:var(--travail)"></div><span>${t.travailLabel}</span></div>
+    <div class="legende-item"><div class="legende-dot" style="background:var(--conge)"></div><span>${t.congeLabel}</span></div>
+  `;
+
+  const debut = new Date(lastDateDebut + 'T00:00:00');
+  let html = '';
+  for (let m = 0; m < nbMois; m++) {
+    const date = new Date(debut.getFullYear(), debut.getMonth() + m, 1);
+    const moisNom = t.mois[date.getMonth()];
+    const anneeAff = date.getFullYear();
+    const premierJour = date.getDay();
+    const dernierJour = new Date(anneeAff, date.getMonth()+1, 0).getDate();
+    html += `<div class="mois-card">
+      <div class="mois-header">${moisNom} ${anneeAff}</div>
+      <div class="mois-grid">
+        ${t.joursMin.map(j=>`<div class="jour-header">${j}</div>`).join('')}
+        ${Array(premierJour).fill().map(()=>`<div class="jour-cell vide"></div>`).join('')}`;
+    for (let d = 1; d <= dernierJour; d++) {
+      const cur = new Date(anneeAff, date.getMonth(), d);
+      const iso = cur.toISOString().split('T')[0];
+      const etat = lastAssignments[iso];
+      const cls = etat === 'travail' ? 'travail' : etat === 'conge' ? 'conge' : '';
+      html += `<div class="jour-cell ${cls}">${d}</div>`;
+    }
+    html += `</div></div>`;
+  }
+  document.getElementById('calendrierGrid').innerHTML = html;
+
+  // Stats
+  let jT = 0, jC = 0;
+  Object.values(lastAssignments).forEach(v => v === 'travail' ? jT++ : jC++);
+  const total = jT + jC;
+  const cycle = travailDays + congeDays;
+  const cycles = cycle > 0 ? Math.floor(total / cycle) : 0;
+  document.getElementById('statsBar').innerHTML = `
+    <div class="stat-item" style="border-left:4px solid var(--travail)">
+      <div class="stat-label">${t.statTravail}</div>
+      <div class="stat-val">${jT} <span style="font-family:'DM Sans';font-size:0.9rem;">${t.statsJours}</span></div>
+      <div class="stat-sub">${Math.round(jT/total*100)}%</div>
+    </div>
+    <div class="stat-item" style="border-left:4px solid var(--conge)">
+      <div class="stat-label">${t.statConge}</div>
+      <div class="stat-val">${jC} <span style="font-family:'DM Sans';font-size:0.9rem;">${t.statsJours}</span></div>
+      <div class="stat-sub">${Math.round(jC/total*100)}%</div>
+    </div>
+    <div class="stat-item" style="border-left:4px solid var(--accent)">
+      <div class="stat-label">${t.statCycles}</div>
+      <div class="stat-val">${cycles} <span style="font-family:'DM Sans';font-size:0.9rem;">${t.cyclesUnit}</span></div>
+      <div class="stat-sub">${travailDays}+${congeDays}=${cycle} ${t.statsJours}</div>
+    </div>
+  `;
+}
+
+function imprimerCal() {
+  if (!lastAssignments) { alert(i18n[lang].alertCalPremier); return; }
+  if (confirm(i18n[lang].printTip)) { window.print(); }
+}
+
+function getBlocs() {
+  if (!lastAssignments) return [];
+  const dates = Object.keys(lastAssignments).sort();
+  const blocs = [];
+  let bDebut = null, bEtat = null, bFin = null;
+  const consec = (d1, d2) => {
+    const a = new Date(d1+'T00:00:00'), b = new Date(d2+'T00:00:00');
+    return (b - a) === 86400000;
+  };
+  for (let i = 0; i < dates.length; i++) {
+    const d = dates[i];
+    const e = lastAssignments[d];
+    if (e !== bEtat || (i > 0 && !consec(dates[i-1], d))) {
+      if (bDebut) blocs.push({ debut: bDebut, fin: bFin, etat: bEtat });
+      bDebut = d; bEtat = e; bFin = d;
+    } else {
+      bFin = d;
+    }
+  }
+  if (bDebut) blocs.push({ debut: bDebut, fin: bFin, etat: bEtat });
+  return blocs;
+}
+
+function exporterICal() {
+  const t = i18n[lang];
+  if (!lastAssignments) { alert(t.alertCalPremier); return; }
+  const blocs = getBlocs();
+  const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+
+  let ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//CalculDates.ca//Work Rotation//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    `X-WR-CALNAME:${t.icsCalName}`,
+    'X-WR-TIMEZONE:America/Toronto',
+  ];
+
+  blocs.forEach(b => {
+    const titre = b.etat === 'travail' ? `💼 ${t.icsTravail}` : `🌴 ${t.icsConge}`;
+    const finDate = new Date(b.fin+'T00:00:00');
+    finDate.setDate(finDate.getDate()+1);
+    const finIso = finDate.toISOString().split('T')[0].replace(/-/g,'');
+    const debutIso = b.debut.replace(/-/g,'');
+    const uid = Math.random().toString(36).substr(2,9).toUpperCase() + '@calculdates.ca';
+
+    ics = ics.concat([
+      'BEGIN:VEVENT',
+      `UID:${uid}`,
+      `DTSTAMP:${now}`,
+      `DTSTART;VALUE=DATE:${debutIso}`,
+      `DTEND;VALUE=DATE:${finIso}`,
+      `SUMMARY:${titre}`,
+      'TRANSP:TRANSPARENT',
+      'END:VEVENT',
+    ]);
+  });
+
+  ics.push('END:VCALENDAR');
+
+  const blob = new Blob([ics.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `rotation-travail.ics`;
+  a.click();
+  URL.revokeObjectURL(url);
+  alert(t.icalMsg);
+}
+
+function ouvrirGoogle() {
+  const t = i18n[lang];
+  if (!lastAssignments) { alert(t.alertCalPremier); return; }
+  // Ouvrir une série d'événements Google Calendar dans un nouvel onglet
+  // Google Calendar accepte une URL de création d'événement unique; nous ouvrons un fichier .ics
+  // qui peut ensuite être importé (option la plus robuste multi-événements).
+  // On déclenche le téléchargement .ics et on ouvre la page d'import Google.
+  exporterICal();
+  setTimeout(() => {
+    window.open('https://calendar.google.com/calendar/u/0/r/settings/export', '_blank');
+  }, 600);
+}
+
+function telechargerPDF() {
+  const t = i18n[lang];
+  if (!lastAssignments || !lastDateDebut) { alert(t.alertCalPremier); return; }
+  try {
+    const doc = genererPDF();
+    doc.save('rotation-travail.pdf');
+  } catch(e) {
+    console.error(e);
+    alert(t.alertPdfErr);
+  }
+}
+
+function genererPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const t = i18n[lang];
+  const nbMois = parseInt(document.getElementById('duree').value);
+  const { travailDays, congeDays } = getPatternDays();
+  const rgbT = [38, 114, 200];
+  const rgbC = [52, 168, 83];
+
+  // En-tête
+  doc.setFillColor(26,58,92);
+  doc.rect(0,0,210,28,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.text(t.pdfTitle, 14, 12);
+  doc.setFontSize(9);
+  doc.setTextColor(232,197,71);
+  doc.text(`${travailDays}j ${t.icsTravail} / ${congeDays}j ${t.icsConge}`, 14, 20);
+  doc.text('CalculDates.ca', 160, 20);
+
+  // Légende
+  doc.setFillColor(...rgbT);
+  doc.roundedRect(14,31,8,5,1,1,'F');
+  doc.setTextColor(50,50,50);
+  doc.setFontSize(9);
+  doc.text(t.travailLabel, 24, 35);
+  doc.setFillColor(...rgbC);
+  doc.roundedRect(60,31,8,5,1,1,'F');
+  doc.text(t.congeLabel, 70, 35);
+
+  const colW = 26, rowH = 7, startX = 14;
+  let curY = 42;
+  const debut = new Date(lastDateDebut + 'T00:00:00');
+
+  for (let m = 0; m < nbMois; m++) {
+    const date = new Date(debut.getFullYear(), debut.getMonth() + m, 1);
+    const moisNom = t.mois[date.getMonth()];
+    const anneeAff = date.getFullYear();
+    const dernierJour = new Date(anneeAff, date.getMonth()+1, 0).getDate();
+    const premierJour = date.getDay();
+    const lignes = Math.ceil((premierJour + dernierJour) / 7);
+    const hauteurMois = 10 + rowH + lignes * rowH + 4;
+
+    if (curY + hauteurMois > 280) {
+      doc.addPage();
+      curY = 14;
+    }
+
+    doc.setFillColor(26,58,92);
+    doc.roundedRect(startX, curY, 182, 8, 2, 2, 'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(9);
+    doc.setFont(undefined,'bold');
+    doc.text(`${moisNom} ${anneeAff}`, 105, curY+5.5, {align:'center'});
+    curY += 9;
+
+    doc.setFont(undefined,'normal');
+    doc.setFontSize(7);
+    for (let j=0; j<7; j++) {
+      doc.setTextColor(100,100,100);
+      doc.text(t.joursMin[j], startX + j*26 + 13, curY+4.5, {align:'center'});
+    }
+    curY += rowH;
+
+    let col = premierJour;
+    let row = 0;
+    for (let d=1; d<=dernierJour; d++) {
+      const cur2 = new Date(anneeAff, date.getMonth(), d);
+      const iso = cur2.toISOString().split('T')[0];
+      const etat = lastAssignments[iso];
+      const x = startX + col * colW;
+      const y = curY + row * rowH;
+
+      if (etat === 'travail') {
+        doc.setFillColor(...rgbT);
+        doc.roundedRect(x+0.5, y+0.5, colW-1, rowH-1, 1,1,'F');
+        doc.setTextColor(255,255,255);
+      } else if (etat === 'conge') {
+        doc.setFillColor(...rgbC);
+        doc.roundedRect(x+0.5, y+0.5, colW-1, rowH-1, 1,1,'F');
+        doc.setTextColor(255,255,255);
+      } else {
+        doc.setTextColor(180,180,180);
+      }
+      doc.setFontSize(8);
+      doc.setFont(undefined,'normal');
+      doc.text(String(d), x + colW/2, y + rowH/2 + 1, {align:'center'});
+
+      col++;
+      if (col === 7) { col=0; row++; }
+    }
+    curY += (row + (col>0?1:0)) * rowH + 5;
+  }
+
+  // Stats
+  let jT = 0, jC = 0;
+  Object.values(lastAssignments).forEach(v => v === 'travail' ? jT++ : jC++);
+  if (curY + 20 > 280) { doc.addPage(); curY = 14; }
+  doc.setFillColor(244,241,235);
+  doc.roundedRect(14, curY, 85, 14, 2,2,'F');
+  doc.setFillColor(...rgbT);
+  doc.rect(14, curY, 3, 14, 'F');
+  doc.setTextColor(50,50,50);
+  doc.setFontSize(8);
+  doc.text(`${t.statTravail}: ${jT} ${t.statsJours}`, 22, curY+9);
+  doc.setFillColor(244,241,235);
+  doc.roundedRect(111, curY, 85, 14, 2,2,'F');
+  doc.setFillColor(...rgbC);
+  doc.rect(111, curY, 3, 14, 'F');
+  doc.text(`${t.statConge}: ${jC} ${t.statsJours}`, 119, curY+9);
+
+  doc.setTextColor(150,150,150);
+  doc.setFontSize(7);
+  doc.text('© 2026 CalculDates.ca — calculdates.ca/rotation.html', 105, 292, {align:'center'});
+
+  return doc;
+}
+
+// Init
+(function init() {
+  const stored = CDSite.getStoredLang();
+  if (stored && ['fr','en','es'].includes(stored)) lang = stored;
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  document.getElementById('

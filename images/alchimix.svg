@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 260" role="img" aria-label="Alchimix — jeu de cartes">
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2d1b5c"/>
+      <stop offset="100%" stop-color="#6b2e8f"/>
+    </linearGradient>
+    <linearGradient id="potionGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#b4ff3f"/>
+      <stop offset="100%" stop-color="#2dc66b"/>
+    </linearGradient>
+    <radialGradient id="bubbleGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="260" fill="url(#bgGrad)"/>
+
+  <!-- Stars -->
+  <g fill="#fffcb4" opacity="0.7">
+    <circle cx="30" cy="28" r="1.6"/>
+    <circle cx="350" cy="40" r="1.2"/>
+    <circle cx="380" cy="110" r="1.4"/>
+    <circle cx="20" cy="150" r="1.3"/>
+    <circle cx="370" cy="210" r="1.6"/>
+    <circle cx="60" cy="220" r="1"/>
+  </g>
+
+  <!-- Cards stacked -->
+  <g transform="translate(240,60)">
+    <rect x="6" y="8" width="90" height="130" rx="8" fill="#1a0d3a" opacity="0.4"/>
+    <rect x="0" y="0" width="90" height="130" rx="8" fill="#ffffff" stroke="#ffd93f" stroke-width="2"/>
+    <text x="10" y="22" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#6b2e8f">7</text>
+    <text x="45" y="75" text-anchor="middle" font-family="Georgia,serif" font-size="32" font-weight="700" fill="#2dc66b">⬆</text>
+    <text x="80" y="120" text-anchor="end" font-family="Georgia,serif" font-size="18" font-weight="700" fill="#6b2e8f" transform="rotate(180 80 120)">7</text>
+  </g>
+
+  <!-- Potion flask -->
+  <g transform="translate(60,70)">
+    <!-- Neck -->
+    <rect x="28" y="0" width="14" height="22" fill="#ffd93f" stroke="#c89b00" stroke-width="1.5"/>
+    <!-- Body -->
+    <path d="M 12,25 L 58,25 L 66,80 Q 66,110 35,110 Q 4,110 4,80 Z" fill="url(#potionGrad)" stroke="#ffd93f" stroke-width="2"/>
+    <!-- Liquid highlight -->
+    <path d="M 14,28 L 24,28 L 22,85 Q 22,95 16,95 Q 10,95 10,85 Z" fill="#ffffff" opacity="0.3"/>
+    <!-- Bubbles -->
+    <circle cx="28" cy="60" r="4" fill="#ffffff" opacity="0.6"/>
+    <circle cx="42" cy="75" r="3" fill="#ffffff" opacity="0.6"/>
+    <circle cx="35" cy="90" r="5" fill="#ffffff" opacity="0.5"/>
+    <!-- Escaping bubbles -->
+    <circle cx="35" cy="-8" r="3" fill="#b4ff3f" opacity="0.8"/>
+    <circle cx="42" cy="-18" r="2" fill="#b4ff3f" opacity="0.6"/>
+    <circle cx="28" cy="-15" r="2.5" fill="#b4ff3f" opacity="0.7"/>
+  </g>
+
+  <!-- Title -->
+  <text x="200" y="200" text-anchor="middle" font-family="'Georgia',serif"
+        font-size="42" font-weight="700" fill="#ffd93f" letter-spacing="2">Alchimix</text>
+  <text x="200" y="228" text-anchor="middle" font-family="'DM Sans',Arial,sans-serif"
+        font-size="13" fill="#ffffff" letter-spacing="3" opacity="0.85">LE JEU DE CARTES STRATÉGIQUE</text>
+</svg>

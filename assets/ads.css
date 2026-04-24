@@ -1,0 +1,309 @@
+/* ============================================================
+   CalculDates.ca — Styles partagés pour les pubs & éléments
+   ============================================================ */
+
+/* ── 3-language toggle cycle FR → EN → ES ────────────────── */
+.lang-toggle-3 {
+  display: inline-flex;
+  background: rgba(255,255,255,0.12);
+  border: 1.5px solid rgba(255,255,255,0.2);
+  border-radius: 16px;
+  padding: 3px;
+  cursor: pointer;
+  user-select: none;
+  overflow: hidden;
+}
+.lang-toggle-3 .lang-opt {
+  padding: 5px 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.4);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+  letter-spacing: 0.05em;
+}
+.lang-toggle-3 .lang-opt.active {
+  background: var(--accent, #e8c547);
+  color: var(--bleu, #1a3a5c);
+}
+
+/* ── CFO masqué — Pub principale ─────────────────────────── */
+.ad-cfo {
+  display: block;
+  text-decoration: none;
+  background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+  border-radius: 14px;
+  padding: 18px 20px;
+  position: relative;
+  box-shadow: 0 4px 18px rgba(26,58,92,0.15);
+  transition: transform 0.2s, box-shadow 0.2s;
+  overflow: hidden;
+}
+.ad-cfo:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,58,92,0.25); }
+.ad-cfo-inner { display: flex; align-items: center; gap: 16px; }
+.ad-cfo-logo { width: 90px; height: auto; flex-shrink: 0; border-radius: 6px; }
+.ad-cfo-text { flex: 1; }
+.ad-cfo-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+.ad-cfo-subline {
+  font-size: 0.78rem;
+  color: rgba(255,255,255,0.75);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.ad-cfo-promo {
+  font-size: 0.74rem;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 6px;
+}
+.ad-cfo-code {
+  display: inline-block;
+  background: #e8c547;
+  color: #1a3a5c;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-family: 'DM Sans', monospace;
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+}
+.ad-cfo-cta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #e8c547;
+  letter-spacing: 0.02em;
+}
+
+/* ── Alchimix — Pub ──────────────────────────────────────── */
+.ad-alch {
+  display: block;
+  text-decoration: none;
+  background: #2d1b5c;
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 18px rgba(45,27,92,0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.ad-alch:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(45,27,92,0.3); }
+.ad-alch-banner { width: 100%; display: block; }
+.ad-alch-text { padding: 14px 18px; }
+.ad-alch-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #ffd93f;
+  margin-bottom: 3px;
+}
+.ad-alch-subline {
+  font-size: 0.76rem;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.4;
+  margin-bottom: 8px;
+}
+.ad-alch-cta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #b4ff3f;
+}
+
+/* ── Amazon — Pub ────────────────────────────────────────── */
+.ad-amz {
+  display: block;
+  text-decoration: none;
+  background: #ffffff;
+  border: 1.5px solid #e8e4dc;
+  border-radius: 14px;
+  padding: 16px 18px;
+  position: relative;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+.ad-amz:hover { transform: translateY(-2px); border-color: #ff9900; box-shadow: 0 6px 18px rgba(255,153,0,0.15); }
+.ad-amz-inner { display: flex; align-items: center; gap: 14px; }
+.ad-amz-logo {
+  font-family: 'Arial', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #232f3e;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  position: relative;
+}
+.ad-amz-logo::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  right: 6px;
+  height: 3px;
+  background: #ff9900;
+  border-radius: 2px;
+}
+.ad-amz-text { flex: 1; }
+.ad-amz-headline {
+  font-family: 'Playfair Display', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #232f3e;
+  line-height: 1.25;
+  margin-bottom: 3px;
+}
+.ad-amz-subline {
+  font-size: 0.76rem;
+  color: #666;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.ad-amz-cta {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #ff9900;
+}
+
+/* ── Label « Annonce / Ad / Anuncio » commun ─────────────── */
+.ad-label {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(0,0,0,0.35);
+  background: rgba(255,255,255,0.6);
+  padding: 1px 6px;
+  border-radius: 3px;
+  pointer-events: none;
+}
+.ad-cfo .ad-label, .ad-alch .ad-label {
+  color: rgba(255,255,255,0.6);
+  background: rgba(255,255,255,0.12);
+}
+
+/* ── Grille des pubs côté droit ─────────────────────────── */
+.ads-stack { display: flex; flex-direction: column; gap: 16px; }
+
+/* ── Bande pub horizontale (pour bas de page) ────────────── */
+.ads-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+@media (max-width: 820px) {
+  .ads-row { grid-template-columns: 1fr; }
+}
+
+/* ── Popup « Buy Me a Coffee » ────────────────────────────── */
+.donate-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 40, 0.55);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+.donate-overlay.is-visible { opacity: 1; }
+.donate-modal {
+  position: relative;
+  max-width: 440px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px 28px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+  text-align: center;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(.2,.9,.3,1.2);
+}
+.donate-overlay.is-visible .donate-modal { transform: translateY(0) scale(1); }
+.donate-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 1.7rem;
+  color: #8a8a8a;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
+}
+.donate-close:hover { background: #f2efe8; color: #1a3a5c; }
+.donate-emoji {
+  font-size: 2.8rem;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.donate-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin: 0 0 12px;
+  line-height: 1.25;
+}
+.donate-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+  margin: 0 0 22px;
+}
+.donate-body strong { color: #1a3a5c; }
+.donate-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+.donate-cta {
+  display: inline-block;
+  background: #ffdd00; /* couleur officielle BMC */
+  color: #0d0c22;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 13px 18px;
+  border-radius: 10px;
+  text-decoration: none;
+  border: 2px solid #0d0c22;
+  transition: transform 0.15s, box-shadow 0.15s;
+  letter-spacing: 0.01em;
+}
+.donate-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(13,12,34,0.25);
+}
+.donate-dismiss {
+  background: transparent;
+  border: none;
+  color: #8a8a8a;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 8px;
+  transition: color 0.15s;
+}
+.donate-dismiss:hover { color: #1a3a5c; }
+
+/* ── Impression : masquer les pubs et le popup ────────────── */
+@media print {
+  .ad-cfo, .ad-alch, .ad-amz, .ads-stack, .ads-row, .ad-banner, .ad-sidebar,
+  .donate-overlay { display: none !important; }
+}

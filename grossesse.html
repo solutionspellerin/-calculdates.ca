@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
+<meta name="description" content="Calculatrice de grossesse — semaines et étapes clés pour le Programme Pour une maternité sans danger (CNESST). Retrait préventif, charges, dates RQAP.">
+<title>Grossesse — Programme Pour une maternité sans danger (CNESST) | CalculDates.ca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/ads.css">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="assets/site-config.js"></script>
+<style>
+  :root {
+    --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
+    --fond: #f4f1eb; --blanc: #ffffff; --gris: #8a8a8a;
+    --gris-clair: #e8e4dc; --texte: #1a1a1a;
+    --rose: #e88ca6; --rose-fonce: #b86680; --vert: #34a853;
+    --ombre: 0 4px 24px rgba(26,58,92,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--fond); color: var(--texte); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+  header { width: 100%; background: var(--bleu); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.3rem; letter-spacing: 0.03em; text-decoration: none; }
+  .logo span { color: var(--blanc); font-weight: 300; }
+  .lang-toggle { display: flex; align-items: center; gap: 10px; }
+  .lang-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.05em; }
+
+  nav.site-nav { width: 100%; background: #142d47; border-bottom: 2px solid rgba(232,197,71,0.2); }
+  nav.site-nav .nav-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; padding: 0 16px; gap: 4px; overflow-x: auto; }
+  nav.site-nav .nav-link { display: inline-block; padding: 12px 18px; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  nav.site-nav .nav-link:hover { color: var(--blanc); }
+  nav.site-nav .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main { width: 100%; max-width: 960px; padding: 32px 16px 64px; display: flex; flex-direction: column; gap: 28px; }
+
+  .card { background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); overflow: hidden; }
+  .card-header { background: linear-gradient(135deg, var(--bleu) 0%, #3b5c8f 100%); padding: 24px 32px 20px; position: relative; overflow: hidden; }
+  .card-header::before { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(232,140,166,0.18); }
+  .card-header h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--blanc); margin-bottom: 6px; position: relative; z-index: 1; }
+  .card-header p { color: rgba(255,255,255,0.75); font-size: 0.9rem; font-weight: 300; position: relative; z-index: 1; }
+  .card-body { padding: 28px 32px; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+  input[type="date"], select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--texte); background: var(--fond); outline: none; }
+  input[type="date"]:focus, select:focus { border-color: var(--bleu-clair); box-shadow: 0 0 0 3px rgba(45,106,159,0.12); background: var(--blanc); }
+
+  .mode-btns { display: flex; gap: 10px; margin-bottom: 18px; }
+  .mode-btn { flex: 1; padding: 12px; border: 2px solid var(--gris-clair); background: var(--fond); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+  .mode-btn.active { background: var(--bleu); color: white; border-color: var(--bleu); }
+
+  .btn-generate { width: 100%; padding: 16px; background: var(--bleu); color: var(--blanc); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s; letter-spacing: 0.02em; }
+  .btn-generate:hover { background: var(--bleu-clair); }
+
+  .result-section { display: none; }
+  .result-section.visible { display: block; }
+
+  .cal-actions { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+  .cal-actions h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--bleu); flex: 1; }
+  .btn-action { padding: 10px 20px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: none; color: white; transition: all 0.2s; }
+  .btn-pdf { background: #d93636; } .btn-pdf:hover { background: #b92e2e; }
+  .btn-ical { background: #34a853; } .btn-ical:hover { background: #2d9147; }
+  .btn-print { background: var(--bleu); } .btn-print:hover { background: var(--bleu-clair); }
+
+  .summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+  .summary-item { background: var(--fond); border-radius: 12px; padding: 14px 18px; border-left: 4px solid var(--bleu); }
+  .summary-item.due { border-left-color: var(--rose-fonce); background: linear-gradient(135deg, #fef1f5 0%, #faeaf0 100%); }
+  .summary-item.now { border-left-color: var(--vert); }
+  .sum-label { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 4px; }
+  .sum-val { font-family: 'Playfair Display', serif; font-size: 1.15rem; color: var(--bleu); font-weight: 700; }
+  .sum-sub { font-size: 0.78rem; color: var(--gris); margin-top: 2px; }
+
+  .timeline { position: relative; padding-left: 40px; margin-bottom: 28px; }
+  .timeline::before { content: ''; position: absolute; left: 16px; top: 12px; bottom: 12px; width: 2px; background: linear-gradient(to bottom, var(--rose), var(--bleu-clair), var(--rose-fonce)); }
+  .tl-item { position: relative; margin-bottom: 20px; padding: 14px 16px; background: var(--fond); border-radius: 10px; border-left: 3px solid var(--bleu-clair); }
+  .tl-item::before { content: ''; position: absolute; left: -32px; top: 18px; width: 14px; height: 14px; border-radius: 50%; background: var(--bleu); border: 3px solid var(--blanc); box-shadow: 0 0 0 2px var(--bleu-clair); }
+  .tl-item.past::before { background: var(--gris); box-shadow: 0 0 0 2px var(--gris-clair); }
+  .tl-item.now { border-left-color: var(--vert); background: linear-gradient(135deg, #e8f5ea 0%, #f4f1eb 100%); }
+  .tl-item.now::before { background: var(--vert); box-shadow: 0 0 0 2px var(--vert); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+  .tl-item.critical { border-left-color: #d93636; background: linear-gradient(135deg, #fef1f1 0%, #faeaea 100%); }
+  .tl-item.critical::before { background: #d93636; box-shadow: 0 0 0 2px #d93636; }
+
+  .tl-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; flex-wrap: wrap; gap: 8px; }
+  .tl-week { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--bleu); font-weight: 700; }
+  .tl-date { font-size: 0.85rem; font-weight: 600; color: var(--bleu-clair); }
+  .tl-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; color: var(--texte); }
+  .tl-desc { font-size: 0.85rem; color: #444; line-height: 1.5; }
+  .tl-badge { display: inline-block; background: var(--accent); color: var(--bleu); font-size: 0.68rem; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 6px; letter-spacing: 0.03em; }
+  .tl-badge.critical { background: #d93636; color: white; }
+  .tl-badge.now { background: var(--vert); color: white; }
+
+  .disclaimer { background: #fff7e0; border-left: 4px solid var(--accent); padding: 14px 18px; border-radius: 10px; font-size: 0.85rem; color: var(--texte); line-height: 1.5; margin-bottom: 20px; }
+  .disclaimer a { color: var(--bleu); font-weight: 600; }
+
+  footer { width: 100%; background: var(--bleu); padding: 18px 32px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: auto; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 8px; }
+  footer a:hover { color: var(--accent); }
+  .footer-links { margin-bottom: 8px; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+    header, nav.site-nav, .form-card, .cal-actions .btn-action, footer, .ads-stack, .ads-row, .ad-cfo, .ad-alch, .ad-amz { display: none !important; }
+    body { background: white; }
+    .tl-item { break-inside: avoid; }
+  }
+
+  @media (max-width: 700px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .summary { grid-template-columns: 1fr; }
+    .card-body { padding: 20px 16px; }
+    .timeline { padding-left: 28px; }
+    .tl-item::before { left: -26px; }
+  }
+  @media (max-width: 480px) {
+    header { padding: 14px 16px; }
+    .lang-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Calcul<span>Dates</span>.ca</a>
+  <div class="lang-toggle">
+    <span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
+    <div class="lang-toggle-3" onclick="cycleLang()" id="langToggle">
+      <span class="lang-opt active" data-lang="fr">FR</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+      <span class="lang-opt" data-lang="es">ES</span>
+    </div>
+  </div>
+</header>
+
+<nav class="site-nav">
+  <div class="nav-inner" id="siteNav"></div>
+</nav>
+
+<main>
+  <div class="card form-card">
+    <div class="card-header">
+      <h1 id="pageTitle">🤰 Grossesse — Pour une maternité sans danger</h1>
+      <p id="pageSubtitle">Calculez les semaines de grossesse et les dates clés du programme CNESST</p>
+    </div>
+    <div class="card-body">
+
+      <div class="mode-btns" id="modeBtns">
+        <button class="mode-btn active" id="modeDueBtn" onclick="setMode('due')">📆 <span id="modeDueLabel">Date prévue d'accouchement</span></button>
+        <button class="mode-btn" id="modeLmpBtn" onclick="setMode('lmp')">🩸 <span id="modeLmpLabel">Dernières règles</span></button>
+      </div>
+
+      <div class="form-grid">
+        <div id="inputDueWrap">
+          <label id="labelDue">Date prévue d'accouchement</label>
+          <input type="date" id="dueDate" />
+        </div>
+        <div id="inputLmpWrap" style="display:none;">
+          <label id="labelLmp">Date des dernières règles</label>
+          <input type="date" id="lmpDate" />
+        </div>
+        <div>
+          <label id="labelCycle">Durée du cycle (jours)</label>
+          <select id="cycleLen">
+            <option value="28" selected>28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+            <option value="32">32</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-generate" onclick="calculer()" id="btnCalc">✨ Calculer les semaines clés</button>
+    </div>
+  </div>
+
+  <div class="card result-section" id="resultSection">
+    <div class="card-body">
+      <div class="cal-actions">
+        <h2 id="resultTitle">Vos étapes clés</h2>
+        <button class="btn-action btn-pdf" onclick="telechargerPDF()" id="btnPdf">📄 PDF</button>
+        <button class="btn-action btn-print" onclick="imprimerRes()" id="btnPrint">🖨️ Imprimer</button>
+        <button class="btn-action btn-ical" onclick="exporterICal()" id="btnIcal">📲 Calendrier (.ics)</button>
+      </div>
+
+      <div class="summary" id="summary"></div>
+
+      <div class="disclaimer" id="disclaimer"></div>
+
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </div>
+
+  <div class="ads-row" id="bottomAds"></div>
+
+  <p style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;" id="affiliateDisclosure"></p>
+</main>
+
+<footer>
+  <div class="footer-links" id="footerLinks"></div>
+  <div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
+  <div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
+</footer>
+
+<script>
+const ACTIVE_PAGE = 'grossesse';
+let lang = 'fr';
+let mode = 'due'; // 'due' ou 'lmp'
+let computedData = null;
+
+const GESTATION_DAYS = 280; // 40 semaines depuis DDR (règle de Naegele)
+
+// Jalons CNESST / grossesse (semaines depuis DDR)
+const milestones = [
+  { week: 0,  critical: true,  key: 'start',    keyDate: 'lmp' },
+  { week: 4,  critical: false, key: 'w4' },
+  { week: 7,  critical: false, key: 'w7' },
+  { week: 12, critical: false, key: 'w12' },
+  { week: 14, critical: false, key: 'w14' },
+  { week: 16, critical: false, key: 'w16' },
+  { week: 20, critical: false, key: 'w20' },
+  { week: 24, critical: true,  key: 'w24' },
+  { week: 28, critical: false, key: 'w28' },
+  { week: 32, critical: false, key: 'w32' },
+  { week: 34, critical: false, key: 'w34' },
+  { week: 36, critical: true,  key: 'w36' },
+  { week: 40, critical: true,  key: 'w40', keyDate: 'due' },
+  // RQAP: congé maternité possible à partir de 16 sem avant DPA (≈ 24 sem de gestation)
+  // Ces dates sont déjà capturées par w24 (début possible RQAP) et w36 (retrait préventif usuel)
+];
+
+const i18n = {
+  fr: {
+    headerSubtitle: 'Outil gratuit · Québec',
+    pageTitle: '🤰 Grossesse — Pour une maternité sans danger',
+    pageSubtitle: 'Calculez les semaines de grossesse et les dates clés du programme CNESST',
+    modeDueLabel: "Date prévue d'accouchement",
+    modeLmpLabel: 'Dernières règles',
+    labelDue: "Date prévue d'accouchement",
+    labelLmp: 'Date des dernières règles',
+    labelCycle: 'Durée du cycle (jours)',
+    btnCalc: '✨ Calculer les semaines clés',
+    resultTitle: 'Vos étapes clés',
+    btnPdf: '📄 PDF', btnPrint: '🖨️ Imprimer', btnIcal: '📲 Calendrier (.ics)',
+    sumDue: "Date prévue d'accouchement",
+    sumLmp: 'Date des dernières règles',
+    sumNow: 'Semaine actuelle',
+    sumWeek: 'semaine',
+    sumDays: 'jours',
+    footerText: '© 2026 CalculDates.ca — Outil informatif uniquement. Consultez votre médecin et la CNESST pour votre situation personnelle.',
+    disclaimer: '⚠️ Outil informatif — les dates sont estimées (règle de Naegele). Pour un avis officiel, consultez votre médecin et le site de la <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — Pour une maternité sans danger</a>.',
+    alertDate: 'Veuillez choisir une date.',
+    alertFuture: 'La date choisie semble trop éloignée (plus de 12 mois dans le futur ou passé).',
+    printTip: '🖨️ Conseil d\'impression\n\nPour conserver les couleurs, cochez « Graphiques d\'arrière-plan » dans la boîte de dialogue.',
+    icalMsg: '✅ Fichier .ics téléchargé !\n\n📱 iPhone / Mac : Double-cliquez pour importer dans Calendrier.\n💻 Outlook : Fichier → Ouvrir → Importer.\n📅 Google Calendar : Paramètres → Importer.',
+    alertPdfErr: 'Erreur lors de la génération du PDF.',
+    pdfTitle: 'Grossesse — Étapes CNESST',
+    today: "Aujourd'hui",
+    past: 'Passée',
+    now: 'Maintenant',
+    future: 'À venir',
+    milestones: {
+      start:  { title: 'Début de grossesse (DDR)', desc: 'Premier jour des dernières règles. Dès ce moment, plusieurs restrictions CNESST peuvent s\'appliquer : aucune charge ≥ 15 kg, charges de 10–15 kg limitées à 10× par quart de travail. Évaluez les risques chimiques, biologiques et physiques avec votre médecin.' },
+      w4:     { title: 'Semaine 4 — Test de grossesse', desc: 'Un test de grossesse devient généralement positif. Informez votre médecin dès que possible pour évaluer les risques au travail.' },
+      w7:     { title: 'Semaine 7-8 — Première visite prénatale', desc: 'Rendez-vous initial. C\'est le moment idéal pour obtenir le Certificat visant le retrait préventif (formulaire CNESST) si votre poste présente des dangers.' },
+      w12:    { title: 'Semaine 12 — Fin du 1er trimestre', desc: 'Diminution des nausées habituellement. Les risques de fausse-couche diminuent. Bon moment pour annoncer la grossesse à l\'employeur si ce n\'est pas fait.' },
+      w14:    { title: 'Semaine 14 — 2e trimestre', desc: 'Demande de retrait préventif possible si votre poste comporte des dangers. La CNESST évalue les risques : agents chimiques, biologiques, charges physiques, exposition aux radiations, etc.' },
+      w16:    { title: 'Semaine 16 — Mouvements du bébé', desc: 'Les premiers mouvements fœtaux sont souvent perçus. Échographie morphologique possible entre 18 et 22 semaines.' },
+      w20:    { title: 'Semaine 20 — Échographie morphologique', desc: 'Examen détaillé du bébé. Au travail : évitez la station debout prolongée (plus de 4 h d\'affilée déconseillée selon la CNESST).' },
+      w24:    { title: 'Semaine 24 — Viabilité fœtale', desc: 'Seuil médical de viabilité. À partir de maintenant, le congé de maternité RQAP peut débuter (jusqu\'à 16 semaines avant la DPA). Restrictions accrues au travail.' },
+      w28:    { title: 'Semaine 28 — 3e trimestre', desc: 'Fatigue, lombalgie, essoufflement fréquents. La CNESST recommande des pauses plus fréquentes et un aménagement du poste si non déjà fait.' },
+      w32:    { title: 'Semaine 32 — Préparation', desc: 'Retrait préventif fréquent à ce stade pour les postes physiques. Préparez votre dossier RQAP / assurance-emploi si non déjà soumis.' },
+      w34:    { title: 'Semaine 34 — Limites physiques', desc: 'Évitez les déplacements prolongés et les charges même légères. Consultation prénatale usuellement aux 2 semaines à partir d\'ici.' },
+      w36:    { title: 'Semaine 36 — Retrait recommandé', desc: '4 semaines avant le terme. Pour de nombreux postes physiques, la CNESST autorise un retrait préventif. Évaluation finale des risques avec votre médecin.' },
+      w40:    { title: 'Semaine 40 — Date prévue d\'accouchement', desc: 'Date estimée selon la règle de Naegele (DDR + 280 jours). L\'accouchement peut survenir entre la semaine 37 (à terme) et 42. Bon courage!' },
+    }
+  },
+  en: {
+    headerSubtitle: 'Free tool · Québec',
+    pageTitle: '🤰 Pregnancy — Safe Maternity Program',
+    pageSubtitle: 'Calculate pregnancy weeks and key dates for the CNESST program',
+    modeDueLabel: 'Due date',
+    modeLmpLabel: 'Last period (LMP)',
+    labelDue: 'Expected due date',
+    labelLmp: 'Last menstrual period (LMP)',
+    labelCycle: 'Cycle length (days)',
+    btnCalc: '✨ Calculate key weeks',
+    resultTitle: 'Your key milestones',
+    btnPdf: '📄 PDF', btnPrint: '🖨️ Print', btnIcal: '📲 Calendar (.ics)',
+    sumDue: 'Expected due date',
+    sumLmp: 'LMP date',
+    sumNow: 'Current week',
+    sumWeek: 'week',
+    sumDays: 'days',
+    footerText: '© 2026 CalculDates.ca — For informational purposes only. Please consult your doctor and CNESST for your personal situation.',
+    disclaimer: '⚠️ Informational tool — dates are estimates (Naegele\'s rule). For official advice, consult your doctor and the <a href="https://www.cnesst.gouv.qc.ca/en/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — For a safe maternity experience</a>.',
+    alertDate: 'Please choose a date.',
+    alertFuture: 'The chosen date seems too far (more than 12 months into the future or past).',
+    printTip: '🖨️ Print tip\n\nTo keep colors, check "Background graphics" in the print dialog.',
+    icalMsg: '✅ .ics file downloaded!\n\n📱 iPhone / Mac: Double-click to import into Calendar.\n💻 Outlook: File → Open → Import.\n📅 Google Calendar: Settings → Import.',
+    alertPdfErr: 'Error generating PDF.',
+    pdfTitle: 'Pregnancy — CNESST Milestones',
+    today: 'Today',
+    past: 'Past',
+    now: 'Now',
+    future: 'Upcoming',
+    milestones: {
+      start:  { title: 'Pregnancy start (LMP)', desc: 'First day of last menstrual period. From this moment, several CNESST restrictions may apply: no load ≥ 15 kg, loads of 10–15 kg limited to 10× per shift. Evaluate chemical, biological and physical risks with your doctor.' },
+      w4:     { title: 'Week 4 — Pregnancy test', desc: 'A pregnancy test usually turns positive. Inform your doctor as soon as possible to assess workplace risks.' },
+      w7:     { title: 'Week 7-8 — First prenatal visit', desc: 'Initial appointment. Best time to obtain the Preventive Withdrawal Certificate (CNESST form) if your job presents hazards.' },
+      w12:    { title: 'Week 12 — End of 1st trimester', desc: 'Nausea usually decreases. Miscarriage risks decrease. Good time to tell your employer if not done yet.' },
+      w14:    { title: 'Week 14 — 2nd trimester', desc: 'Preventive withdrawal request is possible if your job has hazards. CNESST assesses risks: chemical, biological, physical loads, radiation, etc.' },
+      w16:    { title: 'Week 16 — Baby movements', desc: 'First fetal movements often perceived. Morphology ultrasound possible between weeks 18 and 22.' },
+      w20:    { title: 'Week 20 — Morphology ultrasound', desc: 'Detailed exam of the baby. At work: avoid prolonged standing (more than 4 hours straight is discouraged per CNESST).' },
+      w24:    { title: 'Week 24 — Fetal viability', desc: 'Medical viability threshold. From now, RQAP maternity leave can begin (up to 16 weeks before due date). Increased workplace restrictions.' },
+      w28:    { title: 'Week 28 — 3rd trimester', desc: 'Fatigue, lower back pain, shortness of breath are common. CNESST recommends more frequent breaks and workstation adjustments if not already done.' },
+      w32:    { title: 'Week 32 — Preparation', desc: 'Preventive withdrawal often occurs at this stage for physical jobs. Prepare your RQAP / EI file if not already submitted.' },
+      w34:    { title: 'Week 34 — Physical limits', desc: 'Avoid long trips and even light loads. Prenatal consultations usually every 2 weeks from here.' },
+      w36:    { title: 'Week 36 — Withdrawal recommended', desc: '4 weeks before term. For many physical jobs, CNESST authorizes preventive withdrawal. Final risk assessment with your doctor.' },
+      w40:    { title: 'Week 40 — Expected due date', desc: 'Date estimated via Naegele\'s rule (LMP + 280 days). Birth may occur between week 37 (full-term) and 42. Good luck!' },
+    }
+  },
+  es: {
+    headerSubtitle: 'Herramienta gratuita · Québec',
+    pageTitle: '🤰 Embarazo — Programa Para una maternidad sin peligro',
+    pageSubtitle: 'Calcule las semanas de embarazo y las fechas clave del programa CNESST',
+    modeDueLabel: 'Fecha prevista del parto',
+    modeLmpLabel: 'Última menstruación',
+    labelDue: 'Fecha prevista del parto',
+    labelLmp: 'Fecha de la última menstruación (FUM)',
+    labelCycle: 'Duración del ciclo (días)',
+    btnCalc: '✨ Calcular las semanas clave',
+    resultTitle: 'Sus hitos clave',
+    btnPdf: '📄 PDF', btnPrint: '🖨️ Imprimir', btnIcal: '📲 Calendario (.ics)',
+    sumDue: 'Fecha prevista del parto',
+    sumLmp: 'FUM',
+    sumNow: 'Semana actual',
+    sumWeek: 'semana',
+    sumDays: 'días',
+    footerText: '© 2026 CalculDates.ca — Solo con fines informativos. Consulte a su médico y a la CNESST para su situación personal.',
+    disclaimer: '⚠️ Herramienta informativa — las fechas son estimaciones (regla de Naegele). Para una opinión oficial, consulte a su médico y el sitio de la <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — Para una maternidad sin peligro</a>.',
+    alertDate: 'Por favor, elija una fecha.',
+    alertFuture: 'La fecha elegida parece demasiado lejana (más de 12 meses en el futuro o pasado).',
+    printTip: '🖨️ Consejo de impresión\n\nPara conservar los colores, marque «Gráficos de fondo» en el cuadro de diálogo.',
+    icalMsg: '✅ ¡Archivo .ics descargado!\n\n📱 iPhone / Mac: Haga doble clic para importar al Calendario.\n💻 Outlook: Archivo → Abrir → Importar.\n📅 Google Calendar: Configuración → Importar.',
+    alertPdfErr: 'Error al generar el PDF.',
+    pdfTitle: 'Embarazo — Hitos CNESST',
+    today: 'Hoy',
+    past: 'Pasada',
+    now: 'Ahora',
+    future: 'Próxima',
+    milestones: {
+      start:  { title: 'Inicio del embarazo (FUM)', desc: 'Primer día de la última menstruación. Desde este momento, varias restricciones de la CNESST pueden aplicar: ninguna carga ≥ 15 kg, cargas de 10–15 kg limitadas a 10 por turno. Evalúe los riesgos químicos, biológicos y físicos con su médico.' },
+      w4:     { title: 'Semana 4 — Prueba de embarazo', desc: 'Una prueba de embarazo generalmente se vuelve positiva. Informe a su médico lo antes posible para evaluar los riesgos laborales.' },
+      w7:     { title: 'Semana 7-8 — Primera consulta prenatal', desc: 'Cita inicial. Es el mejor momento para obtener el Certificado de retiro preventivo (formulario CNESST) si su puesto presenta peligros.' },
+      w12:    { title: 'Semana 12 — Fin del 1er trimestre', desc: 'Las náuseas generalmente disminuyen. El riesgo de aborto disminuye. Buen momento para informar al empleador si aún no lo ha hecho.' },
+      w14:    { title: 'Semana 14 — 2º trimestre', desc: 'La solicitud de retiro preventivo es posible si su puesto tiene peligros. La CNESST evalúa los riesgos: químicos, biológicos, cargas físicas, radiación, etc.' },
+      w16:    { title: 'Semana 16 — Movimientos del bebé', desc: 'Se perciben a menudo los primeros movimientos fetales. Ecografía morfológica posible entre las semanas 18 y 22.' },
+      w20:    { title: 'Semana 20 — Ecografía morfológica', desc: 'Examen detallado del bebé. En el trabajo: evite estar de pie más de 4 horas seguidas (desaconsejado por la CNESST).' },
+      w24:    { title: 'Semana 24 — Viabilidad fetal', desc: 'Umbral médico de viabilidad. A partir de ahora, el permiso de maternidad RQAP puede comenzar (hasta 16 semanas antes de la fecha prevista). Mayores restricciones laborales.' },
+      w28:    { title: 'Semana 28 — 3er trimestre', desc: 'Fatiga, lumbalgia y falta de aire son frecuentes. La CNESST recomienda pausas más frecuentes y ajustes del puesto de trabajo si aún no se han hecho.' },
+      w32:    { title: 'Semana 32 — Preparación', desc: 'Retiro preventivo frecuente en esta etapa para trabajos físicos. Prepare su expediente RQAP / seguro de empleo si aún no lo ha enviado.' },
+      w34:    { title: 'Semana 34 — Límites físicos', desc: 'Evite desplazamientos largos e incluso cargas ligeras. Consultas prenatales usualmente cada 2 semanas desde ahora.' },
+      w36:    { title: 'Semana 36 — Retiro recomendado', desc: '4 semanas antes del término. Para muchos trabajos físicos, la CNESST autoriza el retiro preventivo. Evaluación final de riesgos con su médico.' },
+      w40:    { title: 'Semana 40 — Fecha prevista del parto', desc: 'Fecha estimada según la regla de Naegele (FUM + 280 días). El parto puede ocurrir entre la semana 37 (a término) y la 42. ¡Mucho ánimo!' },
+    }
+  }
+};
+
+function renderAll() {
+  CDSite.renderNav(lang, ACTIVE_PAGE, 'siteNav');
+  CDSite.renderFooterLinks(lang, 'footerLinks');
+  document.getElementById('bottomAds').innerHTML = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+  document.getElementById('affiliateDisclosure').textContent = CDSite.SHARED[lang].affiliateDisclosure;
+}
+
+function cycleLang() {
+  lang = CDSite.cycleLang(lang);
+  CDSite.setStoredLang(lang);
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const t = i18n[lang];
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('headerSubtitle', t.headerSubtitle);
+  set('pageTitle', t.pageTitle);
+  set('pageSubtitle', t.pageSubtitle);
+  set('modeDueLabel', t.modeDueLabel);
+  set('modeLmpLabel', t.modeLmpLabel);
+  set('labelDue', t.labelDue);
+  set('labelLmp', t.labelLmp);
+  set('labelCycle', t.labelCycle);
+  set('btnCalc', t.btnCalc);
+  set('resultTitle', t.resultTitle);
+  set('btnPdf', t.btnPdf);
+  set('btnPrint', t.btnPrint);
+  set('btnIcal', t.btnIcal);
+  set('footerText', t.footerText);
+  document.getElementById('disclaimer').innerHTML = t.disclaimer;
+  renderAll();
+  if (computedData) renderResult();
+}
+
+function setMode(m) {
+  mode = m;
+  document.getElementById('modeDueBtn').classList.toggle('active', m === 'due');
+  document.getElementById('modeLmpBtn').classList.toggle('active', m === 'lmp');
+  document.getElementById('inputDueWrap').style.display = m === 'due' ? 'block' : 'none';
+  document.getElementById('inputLmpWrap').style.display = m === 'lmp' ? 'block' : 'none';
+}
+
+function formatDate(d, lang) {
+  const t = i18n[lang];
+  const j = d.getDate();
+  const m = t.mois ? t.mois[d.getMonth()] : d.toLocaleDateString(lang==='fr'?'fr-CA':lang==='es'?'es-CA':'en-CA', {month:'long'});
+  const y = d.getFullYear();
+  return `${j} ${m} ${y}`;
+}
+
+function calculer() {
+  const t = i18n[lang];
+  // Popup don (1× par session)
+  if (window.CDSite) setTimeout(function(){ CDSite.showDonatePopup(lang); }, 600);
+  let lmpDate, dueDate;
+  const cycleLen = parseInt(document.getElementById('cycleLen').value);
+  const ajust = cycleLen - 28; // ajustement par rapport au cycle de 28 jours
+
+  if (mode === 'due') {
+    const v = document.getElementById('dueDate').value;
+    if (!v) { alert(t.alertDate); return; }
+    dueDate = new Date(v + 'T00:00:00');
+    lmpDate = new Date(dueDate);
+    lmpDate.setDate(lmpDate.getDate() - GESTATION_DAYS - ajust);
+  } else {
+    const v = document.getElementById('lmpDate').value;
+    if (!v) { alert(t.alertDate); return; }
+    lmpDate = new Date(v + 'T00:00:00');
+    dueDate = new Date(lmpDate);
+    dueDate.setDate(dueDate.getDate() + GESTATION_DAYS + ajust);
+  }
+
+  // Sanity check
+  const today = new Date(); today.setHours(0,0,0,0);
+  const diffMs = dueDate - today;
+  const diffMonths = diffMs / (1000*60*60*24*30);
+  if (Math.abs(diffMonths) > 15) {
+    alert(t.alertFuture);
+    return;
+  }
+
+  // Calcul semaine actuelle
+  const daysSinceLmp = Math.floor((today - lmpDate) / (1000*60*60*24));
+  const currentWeek = Math.max(0, Math.floor(daysSinceLmp / 7));
+  const currentDaysInWeek = Math.max(0, daysSinceLmp % 7);
+
+  computedData = {
+    lmpDate, dueDate, today, currentWeek, currentDaysInWeek, daysSinceLmp
+  };
+
+  renderResult();
+  const section = document.getElementById('resultSection');
+  section.classList.add('visible');
+  section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Le tableau mois doit exister dans chaque langue: déjà dans rotation, ici on ajoute...
+// On référence i18n[lang].mois — s'il n'existe pas on fallback locale.
+const MOIS = {
+  fr: ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'],
+  en: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+  es: ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'],
+};
+
+function fmt(d) {
+  const j = d.getDate();
+  const m = MOIS[lang][d.getMonth()];
+  const y = d.getFullYear();
+  return `${j} ${m} ${y}`;
+}
+
+function renderResult() {
+  if (!computedData) return;
+  const t = i18n[lang];
+  const { lmpDate, dueDate, today, currentWeek, currentDaysInWeek, daysSinceLmp } = computedData;
+
+  // Résumé
+  document.getElementById('summary').innerHTML = `
+    <div class="summary-item">
+      <div class="sum-label">${t.sumLmp}</div>
+      <div class="sum-val">${fmt(lmpDate)}</div>
+    </div>
+    <div class="summary-item now">
+      <div class="sum-label">${t.sumNow}</div>
+      <div class="sum-val">${t.sumWeek} ${currentWeek}${currentDaysInWeek>0?' + '+currentDaysInWeek+'j':''}</div>
+      <div class="sum-sub">${daysSinceLmp} ${t.sumDays}</div>
+    </div>
+    <div class="summary-item due">
+      <div class="sum-label">${t.sumDue}</div>
+      <div class="sum-val">${fmt(dueDate)}</div>
+    </div>
+  `;
+
+  // Timeline
+  let html = '';
+  milestones.forEach(ms => {
+    const ms_date = new Date(lmpDate);
+    ms_date.setDate(ms_date.getDate() + ms.week * 7);
+    const info = t.milestones[ms.key];
+    if (!info) return;
+
+    let statusClass = '';
+    let badge = '';
+    const diff = Math.floor((ms_date - today) / (1000*60*60*24));
+    if (currentWeek === ms.week || (ms.week > 0 && currentWeek < ms.week + 1 && currentWeek >= ms.week - 1 && Math.abs(diff) <= 3)) {
+      statusClass = 'now';
+      badge = `<span class="tl-badge now">${t.now}</span>`;
+    } else if (ms_date < today) {
+      statusClass = 'past';
+      badge = `<span class="tl-badge">${t.past}</span>`;
+    } else {
+      // future — show critical styling if applicable
+    }
+    if (ms.critical && statusClass !== 'past') {
+      statusClass = statusClass ? statusClass + ' critical' : 'critical';
+      if (!badge.includes('now')) badge = `<span class="tl-badge critical">${ms.critical && statusClass.includes('critical') ? 'CNESST' : ''}</span>`;
+    }
+
+    html += `
+      <div class="tl-item ${statusClass}">
+        <div class="tl-top">
+          <div class="tl-week">${t.sumWeek} ${ms.week}${badge}</div>
+          <div class="tl-date">${fmt(ms_date)}</div>
+        </div>
+        <div class="tl-title">${info.title}</div>
+        <div class="tl-desc">${info.desc}</div>
+      </div>
+    `;
+  });
+  document.getElementById('timeline').innerHTML = html;
+}
+
+function imprimerRes() {
+  if (!computedData) return;
+  if (confirm(i18n[lang].printTip)) { window.print(); }
+}
+
+function exporterICal() {
+  const t = i18n[lang];
+  if (!computedData) return;
+  const { lmpDate } = computedData;
+
+  const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  let ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//CalculDates.ca//Grossesse//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    `X-WR-CALNAME:${t.pdfTitle}`,
+    'X-WR-TIMEZONE:America/Toronto',
+  ];
+
+  milestones.forEach(ms => {
+    const d = new Date(lmpDate);
+    d.setDate(d.getDate() + ms.week * 7);
+    const info = t.milestones[ms.key];
+    if (!info) return;
+    const debutIso = d.toISOString().split('T')[0].replace(/-/g,'');
+    const finDate = new Date(d); finDate.setDate(finDate.getDate()+1);
+    const finIso = finDate.toISOString().split('T')[0].replace(/-/g,'');
+    const uid = Math.random().toString(36).substr(2,9).toUpperCase() + '@calculdates.ca';
+    const desc = info.desc.replace(/\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
+
+    ics = ics.concat([
+      'BEGIN:VEVENT',
+      `UID:${uid}`,
+      `DTSTAMP:${now}`,
+      `DTSTART;VALUE=DATE:${debutIso}`,
+      `DTEND;VALUE=DATE:${finIso}`,
+      `SUMMARY:${info.title}`,
+      `DESCRIPTION:${desc}`,
+      'TRANSP:TRANSPARENT',
+      'END:VEVENT',
+    ]);
+  });
+  ics.push('END:VCALENDAR');
+
+  const blob = new Blob([ics.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'grossesse-cnesst.ics';
+  a.click();
+  URL.revokeObjectURL(url);
+  alert(t.icalMsg);
+}
+
+function telechargerPDF() {
+  const t = i18n[lang];
+  if (!computedData) return;
+  try {
+    const doc = genererPDF();
+    doc.save('grossesse-cnesst.pdf');
+  } catch(e) {
+    console.error(e);
+    alert(t.alertPdfErr);
+  }
+}
+
+function genererPDF() {
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+  const t = i18n[lang];
+  const { lmpDate, dueDate, currentWeek, daysSinceLmp } = computedData;
+
+  // En-tête
+  doc.setFillColor(26,58,92);
+  doc.rect(0,0,210,28,'F');
+  doc.setTextColor(255,255,255);
+  doc.setFontSize(18);
+  doc.text(t.pdfTitle, 14, 13);
+  doc.setFontSize(9);
+  doc.setTextColor(232,197,71);
+  doc.text('CalculDates.ca · ' + (lang==='fr'?'calculdates.ca/grossesse.html':lang==='es'?'calculdates.ca/grossesse.html':'calculdates.ca/grossesse.html'), 14, 22);
+
+  // Résumé
+  let y = 36;
+  doc.setTextColor(40,40,40);
+  doc.setFontSize(10);
+  doc.setFont(undefined, 'bold');
+  doc.text(`${t.sumLmp}: ${fmt(lmpDate)}`, 14, y); y += 6;
+  doc.text(`${t.sumDue}: ${fmt(dueDate)}`, 14, y); y += 6;
+  doc.text(`${t.sumNow}: ${t.sumWeek} ${currentWeek}  (${daysSinceLmp} ${t.sumDays})`, 14, y); y += 8;
+  doc.setFont(undefined, 'normal');
+
+  // Disclaimer
+  doc.setFillColor(255, 247, 224);
+  doc.setDrawColor(232, 197, 71);
+  doc.roundedRect(14, y, 182, 14, 2, 2, 'FD');
+  doc.setFontSize(8);
+  doc.setTextColor(80,80,80);
+  const disc = t.disclaimer.replace(/<[^>]+>/g, '').replace(/\s+/g,' ').trim();
+  const lines = doc.splitTextToSize(disc, 176);
+  doc.text(lines, 17, y + 5);
+  y += 20;
+
+  // Milestones
+  doc.setFontSize(10);
+  milestones.forEach(ms => {
+    const info = t.milestones[ms.key];
+    if (!info) return;
+    const d = new Date(lmpDate);
+    d.setDate(d.getDate() + ms.week * 7);
+
+    if (y > 262) { doc.addPage(); y = 20; }
+
+    // Bulle date
+    const isCritical = ms.critical;
+    const isPast = d < computedData.today;
+    const isNow = Math.abs(Math.floor((d - computedData.today)/(1000*60*60*24))) <= 3;
+
+    if (isNow) doc.setFillColor(52, 168, 83);
+    else if (isCritical) doc.setFillColor(217, 54, 54);
+    else if (isPast) doc.setFillColor(160, 160, 160);
+    else doc.setFillColor(45, 106, 159);
+    doc.roundedRect(14, y, 30, 9, 2, 2, 'F');
+    doc.setTextColor(255,255,255);
+    doc.setFontSize(9);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${t.sumWeek} ${ms.week}`, 29, y + 6, {align:'center'});
+
+    // Titre
+    doc.setTextColor(26, 58, 92);
+    doc.setFontSize(10);
+    doc.text(info.title, 48, y + 4);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text(fmt(d), 48, y + 9);
+
+    // Description
+    doc.setFontSize(8);
+    doc.setTextColor(60, 60, 60);
+    const descLines = doc.splitTextToSize(info.desc, 182);
+    doc.text(descLines, 14, y + 15);
+    y += 15 + descLines.length * 4 + 5;
+  });
+
+  // Footer
+  const pages = doc.internal.getNumberOfPages();
+  for (let i = 1; i <= pages; i++) {
+    doc.setPage(i);
+    doc.setTextColor(150, 150, 150);
+    doc.setFontSize(7);
+    doc.text('© 2026 CalculDates.ca — Outil informatif. Consultez votre médecin et la CNESST.', 105, 292, {align:'center'});
+  }
+
+  return doc;
+}
+
+// Init
+(function init() {
+  const stored = CDSite.getStoredLang();
+  if (stored && ['fr','en','es'].includes(stored)) lang = stored;
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  // Default date: 9 months from today
+  const def = new Date();
+  def.setMonth(def.getMonth() + 7);
+  document.getElem
