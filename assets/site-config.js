@@ -122,7 +122,7 @@
     return [
       '<a href="https://lecfomasque.com/ref/107/" target="_blank" rel="sponsored noopener" class="ad-cfo">',
       '  <div class="ad-cfo-inner">',
-      '    <img src="images/cfo-masque.svg?v=20260424b" alt="Le CFO masqué" class="ad-cfo-logo" loading="lazy" />',
+      '    <img src="images/cfo-masque.svg?v=20260424c" alt="Le CFO masqué" class="ad-cfo-logo" loading="lazy" />',
       '    <div class="ad-cfo-text">',
       '      <div class="ad-cfo-headline">' + t.cfoHeadline + '</div>',
       '      <div class="ad-cfo-subline">' + t.cfoSubline + '</div>',
@@ -141,7 +141,7 @@
     return [
       '<a href="https://alchimix-app.com/" target="_blank" rel="sponsored noopener" class="ad-alch">',
       '  <div class="ad-alch-inner">',
-      '    <img src="images/alchimix.png?v=20260424b" alt="Alchimix" class="ad-alch-banner" loading="lazy" />',
+      '    <img src="images/alchimix.png?v=20260424c" alt="Alchimix" class="ad-alch-banner" loading="lazy" />',
       '    <div class="ad-alch-text">',
       '      <div class="ad-alch-headline">' + t.alchHeadline + '</div>',
       '      <div class="ad-alch-subline">' + t.alchSubline + '</div>',
@@ -161,7 +161,7 @@
     return [
       '<a href="' + url + '" target="_blank" rel="sponsored noopener" class="ad-amz">',
       '  <div class="ad-amz-inner">',
-      '    <img src="images/amazon.svg?v=20260424b" alt="Amazon" class="ad-amz-logo" loading="lazy" />',
+      '    <img src="images/amazon.svg?v=20260424c" alt="Amazon" class="ad-amz-logo" loading="lazy" />',
       '    <div class="ad-amz-text">',
       '      <div class="ad-amz-headline">' + t.amazonHeadline + '</div>',
       '      <div class="ad-amz-subline">' + t.amazonSubline + '</div>',
