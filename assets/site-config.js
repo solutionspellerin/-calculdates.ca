@@ -161,11 +161,11 @@
     return [
       '<a href="' + url + '" target="_blank" rel="sponsored noopener" class="ad-amz">',
       '  <div class="ad-amz-inner">',
-      '    <div class="ad-amz-logo">amazon</div>',
+      '    <img src="images/amazon.svg" alt="Amazon" class="ad-amz-logo" loading="lazy" />',
       '    <div class="ad-amz-text">',
       '      <div class="ad-amz-headline">' + t.amazonHeadline + '</div>',
       '      <div class="ad-amz-subline">' + t.amazonSubline + '</div>',
-      '      <div class="ad-amz-cta">' + t.amazonCTA + '</div>',
+      '      <div class="ad-amz-cta">' + t.amazonCTA + ' <span aria-hidden="true">›</span></div>',
       '    </div>',
       '  </div>',
       '  <div class="ad-label">' + t.adLabel + '</div>',
