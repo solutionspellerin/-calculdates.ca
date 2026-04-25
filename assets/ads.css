@@ -28,49 +28,23 @@
 }
 
 /* ── Base commune aux 3 pubs ─────────────────────────────── */
-/* Toutes les tuiles en layout vertical + hauteur égale via grid stretch */
 .ad-cfo, .ad-alch, .ad-amz {
-  display: flex;
-  flex-direction: column;
+  display: block;
   text-decoration: none;
   border-radius: 16px;
   position: relative;
   overflow: hidden;
   transition: transform 0.25s cubic-bezier(.2,.9,.3,1.1), box-shadow 0.25s;
   isolation: isolate;
-  height: 100%; /* remplit la hauteur de la cellule grid */
 }
 .ad-cfo:hover, .ad-alch:hover, .ad-amz:hover {
   transform: translateY(-3px);
 }
 
-/* Wrapper interne de chaque tuile — pilote le layout vertical */
-.ad-cfo-inner, .ad-amz-inner, .ad-alch-inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-/* Zone texte — prend le reste de l'espace, CTA poussé en bas */
-.ad-cfo-text, .ad-alch-text, .ad-amz-text {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 8px 16px 14px;
-  text-align: center;
-  min-width: 0;
-}
-.ad-cfo-cta, .ad-alch-cta, .ad-amz-cta {
-  margin-top: auto;
-  padding-top: 8px;
-  align-self: center;
-}
-
 /* ── CFO masqué — couverture sombre « finance » ─────────── */
 .ad-cfo {
   background: linear-gradient(135deg, #0e2540 0%, #1f4e7e 55%, #2d6a9f 100%);
+  padding: 20px 22px 18px;
   box-shadow: 0 6px 22px rgba(14,37,64,0.18);
 }
 .ad-cfo::before {
@@ -81,35 +55,32 @@
   z-index: 0;
 }
 .ad-cfo:hover { box-shadow: 0 14px 32px rgba(14,37,64,0.32); }
+.ad-cfo-inner { position: relative; z-index: 1; display: flex; align-items: center; gap: 18px; }
 .ad-cfo-logo {
-  max-height: 82px;
-  max-width: 140px;
-  width: auto; height: auto;
-  margin: 16px auto 8px;
-  border-radius: 6px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+  width: 86px; height: auto; flex-shrink: 0; border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
   background: #1c1c1c;
-  align-self: center;
 }
+.ad-cfo-text { flex: 1; min-width: 0; }
 .ad-cfo-headline {
   font-family: 'Playfair Display', serif;
-  font-size: 0.92rem;
+  font-size: 1.02rem;
   font-weight: 700;
   color: #ffffff;
-  line-height: 1.25;
+  line-height: 1.2;
   margin-bottom: 5px;
   letter-spacing: -0.005em;
 }
 .ad-cfo-subline {
-  font-size: 0.74rem;
+  font-size: 0.8rem;
   color: rgba(255,255,255,0.78);
-  line-height: 1.4;
-  margin-bottom: 6px;
+  line-height: 1.45;
+  margin-bottom: 10px;
 }
 .ad-cfo-promo {
-  font-size: 0.68rem;
+  font-size: 0.72rem;
   color: rgba(255,255,255,0.7);
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   letter-spacing: 0.01em;
 }
 .ad-cfo-code {
@@ -117,22 +88,22 @@
   background: linear-gradient(180deg, #f3d85a 0%, #e8c547 100%);
   color: #0e2540;
   font-weight: 700;
-  padding: 2px 7px;
-  border-radius: 4px;
+  padding: 3px 9px;
+  border-radius: 5px;
   font-family: 'DM Sans', monospace;
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   letter-spacing: 0.02em;
-  margin-left: 3px;
-  box-shadow: 0 2px 5px rgba(232,197,71,0.35), inset 0 1px 0 rgba(255,255,255,0.35);
+  margin-left: 4px;
+  box-shadow: 0 2px 6px rgba(232,197,71,0.35), inset 0 1px 0 rgba(255,255,255,0.35);
 }
 .ad-cfo-cta {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #e8c547;
   letter-spacing: 0.02em;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 /* ── Alchimix — couverture mystique/magique ─────────────── */
@@ -151,90 +122,76 @@
 .ad-alch:hover { box-shadow: 0 14px 32px rgba(45,27,92,0.38); }
 .ad-alch-banner {
   width: 100%;
-  height: 120px; /* hauteur fixe de la zone média — égale aux logos des 2 autres */
-  object-fit: contain;
-  object-position: center;
   display: block;
+  position: relative; z-index: 1;
   border-bottom: 1px solid rgba(255,217,63,0.2);
-  padding: 8px 12px 4px;
-  box-sizing: border-box;
 }
+.ad-alch-text { padding: 14px 18px 16px; position: relative; z-index: 1; }
 .ad-alch-headline {
   font-family: 'Playfair Display', serif;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #ffd93f;
-  margin-bottom: 5px;
+  margin-bottom: 4px;
   letter-spacing: 0.005em;
   text-shadow: 0 1px 2px rgba(0,0,0,0.2);
-  line-height: 1.25;
 }
 .ad-alch-subline {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: rgba(255,255,255,0.82);
-  line-height: 1.4;
-  margin-bottom: 6px;
+  line-height: 1.45;
+  margin-bottom: 10px;
 }
 .ad-alch-cta {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #b4ff3f;
   letter-spacing: 0.02em;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 /* ── Amazon — look officiel ──────────────────────────────── */
 .ad-amz {
-  background: linear-gradient(180deg, #ffffff 0%, #faf8f4 100%);
+  background: linear-gradient(180deg, #ffffff 0%, #fafaf7 100%);
   border: 1.5px solid #e8e4dc;
+  padding: 18px 20px 16px;
   box-shadow: 0 3px 12px rgba(0,0,0,0.05);
-}
-.ad-amz::before {
-  content: '';
-  position: absolute;
-  left: 0; right: 0; top: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #ff9900 0%, #febd69 100%);
-  border-radius: 16px 16px 0 0;
-  pointer-events: none;
-  z-index: 0;
 }
 .ad-amz:hover {
   border-color: #ff9900;
   box-shadow: 0 10px 26px rgba(255,153,0,0.18);
 }
+.ad-amz-inner { display: flex; align-items: center; gap: 16px; position: relative; z-index: 1; }
 .ad-amz-logo {
-  max-height: 70px;
-  max-width: 140px;
-  width: auto; height: auto;
-  margin: 22px auto 10px;
-  align-self: center;
+  width: 110px; height: auto;
+  flex-shrink: 0;
 }
+.ad-amz-text { flex: 1; min-width: 0; }
 .ad-amz-headline {
   font-family: 'Playfair Display', serif;
-  font-size: 0.92rem;
+  font-size: 1rem;
   font-weight: 700;
   color: #232f3e;
-  line-height: 1.25;
-  margin-bottom: 5px;
+  line-height: 1.2;
+  margin-bottom: 4px;
   letter-spacing: -0.005em;
 }
 .ad-amz-subline {
-  font-size: 0.74rem;
+  font-size: 0.78rem;
   color: #5a5a5a;
-  line-height: 1.4;
-  margin-bottom: 6px;
+  line-height: 1.45;
+  margin-bottom: 8px;
 }
 .ad-amz-cta {
-  font-size: 0.78rem;
+  font-size: 0.82rem;
   font-weight: 700;
   color: #c7790a;
   letter-spacing: 0.02em;
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 
 /* ── Label « Annonce / Ad / Anuncio » commun ─────────────── */
@@ -268,9 +225,8 @@
 .ads-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
   margin: 24px 0;
-  align-items: stretch; /* toutes les tuiles à la même hauteur */
 }
 @media (max-width: 820px) {
   .ads-row { grid-template-columns: 1fr; }
@@ -349,37 +305,148 @@
 }
 .donate-cta {
   display: inline-block;
-  background: #ffdd00; /* couleur officielle BMC */
-  color: #0d0c22;
+  background: linear-gradient(180deg, #f3d85a 0%, #e8c547 100%);
+  color: #1a3a5c;
   font-family: 'DM Sans', sans-serif;
-  font-size: 1rem;
   font-weight: 700;
-  padding: 13px 18px;
-  border-radius: 10px;
+  font-size: 0.95rem;
   text-decoration: none;
-  border: 2px solid #0d0c22;
-  transition: transform 0.15s, box-shadow 0.15s;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
   letter-spacing: 0.01em;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 14px rgba(232,197,71,0.35);
 }
 .donate-cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 18px rgba(13,12,34,0.25);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(232,197,71,0.45);
 }
 .donate-dismiss {
   background: transparent;
   border: none;
   color: #8a8a8a;
   font-family: 'DM Sans', sans-serif;
-  font-size: 0.88rem;
-  font-weight: 500;
+  font-size: 0.85rem;
   cursor: pointer;
-  padding: 8px;
-  transition: color 0.15s;
+  padding: 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
 }
-.donate-dismiss:hover { color: #1a3a5c; }
+.donate-dismiss:hover { color: #1a3a5c; background: #f4f1eb; }
 
-/* ── Impression : masquer les pubs et le popup ────────────── */
-@media print {
-  .ad-cfo, .ad-alch, .ad-amz, .ads-stack, .ads-row, .ad-banner, .ad-sidebar,
-  .donate-overlay { display: none !important; }
+/* ── Popup « Adblock détecté » ────────────────────────────── */
+.adblock-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 40, 0.62);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  padding: 20px;
+}
+.adblock-overlay.is-visible { opacity: 1; }
+.adblock-modal {
+  position: relative;
+  max-width: 460px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 32px 28px 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+  text-align: center;
+  border-top: 5px solid #e8c547;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.3s cubic-bezier(.2,.9,.3,1.2);
+}
+.adblock-overlay.is-visible .adblock-modal { transform: translateY(0) scale(1); }
+.adblock-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: transparent;
+  border: none;
+  font-size: 1.7rem;
+  color: #8a8a8a;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: background 0.15s, color 0.15s;
+}
+.adblock-close:hover { background: #f2efe8; color: #1a3a5c; }
+.adblock-emoji {
+  font-size: 2.8rem;
+  margin-bottom: 6px;
+  line-height: 1;
+}
+.adblock-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #1a3a5c;
+  margin: 0 0 12px;
+  line-height: 1.25;
+}
+.adblock-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #444;
+  line-height: 1.6;
+  margin: 0 0 22px;
+}
+.adblock-body strong { color: #1a3a5c; }
+.adblock-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: stretch;
+}
+.adblock-cta {
+  display: inline-block;
+  background: linear-gradient(180deg, #f3d85a 0%, #e8c547 100%);
+  color: #1a3a5c;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  box-shadow: 0 4px 14px rgba(232,197,71,0.35);
+}
+.adblock-cta:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(232,197,71,0.45);
+}
+.adblock-dismiss {
+  background: transparent;
+  border: none;
+  color: #8a8a8a;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: color 0.15s, background 0.15s;
+}
+.adblock-dismiss:hover { color: #1a3a5c; background: #f4f1eb; }
+
+/* Bait élément utilisé pour la détection — invisible mais "rendu" */
+.cd-adbait {
+  position: absolute !important;
+  left: -9999px !important;
+  top: -9999px !important;
+  width: 10px !important;
+  height: 10px !important;
+  pointer-events: none !important;
 }
