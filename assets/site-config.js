@@ -13,6 +13,7 @@
     { key: 'garde',    href: 'garde.html',          fr: 'Garde partagée',        en: 'Shared Custody',      es: 'Custodia compartida' },
     { key: 'rotation', href: 'rotation.html',       fr: 'Rotation de travail',   en: 'Work Rotation',       es: 'Rotación laboral' },
     { key: 'grossesse',href: 'grossesse.html',      fr: 'Grossesse (CNESST)',    en: 'Pregnancy (CNESST)',  es: 'Embarazo (CNESST)' },
+    { key: 'paie',     href: 'paie.html',           fr: 'Paie & fiscal',         en: 'Pay & fiscal',        es: 'Nómina & fiscal' },
     { key: 'about',    href: 'about.html',          fr: 'À propos',              en: 'About',               es: 'Acerca de' },
     { key: 'privacy',  href: 'privacy-policy.html', fr: 'Politique de conf.',    en: 'Privacy Policy',      es: 'Privacidad' },
   ];
@@ -385,8 +386,4 @@
   };
 
   // Bootstrap automatique : lance la détection adblock au chargement.
-  // Pour désactiver sur une page : window.CDSITE_DISABLE_ADBLOCK_CHECK = true;
-  if (!global.CDSITE_DISABLE_ADBLOCK_CHECK) {
-    autoCheckAdblock();
-  }
-})(typeof window !== 'undefined' ? window : this);
+  // Pour désactiver sur une page : window.CDSITE_DISABLE_ADBLOCK_CHECK
