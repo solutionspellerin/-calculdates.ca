@@ -386,4 +386,8 @@
   };
 
   // Bootstrap automatique : lance la détection adblock au chargement.
-  // Pour désactiver sur une page : window.CDSITE_DISABLE_ADBLOCK_CHECK
+  // Pour désactiver sur une page : window.CDSITE_DISABLE_ADBLOCK_CHECK = true;
+  if (!global.CDSITE_DISABLE_ADBLOCK_CHECK) {
+    autoCheckAdblock();
+  }
+})(typeof window !== 'undefined' ? window : this);
