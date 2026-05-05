@@ -14,6 +14,7 @@
     { key: 'rotation', href: 'rotation.html',       fr: 'Rotation de travail',   en: 'Work Rotation',       es: 'Rotación laboral' },
     { key: 'grossesse',href: 'grossesse.html',      fr: 'Grossesse (CNESST)',    en: 'Pregnancy (CNESST)',  es: 'Embarazo (CNESST)' },
     { key: 'paie',     href: 'paie.html',           fr: 'Paie & fiscal',         en: 'Pay & fiscal',        es: 'Nómina & fiscal' },
+    { key: 'guide',    href: 'guide.html',          fr: 'Guide pratique',        en: 'Practical Guide',     es: 'Guía práctica' },
     { key: 'about',    href: 'about.html',          fr: 'À propos',              en: 'About',               es: 'Acerca de' },
     { key: 'privacy',  href: 'privacy-policy.html', fr: 'Politique de conf.',    en: 'Privacy Policy',      es: 'Privacidad' },
   ];
