@@ -1,2 +1,2 @@
 # -calculdates.ca
-Calculateur de dates
+Calculateur de dates — outil gratuit pour le Québec.
