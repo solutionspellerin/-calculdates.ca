@@ -16,11 +16,11 @@
 <link rel="canonical" href="https://www.calculdates.ca/feries.html" />
 <title>Jours fériés de l'organisation — Calendrier du personnel | CalculDates.ca</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/ads.css?v=20260518a">
+<link rel="stylesheet" href="assets/ads.css?v=20260518b">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-<script src="assets/site-config.js?v=20260518a"></script>
+<script src="assets/site-config.js?v=20260518b"></script>
 <style>
   :root {
     --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
@@ -200,6 +200,9 @@
       <button class="btn-generate" onclick="chargerFeries()" id="btnCharger">✨ Charger les jours fériés</button>
     </div>
   </div>
+
+  <!-- Pubs (sous le formulaire, visibles immédiatement) -->
+  <div class="ads-row" id="topAds"></div>
 
   <div class="card liste-section" id="listeSection">
     <div class="card-body">
@@ -600,7 +603,10 @@ function buildHolidays(pays, region, year, includeOptional) {
 function renderAll() {
   CDSite.renderNav(lang, ACTIVE_PAGE, 'siteNav');
   CDSite.renderFooterLinks(lang, 'footerLinks');
-  document.getElementById('bottomAds').innerHTML = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+  const adsHtml = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+  const topAds = document.getElementById('topAds');
+  if (topAds) topAds.innerHTML = adsHtml;
+  document.getElementById('bottomAds').innerHTML = adsHtml;
   document.getElementById('affiliateDisclosure').textContent = CDSite.SHARED[lang].affiliateDisclosure;
 }
 
@@ -1087,9 +1093,14 @@ if (document.readyState === 'loading') {
       if (fl && fl.innerHTML.trim().length === 0) {
         CDSite.renderFooterLinks(curLang, 'footerLinks');
       }
+      var adsHtml = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      var topAds = document.getElementById('topAds');
+      if (topAds && topAds.innerHTML.trim().length === 0) {
+        topAds.innerHTML = adsHtml;
+      }
       var ads = document.getElementById('bottomAds');
       if (ads && ads.innerHTML.trim().length === 0) {
-        ads.innerHTML = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+        ads.innerHTML = adsHtml;
       }
       var disc = document.getElementById('affiliateDisclosure');
       if (disc && !disc.textContent.trim()) {
