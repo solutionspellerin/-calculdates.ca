@@ -450,3 +450,123 @@
   height: 10px !important;
   pointer-events: none !important;
 }
+
+/* ── Toggle de visibilité par langue (HTML statique multilingue) ───────────
+   Permet d'afficher des blocs de contenu éditorial dans 3 langues sans JS.
+   Par défaut : FR visible (langue principale du Québec).
+   Quand <html lang="en"> ou <html lang="es"> est défini, on bascule. */
+.lang-only-en, .lang-only-es { display: none; }
+.lang-only-fr { display: block; }
+html[lang="en"] .lang-only-fr, html[lang="en"] .lang-only-es { display: none; }
+html[lang="en"] .lang-only-en { display: block; }
+html[lang="es"] .lang-only-fr, html[lang="es"] .lang-only-en { display: none; }
+html[lang="es"] .lang-only-es { display: block; }
+
+/* ── Sections de contenu éditorial (SEO + valeur informative AdSense) ─── */
+.cd-seo {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px rgba(26,58,92,0.08);
+  padding: 32px 36px;
+  margin-top: 28px;
+  color: #2a2a2a;
+  line-height: 1.75;
+  font-size: 0.97rem;
+}
+.cd-seo h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  color: #1a3a5c;
+  margin: 0 0 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e8c547;
+}
+.cd-seo h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  color: #1a3a5c;
+  margin: 22px 0 8px;
+}
+.cd-seo h4 {
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: #1a3a5c;
+  margin: 18px 0 6px;
+}
+.cd-seo p { margin: 0 0 12px; }
+.cd-seo ul, .cd-seo ol { margin: 8px 0 14px; padding-left: 22px; }
+.cd-seo li { margin-bottom: 6px; }
+.cd-seo a { color: #2d6a9f; font-weight: 500; text-decoration: underline; text-decoration-color: rgba(45,106,159,0.4); }
+.cd-seo a:hover { text-decoration-color: #2d6a9f; }
+.cd-seo strong { color: #142d47; }
+.cd-seo .seo-callout {
+  background: #fff8e6;
+  border-left: 4px solid #e8c547;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 0.93rem;
+}
+.cd-seo .seo-callout.cnesst {
+  background: #eaf3fb;
+  border-left-color: #2d6a9f;
+}
+.cd-seo .seo-faq details {
+  background: #f7f4ee;
+  border-radius: 10px;
+  padding: 12px 18px;
+  margin-bottom: 10px;
+  border: 1px solid #e8e4dc;
+}
+.cd-seo .seo-faq summary {
+  font-weight: 600;
+  color: #1a3a5c;
+  cursor: pointer;
+  padding: 4px 0;
+  list-style: none;
+  position: relative;
+  padding-right: 28px;
+}
+.cd-seo .seo-faq summary::-webkit-details-marker { display: none; }
+.cd-seo .seo-faq summary::after {
+  content: '+';
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+  color: #e8c547;
+  font-weight: 300;
+  transition: transform 0.2s;
+}
+.cd-seo .seo-faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+.cd-seo .seo-faq details[open] summary { margin-bottom: 8px; }
+.cd-seo .seo-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 14px 0 18px;
+}
+.cd-seo .seo-card {
+  background: #f7f4ee;
+  border-left: 3px solid #e8c547;
+  border-radius: 10px;
+  padding: 14px 18px;
+}
+.cd-seo .seo-card h4 { margin-top: 0; }
+.cd-seo .seo-card p { font-size: 0.9rem; margin-bottom: 4px; }
+.cd-seo .seo-card a { font-size: 0.88rem; }
+.cd-seo .seo-sources {
+  margin-top: 18px;
+  padding: 14px 18px;
+  background: #f7f4ee;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  color: #555;
+}
+.cd-seo .seo-sources strong { display: block; margin-bottom: 6px; color: #1a3a5c; }
+@media (max-width: 700px) {
+  .cd-seo { padding: 22px 20px; }
+  .cd-seo h2 { font-size: 1.2rem; }
+  .cd-seo .seo-cards { grid-template-columns: 1fr; }
+}
