@@ -26,7 +26,7 @@
       headerSubtitle: 'Outil gratuit · Québec',
       footerText:     '© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.',
       affiliateDisclosure: 'En tant que Partenaire Amazon, CalculDates.ca réalise un bénéfice sur les achats remplissant les conditions requises. Ce site contient aussi des liens d\'affiliation (ex: Le CFO masqué) — nous pouvons recevoir une commission sans frais supplémentaires pour vous.',
-      adLabel: 'Annonce',
+      adLabel: 'Partenaire',
       cfoHeadline: 'Devenez un pro d\'Excel et Power BI',
       cfoSubline: 'Formations francophones pour analystes, contrôleurs et gestionnaires.',
       cfoPromo: 'Utilisez le code promo',
@@ -50,7 +50,7 @@
       headerSubtitle: 'Free tool · Québec',
       footerText:     '© 2026 CalculDates.ca — For informational purposes only. Please consult a professional for your personal situation.',
       affiliateDisclosure: 'As an Amazon Associate, CalculDates.ca earns from qualifying purchases. This site also contains other affiliate links (e.g., Le CFO masqué) — we may earn a commission at no extra cost to you.',
-      adLabel: 'Ad',
+      adLabel: 'Partner',
       cfoHeadline: 'Become an Excel & Power BI pro',
       cfoSubline: 'French-language training for analysts, controllers and managers.',
       cfoPromo: 'Use promo code',
@@ -74,7 +74,7 @@
       headerSubtitle: 'Herramienta gratuita · Québec',
       footerText:     '© 2026 CalculDates.ca — Solo con fines informativos. Consulte a un profesional para su situación personal.',
       affiliateDisclosure: 'Como Afiliado de Amazon, CalculDates.ca obtiene ingresos por compras que cumplan los requisitos. Este sitio también contiene otros enlaces de afiliados (ej. Le CFO masqué) — podemos recibir una comisión sin costo adicional para usted.',
-      adLabel: 'Anuncio',
+      adLabel: 'Socio',
       cfoHeadline: 'Conviértase en experto de Excel y Power BI',
       cfoSubline: 'Formaciones en francés para analistas, contables y gerentes.',
       cfoPromo: 'Use el código promo',
@@ -389,7 +389,9 @@
 
   // Bootstrap automatique : lance la détection adblock au chargement.
   // Pour désactiver sur une page : window.CDSITE_DISABLE_ADBLOCK_CHECK = true;
-  if (!global.CDSITE_DISABLE_ADBLOCK_CHECK) {
+  // Désactivé temporairement pendant l'examen AdSense (réactiver : mettre à true).
+  var ADBLOCK_CHECK_ENABLED = false;
+  if (ADBLOCK_CHECK_ENABLED && !global.CDSITE_DISABLE_ADBLOCK_CHECK) {
     autoCheckAdblock();
   }
 })(typeof window !== 'undefined' ? window : this);
