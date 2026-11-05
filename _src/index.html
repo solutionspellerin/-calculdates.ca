@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Y86YEGXHVV');
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Calcul dates — outil gratuit pour calculer dates, garde partagée, rotation de travail et semaines de grossesse (CNESST).">
-<link rel="canonical" href="https://www.calculdates.ca/" />
-<meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Calcul dates — outil gratuit pour calculer dates, garde partagée, rotation de travail et semaines de grossesse (CNESST)." name="description"/>
+<link href="https://www.calculdates.ca/" rel="canonical"/>
+<meta content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" name="google-site-verification"/>
 <title>Calcul dates — Date Calculator | CalculDates.ca</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/ads.css?v=20260526a">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="assets/ads.css?v=20260526a" rel="stylesheet"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451"></script>
 <style>
   :root {
     --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
@@ -101,407 +102,375 @@
 
   @media (max-width: 900px) { main { grid-template-columns: 1fr; } .scenarios-grid { grid-template-columns: 1fr 1fr; } }
   @media (max-width: 480px) { .scenarios-grid { grid-template-columns: 1fr; } .row-2 { grid-template-columns: 1fr; } header { padding: 14px 16px; } .lang-label { display: none; } }
+  .related-box { margin:26px 0 10px; background:var(--blanc); border-radius:12px; padding:16px 20px; box-shadow:0 4px 24px rgba(26,58,92,0.08); border-left:4px solid var(--accent); }
+  .related-box h3 { font-size:1rem; margin:0 0 8px; color:var(--bleu); }
+  .related-box ul { margin:0 0 0 18px; line-height:1.8; }
+  .related-box a { color:var(--bleu-clair); }
 </style>
 </head>
 <body>
-
 <header>
-  <a href="index.html" class="logo">Calcul<span>Dates</span>.ca</a>
-  <div class="header-right">
-    <span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
-    <div class="lang-toggle-3" onclick="toggleLang()" id="langToggle" title="Language">
-      <span class="lang-opt" data-lang="fr">FR</span>
-      <span class="lang-opt" data-lang="en">EN</span>
-      <span class="lang-opt" data-lang="es">ES</span>
-    </div>
-  </div>
+<a class="logo" href="index.html">Calcul<span>Dates</span>.ca</a>
+<div class="header-right">
+<span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
+<div class="lang-toggle-3" id="langToggle" onclick="toggleLang()" title="Language">
+<span class="lang-opt" data-lang="fr">FR</span>
+<span class="lang-opt" data-lang="en">EN</span>
+<span class="lang-opt" data-lang="es">ES</span>
+</div>
+</div>
 </header>
-
 <nav class="site-nav">
-  <div class="nav-inner" id="siteNav"></div>
+<div class="nav-inner" id="siteNav"></div>
 </nav>
-
 <main>
-  <div class="card">
-    <div class="card-header">
-      <h1 id="mainTitle">Calcul dates</h1>
-      <p id="mainSubtitle">Ajoutez des jours, semaines, mois ou années à une date de début</p>
-    </div>
-    <div class="card-body">
-
-      <div class="direction-toggle">
-        <span class="dir-label active" id="dirLabelForward">Date de début → Date d'échéance</span>
-        <button class="dir-switch" onclick="toggleDirection()" id="dirSwitch" title="Inverser le sens">
-          <div class="dir-switch-thumb"></div>
-        </button>
-        <span class="dir-label" id="dirLabelBackward">Date d'échéance → Date de début</span>
-      </div>
-
-      <div class="form-group">
-        <label id="labelStart">Date de départ <span id="startDayLabel" style="color:var(--bleu-clair);font-weight:500;text-transform:none;letter-spacing:0;font-size:0.85rem;"></span></label>
-        <input type="date" id="startDate" />
-      </div>
-
-      <div class="row-2">
-        <div class="form-group">
-          <label id="labelQty">Quantité</label>
-          <input type="number" id="quantity" min="0" placeholder="ex: 18" />
-        </div>
-        <div class="form-group">
-          <label id="labelUnit">Unité</label>
-          <div class="select-wrapper">
-            <select id="unit">
-              <option value="" id="optChoose">— Choisir —</option>
-              <option value="day"   id="optDay">Jour(s)</option>
-              <option value="week"  id="optWeek">Semaine(s)</option>
-              <option value="month" id="optMonth">Mois</option>
-              <option value="year"  id="optYear">Année(s)</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <div class="result-box">
-        <div class="result-label" id="resultLabel">Date d'échéance</div>
-        <div class="result-date empty" id="resultDate">Remplissez les champs ci-dessus</div>
-        <div class="result-day" id="resultDay"></div>
-        <div class="result-delta" id="resultDelta"></div>
-      </div>
-
-    </div>
-  </div>
-
-  <aside class="sidebar">
-    <div class="info-card">
-      <h3 id="infoTitle">📋 Infos calculées</h3>
-      <div class="info-item"><span class="label" id="labelTotalDays">Jours totaux</span><span class="value" id="infoJours">—</span></div>
-      <div class="info-item"><span class="label" id="labelWeeks">Semaines complètes</span><span class="value" id="infoSemaines">—</span></div>
-      <div class="info-item"><span class="label" id="labelMonths">Mois complets</span><span class="value" id="infoMois">—</span></div>
-      <div class="info-item"><span class="label" id="labelDayOfWeek">Jour de la semaine</span><span class="value" id="infoJourSemaine">—</span></div>
-      <div class="info-item"><span class="label" id="labelSundayWeek">Semaine civile débute</span><span class="value" id="infoDimanche">—</span></div>
-    </div>
-  </aside>
-
-  <div class="scenarios">
-    <h2 id="scenariosTitle">⚡ Scénarios fréquents au Québec</h2>
-    <div class="scenarios-grid" id="scenariosGrid"></div>
-    <div class="disclaimer-scenarios" id="disclaimerScenarios">
+<div class="card">
+<div class="card-header">
+<h1 id="mainTitle">Calcul dates</h1>
+<p id="mainSubtitle">Ajoutez des jours, semaines, mois ou années à une date de début</p>
+</div>
+<div class="card-body">
+<div class="direction-toggle">
+<span class="dir-label active" id="dirLabelForward">Date de début → Date d'échéance</span>
+<button class="dir-switch" id="dirSwitch" onclick="toggleDirection()" title="Inverser le sens">
+<div class="dir-switch-thumb"></div>
+</button>
+<span class="dir-label" id="dirLabelBackward">Date d'échéance → Date de début</span>
+</div>
+<div class="form-group">
+<label id="labelStart">Date de départ <span id="startDayLabel" style="color:var(--bleu-clair);font-weight:500;text-transform:none;letter-spacing:0;font-size:0.85rem;"></span></label>
+<input id="startDate" type="date"/>
+</div>
+<div class="row-2">
+<div class="form-group">
+<label id="labelQty">Quantité</label>
+<input id="quantity" min="0" placeholder="ex: 18" type="number"/>
+</div>
+<div class="form-group">
+<label id="labelUnit">Unité</label>
+<div class="select-wrapper">
+<select id="unit">
+<option id="optChoose" value="">— Choisir —</option>
+<option id="optDay" value="day">Jour(s)</option>
+<option id="optWeek" value="week">Semaine(s)</option>
+<option id="optMonth" value="month">Mois</option>
+<option id="optYear" value="year">Année(s)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="result-box">
+<div class="result-label" id="resultLabel">Date d'échéance</div>
+<div class="result-date empty" id="resultDate">Remplissez les champs ci-dessus</div>
+<div class="result-day" id="resultDay"></div>
+<div class="result-delta" id="resultDelta"></div>
+</div>
+</div>
+</div>
+<aside class="sidebar">
+<div class="info-card">
+<h3 id="infoTitle">📋 Infos calculées</h3>
+<div class="info-item"><span class="label" id="labelTotalDays">Jours totaux</span><span class="value" id="infoJours">—</span></div>
+<div class="info-item"><span class="label" id="labelWeeks">Semaines complètes</span><span class="value" id="infoSemaines">—</span></div>
+<div class="info-item"><span class="label" id="labelMonths">Mois complets</span><span class="value" id="infoMois">—</span></div>
+<div class="info-item"><span class="label" id="labelDayOfWeek">Jour de la semaine</span><span class="value" id="infoJourSemaine">—</span></div>
+<div class="info-item"><span class="label" id="labelSundayWeek">Semaine civile débute</span><span class="value" id="infoDimanche">—</span></div>
+</div>
+</aside>
+<div class="scenarios">
+<h2 id="scenariosTitle">⚡ Scénarios fréquents au Québec</h2>
+<div class="scenarios-grid" id="scenariosGrid"></div>
+<div class="disclaimer-scenarios" id="disclaimerScenarios">
       ⚠️ Ces scénarios sont fournis à titre indicatif seulement. Les délais légaux peuvent varier selon votre situation personnelle, votre convention collective ou les lois en vigueur.
     </div>
-  </div>
-
-  <div style="grid-column: 1 / -1;">
-    <div class="ads-row" id="bottomAds"></div>
-  </div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
+</div>
+<div style="grid-column: 1 / -1;">
+<div class="ads-row" id="bottomAds"></div>
+</div>
+<!-- ════════════════════════════════════════════════════════════════════
        Contenu éditorial statique (SEO + valeur informative AdSense)
        Rendu en HTML statique en 3 langues — toggle via class lang-only-*.
        ════════════════════════════════════════════════════════════════════ -->
-  <section class="cd-seo" style="grid-column: 1 / -1;">
-
-  <!-- ===================== FRANÇAIS ===================== -->
-  <div class="lang-only-fr">
-    <h2>Calculer des dates au Québec — outil gratuit et bilingue</h2>
-    <p><strong>CalculDates.ca</strong> est un outil québécois gratuit qui aide les parents, travailleurs, étudiants, gestionnaires et professionnels à <strong>calculer rapidement des dates importantes</strong> : échéances administratives, jours fériés, délais légaux, semaines de grossesse, calendriers de garde partagée, rotations de travail et périodes de paie. Le site est entièrement gratuit, sans inscription, et disponible en français, anglais et espagnol.</p>
-    <p>Que vous deviez planifier votre retour au travail après un congé parental, vérifier la date limite pour contester un congédiement, organiser le calendrier de garde de vos enfants ou simplement ajouter 90 jours à une date d'achat pour vérifier une garantie, ce calculateur vous donne la réponse en quelques secondes — avec le jour de la semaine, le nombre de jours ouvrables et la semaine civile correspondante.</p>
-
-    <h3>Comment utiliser le calculateur de dates</h3>
-    <ol>
-      <li><strong>Choisissez le sens du calcul</strong> avec le commutateur en haut : « Date de début → Date d'échéance » (calcul vers l'avant) ou « Date d'échéance → Date de début » (calcul à rebours, utile pour savoir quand envoyer un préavis).</li>
-      <li><strong>Sélectionnez la date de référence</strong> à l'aide du sélecteur de date. Le jour de la semaine s'affiche automatiquement pour confirmer votre choix.</li>
-      <li><strong>Entrez la quantité et l'unité de temps</strong> : jours, semaines, mois ou années. Pour un délai de 45 jours, par exemple, sélectionnez « 45 » et « Jour(s) ».</li>
-      <li><strong>Lisez le résultat</strong> : la date calculée, le jour de la semaine correspondant, ainsi que des informations complémentaires (nombre total de jours, semaines complètes, mois complets, début de la semaine civile).</li>
-    </ol>
-    <p>Vous pouvez aussi utiliser les <strong>scénarios fréquents au Québec</strong> proposés sous le calculateur : un seul clic remplit automatiquement les bonnes valeurs pour les délais courants comme un congé de maternité (RQAP), un préavis de bail, une plainte aux Normes du travail ou la fin d'une garantie.</p>
-
-    <h3>Nos calculatrices spécialisées</h3>
-    <div class="seo-cards">
-      <div class="seo-card">
-        <h4>📅 Calendrier de garde partagée</h4>
-        <p>Générez un calendrier visuel personnalisé pour votre garde (7/7, 3-2-2-3, 2-2-3, 5/2, fins de semaine alternées). Export PDF, Apple, Outlook, Google Calendar.</p>
-        <p><a href="garde.html">Ouvrir le calculateur de garde →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🔁 Rotation de travail</h4>
-        <p>Horaires 2/2, 14/14, 7/7 ou rotation personnalisée. Idéal pour le travail en camp, la construction, les horaires FIFO et les quarts atypiques.</p>
-        <p><a href="rotation.html">Calculer ma rotation →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🤰 Grossesse (CNESST)</h4>
-        <p>Semaines de grossesse, dates clés du programme <em>Pour une maternité sans danger</em> de la CNESST, jalons RQAP, retrait préventif.</p>
-        <p><a href="grossesse.html">Calculer mes semaines →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>💸 Paie &amp; fiscal</h4>
-        <p>Périodes de paie hebdomadaire, aux deux semaines, bimensuelle ou mensuelle. Dates de soumission de feuilles de temps et de dépôts alignées sur votre année financière.</p>
-        <p><a href="paie.html">Configurer ma paie →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🎉 Jours fériés</h4>
-        <p>Liste officielle des jours fériés du Canada, des États-Unis, de la France, du Mexique, du Royaume-Uni et de l'Allemagne, par année et par province ou région.</p>
-        <p><a href="feries.html">Voir les jours fériés →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>📚 Guide pratique</h4>
-        <p>Comprendre les délais, congés et calendriers qui rythment la vie au Québec : RQAP, CNESST, Normes du travail, bail résidentiel, expliqués clairement.</p>
-        <p><a href="guide.html">Lire le guide →</a></p>
-      </div>
-    </div>
-
-    <h3>À quoi sert un calculateur de dates au quotidien</h3>
-    <p>Beaucoup de situations administratives ou légales au Québec dépendent d'un délai précis exprimé en jours, semaines ou mois. Quelques exemples concrets :</p>
-    <ul>
-      <li><strong>Préavis de fin de bail résidentiel</strong> : selon le Tribunal administratif du logement, le locataire doit envoyer son avis de non-renouvellement entre 3 et 6 mois avant la fin du bail (selon la durée du bail). Notre outil calcule à rebours la date limite à partir de la date de fin de bail.</li>
-      <li><strong>Plainte pour congédiement injuste</strong> : la <em>Loi sur les normes du travail</em> impose un délai de 45 jours à compter du congédiement pour déposer une plainte à la CNESST. Calculez la date butoir pour ne pas la manquer.</li>
-      <li><strong>Périodes du Régime québécois d'assurance parentale (RQAP)</strong> : congé de maternité (15 ou 18 semaines selon le régime), congé de paternité (3 ou 5 semaines), congé parental (25 ou 32 semaines partageables). Visualisez les dates exactes selon le moment où vous comptez commencer.</li>
-      <li><strong>Garantie légale et conventionnelle</strong> : 1 an pour les défauts apparents, jusqu'à 5 ans pour les défauts cachés selon la loi québécoise. Ajoutez la durée à la date d'achat pour connaître l'échéance.</li>
-      <li><strong>Délai de prescription civile</strong> : 3 ans pour la plupart des recours en responsabilité civile (article 2925 du Code civil du Québec). Indispensable pour savoir s'il est encore temps de poursuivre.</li>
-      <li><strong>Périodes d'imposition et déclarations</strong> : alignez vos dates de fin de période et d'échéance fiscale avec votre année financière.</li>
-    </ul>
-    <div class="seo-callout">💡 <strong>Astuce :</strong> les délais comptés en jours commencent généralement <em>le lendemain</em> de l'évènement déclencheur (article 83 du <em>Code de procédure civile du Québec</em>). Si le dernier jour tombe un samedi, un dimanche ou un jour férié, il est repoussé au jour ouvrable suivant. Pour des situations sensibles, validez toujours la date avec un avocat ou un conseiller compétent.</div>
-
-    <h3>Questions fréquentes</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>Le calculateur de dates est-il fiable ?</summary>
-        <p>L'outil utilise les fonctions standards de calcul de date du calendrier grégorien (le calendrier civil officiel du Québec et du Canada). Il tient compte des années bissextiles, des longueurs variables de mois et des passages d'année. Pour les délais légaux ou administratifs, nous vous recommandons cependant de valider la date obtenue avec la source officielle ou un professionnel — certains délais comportent des règles particulières (comptage à partir du lendemain, report au jour ouvrable suivant, etc.).</p>
-      </details>
-      <details>
-        <summary>Mes données sont-elles enregistrées ?</summary>
-        <p>Non. Toutes les opérations se font directement dans votre navigateur, sans envoi vers un serveur. Aucune date, aucune information personnelle n'est stockée par CalculDates.ca. Seule votre préférence de langue est conservée localement (dans <code>localStorage</code>) pour vous éviter d'avoir à la choisir à chaque visite.</p>
-      </details>
-      <details>
-        <summary>Puis-je utiliser ce calculateur hors du Québec ?</summary>
-        <p>Oui — les opérations sur les dates fonctionnent partout. Cependant, les scénarios proposés (préavis de bail, congés RQAP, plaintes aux Normes du travail, etc.) sont basés sur la législation québécoise. Pour les autres juridictions, utilisez le calculateur libre et vérifiez les délais applicables auprès des autorités locales.</p>
-      </details>
-      <details>
-        <summary>Comment calculer une date à rebours ?</summary>
-        <p>Activez le commutateur « Date d'échéance → Date de début » en haut du calculateur. Entrez ensuite la date d'échéance et la durée à soustraire. Exemple : pour savoir quand envoyer un préavis 3 mois avant la fin de votre bail le 30 juin 2026, sélectionnez le mode rebours, la date 2026-06-30, et « 3 Mois » — l'outil vous donnera la date limite d'envoi.</p>
-      </details>
-      <details>
-        <summary>Comment compter les jours ouvrables ?</summary>
-        <p>Pour les calendriers de garde, de rotation ou de paie, nos outils spécialisés tiennent compte des jours ouvrables, des fins de semaine et des jours fériés. Pour un calcul ponctuel de jours ouvrables, utilisez la page <a href="feries.html">Jours fériés</a> pour exporter les fériés de l'année, puis soustrayez-les manuellement de votre période.</p>
-      </details>
-      <details>
-        <summary>Pourquoi y a-t-il des publicités sur le site ?</summary>
-        <p>CalculDates.ca est entièrement gratuit. Pour couvrir les frais d'hébergement et de développement, le site affiche quelques publicités (Google AdSense) et participe à des programmes d'affiliation (Amazon Associates, Le CFO masqué). Aucune de ces publicités ne vous suit hors du site, et notre <a href="privacy-policy.html">politique de confidentialité</a> détaille exactement quelles données sont partagées.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Ressources officielles citées sur ce site :</strong>
-      <a href="https://www.cnesst.gouv.qc.ca/" target="_blank" rel="noopener">CNESST</a> · <a href="https://www.rqap.gouv.qc.ca/" target="_blank" rel="noopener">RQAP</a> · <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/normes-du-travail" target="_blank" rel="noopener">Normes du travail</a> · <a href="https://www.tal.gouv.qc.ca/" target="_blank" rel="noopener">Tribunal administratif du logement</a> · <a href="https://www.legisquebec.gouv.qc.ca/" target="_blank" rel="noopener">LégisQuébec</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ CalculDates.ca est un outil informatif. Les calculs et scénarios proposés ne constituent pas un avis juridique, médical, fiscal ou professionnel. Pour les décisions importantes, consultez un professionnel qualifié ou les sources officielles citées ci-dessus.</p>
-  </div>
-
-  <!-- ===================== ENGLISH ===================== -->
-  <div class="lang-only-en">
-    <h2>Date calculator for Québec — free trilingual tool</h2>
-    <p><strong>CalculDates.ca</strong> is a free Québec-based tool that helps parents, workers, students, managers and professionals <strong>quickly calculate important dates</strong>: administrative deadlines, statutory holidays, legal timelines, pregnancy weeks, shared-custody calendars, work rotations and payroll periods. The site is entirely free, no signup required, and available in French, English and Spanish.</p>
-    <p>Whether you need to plan your return to work after parental leave, check the deadline to challenge a dismissal, organize your children's custody schedule or simply add 90 days to a purchase date to check a warranty, this calculator gives you the answer in seconds — with the day of the week, the number of business days and the corresponding civil week.</p>
-
-    <h3>How to use the date calculator</h3>
-    <ol>
-      <li><strong>Choose the direction of calculation</strong> with the toggle at the top: "Start date → Deadline" (forward calculation) or "Deadline → Start date" (backward calculation, useful to know when to send a notice).</li>
-      <li><strong>Select the reference date</strong> using the date picker. The day of the week is displayed automatically to confirm your choice.</li>
-      <li><strong>Enter the quantity and unit of time</strong>: days, weeks, months or years. For a 45-day deadline, for example, select "45" and "Day(s)".</li>
-      <li><strong>Read the result</strong>: the calculated date, the corresponding day of the week, plus complementary information (total days, full weeks, full months, start of the civil week).</li>
-    </ol>
-    <p>You can also use the <strong>common Québec scenarios</strong> shown below the calculator: a single click fills in the right values for common deadlines like maternity leave (QPIP), lease termination notice, a Labour Standards complaint or warranty expiry.</p>
-
-    <h3>Our specialized calculators</h3>
-    <div class="seo-cards">
-      <div class="seo-card">
-        <h4>📅 Shared-custody calendar</h4>
-        <p>Generate a personalized visual calendar for your custody schedule (7/7, 3-2-2-3, 2-2-3, 5/2, alternating weekends). Export to PDF, Apple, Outlook, Google Calendar.</p>
-        <p><a href="garde.html">Open the custody calculator →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🔁 Work rotation</h4>
-        <p>2/2, 14/14, 7/7 or custom rotation schedules. Ideal for camp work, construction, FIFO and atypical shifts.</p>
-        <p><a href="rotation.html">Calculate my rotation →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🤰 Pregnancy (CNESST)</h4>
-        <p>Pregnancy weeks, key dates of CNESST's <em>For a Safe Maternity Experience</em> program, QPIP milestones, preventive withdrawal.</p>
-        <p><a href="grossesse.html">Calculate my weeks →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>💸 Payroll &amp; fiscal</h4>
-        <p>Weekly, bi-weekly, semi-monthly or monthly pay periods. Timesheet submission and deposit dates aligned with your fiscal year.</p>
-        <p><a href="paie.html">Configure my payroll →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🎉 Statutory holidays</h4>
-        <p>Official statutory holiday lists for Canada, United States, France, Mexico, United Kingdom and Germany, by year and by province or region.</p>
-        <p><a href="feries.html">View holidays →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>📚 Practical guide</h4>
-        <p>Understand the deadlines, leaves and calendars that shape life in Québec: QPIP, CNESST, Labour Standards, residential lease — clearly explained.</p>
-        <p><a href="guide.html">Read the guide →</a></p>
-      </div>
-    </div>
-
-    <h3>Why a date calculator is useful in everyday life</h3>
-    <p>Many administrative or legal situations in Québec depend on a precise deadline expressed in days, weeks or months. A few concrete examples:</p>
-    <ul>
-      <li><strong>Residential lease termination notice</strong>: under the <em>Tribunal administratif du logement</em>, the tenant must send a non-renewal notice between 3 and 6 months before the end of the lease (depending on the lease length). Our tool calculates the deadline backward from the lease end date.</li>
-      <li><strong>Wrongful dismissal complaint</strong>: the <em>Act respecting labour standards</em> sets a 45-day deadline from dismissal to file a complaint with the CNESST. Calculate the deadline so you don't miss it.</li>
-      <li><strong>Québec Parental Insurance Plan (QPIP) periods</strong>: maternity leave (15 or 18 weeks depending on the plan), paternity leave (3 or 5 weeks), parental leave (25 or 32 shareable weeks). Visualize the exact dates based on when you plan to start.</li>
-      <li><strong>Legal and contractual warranty</strong>: 1 year for apparent defects, up to 5 years for hidden defects under Québec law. Add the duration to the purchase date to find the deadline.</li>
-      <li><strong>Civil prescription period</strong>: 3 years for most civil liability claims (article 2925 of the <em>Civil Code of Québec</em>). Essential to know if there's still time to sue.</li>
-      <li><strong>Tax periods and filings</strong>: align your period-end and tax-deadline dates with your fiscal year.</li>
-    </ul>
-    <div class="seo-callout">💡 <strong>Tip:</strong> deadlines counted in days generally begin <em>the day after</em> the triggering event (article 83 of the <em>Code of Civil Procedure of Québec</em>). If the last day falls on a Saturday, Sunday or statutory holiday, it is postponed to the next business day. For sensitive situations, always verify the date with a lawyer or qualified advisor.</div>
-
-    <h3>Frequently asked questions</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>Is the date calculator reliable?</summary>
-        <p>The tool uses standard date functions of the Gregorian calendar (the official civil calendar of Québec and Canada). It accounts for leap years, variable month lengths and year transitions. For legal or administrative deadlines, however, we recommend confirming the date with the official source or a professional — some deadlines have specific rules (counting from the next day, postponement to the next business day, etc.).</p>
-      </details>
-      <details>
-        <summary>Is my data saved?</summary>
-        <p>No. All operations happen directly in your browser, with no data sent to a server. No date and no personal information is stored by CalculDates.ca. Only your language preference is saved locally (in <code>localStorage</code>) so you don't have to choose it again on each visit.</p>
-      </details>
-      <details>
-        <summary>Can I use this calculator outside Québec?</summary>
-        <p>Yes — date operations work anywhere. However, the proposed scenarios (lease notice, QPIP leaves, Labour Standards complaints, etc.) are based on Québec legislation. For other jurisdictions, use the free calculator and verify the applicable deadlines with local authorities.</p>
-      </details>
-      <details>
-        <summary>How do I calculate a date backward?</summary>
-        <p>Activate the "Deadline → Start date" toggle at the top of the calculator. Then enter the deadline date and the duration to subtract. Example: to know when to send a 3-month notice before your lease ends on June 30, 2026, select backward mode, date 2026-06-30, and "3 Months" — the tool will give you the deadline to send the notice.</p>
-      </details>
-      <details>
-        <summary>How do I count business days?</summary>
-        <p>For custody, rotation or payroll calendars, our specialized tools account for business days, weekends and statutory holidays. For an ad-hoc business-day calculation, use the <a href="feries.html">Statutory holidays</a> page to export the year's holidays, then subtract them manually from your period.</p>
-      </details>
-      <details>
-        <summary>Why are there ads on the site?</summary>
-        <p>CalculDates.ca is entirely free. To cover hosting and development costs, the site displays a few ads (Google AdSense) and participates in affiliate programs (Amazon Associates, Le CFO masqué). None of these ads follow you outside the site, and our <a href="privacy-policy.html">privacy policy</a> details exactly which data is shared.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Official resources cited on this site:</strong>
-      <a href="https://www.cnesst.gouv.qc.ca/" target="_blank" rel="noopener">CNESST</a> · <a href="https://www.rqap.gouv.qc.ca/" target="_blank" rel="noopener">QPIP</a> · <a href="https://www.cnesst.gouv.qc.ca/en/working-conditions/labour-standards" target="_blank" rel="noopener">Labour Standards</a> · <a href="https://www.tal.gouv.qc.ca/" target="_blank" rel="noopener">Administrative Housing Tribunal</a> · <a href="https://www.legisquebec.gouv.qc.ca/" target="_blank" rel="noopener">LégisQuébec</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ CalculDates.ca is an informational tool. The calculations and scenarios provided do not constitute legal, medical, tax or professional advice. For important decisions, consult a qualified professional or the official sources cited above.</p>
-  </div>
-
-  <!-- ===================== ESPAÑOL ===================== -->
-  <div class="lang-only-es">
-    <h2>Calculadora de fechas para Quebec — herramienta gratuita trilingüe</h2>
-    <p><strong>CalculDates.ca</strong> es una herramienta quebequense gratuita que ayuda a padres, trabajadores, estudiantes, gerentes y profesionales a <strong>calcular rápidamente fechas importantes</strong>: plazos administrativos, días festivos, plazos legales, semanas de embarazo, calendarios de custodia compartida, rotaciones laborales y períodos de nómina. El sitio es totalmente gratuito, sin registro, y está disponible en francés, inglés y español.</p>
-    <p>Ya sea que necesite planificar su regreso al trabajo después de un permiso parental, verificar el plazo para impugnar un despido, organizar el calendario de custodia de sus hijos o simplemente agregar 90 días a una fecha de compra para verificar una garantía, esta calculadora le da la respuesta en segundos — con el día de la semana, el número de días hábiles y la semana civil correspondiente.</p>
-
-    <h3>Cómo usar la calculadora de fechas</h3>
-    <ol>
-      <li><strong>Elija la dirección del cálculo</strong> con el interruptor superior: «Fecha de inicio → Fecha límite» (cálculo hacia adelante) o «Fecha límite → Fecha de inicio» (cálculo hacia atrás, útil para saber cuándo enviar un aviso).</li>
-      <li><strong>Seleccione la fecha de referencia</strong> con el selector. El día de la semana se muestra automáticamente para confirmar su elección.</li>
-      <li><strong>Ingrese la cantidad y la unidad de tiempo</strong>: días, semanas, meses o años. Para un plazo de 45 días, por ejemplo, seleccione «45» y «Día(s)».</li>
-      <li><strong>Lea el resultado</strong>: la fecha calculada, el día de la semana correspondiente y la información complementaria (total de días, semanas completas, meses completos, inicio de la semana civil).</li>
-    </ol>
-    <p>También puede utilizar los <strong>escenarios frecuentes en Quebec</strong> que aparecen debajo de la calculadora: con un clic se rellenan los valores adecuados para plazos comunes como permiso de maternidad (RQAP), aviso de fin de contrato de arrendamiento, denuncia ante las Normas Laborales o vencimiento de garantía.</p>
-
-    <h3>Nuestras calculadoras especializadas</h3>
-    <div class="seo-cards">
-      <div class="seo-card">
-        <h4>📅 Calendario de custodia compartida</h4>
-        <p>Genere un calendario visual personalizado para su custodia (7/7, 3-2-2-3, 2-2-3, 5/2, fines de semana alternos). Exporte a PDF, Apple, Outlook, Google Calendar.</p>
-        <p><a href="garde.html">Abrir la calculadora de custodia →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🔁 Rotación laboral</h4>
-        <p>Horarios 2/2, 14/14, 7/7 o rotación personalizada. Ideal para trabajo en campamentos, construcción, FIFO y turnos atípicos.</p>
-        <p><a href="rotation.html">Calcular mi rotación →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🤰 Embarazo (CNESST)</h4>
-        <p>Semanas de embarazo, fechas clave del programa <em>Para una maternidad sin peligro</em> de la CNESST, hitos del RQAP, retiro preventivo.</p>
-        <p><a href="grossesse.html">Calcular mis semanas →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>💸 Nómina &amp; fiscal</h4>
-        <p>Períodos de nómina semanal, quincenal, bimensual o mensual. Fechas de envío de hojas de horas y depósitos alineadas con su año fiscal.</p>
-        <p><a href="paie.html">Configurar mi nómina →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>🎉 Días festivos</h4>
-        <p>Lista oficial de días festivos de Canadá, Estados Unidos, Francia, México, Reino Unido y Alemania, por año y por provincia o región.</p>
-        <p><a href="feries.html">Ver los días festivos →</a></p>
-      </div>
-      <div class="seo-card">
-        <h4>📚 Guía práctica</h4>
-        <p>Comprender los plazos, permisos y calendarios que marcan la vida en Quebec: RQAP, CNESST, Normas Laborales, arrendamiento residencial, explicados con claridad.</p>
-        <p><a href="guide.html">Leer la guía →</a></p>
-      </div>
-    </div>
-
-    <h3>Para qué sirve una calculadora de fechas en el día a día</h3>
-    <p>Muchas situaciones administrativas o legales en Quebec dependen de un plazo preciso expresado en días, semanas o meses. Algunos ejemplos concretos:</p>
-    <ul>
-      <li><strong>Aviso de fin de contrato de arrendamiento residencial</strong>: según el <em>Tribunal administratif du logement</em>, el inquilino debe enviar su aviso de no renovación entre 3 y 6 meses antes del fin del contrato (según la duración). Nuestra herramienta calcula hacia atrás la fecha límite desde la fecha de fin de contrato.</li>
-      <li><strong>Denuncia por despido injustificado</strong>: la <em>Ley sobre las normas laborales</em> establece un plazo de 45 días desde el despido para presentar una denuncia ante la CNESST. Calcule la fecha tope para no perderla.</li>
-      <li><strong>Períodos del Régimen Quebequense de Seguro Parental (RQAP)</strong>: permiso de maternidad (15 o 18 semanas según el régimen), permiso de paternidad (3 o 5 semanas), permiso parental (25 o 32 semanas compartibles). Visualice las fechas exactas según cuándo planee comenzar.</li>
-      <li><strong>Garantía legal y contractual</strong>: 1 año para defectos aparentes, hasta 5 años para defectos ocultos según la ley quebequense. Sume la duración a la fecha de compra para conocer el vencimiento.</li>
-      <li><strong>Plazo de prescripción civil</strong>: 3 años para la mayoría de las acciones de responsabilidad civil (artículo 2925 del <em>Código Civil de Quebec</em>). Imprescindible para saber si aún se puede demandar.</li>
-      <li><strong>Períodos fiscales y declaraciones</strong>: alinee sus fechas de fin de período y vencimientos fiscales con su año contable.</li>
-    </ul>
-    <div class="seo-callout">💡 <strong>Consejo:</strong> los plazos contados en días generalmente empiezan <em>al día siguiente</em> del evento desencadenante (artículo 83 del <em>Código de Procedimiento Civil de Quebec</em>). Si el último día cae en sábado, domingo o festivo, se traslada al siguiente día hábil. Para situaciones delicadas, valide siempre la fecha con un abogado o asesor competente.</div>
-
-    <h3>Preguntas frecuentes</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>¿Es confiable la calculadora de fechas?</summary>
-        <p>La herramienta utiliza las funciones estándar de cálculo de fechas del calendario gregoriano (el calendario civil oficial de Quebec y Canadá). Tiene en cuenta los años bisiestos, las longitudes variables de los meses y los cambios de año. Para los plazos legales o administrativos, sin embargo, le recomendamos validar la fecha obtenida con la fuente oficial o un profesional — algunos plazos tienen reglas particulares (conteo desde el día siguiente, traslado al día hábil siguiente, etc.).</p>
-      </details>
-      <details>
-        <summary>¿Se guardan mis datos?</summary>
-        <p>No. Todas las operaciones se realizan directamente en su navegador, sin envío a un servidor. CalculDates.ca no almacena ninguna fecha ni información personal. Solo se guarda localmente su preferencia de idioma (en <code>localStorage</code>) para que no tenga que elegirla en cada visita.</p>
-      </details>
-      <details>
-        <summary>¿Puedo usar esta calculadora fuera de Quebec?</summary>
-        <p>Sí — las operaciones con fechas funcionan en cualquier lugar. Sin embargo, los escenarios propuestos (aviso de arrendamiento, permisos RQAP, denuncias laborales, etc.) se basan en la legislación quebequense. Para otras jurisdicciones, use la calculadora libre y verifique los plazos aplicables con las autoridades locales.</p>
-      </details>
-      <details>
-        <summary>¿Cómo calculo una fecha hacia atrás?</summary>
-        <p>Active el interruptor «Fecha límite → Fecha de inicio» en la parte superior. Luego ingrese la fecha límite y la duración a restar. Ejemplo: para saber cuándo enviar un aviso 3 meses antes del fin de su contrato el 30 de junio de 2026, seleccione el modo hacia atrás, la fecha 2026-06-30, y «3 Meses» — la herramienta le dará la fecha límite de envío.</p>
-      </details>
-      <details>
-        <summary>¿Cómo cuento los días hábiles?</summary>
-        <p>Para los calendarios de custodia, rotación o nómina, nuestras herramientas especializadas tienen en cuenta los días hábiles, los fines de semana y los festivos. Para un cálculo puntual de días hábiles, use la página <a href="feries.html">Días festivos</a> para exportar los festivos del año y luego réstelos manualmente de su período.</p>
-      </details>
-      <details>
-        <summary>¿Por qué hay anuncios en el sitio?</summary>
-        <p>CalculDates.ca es totalmente gratuito. Para cubrir los gastos de alojamiento y desarrollo, el sitio muestra algunos anuncios (Google AdSense) y participa en programas de afiliados (Amazon Associates, Le CFO masqué). Ninguno de estos anuncios le sigue fuera del sitio, y nuestra <a href="privacy-policy.html">política de privacidad</a> detalla exactamente qué datos se comparten.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Recursos oficiales citados en este sitio:</strong>
-      <a href="https://www.cnesst.gouv.qc.ca/" target="_blank" rel="noopener">CNESST</a> · <a href="https://www.rqap.gouv.qc.ca/" target="_blank" rel="noopener">RQAP</a> · <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/normes-du-travail" target="_blank" rel="noopener">Normas Laborales</a> · <a href="https://www.tal.gouv.qc.ca/" target="_blank" rel="noopener">Tribunal Administrativo de Vivienda</a> · <a href="https://www.legisquebec.gouv.qc.ca/" target="_blank" rel="noopener">LégisQuébec</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ CalculDates.ca es una herramienta informativa. Los cálculos y escenarios propuestos no constituyen asesoramiento legal, médico, fiscal ni profesional. Para decisiones importantes, consulte a un profesional cualificado o las fuentes oficiales citadas anteriormente.</p>
-  </div>
-
-  </section>
+<section class="cd-seo" style="grid-column: 1 / -1;">
+<!-- ===================== FRANÇAIS ===================== -->
+<div class="lang-only-fr">
+<h2>Calculer des dates au Québec — outil gratuit et bilingue</h2>
+<p><strong>CalculDates.ca</strong> est un outil québécois gratuit qui aide les parents, travailleurs, étudiants, gestionnaires et professionnels à <strong>calculer rapidement des dates importantes</strong> : échéances administratives, jours fériés, délais légaux, semaines de grossesse, calendriers de garde partagée, rotations de travail et périodes de paie. Le site est entièrement gratuit, sans inscription, et disponible en français, anglais et espagnol.</p>
+<p>Que vous deviez planifier votre retour au travail après un congé parental, vérifier la date limite pour contester un congédiement, organiser le calendrier de garde de vos enfants ou simplement ajouter 90 jours à une date d'achat pour vérifier une garantie, ce calculateur vous donne la réponse en quelques secondes — avec le jour de la semaine, le nombre de jours ouvrables et la semaine civile correspondante.</p>
+<h3>Comment utiliser le calculateur de dates</h3>
+<ol>
+<li><strong>Choisissez le sens du calcul</strong> avec le commutateur en haut : « Date de début → Date d'échéance » (calcul vers l'avant) ou « Date d'échéance → Date de début » (calcul à rebours, utile pour savoir quand envoyer un préavis).</li>
+<li><strong>Sélectionnez la date de référence</strong> à l'aide du sélecteur de date. Le jour de la semaine s'affiche automatiquement pour confirmer votre choix.</li>
+<li><strong>Entrez la quantité et l'unité de temps</strong> : jours, semaines, mois ou années. Pour un délai de 45 jours, par exemple, sélectionnez « 45 » et « Jour(s) ».</li>
+<li><strong>Lisez le résultat</strong> : la date calculée, le jour de la semaine correspondant, ainsi que des informations complémentaires (nombre total de jours, semaines complètes, mois complets, début de la semaine civile).</li>
+</ol>
+<p>Vous pouvez aussi utiliser les <strong>scénarios fréquents au Québec</strong> proposés sous le calculateur : un seul clic remplit automatiquement les bonnes valeurs pour les délais courants comme un congé de maternité (RQAP), un préavis de bail, une plainte aux Normes du travail ou la fin d'une garantie.</p>
+<h3>Nos calculatrices spécialisées</h3>
+<div class="seo-cards">
+<div class="seo-card">
+<h4>📅 Calendrier de garde partagée</h4>
+<p>Générez un calendrier visuel personnalisé pour votre garde (7/7, 3-2-2-3, 2-2-3, 5/2, fins de semaine alternées). Export PDF, Apple, Outlook, Google Calendar.</p>
+<p><a href="garde.html">Ouvrir le calculateur de garde →</a></p>
+</div>
+<div class="seo-card">
+<h4>🔁 Rotation de travail</h4>
+<p>Horaires 2/2, 14/14, 7/7 ou rotation personnalisée. Idéal pour le travail en camp, la construction, les horaires FIFO et les quarts atypiques.</p>
+<p><a href="rotation.html">Calculer ma rotation →</a></p>
+</div>
+<div class="seo-card">
+<h4>🤰 Grossesse (CNESST)</h4>
+<p>Semaines de grossesse, dates clés du programme <em>Pour une maternité sans danger</em> de la CNESST, jalons RQAP, retrait préventif.</p>
+<p><a href="grossesse.html">Calculer mes semaines →</a></p>
+</div>
+<div class="seo-card">
+<h4>💸 Paie &amp; fiscal</h4>
+<p>Périodes de paie hebdomadaire, aux deux semaines, bimensuelle ou mensuelle. Dates de soumission de feuilles de temps et de dépôts alignées sur votre année financière.</p>
+<p><a href="paie.html">Configurer ma paie →</a></p>
+</div>
+<div class="seo-card">
+<h4>🎉 Jours fériés</h4>
+<p>Liste officielle des jours fériés du Canada, des États-Unis, de la France, du Mexique, du Royaume-Uni et de l'Allemagne, par année et par province ou région.</p>
+<p><a href="feries.html">Voir les jours fériés →</a></p>
+</div>
+<div class="seo-card">
+<h4>📚 Guide pratique</h4>
+<p>Comprendre les délais, congés et calendriers qui rythment la vie au Québec : RQAP, CNESST, Normes du travail, bail résidentiel, expliqués clairement.</p>
+<p><a href="guide.html">Lire le guide →</a></p>
+</div>
+</div>
+<h3>À quoi sert un calculateur de dates au quotidien</h3>
+<p>Beaucoup de situations administratives ou légales au Québec dépendent d'un délai précis exprimé en jours, semaines ou mois. Quelques exemples concrets :</p>
+<ul>
+<li><strong>Préavis de fin de bail résidentiel</strong> : selon le Tribunal administratif du logement, le locataire doit envoyer son avis de non-renouvellement entre 3 et 6 mois avant la fin du bail (selon la durée du bail). Notre outil calcule à rebours la date limite à partir de la date de fin de bail.</li>
+<li><strong>Plainte pour congédiement injuste</strong> : la <em>Loi sur les normes du travail</em> impose un délai de 45 jours à compter du congédiement pour déposer une plainte à la CNESST. Calculez la date butoir pour ne pas la manquer.</li>
+<li><strong>Périodes du Régime québécois d'assurance parentale (RQAP)</strong> : congé de maternité (15 ou 18 semaines selon le régime), congé de paternité (3 ou 5 semaines), congé parental (25 ou 32 semaines partageables). Visualisez les dates exactes selon le moment où vous comptez commencer.</li>
+<li><strong>Garantie légale et conventionnelle</strong> : 1 an pour les défauts apparents, jusqu'à 5 ans pour les défauts cachés selon la loi québécoise. Ajoutez la durée à la date d'achat pour connaître l'échéance.</li>
+<li><strong>Délai de prescription civile</strong> : 3 ans pour la plupart des recours en responsabilité civile (article 2925 du Code civil du Québec). Indispensable pour savoir s'il est encore temps de poursuivre.</li>
+<li><strong>Périodes d'imposition et déclarations</strong> : alignez vos dates de fin de période et d'échéance fiscale avec votre année financière.</li>
+</ul>
+<div class="seo-callout">💡 <strong>Astuce :</strong> les délais comptés en jours commencent généralement <em>le lendemain</em> de l'évènement déclencheur (article 83 du <em>Code de procédure civile du Québec</em>). Si le dernier jour tombe un samedi, un dimanche ou un jour férié, il est repoussé au jour ouvrable suivant. Pour des situations sensibles, validez toujours la date avec un avocat ou un conseiller compétent.</div>
+<h3>Questions fréquentes</h3>
+<div class="seo-faq">
+<details>
+<summary>Le calculateur de dates est-il fiable ?</summary>
+<p>L'outil utilise les fonctions standards de calcul de date du calendrier grégorien (le calendrier civil officiel du Québec et du Canada). Il tient compte des années bissextiles, des longueurs variables de mois et des passages d'année. Pour les délais légaux ou administratifs, nous vous recommandons cependant de valider la date obtenue avec la source officielle ou un professionnel — certains délais comportent des règles particulières (comptage à partir du lendemain, report au jour ouvrable suivant, etc.).</p>
+</details>
+<details>
+<summary>Mes données sont-elles enregistrées ?</summary>
+<p>Non. Toutes les opérations se font directement dans votre navigateur, sans envoi vers un serveur. Aucune date, aucune information personnelle n'est stockée par CalculDates.ca. Seule votre préférence de langue est conservée localement (dans <code>localStorage</code>) pour vous éviter d'avoir à la choisir à chaque visite.</p>
+</details>
+<details>
+<summary>Puis-je utiliser ce calculateur hors du Québec ?</summary>
+<p>Oui — les opérations sur les dates fonctionnent partout. Cependant, les scénarios proposés (préavis de bail, congés RQAP, plaintes aux Normes du travail, etc.) sont basés sur la législation québécoise. Pour les autres juridictions, utilisez le calculateur libre et vérifiez les délais applicables auprès des autorités locales.</p>
+</details>
+<details>
+<summary>Comment calculer une date à rebours ?</summary>
+<p>Activez le commutateur « Date d'échéance → Date de début » en haut du calculateur. Entrez ensuite la date d'échéance et la durée à soustraire. Exemple : pour savoir quand envoyer un préavis 3 mois avant la fin de votre bail le 30 juin 2026, sélectionnez le mode rebours, la date 2026-06-30, et « 3 Mois » — l'outil vous donnera la date limite d'envoi.</p>
+</details>
+<details>
+<summary>Comment compter les jours ouvrables ?</summary>
+<p>Pour les calendriers de garde, de rotation ou de paie, nos outils spécialisés tiennent compte des jours ouvrables, des fins de semaine et des jours fériés. Pour un calcul ponctuel de jours ouvrables, utilisez la page <a href="feries.html">Jours fériés</a> pour exporter les fériés de l'année, puis soustrayez-les manuellement de votre période.</p>
+</details>
+<details>
+<summary>Pourquoi y a-t-il des publicités sur le site ?</summary>
+<p>CalculDates.ca est entièrement gratuit. Pour couvrir les frais d'hébergement et de développement, le site affiche quelques publicités (Google AdSense) et participe à des programmes d'affiliation (Amazon Associates, Le CFO masqué). Aucune de ces publicités ne vous suit hors du site, et notre <a href="privacy-policy.html">politique de confidentialité</a> détaille exactement quelles données sont partagées.</p>
+</details>
+</div>
+<div class="seo-sources">
+<strong>Ressources officielles citées sur ce site :</strong>
+<a href="https://www.cnesst.gouv.qc.ca/" rel="noopener" target="_blank">CNESST</a> · <a href="https://www.rqap.gouv.qc.ca/" rel="noopener" target="_blank">RQAP</a> · <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/normes-du-travail" rel="noopener" target="_blank">Normes du travail</a> · <a href="https://www.tal.gouv.qc.ca/" rel="noopener" target="_blank">Tribunal administratif du logement</a> · <a href="https://www.legisquebec.gouv.qc.ca/" rel="noopener" target="_blank">LégisQuébec</a>
+</div>
+<p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ CalculDates.ca est un outil informatif. Les calculs et scénarios proposés ne constituent pas un avis juridique, médical, fiscal ou professionnel. Pour les décisions importantes, consultez un professionnel qualifié ou les sources officielles citées ci-dessus.</p>
+<div class="related-box"><h3>📖 À lire aussi</h3><ul><li><a href="garde-partagee-comparer-horaires.html">Garde partagée : comparer les horaires 7/7, 2-2-3, 2-2-5-5 et 3-4-4-3</a></li></ul></div></div>
+<!-- ===================== ENGLISH ===================== -->
+<div class="lang-only-en">
+<h2>Date calculator for Québec — free trilingual tool</h2>
+<p><strong>CalculDates.ca</strong> is a free Québec-based tool that helps parents, workers, students, managers and professionals <strong>quickly calculate important dates</strong>: administrative deadlines, statutory holidays, legal timelines, pregnancy weeks, shared-custody calendars, work rotations and payroll periods. The site is entirely free, no signup required, and available in French, English and Spanish.</p>
+<p>Whether you need to plan your return to work after parental leave, check the deadline to challenge a dismissal, organize your children's custody schedule or simply add 90 days to a purchase date to check a warranty, this calculator gives you the answer in seconds — with the day of the week, the number of business days and the corresponding civil week.</p>
+<h3>How to use the date calculator</h3>
+<ol>
+<li><strong>Choose the direction of calculation</strong> with the toggle at the top: "Start date → Deadline" (forward calculation) or "Deadline → Start date" (backward calculation, useful to know when to send a notice).</li>
+<li><strong>Select the reference date</strong> using the date picker. The day of the week is displayed automatically to confirm your choice.</li>
+<li><strong>Enter the quantity and unit of time</strong>: days, weeks, months or years. For a 45-day deadline, for example, select "45" and "Day(s)".</li>
+<li><strong>Read the result</strong>: the calculated date, the corresponding day of the week, plus complementary information (total days, full weeks, full months, start of the civil week).</li>
+</ol>
+<p>You can also use the <strong>common Québec scenarios</strong> shown below the calculator: a single click fills in the right values for common deadlines like maternity leave (QPIP), lease termination notice, a Labour Standards complaint or warranty expiry.</p>
+<h3>Our specialized calculators</h3>
+<div class="seo-cards">
+<div class="seo-card">
+<h4>📅 Shared-custody calendar</h4>
+<p>Generate a personalized visual calendar for your custody schedule (7/7, 3-2-2-3, 2-2-3, 5/2, alternating weekends). Export to PDF, Apple, Outlook, Google Calendar.</p>
+<p><a href="garde.html">Open the custody calculator →</a></p>
+</div>
+<div class="seo-card">
+<h4>🔁 Work rotation</h4>
+<p>2/2, 14/14, 7/7 or custom rotation schedules. Ideal for camp work, construction, FIFO and atypical shifts.</p>
+<p><a href="rotation.html">Calculate my rotation →</a></p>
+</div>
+<div class="seo-card">
+<h4>🤰 Pregnancy (CNESST)</h4>
+<p>Pregnancy weeks, key dates of CNESST's <em>For a Safe Maternity Experience</em> program, QPIP milestones, preventive withdrawal.</p>
+<p><a href="grossesse.html">Calculate my weeks →</a></p>
+</div>
+<div class="seo-card">
+<h4>💸 Payroll &amp; fiscal</h4>
+<p>Weekly, bi-weekly, semi-monthly or monthly pay periods. Timesheet submission and deposit dates aligned with your fiscal year.</p>
+<p><a href="paie.html">Configure my payroll →</a></p>
+</div>
+<div class="seo-card">
+<h4>🎉 Statutory holidays</h4>
+<p>Official statutory holiday lists for Canada, United States, France, Mexico, United Kingdom and Germany, by year and by province or region.</p>
+<p><a href="feries.html">View holidays →</a></p>
+</div>
+<div class="seo-card">
+<h4>📚 Practical guide</h4>
+<p>Understand the deadlines, leaves and calendars that shape life in Québec: QPIP, CNESST, Labour Standards, residential lease — clearly explained.</p>
+<p><a href="guide.html">Read the guide →</a></p>
+</div>
+</div>
+<h3>Why a date calculator is useful in everyday life</h3>
+<p>Many administrative or legal situations in Québec depend on a precise deadline expressed in days, weeks or months. A few concrete examples:</p>
+<ul>
+<li><strong>Residential lease termination notice</strong>: under the <em>Tribunal administratif du logement</em>, the tenant must send a non-renewal notice between 3 and 6 months before the end of the lease (depending on the lease length). Our tool calculates the deadline backward from the lease end date.</li>
+<li><strong>Wrongful dismissal complaint</strong>: the <em>Act respecting labour standards</em> sets a 45-day deadline from dismissal to file a complaint with the CNESST. Calculate the deadline so you don't miss it.</li>
+<li><strong>Québec Parental Insurance Plan (QPIP) periods</strong>: maternity leave (15 or 18 weeks depending on the plan), paternity leave (3 or 5 weeks), parental leave (25 or 32 shareable weeks). Visualize the exact dates based on when you plan to start.</li>
+<li><strong>Legal and contractual warranty</strong>: 1 year for apparent defects, up to 5 years for hidden defects under Québec law. Add the duration to the purchase date to find the deadline.</li>
+<li><strong>Civil prescription period</strong>: 3 years for most civil liability claims (article 2925 of the <em>Civil Code of Québec</em>). Essential to know if there's still time to sue.</li>
+<li><strong>Tax periods and filings</strong>: align your period-end and tax-deadline dates with your fiscal year.</li>
+</ul>
+<div class="seo-callout">💡 <strong>Tip:</strong> deadlines counted in days generally begin <em>the day after</em> the triggering event (article 83 of the <em>Code of Civil Procedure of Québec</em>). If the last day falls on a Saturday, Sunday or statutory holiday, it is postponed to the next business day. For sensitive situations, always verify the date with a lawyer or qualified advisor.</div>
+<h3>Frequently asked questions</h3>
+<div class="seo-faq">
+<details>
+<summary>Is the date calculator reliable?</summary>
+<p>The tool uses standard date functions of the Gregorian calendar (the official civil calendar of Québec and Canada). It accounts for leap years, variable month lengths and year transitions. For legal or administrative deadlines, however, we recommend confirming the date with the official source or a professional — some deadlines have specific rules (counting from the next day, postponement to the next business day, etc.).</p>
+</details>
+<details>
+<summary>Is my data saved?</summary>
+<p>No. All operations happen directly in your browser, with no data sent to a server. No date and no personal information is stored by CalculDates.ca. Only your language preference is saved locally (in <code>localStorage</code>) so you don't have to choose it again on each visit.</p>
+</details>
+<details>
+<summary>Can I use this calculator outside Québec?</summary>
+<p>Yes — date operations work anywhere. However, the proposed scenarios (lease notice, QPIP leaves, Labour Standards complaints, etc.) are based on Québec legislation. For other jurisdictions, use the free calculator and verify the applicable deadlines with local authorities.</p>
+</details>
+<details>
+<summary>How do I calculate a date backward?</summary>
+<p>Activate the "Deadline → Start date" toggle at the top of the calculator. Then enter the deadline date and the duration to subtract. Example: to know when to send a 3-month notice before your lease ends on June 30, 2026, select backward mode, date 2026-06-30, and "3 Months" — the tool will give you the deadline to send the notice.</p>
+</details>
+<details>
+<summary>How do I count business days?</summary>
+<p>For custody, rotation or payroll calendars, our specialized tools account for business days, weekends and statutory holidays. For an ad-hoc business-day calculation, use the <a href="feries.html">Statutory holidays</a> page to export the year's holidays, then subtract them manually from your period.</p>
+</details>
+<details>
+<summary>Why are there ads on the site?</summary>
+<p>CalculDates.ca is entirely free. To cover hosting and development costs, the site displays a few ads (Google AdSense) and participates in affiliate programs (Amazon Associates, Le CFO masqué). None of these ads follow you outside the site, and our <a href="privacy-policy.html">privacy policy</a> details exactly which data is shared.</p>
+</details>
+</div>
+<div class="seo-sources">
+<strong>Official resources cited on this site:</strong>
+<a href="https://www.cnesst.gouv.qc.ca/" rel="noopener" target="_blank">CNESST</a> · <a href="https://www.rqap.gouv.qc.ca/" rel="noopener" target="_blank">QPIP</a> · <a href="https://www.cnesst.gouv.qc.ca/en/working-conditions/labour-standards" rel="noopener" target="_blank">Labour Standards</a> · <a href="https://www.tal.gouv.qc.ca/" rel="noopener" target="_blank">Administrative Housing Tribunal</a> · <a href="https://www.legisquebec.gouv.qc.ca/" rel="noopener" target="_blank">LégisQuébec</a>
+</div>
+<p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ CalculDates.ca is an informational tool. The calculations and scenarios provided do not constitute legal, medical, tax or professional advice. For important decisions, consult a qualified professional or the official sources cited above.</p>
+</div>
+<!-- ===================== ESPAÑOL ===================== -->
+<div class="lang-only-es">
+<h2>Calculadora de fechas para Quebec — herramienta gratuita trilingüe</h2>
+<p><strong>CalculDates.ca</strong> es una herramienta quebequense gratuita que ayuda a padres, trabajadores, estudiantes, gerentes y profesionales a <strong>calcular rápidamente fechas importantes</strong>: plazos administrativos, días festivos, plazos legales, semanas de embarazo, calendarios de custodia compartida, rotaciones laborales y períodos de nómina. El sitio es totalmente gratuito, sin registro, y está disponible en francés, inglés y español.</p>
+<p>Ya sea que necesite planificar su regreso al trabajo después de un permiso parental, verificar el plazo para impugnar un despido, organizar el calendario de custodia de sus hijos o simplemente agregar 90 días a una fecha de compra para verificar una garantía, esta calculadora le da la respuesta en segundos — con el día de la semana, el número de días hábiles y la semana civil correspondiente.</p>
+<h3>Cómo usar la calculadora de fechas</h3>
+<ol>
+<li><strong>Elija la dirección del cálculo</strong> con el interruptor superior: «Fecha de inicio → Fecha límite» (cálculo hacia adelante) o «Fecha límite → Fecha de inicio» (cálculo hacia atrás, útil para saber cuándo enviar un aviso).</li>
+<li><strong>Seleccione la fecha de referencia</strong> con el selector. El día de la semana se muestra automáticamente para confirmar su elección.</li>
+<li><strong>Ingrese la cantidad y la unidad de tiempo</strong>: días, semanas, meses o años. Para un plazo de 45 días, por ejemplo, seleccione «45» y «Día(s)».</li>
+<li><strong>Lea el resultado</strong>: la fecha calculada, el día de la semana correspondiente y la información complementaria (total de días, semanas completas, meses completos, inicio de la semana civil).</li>
+</ol>
+<p>También puede utilizar los <strong>escenarios frecuentes en Quebec</strong> que aparecen debajo de la calculadora: con un clic se rellenan los valores adecuados para plazos comunes como permiso de maternidad (RQAP), aviso de fin de contrato de arrendamiento, denuncia ante las Normas Laborales o vencimiento de garantía.</p>
+<h3>Nuestras calculadoras especializadas</h3>
+<div class="seo-cards">
+<div class="seo-card">
+<h4>📅 Calendario de custodia compartida</h4>
+<p>Genere un calendario visual personalizado para su custodia (7/7, 3-2-2-3, 2-2-3, 5/2, fines de semana alternos). Exporte a PDF, Apple, Outlook, Google Calendar.</p>
+<p><a href="garde.html">Abrir la calculadora de custodia →</a></p>
+</div>
+<div class="seo-card">
+<h4>🔁 Rotación laboral</h4>
+<p>Horarios 2/2, 14/14, 7/7 o rotación personalizada. Ideal para trabajo en campamentos, construcción, FIFO y turnos atípicos.</p>
+<p><a href="rotation.html">Calcular mi rotación →</a></p>
+</div>
+<div class="seo-card">
+<h4>🤰 Embarazo (CNESST)</h4>
+<p>Semanas de embarazo, fechas clave del programa <em>Para una maternidad sin peligro</em> de la CNESST, hitos del RQAP, retiro preventivo.</p>
+<p><a href="grossesse.html">Calcular mis semanas →</a></p>
+</div>
+<div class="seo-card">
+<h4>💸 Nómina &amp; fiscal</h4>
+<p>Períodos de nómina semanal, quincenal, bimensual o mensual. Fechas de envío de hojas de horas y depósitos alineadas con su año fiscal.</p>
+<p><a href="paie.html">Configurar mi nómina →</a></p>
+</div>
+<div class="seo-card">
+<h4>🎉 Días festivos</h4>
+<p>Lista oficial de días festivos de Canadá, Estados Unidos, Francia, México, Reino Unido y Alemania, por año y por provincia o región.</p>
+<p><a href="feries.html">Ver los días festivos →</a></p>
+</div>
+<div class="seo-card">
+<h4>📚 Guía práctica</h4>
+<p>Comprender los plazos, permisos y calendarios que marcan la vida en Quebec: RQAP, CNESST, Normas Laborales, arrendamiento residencial, explicados con claridad.</p>
+<p><a href="guide.html">Leer la guía →</a></p>
+</div>
+</div>
+<h3>Para qué sirve una calculadora de fechas en el día a día</h3>
+<p>Muchas situaciones administrativas o legales en Quebec dependen de un plazo preciso expresado en días, semanas o meses. Algunos ejemplos concretos:</p>
+<ul>
+<li><strong>Aviso de fin de contrato de arrendamiento residencial</strong>: según el <em>Tribunal administratif du logement</em>, el inquilino debe enviar su aviso de no renovación entre 3 y 6 meses antes del fin del contrato (según la duración). Nuestra herramienta calcula hacia atrás la fecha límite desde la fecha de fin de contrato.</li>
+<li><strong>Denuncia por despido injustificado</strong>: la <em>Ley sobre las normas laborales</em> establece un plazo de 45 días desde el despido para presentar una denuncia ante la CNESST. Calcule la fecha tope para no perderla.</li>
+<li><strong>Períodos del Régimen Quebequense de Seguro Parental (RQAP)</strong>: permiso de maternidad (15 o 18 semanas según el régimen), permiso de paternidad (3 o 5 semanas), permiso parental (25 o 32 semanas compartibles). Visualice las fechas exactas según cuándo planee comenzar.</li>
+<li><strong>Garantía legal y contractual</strong>: 1 año para defectos aparentes, hasta 5 años para defectos ocultos según la ley quebequense. Sume la duración a la fecha de compra para conocer el vencimiento.</li>
+<li><strong>Plazo de prescripción civil</strong>: 3 años para la mayoría de las acciones de responsabilidad civil (artículo 2925 del <em>Código Civil de Quebec</em>). Imprescindible para saber si aún se puede demandar.</li>
+<li><strong>Períodos fiscales y declaraciones</strong>: alinee sus fechas de fin de período y vencimientos fiscales con su año contable.</li>
+</ul>
+<div class="seo-callout">💡 <strong>Consejo:</strong> los plazos contados en días generalmente empiezan <em>al día siguiente</em> del evento desencadenante (artículo 83 del <em>Código de Procedimiento Civil de Quebec</em>). Si el último día cae en sábado, domingo o festivo, se traslada al siguiente día hábil. Para situaciones delicadas, valide siempre la fecha con un abogado o asesor competente.</div>
+<h3>Preguntas frecuentes</h3>
+<div class="seo-faq">
+<details>
+<summary>¿Es confiable la calculadora de fechas?</summary>
+<p>La herramienta utiliza las funciones estándar de cálculo de fechas del calendario gregoriano (el calendario civil oficial de Quebec y Canadá). Tiene en cuenta los años bisiestos, las longitudes variables de los meses y los cambios de año. Para los plazos legales o administrativos, sin embargo, le recomendamos validar la fecha obtenida con la fuente oficial o un profesional — algunos plazos tienen reglas particulares (conteo desde el día siguiente, traslado al día hábil siguiente, etc.).</p>
+</details>
+<details>
+<summary>¿Se guardan mis datos?</summary>
+<p>No. Todas las operaciones se realizan directamente en su navegador, sin envío a un servidor. CalculDates.ca no almacena ninguna fecha ni información personal. Solo se guarda localmente su preferencia de idioma (en <code>localStorage</code>) para que no tenga que elegirla en cada visita.</p>
+</details>
+<details>
+<summary>¿Puedo usar esta calculadora fuera de Quebec?</summary>
+<p>Sí — las operaciones con fechas funcionan en cualquier lugar. Sin embargo, los escenarios propuestos (aviso de arrendamiento, permisos RQAP, denuncias laborales, etc.) se basan en la legislación quebequense. Para otras jurisdicciones, use la calculadora libre y verifique los plazos aplicables con las autoridades locales.</p>
+</details>
+<details>
+<summary>¿Cómo calculo una fecha hacia atrás?</summary>
+<p>Active el interruptor «Fecha límite → Fecha de inicio» en la parte superior. Luego ingrese la fecha límite y la duración a restar. Ejemplo: para saber cuándo enviar un aviso 3 meses antes del fin de su contrato el 30 de junio de 2026, seleccione el modo hacia atrás, la fecha 2026-06-30, y «3 Meses» — la herramienta le dará la fecha límite de envío.</p>
+</details>
+<details>
+<summary>¿Cómo cuento los días hábiles?</summary>
+<p>Para los calendarios de custodia, rotación o nómina, nuestras herramientas especializadas tienen en cuenta los días hábiles, los fines de semana y los festivos. Para un cálculo puntual de días hábiles, use la página <a href="feries.html">Días festivos</a> para exportar los festivos del año y luego réstelos manualmente de su período.</p>
+</details>
+<details>
+<summary>¿Por qué hay anuncios en el sitio?</summary>
+<p>CalculDates.ca es totalmente gratuito. Para cubrir los gastos de alojamiento y desarrollo, el sitio muestra algunos anuncios (Google AdSense) y participa en programas de afiliados (Amazon Associates, Le CFO masqué). Ninguno de estos anuncios le sigue fuera del sitio, y nuestra <a href="privacy-policy.html">política de privacidad</a> detalla exactamente qué datos se comparten.</p>
+</details>
+</div>
+<div class="seo-sources">
+<strong>Recursos oficiales citados en este sitio:</strong>
+<a href="https://www.cnesst.gouv.qc.ca/" rel="noopener" target="_blank">CNESST</a> · <a href="https://www.rqap.gouv.qc.ca/" rel="noopener" target="_blank">RQAP</a> · <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/normes-du-travail" rel="noopener" target="_blank">Normas Laborales</a> · <a href="https://www.tal.gouv.qc.ca/" rel="noopener" target="_blank">Tribunal Administrativo de Vivienda</a> · <a href="https://www.legisquebec.gouv.qc.ca/" rel="noopener" target="_blank">LégisQuébec</a>
+</div>
+<p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ CalculDates.ca es una herramienta informativa. Los cálculos y escenarios propuestos no constituyen asesoramiento legal, médico, fiscal ni profesional. Para decisiones importantes, consulte a un profesional cualificado o las fuentes oficiales citadas anteriormente.</p>
+</div>
+</section>
 </main>
-
 <footer>
-  <div class="footer-links" id="footerLinks"><a href="index.html">Calcul dates</a><a href="garde.html">Garde partagée</a><a href="rotation.html">Rotation de travail</a><a href="grossesse.html">Grossesse (CNESST)</a><a href="paie.html">Paie &amp; fiscal</a><a href="guide.html">Guide pratique</a><a href="about.html">À propos</a><a href="privacy-policy.html">Politique de conf.</a></div>
-  <div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
-  <div style="margin-top:8px;font-size:0.72rem;">
-    <a href="mailto:info@calculdates.ca">info@calculdates.ca</a>
-  </div>
+<div class="footer-links" id="footerLinks"><a href="index.html">Calcul dates</a><a href="garde.html">Garde partagée</a><a href="rotation.html">Rotation de travail</a><a href="grossesse.html">Grossesse (CNESST)</a><a href="paie.html">Paie &amp; fiscal</a><a href="guide.html">Guide pratique</a><a href="about.html">À propos</a><a href="privacy-policy.html">Politique de conf.</a></div>
+<div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
+<div style="margin-top:8px;font-size:0.72rem;">
+<a href="mailto:info@calculdates.ca">info@calculdates.ca</a>
+</div>
 </footer>
-
 <script src="assets/site-config.js?v=20260526a"></script>
 <script>
 const ACTIVE_PAGE = 'home';
@@ -754,7 +723,6 @@ document.documentElement.lang = lang;
 updateLangToggleUI();
 applyTranslations();
 </script>
-
 <!-- Filet de sécurité : garantit menu, footer et pubs même si une erreur plus haut interrompt l'initialisation -->
 <script>
 (function(){
@@ -784,6 +752,5 @@ applyTranslations();
   window.addEventListener('load', safetyRender);
 })();
 </script>
-
 </body>
 </html>
