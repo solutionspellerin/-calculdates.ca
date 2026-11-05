@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Y86YEGXHVV');
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
-<meta name="description" content="Calendrier de garde partagée gratuit — 7/7, 3-2-2-3, 2-2-3, 5/2, fin de semaine et plus. Exportez en PDF ou ajoutez à Apple/Outlook/Google Calendar.">
-<link rel="canonical" href="https://www.calculdates.ca/garde.html" />
-<title>Calendrier de garde partagée | CalculDates.ca</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/ads.css?v=20260526a">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" name="google-site-verification"/>
+<meta content="Calendrier de garde partagée gratuit — 7/7, 3-2-2-3, 2-2-3, 5/2, fins de semaine et plus. Exportez en PDF ou ajoutez à Apple, Outlook ou Google Agenda." name="description"/>
+
+<title>Calendrier de garde partagée (7/7, 2-2-3, 2-2-5-5) | CalculDates.ca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="assets/ads.css?v=20260526a" rel="stylesheet"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="assets/site-config.js?v=20260526a"></script>
 <style>
@@ -187,400 +188,223 @@
     .who-btns { flex-direction: column; }
   }
 </style>
-</head>
+<link href="https://www.calculdates.ca/garde.html" rel="canonical"/><link href="https://www.calculdates.ca/garde.html" hreflang="fr" rel="alternate"/><link href="https://www.calculdates.ca/en/garde.html" hreflang="en" rel="alternate"/><link href="https://www.calculdates.ca/es/garde.html" hreflang="es" rel="alternate"/><link href="https://www.calculdates.ca/garde.html" hreflang="x-default" rel="alternate"/></head>
 <body>
-
 <header>
-  <a href="index.html" class="logo">Calcul<span>Dates</span>.ca</a>
-  <div class="lang-toggle">
-    <span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
-    <div class="lang-toggle-3" onclick="cycleLang()" id="langToggle">
-      <span class="lang-opt active" data-lang="fr">FR</span>
-      <span class="lang-opt" data-lang="en">EN</span>
-      <span class="lang-opt" data-lang="es">ES</span>
-    </div>
-  </div>
+<a class="logo" href="index.html">Calcul<span>Dates</span>.ca</a>
+<div class="lang-toggle">
+<span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
+<div class="lang-toggle-3" id="langToggle" onclick="cycleLang()">
+<span class="lang-opt active" data-lang="fr">FR</span>
+<span class="lang-opt" data-lang="en">EN</span>
+<span class="lang-opt" data-lang="es">ES</span>
+</div>
+</div>
 </header>
-
 <nav class="site-nav">
-  <div class="nav-inner" id="siteNav"></div>
+<div class="nav-inner" id="siteNav"></div>
 </nav>
-
 <main>
-  <!-- Formulaire de configuration -->
-  <div class="card form-card">
-    <div class="card-header">
-      <h1 id="pageTitle">📅 Calendrier de garde partagée</h1>
-      <p id="pageSubtitle">Générez un calendrier visuel personnalisé pour votre garde partagée</p>
-    </div>
-    <div class="card-body">
-
-      <!-- Dates et durée -->
-      <div class="form-grid">
-        <div class="form-group">
-          <label id="labelDebut">Date de début</label>
-          <input type="date" id="dateDebut" />
-        </div>
-        <div class="form-group">
-          <label id="labelDuree">Durée</label>
-          <div class="select-wrapper">
-            <select id="duree">
-              <option value="1">1 mois</option>
-              <option value="3">3 mois</option>
-              <option value="6">6 mois</option>
-              <option value="12" selected>1 an</option>
-              <option value="24">2 ans</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Type de garde -->
-      <div class="form-group form-group-full" style="margin-bottom:24px;">
-        <label id="labelTypeGarde">Type de garde partagée</label>
-        <div class="garde-types" id="gardeTypesGrid"></div>
-      </div>
-
-      <!-- Qui a les 5 jours (seulement pour 5/2) -->
-      <div id="who52Section" style="display:none;margin-bottom:20px;">
-        <label id="labelWho52" style="margin-bottom:8px;display:block;">Qui a les 5 jours ?</label>
-        <div class="select-wrapper">
-          <select id="who52Select">
-            <option value="1">Maman (5 jours) — Papa (2 jours)</option>
-            <option value="2">Papa (5 jours) — Maman (2 jours)</option>
-          </select>
-        </div>
-      </div>
-
-      <!-- Qui garde le plus souvent (pour FDS/2, FDS/3, FDS/4) -->
-      <div id="whoFdsSection" style="display:none;margin-bottom:20px;">
-        <label id="labelWhoFds" style="margin-bottom:8px;display:block;">Qui a la garde principale (jours de semaine) ?</label>
-        <div class="who-btns" id="whoFdsBtns">
-          <button class="who-btn active" id="whoFdsBtn1" onclick="setWhoFds(1)">Maman (garde principale)</button>
-          <button class="who-btn" id="whoFdsBtn2" onclick="setWhoFds(2)">Papa (garde principale)</button>
-        </div>
-        <div style="font-size:0.78rem;color:var(--gris);margin-top:8px;" id="whoFdsNote">
+<!-- Formulaire de configuration -->
+<div class="card form-card">
+<div class="card-header">
+<h1 id="pageTitle">📅 Calendrier de garde partagée</h1>
+<p id="pageSubtitle">Générez un calendrier visuel personnalisé pour votre garde partagée</p>
+</div>
+<div class="card-body">
+<!-- Dates et durée -->
+<div class="form-grid">
+<div class="form-group">
+<label id="labelDebut">Date de début</label>
+<input id="dateDebut" type="date"/>
+</div>
+<div class="form-group">
+<label id="labelDuree">Durée</label>
+<div class="select-wrapper">
+<select id="duree">
+<option value="1">1 mois</option>
+<option value="3">3 mois</option>
+<option value="6">6 mois</option>
+<option selected="" value="12">1 an</option>
+<option value="24">2 ans</option>
+</select>
+</div>
+</div>
+</div>
+<!-- Type de garde -->
+<div class="form-group form-group-full" style="margin-bottom:24px;">
+<label id="labelTypeGarde">Type de garde partagée</label>
+<div class="garde-types" id="gardeTypesGrid"></div>
+</div>
+<!-- Qui a les 5 jours (seulement pour 5/2) -->
+<div id="who52Section" style="display:none;margin-bottom:20px;">
+<label id="labelWho52" style="margin-bottom:8px;display:block;">Qui a les 5 jours ?</label>
+<div class="select-wrapper">
+<select id="who52Select">
+<option value="1">Maman (5 jours) — Papa (2 jours)</option>
+<option value="2">Papa (5 jours) — Maman (2 jours)</option>
+</select>
+</div>
+</div>
+<!-- Qui garde le plus souvent (pour FDS/2, FDS/3, FDS/4) -->
+<div id="whoFdsSection" style="display:none;margin-bottom:20px;">
+<label id="labelWhoFds" style="margin-bottom:8px;display:block;">Qui a la garde principale (jours de semaine) ?</label>
+<div class="who-btns" id="whoFdsBtns">
+<button class="who-btn active" id="whoFdsBtn1" onclick="setWhoFds(1)">Maman (garde principale)</button>
+<button class="who-btn" id="whoFdsBtn2" onclick="setWhoFds(2)">Papa (garde principale)</button>
+</div>
+<div id="whoFdsNote" style="font-size:0.78rem;color:var(--gris);margin-top:8px;">
           💡 L'autre parent aura les enfants les fins de semaine selon la fréquence choisie.
         </div>
-      </div>
-
-      <!-- Parents -->
-      <label id="labelParents" style="margin-bottom:12px;display:block;">Personnalisation</label>
-      <div class="parents-grid">
-        <div class="parent-card" id="parent1Card">
-          <div class="parent-top">
-            <div class="parent-dot" id="dot1"></div>
-            <input type="text" class="parent-name-input" id="nom1" value="Maman" placeholder="Nom du parent 1" oninput="updateParents()" />
-          </div>
-          <div class="color-label" id="labelCouleur1">Couleur</div>
-          <input type="color" id="couleur1" value="#4a90d9" oninput="updateParents()" />
-        </div>
-        <div class="parent-card" id="parent2Card">
-          <div class="parent-top">
-            <div class="parent-dot" id="dot2"></div>
-            <input type="text" class="parent-name-input" id="nom2" value="Papa" placeholder="Nom du parent 2" oninput="updateParents()" />
-          </div>
-          <div class="color-label" id="labelCouleur2">Couleur</div>
-          <input type="color" id="couleur2" value="#e8734a" oninput="updateParents()" />
-        </div>
-      </div>
-
-      <!-- Qui commence -->
-      <div class="who-first" style="margin-top:16px;">
-        <label id="labelPremier">Qui prend la première garde ?</label>
-        <div class="who-btns" id="whoBtns">
-          <button class="who-btn active" id="whoBtn1" onclick="setWho(1)">Maman commence</button>
-          <button class="who-btn" id="whoBtn2" onclick="setWho(2)">Papa commence</button>
-        </div>
-      </div>
-
-      <div style="margin-top:24px;">
-        <button class="btn-generate" onclick="genererCalendrier()" id="btnGenerer">✨ Générer le calendrier</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Calendrier résultat -->
-  <div class="card calendrier-section" id="calendrierSection">
-    <div class="card-body">
-      <div class="cal-actions">
-        <h2 id="calTitre">Calendrier de garde</h2>
-        <button class="btn-action btn-pdf" onclick="telechargerPDF()" id="btnPdf">📄 Exporter en PDF</button>
-        <button class="btn-action btn-print" onclick="imprimerCalendrier()" id="btnImprimer">🖨️ Imprimer</button>
-        <button class="btn-action btn-email" onclick="ouvrirModal()" id="btnEmail">📧 Envoyer par courriel</button>
-        <button class="btn-action btn-ical" onclick="exporterICal()" id="btnIcal">📲 Apple / Outlook</button>
-      </div>
-
-      <div class="legende" id="legende"></div>
-      <div class="calendrier-grid" id="calendrierGrid"></div>
-      <div class="stats-bar" id="statsBar"></div>
-    </div>
-  </div>
-
-  <!-- Pubs (bas de page) -->
-  <div class="ads-row" id="bottomAds"></div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
+</div>
+<!-- Parents -->
+<label id="labelParents" style="margin-bottom:12px;display:block;">Personnalisation</label>
+<div class="parents-grid">
+<div class="parent-card" id="parent1Card">
+<div class="parent-top">
+<div class="parent-dot" id="dot1"></div>
+<input class="parent-name-input" id="nom1" oninput="updateParents()" placeholder="Nom du parent 1" type="text" value="Maman"/>
+</div>
+<div class="color-label" id="labelCouleur1">Couleur</div>
+<input id="couleur1" oninput="updateParents()" type="color" value="#4a90d9"/>
+</div>
+<div class="parent-card" id="parent2Card">
+<div class="parent-top">
+<div class="parent-dot" id="dot2"></div>
+<input class="parent-name-input" id="nom2" oninput="updateParents()" placeholder="Nom du parent 2" type="text" value="Papa"/>
+</div>
+<div class="color-label" id="labelCouleur2">Couleur</div>
+<input id="couleur2" oninput="updateParents()" type="color" value="#e8734a"/>
+</div>
+</div>
+<!-- Qui commence -->
+<div class="who-first" style="margin-top:16px;">
+<label id="labelPremier">Qui prend la première garde ?</label>
+<div class="who-btns" id="whoBtns">
+<button class="who-btn active" id="whoBtn1" onclick="setWho(1)">Maman commence</button>
+<button class="who-btn" id="whoBtn2" onclick="setWho(2)">Papa commence</button>
+</div>
+</div>
+<div style="margin-top:24px;">
+<button class="btn-generate" id="btnGenerer" onclick="genererCalendrier()">✨ Générer le calendrier</button>
+</div>
+</div>
+</div>
+<!-- Calendrier résultat -->
+<div class="card calendrier-section" id="calendrierSection">
+<div class="card-body">
+<div class="cal-actions">
+<h2 id="calTitre">Calendrier de garde</h2>
+<button class="btn-action btn-pdf" id="btnPdf" onclick="telechargerPDF()">📄 Exporter en PDF</button>
+<button class="btn-action btn-print" id="btnImprimer" onclick="imprimerCalendrier()">🖨️ Imprimer</button>
+<button class="btn-action btn-email" id="btnEmail" onclick="ouvrirModal()">📧 Envoyer par courriel</button>
+<button class="btn-action btn-ical" id="btnIcal" onclick="exporterICal()">📲 Apple / Outlook</button>
+</div>
+<div class="legende" id="legende"></div>
+<div class="calendrier-grid" id="calendrierGrid"></div>
+<div class="stats-bar" id="statsBar"></div>
+</div>
+</div>
+<!-- Pubs (bas de page) -->
+<div class="ads-row" id="bottomAds"></div>
+<!-- ════════════════════════════════════════════════════════════════════
        Contenu éditorial statique (SEO + valeur informative AdSense)
        ════════════════════════════════════════════════════════════════════ -->
-  <section class="cd-seo">
+<section class="cd-seo">
+<!-- ===================== FRANÇAIS ===================== -->
+<div class="lang-only-fr">
+<h2>Construire un calendrier de garde partagée au Québec</h2>
+<p>Cet outil aide les parents séparés ou divorcés à <strong>visualiser leur calendrier de garde</strong> sur plusieurs mois, à <strong>tester différentes formules</strong> (7/7, 5/2, 3-2-2-3, 2-2-3, fins de semaine alternées, garde principale avec visites) et à <strong>exporter</strong> le résultat vers PDF, Apple Calendar, Outlook ou Google Calendar pour le partager avec l'autre parent, l'école ou le service de garde.</p>
+<h3>Les principaux modèles de garde partagée</h3>
+<p>Au Québec, la garde dite « partagée » signifie que chacun des parents assume au moins <strong>40 % du temps de garde</strong>. Aucun modèle n'est imposé par la loi : le but est de choisir une formule qui respecte le meilleur intérêt de l'enfant et qui fonctionne pour les deux foyers. Les modèles les plus utilisés sont :</p>
+<ul>
+<li><strong>7/7 (une semaine sur deux)</strong> — l'enfant alterne une semaine complète chez chaque parent, généralement avec une transition le vendredi après l'école. Simple à retenir, idéal pour les enfants de 7 ans et plus.</li>
+<li><strong>5/5/2/2</strong> — 5 jours chez le parent A, 5 jours chez le parent B, puis 2/2. Permet de garder les mêmes jours de la semaine chez chaque parent (ex. : maman toujours du lundi au vendredi, papa toujours le week-end + 3 jours).</li>
+<li><strong>3-2-2 ou 2-2-3</strong> — alternance plus courte, particulièrement adaptée aux enfants de moins de 6 ans qui supportent mal de longues séparations.</li>
+<li><strong>Fins de semaine alternées + une soirée/semaine</strong> — modèle dit « garde principale ». Un parent assume la majorité du quotidien, l'autre voit l'enfant un soir en semaine et un week-end sur deux.</li>
+<li><strong>Garde personnalisée</strong> — modèle taillé sur mesure pour tenir compte du travail par quart, des rotations FIFO, de la garde alternée avec demi-frères/sœurs, etc. Notre outil permet de bâtir ce type de calendrier en cliquant directement sur les jours.</li>
+</ul>
+<div class="seo-callout">📌 <strong>Bon à savoir :</strong> ce calculateur n'impose aucun modèle. Vous pouvez librement combiner les approches (par exemple, 2-2-3 pendant l'année scolaire, 7/7 pendant les vacances) et exporter le tout en un seul fichier.</div>
+<h3>Comment l'outil calcule votre calendrier</h3>
+<ol>
+<li><strong>Choisissez la date de début</strong> — habituellement le jour où le nouveau calendrier de garde entre en vigueur (séparation, ordonnance du tribunal, rentrée scolaire, etc.).</li>
+<li><strong>Sélectionnez la durée d'affichage</strong> : 1 mois pour visualiser le rythme, 6 mois ou 1 an pour transmettre à l'école ou aux grands-parents, jusqu'à 2 ans pour les jugements à long terme.</li>
+<li><strong>Choisissez le type de garde</strong> et configurez les noms (Maman, Papa, ou n'importe quels prénoms) ainsi que la couleur associée à chaque foyer.</li>
+<li><strong>Lisez le calendrier généré</strong>, mois par mois. Chaque jour indique chez qui se trouve l'enfant, et la barre de statistiques résume le pourcentage de temps réparti.</li>
+<li><strong>Exportez</strong> en PDF (pour imprimer ou joindre à un courriel), en .ics (pour Apple Calendar, Outlook, Google Calendar) ou utilisez la fonction d'impression directe.</li>
+</ol>
+<h3>Garde et calcul des pensions alimentaires</h3>
+<p>Au Québec, le <em>Modèle québécois de fixation des pensions alimentaires pour enfants</em> tient compte du <strong>temps de garde de chaque parent</strong>. Le pourcentage exact de jours/nuits passés chez chacun influence directement le calcul de la pension :</p>
+<ul>
+<li><strong>Garde exclusive</strong> — un parent a 60 % ou plus du temps. La pension est calculée selon la grille standard du <a href="https://www.justice.gouv.qc.ca/" rel="noopener" target="_blank">Ministère de la Justice du Québec</a>.</li>
+<li><strong>Garde partagée</strong> — chaque parent a entre 40 % et 60 % du temps. Le calcul est différent et tient compte du revenu disponible de chaque parent, des frais particuliers (garderie, activités, frais médicaux), et de la proportion exacte de temps de garde.</li>
+<li><strong>Garde principale avec accès</strong> — un parent a moins de 40 % du temps. Pension calculée comme en garde exclusive, mais avec un crédit possible pour les frais directs assumés par le parent ayant accès.</li>
+</ul>
+<p>Notre calculateur ne calcule pas la pension elle-même, mais le <strong>pourcentage exact de temps de garde</strong> qu'il affiche est une donnée d'entrée précieuse pour les outils gouvernementaux ou pour votre avocat·e familial·e.</p>
+<h3>Conseils pour un calendrier qui dure</h3>
+<ol>
+<li><strong>Anticipez les jours fériés et les vacances scolaires</strong> — alternez explicitement Noël, Pâques, la fête nationale et les semaines de relâche. Notre outil permet d'ajouter des exceptions à votre calendrier de base.</li>
+<li><strong>Prévoyez les transitions</strong> — précisez l'heure et le lieu d'échange (à l'école plutôt qu'au domicile de l'autre parent, par exemple). Cela réduit considérablement les frictions.</li>
+<li><strong>Mettez tout par écrit</strong> — même si vous vous entendez verbalement, un calendrier exporté et accepté par les deux parents vaut comme preuve en cas de désaccord futur.</li>
+<li><strong>Partagez le calendrier avec les tiers de confiance</strong> — école, service de garde, médecin, grands-parents. Le format .ics est universel et se met à jour automatiquement chez tous les destinataires si vous le republiez.</li>
+<li><strong>Réévaluez chaque année</strong> — les besoins des enfants changent avec l'âge. Un modèle 2-2-3 idéal à 4 ans peut devenir contraignant à 12 ans, et inversement.</li>
+</ol>
+<h3>Questions fréquentes</h3>
+<div class="seo-faq">
+<details>
+<summary>La garde partagée doit-elle être strictement 50/50 ?</summary>
+<p>Non. La <strong>garde partagée légale</strong> au Québec se définit à partir de <strong>40 % du temps</strong> pour chaque parent. Beaucoup de familles fonctionnent avec un partage 45/55 ou 47/53 selon la formule choisie, et cela reste considéré comme garde partagée pour la pension alimentaire et les crédits d'impôt familiaux.</p>
+</details>
+<details>
+<summary>À quel âge un enfant peut-il choisir son mode de garde ?</summary>
+<p>Au Québec, il n'y a pas d'âge légal fixe. Toutefois, les tribunaux donnent généralement un poids croissant à l'opinion de l'enfant à partir de <strong>12 ans</strong>, et un poids déterminant à partir de <strong>14 ans</strong>. Avant cet âge, le critère décisif reste le <em>meilleur intérêt de l'enfant</em> évalué par un juge, souvent avec l'aide d'un expert (psychologue, travailleur social).</p>
+</details>
+<details>
+<summary>Comment gérer les fêtes et les anniversaires ?</summary>
+<p>La méthode la plus courante est l'<strong>alternance annuelle</strong> : Noël chez maman les années paires, chez papa les années impaires, par exemple. Pour les anniversaires de l'enfant, beaucoup de familles partagent la journée (un parent le matin, l'autre le soir) ou organisent deux fêtes distinctes. Notre outil permet de marquer ces exceptions sans changer le rythme de base.</p>
+</details>
+<details>
+<summary>Mes données de garde sont-elles confidentielles ?</summary>
+<p>Absolument. Tous les calculs sont effectués dans votre navigateur — aucune donnée (prénoms, dates, modèle de garde) n'est envoyée à un serveur de CalculDates.ca. Le fichier PDF ou .ics est généré localement et téléchargé directement sur votre appareil.</p>
+</details>
+<details>
+<summary>Cet outil peut-il remplacer une entente écrite ou un jugement ?</summary>
+<p>Non. Le calendrier généré est un <strong>outil de visualisation et de communication</strong>, pas un document légal. Pour un calendrier qui a force exécutoire en cas de litige, vous devez le faire <strong>homologuer par un tribunal</strong> ou l'intégrer à une entente notariée. Vous pouvez toutefois utiliser le PDF généré comme annexe à votre entente.</p>
+</details>
+</div>
+<div class="seo-sources">
+<strong>Sources officielles :</strong>
+<a href="https://www.justice.gouv.qc.ca/couple-et-famille/separation-et-divorce/pension-alimentaire-pour-enfants/" rel="noopener" target="_blank">Ministère de la Justice — Pensions alimentaires</a> ·
+      <a href="https://www.educaloi.qc.ca/categories/familles-et-couples/" rel="noopener" target="_blank">Éducaloi — Familles et couples</a> ·
+      <a href="https://www.justice.gc.ca/fra/df-fl/parent/" rel="noopener" target="_blank">Justice Canada — Parentage</a>
+</div>
+<p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ Cet outil est informatif. Pour toute décision de garde ou de pension alimentaire, consultez un avocat en droit familial, un médiateur familial accrédité ou un service d'aide juridique.</p>
+</div>
+<!-- ===================== ENGLISH ===================== -->
 
-  <!-- ===================== FRANÇAIS ===================== -->
-  <div class="lang-only-fr">
-    <h2>Construire un calendrier de garde partagée au Québec</h2>
-    <p>Cet outil aide les parents séparés ou divorcés à <strong>visualiser leur calendrier de garde</strong> sur plusieurs mois, à <strong>tester différentes formules</strong> (7/7, 5/2, 3-2-2-3, 2-2-3, fins de semaine alternées, garde principale avec visites) et à <strong>exporter</strong> le résultat vers PDF, Apple Calendar, Outlook ou Google Calendar pour le partager avec l'autre parent, l'école ou le service de garde.</p>
+<!-- ===================== ESPAÑOL ===================== -->
 
-    <h3>Les principaux modèles de garde partagée</h3>
-    <p>Au Québec, la garde dite « partagée » signifie que chacun des parents assume au moins <strong>40 % du temps de garde</strong>. Aucun modèle n'est imposé par la loi : le but est de choisir une formule qui respecte le meilleur intérêt de l'enfant et qui fonctionne pour les deux foyers. Les modèles les plus utilisés sont :</p>
-    <ul>
-      <li><strong>7/7 (une semaine sur deux)</strong> — l'enfant alterne une semaine complète chez chaque parent, généralement avec une transition le vendredi après l'école. Simple à retenir, idéal pour les enfants de 7 ans et plus.</li>
-      <li><strong>5/5/2/2</strong> — 5 jours chez le parent A, 5 jours chez le parent B, puis 2/2. Permet de garder les mêmes jours de la semaine chez chaque parent (ex. : maman toujours du lundi au vendredi, papa toujours le week-end + 3 jours).</li>
-      <li><strong>3-2-2 ou 2-2-3</strong> — alternance plus courte, particulièrement adaptée aux enfants de moins de 6 ans qui supportent mal de longues séparations.</li>
-      <li><strong>Fins de semaine alternées + une soirée/semaine</strong> — modèle dit « garde principale ». Un parent assume la majorité du quotidien, l'autre voit l'enfant un soir en semaine et un week-end sur deux.</li>
-      <li><strong>Garde personnalisée</strong> — modèle taillé sur mesure pour tenir compte du travail par quart, des rotations FIFO, de la garde alternée avec demi-frères/sœurs, etc. Notre outil permet de bâtir ce type de calendrier en cliquant directement sur les jours.</li>
-    </ul>
-    <div class="seo-callout">📌 <strong>Bon à savoir :</strong> ce calculateur n'impose aucun modèle. Vous pouvez librement combiner les approches (par exemple, 2-2-3 pendant l'année scolaire, 7/7 pendant les vacances) et exporter le tout en un seul fichier.</div>
-
-    <h3>Comment l'outil calcule votre calendrier</h3>
-    <ol>
-      <li><strong>Choisissez la date de début</strong> — habituellement le jour où le nouveau calendrier de garde entre en vigueur (séparation, ordonnance du tribunal, rentrée scolaire, etc.).</li>
-      <li><strong>Sélectionnez la durée d'affichage</strong> : 1 mois pour visualiser le rythme, 6 mois ou 1 an pour transmettre à l'école ou aux grands-parents, jusqu'à 2 ans pour les jugements à long terme.</li>
-      <li><strong>Choisissez le type de garde</strong> et configurez les noms (Maman, Papa, ou n'importe quels prénoms) ainsi que la couleur associée à chaque foyer.</li>
-      <li><strong>Lisez le calendrier généré</strong>, mois par mois. Chaque jour indique chez qui se trouve l'enfant, et la barre de statistiques résume le pourcentage de temps réparti.</li>
-      <li><strong>Exportez</strong> en PDF (pour imprimer ou joindre à un courriel), en .ics (pour Apple Calendar, Outlook, Google Calendar) ou utilisez la fonction d'impression directe.</li>
-    </ol>
-
-    <h3>Garde et calcul des pensions alimentaires</h3>
-    <p>Au Québec, le <em>Modèle québécois de fixation des pensions alimentaires pour enfants</em> tient compte du <strong>temps de garde de chaque parent</strong>. Le pourcentage exact de jours/nuits passés chez chacun influence directement le calcul de la pension :</p>
-    <ul>
-      <li><strong>Garde exclusive</strong> — un parent a 60 % ou plus du temps. La pension est calculée selon la grille standard du <a href="https://www.justice.gouv.qc.ca/" target="_blank" rel="noopener">Ministère de la Justice du Québec</a>.</li>
-      <li><strong>Garde partagée</strong> — chaque parent a entre 40 % et 60 % du temps. Le calcul est différent et tient compte du revenu disponible de chaque parent, des frais particuliers (garderie, activités, frais médicaux), et de la proportion exacte de temps de garde.</li>
-      <li><strong>Garde principale avec accès</strong> — un parent a moins de 40 % du temps. Pension calculée comme en garde exclusive, mais avec un crédit possible pour les frais directs assumés par le parent ayant accès.</li>
-    </ul>
-    <p>Notre calculateur ne calcule pas la pension elle-même, mais le <strong>pourcentage exact de temps de garde</strong> qu'il affiche est une donnée d'entrée précieuse pour les outils gouvernementaux ou pour votre avocat·e familial·e.</p>
-
-    <h3>Conseils pour un calendrier qui dure</h3>
-    <ol>
-      <li><strong>Anticipez les jours fériés et les vacances scolaires</strong> — alternez explicitement Noël, Pâques, la fête nationale et les semaines de relâche. Notre outil permet d'ajouter des exceptions à votre calendrier de base.</li>
-      <li><strong>Prévoyez les transitions</strong> — précisez l'heure et le lieu d'échange (à l'école plutôt qu'au domicile de l'autre parent, par exemple). Cela réduit considérablement les frictions.</li>
-      <li><strong>Mettez tout par écrit</strong> — même si vous vous entendez verbalement, un calendrier exporté et accepté par les deux parents vaut comme preuve en cas de désaccord futur.</li>
-      <li><strong>Partagez le calendrier avec les tiers de confiance</strong> — école, service de garde, médecin, grands-parents. Le format .ics est universel et se met à jour automatiquement chez tous les destinataires si vous le republiez.</li>
-      <li><strong>Réévaluez chaque année</strong> — les besoins des enfants changent avec l'âge. Un modèle 2-2-3 idéal à 4 ans peut devenir contraignant à 12 ans, et inversement.</li>
-    </ol>
-
-    <h3>Questions fréquentes</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>La garde partagée doit-elle être strictement 50/50 ?</summary>
-        <p>Non. La <strong>garde partagée légale</strong> au Québec se définit à partir de <strong>40 % du temps</strong> pour chaque parent. Beaucoup de familles fonctionnent avec un partage 45/55 ou 47/53 selon la formule choisie, et cela reste considéré comme garde partagée pour la pension alimentaire et les crédits d'impôt familiaux.</p>
-      </details>
-      <details>
-        <summary>À quel âge un enfant peut-il choisir son mode de garde ?</summary>
-        <p>Au Québec, il n'y a pas d'âge légal fixe. Toutefois, les tribunaux donnent généralement un poids croissant à l'opinion de l'enfant à partir de <strong>12 ans</strong>, et un poids déterminant à partir de <strong>14 ans</strong>. Avant cet âge, le critère décisif reste le <em>meilleur intérêt de l'enfant</em> évalué par un juge, souvent avec l'aide d'un expert (psychologue, travailleur social).</p>
-      </details>
-      <details>
-        <summary>Comment gérer les fêtes et les anniversaires ?</summary>
-        <p>La méthode la plus courante est l'<strong>alternance annuelle</strong> : Noël chez maman les années paires, chez papa les années impaires, par exemple. Pour les anniversaires de l'enfant, beaucoup de familles partagent la journée (un parent le matin, l'autre le soir) ou organisent deux fêtes distinctes. Notre outil permet de marquer ces exceptions sans changer le rythme de base.</p>
-      </details>
-      <details>
-        <summary>Mes données de garde sont-elles confidentielles ?</summary>
-        <p>Absolument. Tous les calculs sont effectués dans votre navigateur — aucune donnée (prénoms, dates, modèle de garde) n'est envoyée à un serveur de CalculDates.ca. Le fichier PDF ou .ics est généré localement et téléchargé directement sur votre appareil.</p>
-      </details>
-      <details>
-        <summary>Cet outil peut-il remplacer une entente écrite ou un jugement ?</summary>
-        <p>Non. Le calendrier généré est un <strong>outil de visualisation et de communication</strong>, pas un document légal. Pour un calendrier qui a force exécutoire en cas de litige, vous devez le faire <strong>homologuer par un tribunal</strong> ou l'intégrer à une entente notariée. Vous pouvez toutefois utiliser le PDF généré comme annexe à votre entente.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Sources officielles :</strong>
-      <a href="https://www.justice.gouv.qc.ca/couple-et-famille/separation-et-divorce/pension-alimentaire-pour-enfants/" target="_blank" rel="noopener">Ministère de la Justice — Pensions alimentaires</a> ·
-      <a href="https://www.educaloi.qc.ca/categories/familles-et-couples/" target="_blank" rel="noopener">Éducaloi — Familles et couples</a> ·
-      <a href="https://www.justice.gc.ca/fra/df-fl/parent/" target="_blank" rel="noopener">Justice Canada — Parentage</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ Cet outil est informatif. Pour toute décision de garde ou de pension alimentaire, consultez un avocat en droit familial, un médiateur familial accrédité ou un service d'aide juridique.</p>
-  </div>
-
-  <!-- ===================== ENGLISH ===================== -->
-  <div class="lang-only-en">
-    <h2>Build a shared-custody calendar for Québec</h2>
-    <p>This tool helps separated or divorced parents <strong>visualize their custody schedule</strong> across several months, <strong>test different formulas</strong> (7/7, 5/2, 3-2-2-3, 2-2-3, alternating weekends, primary custody with visits) and <strong>export</strong> the result to PDF, Apple Calendar, Outlook or Google Calendar to share with the other parent, school or daycare.</p>
-
-    <h3>The main shared-custody models</h3>
-    <p>In Québec, "shared" custody means each parent assumes at least <strong>40% of custody time</strong>. No model is imposed by law: the goal is to choose a formula that serves the child's best interest and works for both households. The most common models are:</p>
-    <ul>
-      <li><strong>7/7 (week on, week off)</strong> — the child alternates one full week at each parent's home, typically with a Friday-after-school transition. Easy to remember, ideal for children 7 and up.</li>
-      <li><strong>5/5/2/2</strong> — 5 days with parent A, 5 days with parent B, then 2/2. Keeps the same weekdays at each parent's home (e.g., Mom always Mon-Fri, Dad always weekends + 3 days).</li>
-      <li><strong>3-2-2 or 2-2-3</strong> — shorter alternation, especially suited to children under 6 who tolerate long separations poorly.</li>
-      <li><strong>Alternating weekends + one weeknight</strong> — known as "primary custody". One parent handles most of the daily routine, the other sees the child one weeknight and every other weekend.</li>
-      <li><strong>Custom schedule</strong> — tailored to fit shift work, FIFO rotations, custody alternation with half-siblings, etc. Our tool lets you build this kind of calendar by clicking directly on the days.</li>
-    </ul>
-    <div class="seo-callout">📌 <strong>Good to know:</strong> this calculator imposes no model. You can freely combine approaches (e.g., 2-2-3 during the school year, 7/7 during vacations) and export everything to a single file.</div>
-
-    <h3>How the tool calculates your calendar</h3>
-    <ol>
-      <li><strong>Choose the start date</strong> — usually when the new custody schedule takes effect (separation, court order, school year start, etc.).</li>
-      <li><strong>Select the display duration</strong>: 1 month to see the rhythm, 6 months or 1 year to share with the school or grandparents, up to 2 years for long-term judgments.</li>
-      <li><strong>Choose the custody type</strong> and configure the names (Mom, Dad, or any first names) and the color associated with each home.</li>
-      <li><strong>Read the generated calendar</strong>, month by month. Each day shows where the child is, and the stats bar summarizes the time split.</li>
-      <li><strong>Export</strong> to PDF (to print or attach to email), .ics (for Apple Calendar, Outlook, Google Calendar) or use direct print.</li>
-    </ol>
-
-    <h3>Custody and child support calculation</h3>
-    <p>In Québec, the <em>Québec model for the determination of child support</em> takes into account <strong>each parent's custody time</strong>. The exact percentage of days/nights at each home directly influences the support calculation:</p>
-    <ul>
-      <li><strong>Exclusive custody</strong> — one parent has 60% or more of the time. Support is calculated using the standard grid from the <a href="https://www.justice.gouv.qc.ca/en" target="_blank" rel="noopener">Québec Ministry of Justice</a>.</li>
-      <li><strong>Shared custody</strong> — each parent has between 40% and 60% of the time. The calculation is different and accounts for each parent's disposable income, special expenses (daycare, activities, medical), and the exact proportion of custody time.</li>
-      <li><strong>Primary custody with access</strong> — one parent has less than 40% of the time. Support calculated as in exclusive custody, but with a possible credit for direct expenses borne by the access parent.</li>
-    </ul>
-    <p>Our calculator doesn't compute the support itself, but the <strong>exact percentage of custody time</strong> it displays is valuable input for the government tools or your family lawyer.</p>
-
-    <h3>Tips for a calendar that lasts</h3>
-    <ol>
-      <li><strong>Anticipate holidays and school breaks</strong> — explicitly alternate Christmas, Easter, National Holiday and spring break. Our tool lets you add exceptions to your base calendar.</li>
-      <li><strong>Plan transitions</strong> — specify the time and location of the handover (school rather than the other parent's home, for example). This significantly reduces friction.</li>
-      <li><strong>Put everything in writing</strong> — even if you agree verbally, an exported calendar accepted by both parents serves as evidence in case of future disagreement.</li>
-      <li><strong>Share the calendar with trusted third parties</strong> — school, daycare, doctor, grandparents. The .ics format is universal and auto-updates for all recipients if you republish it.</li>
-      <li><strong>Reassess each year</strong> — children's needs change with age. A 2-2-3 model ideal at 4 may become constraining at 12, and vice versa.</li>
-    </ol>
-
-    <h3>Frequently asked questions</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>Must shared custody be strictly 50/50?</summary>
-        <p>No. <strong>Legal shared custody</strong> in Québec is defined starting at <strong>40% of time</strong> for each parent. Many families operate with a 45/55 or 47/53 split depending on the formula chosen, and this still counts as shared custody for child support and family tax credits.</p>
-      </details>
-      <details>
-        <summary>At what age can a child choose their custody arrangement?</summary>
-        <p>In Québec, there's no fixed legal age. However, courts generally give increasing weight to the child's opinion from <strong>age 12</strong>, and decisive weight from <strong>age 14</strong>. Before that age, the deciding criterion remains the <em>child's best interest</em> as assessed by a judge, often with the help of an expert (psychologist, social worker).</p>
-      </details>
-      <details>
-        <summary>How do we handle holidays and birthdays?</summary>
-        <p>The most common method is <strong>yearly alternation</strong>: Christmas with Mom in even years, with Dad in odd years, for example. For the child's birthday, many families share the day (one parent in the morning, the other in the evening) or organize two separate parties. Our tool lets you mark these exceptions without changing the base rhythm.</p>
-      </details>
-      <details>
-        <summary>Is my custody data confidential?</summary>
-        <p>Absolutely. All calculations happen in your browser — no data (names, dates, custody model) is sent to a CalculDates.ca server. The PDF or .ics file is generated locally and downloaded directly to your device.</p>
-      </details>
-      <details>
-        <summary>Can this tool replace a written agreement or court order?</summary>
-        <p>No. The generated calendar is a <strong>visualization and communication tool</strong>, not a legal document. For a calendar that has enforceable status in a dispute, you must have it <strong>court-approved</strong> or incorporated into a notarized agreement. You can however use the generated PDF as an attachment to your agreement.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Official sources:</strong>
-      <a href="https://www.justice.gouv.qc.ca/en/couples-and-families/separation-and-divorce/child-support/" target="_blank" rel="noopener">Ministère de la Justice — Child support</a> ·
-      <a href="https://educaloi.qc.ca/en/" target="_blank" rel="noopener">Éducaloi — Families and couples</a> ·
-      <a href="https://www.justice.gc.ca/eng/fl-df/parent/" target="_blank" rel="noopener">Justice Canada — Parenting</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ This tool is informational. For any custody or support decision, consult a family lawyer, an accredited family mediator or a legal aid service.</p>
-  </div>
-
-  <!-- ===================== ESPAÑOL ===================== -->
-  <div class="lang-only-es">
-    <h2>Crear un calendario de custodia compartida en Quebec</h2>
-    <p>Esta herramienta ayuda a los padres separados o divorciados a <strong>visualizar su calendario de custodia</strong> durante varios meses, <strong>probar diferentes fórmulas</strong> (7/7, 5/2, 3-2-2-3, 2-2-3, fines de semana alternos, custodia principal con visitas) y <strong>exportar</strong> el resultado a PDF, Apple Calendar, Outlook o Google Calendar para compartirlo con el otro padre, la escuela o la guardería.</p>
-
-    <h3>Los principales modelos de custodia compartida</h3>
-    <p>En Quebec, la custodia llamada «compartida» significa que cada uno de los padres asume al menos el <strong>40 % del tiempo de custodia</strong>. Ningún modelo está impuesto por la ley: el objetivo es elegir una fórmula que respete el interés superior del menor y que funcione para ambos hogares. Los modelos más utilizados son:</p>
-    <ul>
-      <li><strong>7/7 (una semana sí, una no)</strong> — el niño alterna una semana completa en cada hogar, generalmente con una transición el viernes después de clases. Sencillo de recordar, ideal para niños de 7 años en adelante.</li>
-      <li><strong>5/5/2/2</strong> — 5 días con el padre A, 5 días con el padre B, luego 2/2. Permite mantener los mismos días de la semana en cada hogar (ej.: mamá siempre de lunes a viernes, papá siempre el fin de semana + 3 días).</li>
-      <li><strong>3-2-2 o 2-2-3</strong> — alternancia más corta, especialmente adaptada a niños menores de 6 años que toleran mal largas separaciones.</li>
-      <li><strong>Fines de semana alternos + una tarde/semana</strong> — modelo llamado «custodia principal». Un padre asume la mayor parte del día a día, el otro ve al niño una tarde entre semana y un fin de semana sí, uno no.</li>
-      <li><strong>Custodia personalizada</strong> — modelo a medida para tener en cuenta el trabajo por turnos, las rotaciones FIFO, la custodia alternada con hermanastros, etc. Nuestra herramienta permite crear este tipo de calendario haciendo clic directamente en los días.</li>
-    </ul>
-    <div class="seo-callout">📌 <strong>Bueno saber:</strong> esta calculadora no impone ningún modelo. Puede combinar libremente los enfoques (por ejemplo, 2-2-3 durante el año escolar, 7/7 durante las vacaciones) y exportar todo en un solo archivo.</div>
-
-    <h3>Cómo calcula la herramienta su calendario</h3>
-    <ol>
-      <li><strong>Elija la fecha de inicio</strong> — generalmente el día en que el nuevo calendario de custodia entra en vigor (separación, orden judicial, inicio del año escolar, etc.).</li>
-      <li><strong>Seleccione la duración de visualización</strong>: 1 mes para ver el ritmo, 6 meses o 1 año para transmitirlo a la escuela o a los abuelos, hasta 2 años para sentencias a largo plazo.</li>
-      <li><strong>Elija el tipo de custodia</strong> y configure los nombres (Mamá, Papá, o cualquier nombre) así como el color asociado a cada hogar.</li>
-      <li><strong>Lea el calendario generado</strong>, mes a mes. Cada día indica con quién está el niño, y la barra de estadísticas resume el porcentaje de tiempo repartido.</li>
-      <li><strong>Exporte</strong> en PDF (para imprimir o adjuntar a un correo), en .ics (para Apple Calendar, Outlook, Google Calendar) o use la función de impresión directa.</li>
-    </ol>
-
-    <h3>Custodia y cálculo de pensiones alimenticias</h3>
-    <p>En Quebec, el <em>Modelo quebequense de fijación de pensiones alimenticias para hijos</em> tiene en cuenta el <strong>tiempo de custodia de cada padre</strong>. El porcentaje exacto de días/noches pasados en cada hogar influye directamente en el cálculo de la pensión:</p>
-    <ul>
-      <li><strong>Custodia exclusiva</strong> — un padre tiene el 60 % o más del tiempo. La pensión se calcula según la cuadrícula estándar del <a href="https://www.justice.gouv.qc.ca/" target="_blank" rel="noopener">Ministerio de Justicia de Quebec</a>.</li>
-      <li><strong>Custodia compartida</strong> — cada padre tiene entre el 40 % y el 60 % del tiempo. El cálculo es diferente y tiene en cuenta el ingreso disponible de cada padre, los gastos particulares (guardería, actividades, gastos médicos), y la proporción exacta del tiempo de custodia.</li>
-      <li><strong>Custodia principal con acceso</strong> — un padre tiene menos del 40 % del tiempo. Pensión calculada como en custodia exclusiva, pero con un posible crédito por los gastos directos asumidos por el padre con acceso.</li>
-    </ul>
-    <p>Nuestra calculadora no calcula la pensión en sí, pero el <strong>porcentaje exacto de tiempo de custodia</strong> que muestra es un dato de entrada valioso para las herramientas gubernamentales o para su abogado de familia.</p>
-
-    <h3>Consejos para un calendario duradero</h3>
-    <ol>
-      <li><strong>Anticipe los días festivos y las vacaciones escolares</strong> — alterne explícitamente Navidad, Pascua, la fiesta nacional y las semanas de descanso. Nuestra herramienta permite agregar excepciones a su calendario de base.</li>
-      <li><strong>Prevea las transiciones</strong> — precise la hora y el lugar del intercambio (en la escuela mejor que en el domicilio del otro padre, por ejemplo). Esto reduce considerablemente las fricciones.</li>
-      <li><strong>Ponga todo por escrito</strong> — aunque estén de acuerdo verbalmente, un calendario exportado y aceptado por ambos padres sirve como prueba en caso de desacuerdo futuro.</li>
-      <li><strong>Comparta el calendario con terceros de confianza</strong> — escuela, guardería, médico, abuelos. El formato .ics es universal y se actualiza automáticamente para todos los destinatarios si lo vuelve a publicar.</li>
-      <li><strong>Reevalúe cada año</strong> — las necesidades de los niños cambian con la edad. Un modelo 2-2-3 ideal a los 4 años puede volverse limitante a los 12, y viceversa.</li>
-    </ol>
-
-    <h3>Preguntas frecuentes</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>¿La custodia compartida debe ser estrictamente 50/50?</summary>
-        <p>No. La <strong>custodia compartida legal</strong> en Quebec se define a partir del <strong>40 % del tiempo</strong> para cada padre. Muchas familias funcionan con un reparto 45/55 o 47/53 según la fórmula elegida, y sigue considerándose custodia compartida para la pensión alimenticia y los créditos fiscales familiares.</p>
-      </details>
-      <details>
-        <summary>¿A qué edad puede un niño elegir su modalidad de custodia?</summary>
-        <p>En Quebec no hay edad legal fija. Sin embargo, los tribunales generalmente dan un peso creciente a la opinión del niño a partir de los <strong>12 años</strong>, y un peso determinante a partir de los <strong>14 años</strong>. Antes de esa edad, el criterio decisivo sigue siendo el <em>interés superior del menor</em> evaluado por un juez, a menudo con la ayuda de un experto (psicólogo, trabajador social).</p>
-      </details>
-      <details>
-        <summary>¿Cómo gestionar las fiestas y los cumpleaños?</summary>
-        <p>El método más común es la <strong>alternancia anual</strong>: Navidad con mamá los años pares, con papá los años impares, por ejemplo. Para los cumpleaños del niño, muchas familias comparten el día (un padre por la mañana, el otro por la tarde) u organizan dos fiestas distintas. Nuestra herramienta permite marcar estas excepciones sin cambiar el ritmo base.</p>
-      </details>
-      <details>
-        <summary>¿Son confidenciales mis datos de custodia?</summary>
-        <p>Absolutamente. Todos los cálculos se realizan en su navegador — ningún dato (nombres, fechas, modelo de custodia) se envía a un servidor de CalculDates.ca. El archivo PDF o .ics se genera localmente y se descarga directamente en su dispositivo.</p>
-      </details>
-      <details>
-        <summary>¿Puede esta herramienta reemplazar un acuerdo escrito o una sentencia?</summary>
-        <p>No. El calendario generado es una <strong>herramienta de visualización y comunicación</strong>, no un documento legal. Para un calendario con fuerza ejecutiva en caso de litigio, debe ser <strong>homologado por un tribunal</strong> o incorporado a un acuerdo notariado. Puede sin embargo usar el PDF generado como anexo a su acuerdo.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Fuentes oficiales:</strong>
-      <a href="https://www.justice.gouv.qc.ca/couple-et-famille/separation-et-divorce/pension-alimentaire-pour-enfants/" target="_blank" rel="noopener">Ministerio de Justicia — Pensiones alimenticias</a> ·
-      <a href="https://www.educaloi.qc.ca/categories/familles-et-couples/" target="_blank" rel="noopener">Éducaloi — Familias y parejas</a> ·
-      <a href="https://www.justice.gc.ca/fra/df-fl/parent/" target="_blank" rel="noopener">Justicia Canadá — Parentalidad</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ Esta herramienta es informativa. Para cualquier decisión de custodia o pensión alimenticia, consulte a un abogado de derecho de familia, un mediador familiar acreditado o un servicio de ayuda jurídica.</p>
-  </div>
-
-  </section>
-
-  <!-- Avis d'affiliation -->
-  <p style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;" id="affiliateDisclosure"></p>
+</section>
+<!-- Avis d'affiliation -->
+<p id="affiliateDisclosure" style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;"></p>
 </main>
-
 <footer>
-  <div class="footer-links" id="footerLinks"><a href="index.html">Calcul dates</a><a href="garde.html">Garde partagée</a><a href="rotation.html">Rotation de travail</a><a href="grossesse.html">Grossesse (CNESST)</a><a href="paie.html">Paie &amp; fiscal</a><a href="guide.html">Guide pratique</a><a href="about.html">À propos</a><a href="privacy-policy.html">Politique de conf.</a></div>
-  <div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
-  <div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
+<div class="footer-links" id="footerLinks"><a href="index.html">Calcul dates</a><a href="garde.html">Garde partagée</a><a href="rotation.html">Rotation de travail</a><a href="grossesse.html">Grossesse (CNESST)</a><a href="paie.html">Paie &amp; fiscal</a><a href="guide.html">Guide pratique</a><a href="about.html">À propos</a><a href="privacy-policy.html">Politique de conf.</a></div>
+<div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
+<div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
 </footer>
-
 <!-- Modal email -->
 <div class="modal-overlay" id="modalOverlay">
-  <div class="modal">
-    <h3 id="modalTitle">📧 Envoyer par courriel</h3>
-    <input type="email" id="emailInput" placeholder="votre@courriel.com" />
-    <div class="modal-btns">
-      <button class="btn-cancel" onclick="fermerModal()" id="btnAnnuler">Annuler</button>
-      <button class="btn-send" onclick="envoyerCourriel()" id="btnEnvoyer">Envoyer</button>
-    </div>
-    <p class="modal-note" id="modalNote">⚠️ Cette fonctionnalité ouvrira votre client de messagerie avec le calendrier en pièce jointe.</p>
-  </div>
+<div class="modal">
+<h3 id="modalTitle">📧 Envoyer par courriel</h3>
+<input id="emailInput" placeholder="votre@courriel.com" type="email"/>
+<div class="modal-btns">
+<button class="btn-cancel" id="btnAnnuler" onclick="fermerModal()">Annuler</button>
+<button class="btn-send" id="btnEnvoyer" onclick="envoyerCourriel()">Envoyer</button>
 </div>
-
+<p class="modal-note" id="modalNote">⚠️ Cette fonctionnalité ouvrira votre client de messagerie avec le calendrier en pièce jointe.</p>
+</div>
+</div>
 <script>
 const ACTIVE_PAGE = 'garde';
 let lang = 'fr';
@@ -1430,7 +1254,6 @@ if (document.readyState === 'loading') {
   initGardePage();
 }
 </script>
-
 <!-- Filet de sécurité : garantit le menu, le footer, les pubs et la date -->
 <script>
 (function(){
@@ -1468,6 +1291,5 @@ if (document.readyState === 'loading') {
   window.addEventListener('load', safetyRender);
 })();
 </script>
-
 </body>
 </html>

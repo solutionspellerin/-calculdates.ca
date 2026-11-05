@@ -1,0 +1,51 @@
+{
+  "domain": "https://www.calculdates.ca",
+  "brand": "CalculDates.ca",
+  "pages": {
+    "index.html": {
+      "fr": ["Calculateur de dates gratuit au Québec | CalculDates.ca", "Calculateur de dates gratuit : ajoutez ou soustrayez des jours, semaines, mois ou années, calculez des délais légaux et des échéances au Québec."],
+      "en": ["Free Date Calculator for Québec | CalculDates.ca", "Free date calculator: add or subtract days, weeks, months or years, and work out legal and administrative deadlines in Québec."],
+      "es": ["Calculadora de fechas gratuita para Quebec | CalculDates.ca", "Calculadora de fechas gratuita: sume o reste días, semanas, meses o años y calcule plazos legales y administrativos en Quebec."]
+    },
+    "garde.html": {
+      "fr": ["Calendrier de garde partagée (7/7, 2-2-3, 2-2-5-5) | CalculDates.ca", "Calendrier de garde partagée gratuit — 7/7, 3-2-2-3, 2-2-3, 5/2, fins de semaine et plus. Exportez en PDF ou ajoutez à Apple, Outlook ou Google Agenda."],
+      "en": ["Shared Custody Calendar (7/7, 2-2-3, 2-2-5-5) | CalculDates.ca", "Free shared custody calendar — 7/7, 3-2-2-3, 2-2-3, 5/2, alternating weekends and more. Export to PDF or add to Apple, Outlook or Google Calendar."],
+      "es": ["Calendario de custodia compartida (7/7, 2-2-3) | CalculDates.ca", "Calendario de custodia compartida gratuito — 7/7, 3-2-2-3, 2-2-3, 5/2, fines de semana alternos y más. Exporte a PDF o a Apple, Outlook o Google Calendar."]
+    },
+    "rotation.html": {
+      "fr": ["Rotation de travail — horaire 2/2, 14/14, 7/7 | CalculDates.ca", "Calculateur de rotation de travail — 2 semaines travail / 2 semaines congé, 14/14, 7/7 ou rotation personnalisée. Export PDF et calendrier."],
+      "en": ["Work Rotation Schedule — 2/2, 14/14, 7/7 | CalculDates.ca", "Work rotation calculator — 2 weeks on / 2 weeks off, 14/14, 7/7 or a custom rotation. Export to PDF or your calendar."],
+      "es": ["Rotación laboral — horario 2/2, 14/14, 7/7 | CalculDates.ca", "Calculadora de rotación laboral — 2 semanas de trabajo / 2 de descanso, 14/14, 7/7 o rotación personalizada. Exportación a PDF y calendario."]
+    },
+    "grossesse.html": {
+      "fr": ["Calculateur de grossesse — maternité sans danger (CNESST) | CalculDates.ca", "Calculatrice de grossesse : semaines et étapes clés du programme Pour une maternité sans danger de la CNESST, retrait préventif et dates du RQAP."],
+      "en": ["Pregnancy Calculator — CNESST Safe Maternity | CalculDates.ca", "Pregnancy calculator: weeks and key dates of the CNESST Safe Maternity program, preventive withdrawal and QPIP (RQAP) dates."],
+      "es": ["Calculadora de embarazo — maternidad sin peligro (CNESST) | CalculDates.ca", "Calculadora de embarazo: semanas y fechas clave del programa Para una maternidad sin peligro de la CNESST, retiro preventivo y fechas del RQAP."]
+    },
+    "paie.html": {
+      "fr": ["Calendrier de paie et périodes financières | CalculDates.ca", "Calendrier de paie : fréquence hebdomadaire, aux deux semaines, bimensuelle ou mensuelle, dates de soumission et de dépôt, année financière et périodes 4-4-5. Export PDF, CSV, ICS."],
+      "en": ["Payroll Calendar and Fiscal Periods | CalculDates.ca", "Payroll calendar: weekly, biweekly, semi-monthly or monthly pay, submission and deposit dates, fiscal year and 4-4-5 periods. Export to PDF, CSV or ICS."],
+      "es": ["Calendario de nómina y periodos fiscales | CalculDates.ca", "Calendario de nómina: pago semanal, quincenal, bimensual o mensual, fechas de envío y depósito, año fiscal y periodos 4-4-5. Exportación PDF, CSV, ICS."]
+    },
+    "feries.html": {
+      "fr": ["Jours fériés — calendrier du personnel | CalculDates.ca", "Créez la liste des jours fériés de votre organisation : suggestions par pays et province (Canada, États-Unis, France, Mexique, Royaume-Uni, Allemagne). Export PDF, Excel et .ics."],
+      "en": ["Public Holidays — Staff Calendar | CalculDates.ca", "Build your organization's public holiday list with suggestions by country and province (Canada, US, France, Mexico, UK, Germany). Export to PDF, Excel and .ics."],
+      "es": ["Días festivos — calendario del personal | CalculDates.ca", "Cree la lista de días festivos de su organización con sugerencias por país y provincia (Canadá, EE. UU., Francia, México, Reino Unido, Alemania). Exportación PDF, Excel e .ics."]
+    },
+    "guide.html": {
+      "fr": ["Guide pratique des dates au Québec | CalculDates.ca", "Guide sur les dates importantes au Québec : RQAP, congés de maternité et de paternité, retrait préventif CNESST, garde partagée et rotation de travail, avec exemples."],
+      "en": ["Practical Guide to Key Dates in Québec | CalculDates.ca", "A guide to key dates in Québec: QPIP (RQAP), maternity and paternity leave, CNESST preventive withdrawal, shared custody and work rotations, with examples."],
+      "es": ["Guía práctica de fechas en Quebec | CalculDates.ca", "Guía de fechas importantes en Quebec: RQAP, permisos de maternidad y paternidad, retiro preventivo CNESST, custodia compartida y rotaciones laborales, con ejemplos."]
+    },
+    "about.html": {
+      "fr": ["À propos de CalculDates.ca — qui sommes-nous | CalculDates.ca", "Qui est derrière CalculDates.ca : Marie-Pier Pellerin, Solutions Pellerin (Val-des-Sources, Québec). Mission, méthode, sources officielles et contact."],
+      "en": ["About CalculDates.ca — who we are | CalculDates.ca", "Who is behind CalculDates.ca: Marie-Pier Pellerin, Solutions Pellerin (Val-des-Sources, Québec). Mission, method, official sources and contact."],
+      "es": ["Acerca de CalculDates.ca — quiénes somos | CalculDates.ca", "Quién está detrás de CalculDates.ca: Marie-Pier Pellerin, Solutions Pellerin (Val-des-Sources, Quebec). Misión, método, fuentes oficiales y contacto."]
+    },
+    "privacy-policy.html": {
+      "fr": ["Politique de confidentialité | CalculDates.ca", "Politique de confidentialité de CalculDates.ca : cookies, publicités Google AdSense et liens d'affiliation (Amazon, Le CFO masqué)."],
+      "en": ["Privacy Policy | CalculDates.ca", "CalculDates.ca privacy policy: cookies, Google AdSense advertising and affiliate links (Amazon, Le CFO masqué)."],
+      "es": ["Política de privacidad | CalculDates.ca", "Política de privacidad de CalculDates.ca: cookies, publicidad de Google AdSense y enlaces de afiliados (Amazon, Le CFO masqué)."]
+    }
+  }
+}

@@ -1,23 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
 <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
   gtag('config', 'G-Y86YEGXHVV');
 </script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
-<meta name="description" content="Calculatrice de grossesse — semaines et étapes clés pour le Programme Pour une maternité sans danger (CNESST). Retrait préventif, charges, dates RQAP.">
-<link rel="canonical" href="https://www.calculdates.ca/grossesse.html" />
-<title>Grossesse — Programme Pour une maternité sans danger (CNESST) | CalculDates.ca</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/ads.css?v=20260526a">
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" name="google-site-verification"/>
+<meta content="Calculatrice de grossesse : semaines et étapes clés du programme Pour une maternité sans danger de la CNESST, retrait préventif et dates du RQAP." name="description"/>
+
+<title>Calculateur de grossesse — maternité sans danger (CNESST) | CalculDates.ca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="assets/ads.css?v=20260526a" rel="stylesheet"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="assets/site-config.js?v=20260526a"></script>
 <style>
@@ -129,347 +130,160 @@
     .lang-label { display: none; }
   }
 </style>
-</head>
+<link href="https://www.calculdates.ca/grossesse.html" rel="canonical"/><link href="https://www.calculdates.ca/grossesse.html" hreflang="fr" rel="alternate"/><link href="https://www.calculdates.ca/en/grossesse.html" hreflang="en" rel="alternate"/><link href="https://www.calculdates.ca/es/grossesse.html" hreflang="es" rel="alternate"/><link href="https://www.calculdates.ca/grossesse.html" hreflang="x-default" rel="alternate"/></head>
 <body>
-
 <header>
-  <a href="index.html" class="logo">Calcul<span>Dates</span>.ca</a>
-  <div class="lang-toggle">
-    <span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
-    <div class="lang-toggle-3" onclick="cycleLang()" id="langToggle">
-      <span class="lang-opt active" data-lang="fr">FR</span>
-      <span class="lang-opt" data-lang="en">EN</span>
-      <span class="lang-opt" data-lang="es">ES</span>
-    </div>
-  </div>
+<a class="logo" href="index.html">Calcul<span>Dates</span>.ca</a>
+<div class="lang-toggle">
+<span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
+<div class="lang-toggle-3" id="langToggle" onclick="cycleLang()">
+<span class="lang-opt active" data-lang="fr">FR</span>
+<span class="lang-opt" data-lang="en">EN</span>
+<span class="lang-opt" data-lang="es">ES</span>
+</div>
+</div>
 </header>
-
 <nav class="site-nav">
-  <div class="nav-inner" id="siteNav"></div>
+<div class="nav-inner" id="siteNav"></div>
 </nav>
-
 <main>
-  <div class="card form-card">
-    <div class="card-header">
-      <h1 id="pageTitle">🤰 Grossesse — Pour une maternité sans danger</h1>
-      <p id="pageSubtitle">Calculez les semaines de grossesse et les dates clés du programme CNESST</p>
-    </div>
-    <div class="card-body">
-
-      <div class="mode-btns" id="modeBtns">
-        <button class="mode-btn active" id="modeDueBtn" onclick="setMode('due')">📆 <span id="modeDueLabel">Date prévue d'accouchement</span></button>
-        <button class="mode-btn" id="modeLmpBtn" onclick="setMode('lmp')">🩸 <span id="modeLmpLabel">Dernières règles</span></button>
-      </div>
-
-      <div class="form-grid">
-        <div id="inputDueWrap">
-          <label id="labelDue">Date prévue d'accouchement</label>
-          <input type="date" id="dueDate" />
-        </div>
-        <div id="inputLmpWrap" style="display:none;">
-          <label id="labelLmp">Date des dernières règles</label>
-          <input type="date" id="lmpDate" />
-        </div>
-        <div id="cycleWrap" style="display:none;">
-          <label id="labelCycle">Durée du cycle (jours)</label>
-          <select id="cycleLen">
-            <option value="28" selected>28</option>
-            <option value="29">29</option>
-            <option value="30">30</option>
-            <option value="31">31</option>
-            <option value="32">32</option>
-          </select>
-        </div>
-      </div>
-
-      <button class="btn-generate" onclick="calculer()" id="btnCalc">✨ Calculer les semaines clés</button>
-    </div>
-  </div>
-
-  <div class="card result-section" id="resultSection">
-    <div class="card-body">
-      <div class="cal-actions">
-        <h2 id="resultTitle">Vos étapes clés</h2>
-        <button class="btn-action btn-pdf" onclick="telechargerPDF()" id="btnPdf">📄 PDF</button>
-        <button class="btn-action btn-print" onclick="imprimerRes()" id="btnPrint">🖨️ Imprimer</button>
-        <button class="btn-action btn-ical" onclick="exporterICal()" id="btnIcal">📲 Calendrier (.ics)</button>
-      </div>
-
-      <div class="summary" id="summary"></div>
-
-      <div class="disclaimer" id="disclaimer"></div>
-
-      <div class="timeline" id="timeline"></div>
-    </div>
-  </div>
-
-  <div class="ads-row" id="bottomAds"></div>
-
-  <!-- ════════════════════════════════════════════════════════════════════
+<div class="card form-card">
+<div class="card-header">
+<h1 id="pageTitle">🤰 Grossesse — Pour une maternité sans danger</h1>
+<p id="pageSubtitle">Calculez les semaines de grossesse et les dates clés du programme CNESST</p>
+</div>
+<div class="card-body">
+<div class="mode-btns" id="modeBtns">
+<button class="mode-btn active" id="modeDueBtn" onclick="setMode('due')">📆 <span id="modeDueLabel">Date prévue d'accouchement</span></button>
+<button class="mode-btn" id="modeLmpBtn" onclick="setMode('lmp')">🩸 <span id="modeLmpLabel">Dernières règles</span></button>
+</div>
+<div class="form-grid">
+<div id="inputDueWrap">
+<label id="labelDue">Date prévue d'accouchement</label>
+<input id="dueDate" type="date"/>
+</div>
+<div id="inputLmpWrap" style="display:none;">
+<label id="labelLmp">Date des dernières règles</label>
+<input id="lmpDate" type="date"/>
+</div>
+<div id="cycleWrap" style="display:none;">
+<label id="labelCycle">Durée du cycle (jours)</label>
+<select id="cycleLen">
+<option selected="" value="28">28</option>
+<option value="29">29</option>
+<option value="30">30</option>
+<option value="31">31</option>
+<option value="32">32</option>
+</select>
+</div>
+</div>
+<button class="btn-generate" id="btnCalc" onclick="calculer()">✨ Calculer les semaines clés</button>
+</div>
+</div>
+<div class="card result-section" id="resultSection">
+<div class="card-body">
+<div class="cal-actions">
+<h2 id="resultTitle">Vos étapes clés</h2>
+<button class="btn-action btn-pdf" id="btnPdf" onclick="telechargerPDF()">📄 PDF</button>
+<button class="btn-action btn-print" id="btnPrint" onclick="imprimerRes()">🖨️ Imprimer</button>
+<button class="btn-action btn-ical" id="btnIcal" onclick="exporterICal()">📲 Calendrier (.ics)</button>
+</div>
+<div class="summary" id="summary"></div>
+<div class="disclaimer" id="disclaimer"></div>
+<div class="timeline" id="timeline"></div>
+</div>
+</div>
+<div class="ads-row" id="bottomAds"></div>
+<!-- ════════════════════════════════════════════════════════════════════
        Contenu éditorial statique (SEO + valeur informative AdSense)
        ════════════════════════════════════════════════════════════════════ -->
-  <section class="cd-seo">
+<section class="cd-seo">
+<!-- ===================== FRANÇAIS ===================== -->
+<div class="lang-only-fr">
+<h2>Comprendre le calcul des semaines de grossesse au Québec</h2>
+<p>Cette page vous aide à <strong>calculer les semaines de grossesse</strong> et à visualiser les <strong>dates clés du programme <em>Pour une maternité sans danger</em></strong> géré par la <strong>CNESST</strong> (Commission des normes, de l'équité, de la santé et de la sécurité du travail). L'outil ci-dessus génère une chronologie personnalisée qui indique, semaine par semaine, les moments importants de votre grossesse : première visite prénatale, fin du premier trimestre, échographie morphologique, viabilité fœtale, début possible du congé de maternité RQAP, retrait préventif et date prévue d'accouchement (DPA).</p>
+<h3>Comment se calcule l'âge gestationnel</h3>
+<p>L'âge gestationnel (le « nombre de semaines de grossesse ») se compte à partir du <strong>premier jour des dernières règles (DDR)</strong>, et non à partir de la date de conception. Cette convention médicale ajoute environ deux semaines au temps de gestation réel, mais elle est universelle : tous les professionnels de la santé, la CNESST et le RQAP utilisent cette base.</p>
+<p>La <strong>date prévue d'accouchement (DPA)</strong> est ensuite estimée selon la <strong>règle de Naegele</strong> : on ajoute 280 jours (40 semaines) à la date des dernières règles, en supposant un cycle régulier de 28 jours. Si votre cycle est plus long ou plus court, l'outil ajuste automatiquement la DPA.</p>
+<p>Notre calculateur fonctionne dans les deux sens : vous pouvez entrer la <strong>DPA fournie par votre médecin</strong> (calculée à partir de l'échographie de datation), ou vos <strong>dernières règles</strong> si vous n'avez pas encore consulté. Le résultat affiche votre semaine actuelle, la DPA estimée, et tous les jalons clés.</p>
+<div class="seo-callout cnesst">📌 <strong>Bon à savoir :</strong> seule environ 4 % des grossesses se terminent exactement à la DPA. La majorité des bébés naissent entre la 38<sup>e</sup> et la 41<sup>e</sup> semaine. La DPA est un repère utile pour planifier — pas une date garantie.</div>
+<h3>Le programme « Pour une maternité sans danger » (CNESST)</h3>
+<p>Le programme <em>Pour une maternité sans danger</em> protège la santé des travailleuses enceintes ou qui allaitent au Québec. Il permet de demander à l'employeur une <strong>affectation à des tâches sans danger</strong> ou, lorsque ce n'est pas possible, un <strong>retrait préventif</strong> avec indemnités versées par la CNESST.</p>
+<h4>Démarches en cinq étapes</h4>
+<ol>
+<li><strong>Identifiez les risques.</strong> Plusieurs facteurs peuvent justifier une demande : exposition à des agents chimiques, biologiques ou physiques (radiations, bruit, vibrations), charges lourdes, station debout prolongée, postures contraignantes, horaires de nuit, stress important, contact avec des personnes malades.</li>
+<li><strong>Consultez votre médecin traitant.</strong> Il évalue les risques de votre poste à partir de la description que vous lui en faites. S'il juge qu'un danger existe, il remplit le <em>Certificat visant le retrait préventif et l'affectation de la travailleuse enceinte ou qui allaite</em>.</li>
+<li><strong>Remettez le certificat à votre employeur.</strong> Celui-ci a alors l'obligation, dans la mesure du possible, de vous affecter à des tâches qui ne présentent pas le danger identifié, sans baisse de salaire ni perte d'avantages.</li>
+<li><strong>Si l'affectation est impossible</strong>, vous êtes admissible au retrait préventif. La CNESST verse une indemnité équivalant à 90 % de votre revenu net pendant les 5 premiers jours (par l'employeur), puis 90 % du revenu net assurable jusqu'à 4 semaines avant la DPA.</li>
+<li><strong>Préparez le passage au RQAP.</strong> Le congé de maternité du <em>Régime québécois d'assurance parentale</em> prend habituellement le relais 4 semaines avant la DPA.</li>
+</ol>
+<h3>Régime québécois d'assurance parentale (RQAP) : repères</h3>
+<p>Le RQAP couvre les prestations de maternité, de paternité, parentales et d'adoption. Deux régimes sont disponibles :</p>
+<ul>
+<li><strong>Régime de base</strong> — durée plus longue, pourcentage de remplacement plus bas : 18 semaines de maternité, 5 semaines de paternité, 32 semaines parentales partageables.</li>
+<li><strong>Régime particulier</strong> — durée plus courte, pourcentage de remplacement plus élevé : 15 semaines de maternité, 3 semaines de paternité, 25 semaines parentales partageables.</li>
+</ul>
+<p>Le congé de maternité peut commencer au plus tôt <strong>16 semaines avant la DPA</strong> (≈ semaine 24 de gestation) et au plus tard la semaine de l'accouchement. Le choix entre les deux régimes est irrévocable et se fait lors de la première demande, donc évaluez bien votre situation avec un conseiller du RQAP avant de soumettre votre demande.</p>
+<h3>Vos étapes clés, semaine par semaine</h3>
+<p>L'outil ci-dessus calcule automatiquement ces jalons à partir de votre DDR ou de votre DPA. Voici un résumé du parcours type d'une grossesse au Québec :</p>
+<ul>
+<li><strong>Semaines 1-4</strong> — Conception, implantation. Test de grossesse positif vers la semaine 4. Dès ce moment, certaines restrictions CNESST s'appliquent (charges, agents chimiques, postures).</li>
+<li><strong>Semaines 7-8</strong> — Première visite prénatale. Moment idéal pour obtenir le certificat de retrait préventif si votre poste comporte des risques.</li>
+<li><strong>Semaines 11-13</strong> — Échographie de datation et dépistage du premier trimestre. La DPA est précisée si la date des dernières règles était incertaine.</li>
+<li><strong>Semaines 18-22</strong> — Échographie morphologique détaillée. À ce stade, beaucoup d'employeurs reçoivent l'avis d'affectation ou de retrait préventif.</li>
+<li><strong>Semaine 24</strong> — Seuil de viabilité fœtale. Possibilité de commencer le congé de maternité RQAP dès maintenant si nécessaire.</li>
+<li><strong>Semaines 28-32</strong> — Consultations prénatales aux deux semaines. Retrait préventif fréquent pour les postes physiques.</li>
+<li><strong>Semaine 36</strong> — La CNESST recommande souvent le retrait préventif définitif pour les postes physiques. Préparation finale avant le congé de maternité.</li>
+<li><strong>Semaine 40</strong> — Date prévue d'accouchement. L'accouchement peut survenir entre la 37<sup>e</sup> (à terme) et la 42<sup>e</sup> semaine.</li>
+</ul>
+<h3>Questions fréquentes</h3>
+<div class="seo-faq">
+<details>
+<summary>À quel moment dois-je informer mon employeur de ma grossesse ?</summary>
+<p>Légalement, vous devez l'informer au moins <strong>3 semaines avant le début prévu de votre congé de maternité</strong>, par écrit, en joignant un certificat médical confirmant la grossesse et la date prévue d'accouchement. Dans la pratique, beaucoup de femmes informent leur employeur dès la fin du premier trimestre (semaine 12-14), surtout si elles souhaitent demander un retrait préventif ou une affectation à des tâches sans danger.</p>
+</details>
+<details>
+<summary>Comment fonctionne le calcul des semaines après une fécondation in vitro (FIV) ?</summary>
+<p>Pour une grossesse issue d'une FIV, on connaît précisément la date de la fécondation. Pour rester cohérent avec les conventions médicales et la CNESST, on ajoute 2 semaines à l'âge embryonnaire (compté à partir de la fécondation) pour obtenir l'âge gestationnel. Si votre médecin vous a donné une DPA précise, entrez-la dans le mode « Date prévue d'accouchement » et l'outil calcule correctement vos semaines.</p>
+</details>
+<details>
+<summary>Mon employeur peut-il refuser le retrait préventif ?</summary>
+<p>L'employeur ne peut pas refuser : c'est la CNESST qui évalue le dossier et qui rend la décision finale. Toutefois, l'employeur peut proposer une affectation à des tâches sans danger, ce qui est privilégié par la loi. Si vous estimez que l'affectation proposée présente toujours des risques, vous pouvez en discuter avec votre médecin et avec un conseiller de la CNESST.</p>
+</details>
+<details>
+<summary>Le retrait préventif est-il payé à 100 % du salaire ?</summary>
+<p>Pendant les 5 premiers jours ouvrables, l'employeur verse votre <strong>salaire habituel</strong> (100 %). Ensuite, la CNESST prend le relais avec une indemnité équivalant à <strong>90 % de votre revenu net assurable</strong>, jusqu'à concurrence du maximum annuel assurable fixé par la Loi sur les accidents du travail. Cette indemnité est non imposable. Le retrait se termine 4 semaines avant la date prévue d'accouchement, moment où le congé de maternité RQAP commence.</p>
+</details>
+<details>
+<summary>Puis-je cumuler retrait préventif et congé de maternité ?</summary>
+<p>Oui, dans le temps : le retrait préventif couvre la période de grossesse (jusqu'à 4 semaines avant la DPA), puis le congé de maternité RQAP prend automatiquement le relais. Les deux ne se chevauchent pas. Vous n'avez pas à faire de demande au RQAP avant la fin de votre retrait préventif, mais il est recommandé de préparer votre dossier vers la semaine 32-34 pour éviter tout retard de versement.</p>
+</details>
+<details>
+<summary>L'outil tient-il compte des grossesses gémellaires ?</summary>
+<p>Le calcul des semaines reste le même (DDR + nombre de semaines), mais les recommandations médicales et CNESST peuvent différer pour une grossesse multiple. La DPA est souvent avancée et le retrait préventif peut être justifié plus tôt. Consultez votre médecin pour une évaluation personnalisée — notre outil sert de référence générale, pas de substitut au suivi médical.</p>
+</details>
+</div>
+<div class="seo-sources">
+<strong>Sources officielles :</strong>
+<a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/pour-une-maternite-sans-danger" rel="noopener" target="_blank">CNESST — Pour une maternité sans danger</a> ·
+      <a href="https://www.rqap.gouv.qc.ca/fr/a-propos-du-regime/principes-generaux/types-de-prestations" rel="noopener" target="_blank">RQAP — types de prestations</a> ·
+      <a href="https://www.cnesst.gouv.qc.ca/fr/demarches-formulaires/travailleurs/demande-retrait-preventif-travailleuse-enceinte" rel="noopener" target="_blank">Formulaire de retrait préventif</a> ·
+      <a href="https://www.inspq.qc.ca/" rel="noopener" target="_blank">INSPQ — Santé publique</a>
+</div>
+<p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ Les informations présentées ici sont à titre informatif et ne remplacent pas l'avis d'un médecin, d'une sage-femme ou d'un conseiller CNESST. Chaque grossesse est unique : validez toujours votre situation avec un professionnel qualifié.</p>
+</div>
+<!-- ===================== ENGLISH ===================== -->
 
-  <!-- ===================== FRANÇAIS ===================== -->
-  <div class="lang-only-fr">
-    <h2>Comprendre le calcul des semaines de grossesse au Québec</h2>
-    <p>Cette page vous aide à <strong>calculer les semaines de grossesse</strong> et à visualiser les <strong>dates clés du programme <em>Pour une maternité sans danger</em></strong> géré par la <strong>CNESST</strong> (Commission des normes, de l'équité, de la santé et de la sécurité du travail). L'outil ci-dessus génère une chronologie personnalisée qui indique, semaine par semaine, les moments importants de votre grossesse : première visite prénatale, fin du premier trimestre, échographie morphologique, viabilité fœtale, début possible du congé de maternité RQAP, retrait préventif et date prévue d'accouchement (DPA).</p>
+<!-- ===================== ESPAÑOL ===================== -->
 
-    <h3>Comment se calcule l'âge gestationnel</h3>
-    <p>L'âge gestationnel (le « nombre de semaines de grossesse ») se compte à partir du <strong>premier jour des dernières règles (DDR)</strong>, et non à partir de la date de conception. Cette convention médicale ajoute environ deux semaines au temps de gestation réel, mais elle est universelle : tous les professionnels de la santé, la CNESST et le RQAP utilisent cette base.</p>
-    <p>La <strong>date prévue d'accouchement (DPA)</strong> est ensuite estimée selon la <strong>règle de Naegele</strong> : on ajoute 280 jours (40 semaines) à la date des dernières règles, en supposant un cycle régulier de 28 jours. Si votre cycle est plus long ou plus court, l'outil ajuste automatiquement la DPA.</p>
-    <p>Notre calculateur fonctionne dans les deux sens : vous pouvez entrer la <strong>DPA fournie par votre médecin</strong> (calculée à partir de l'échographie de datation), ou vos <strong>dernières règles</strong> si vous n'avez pas encore consulté. Le résultat affiche votre semaine actuelle, la DPA estimée, et tous les jalons clés.</p>
-    <div class="seo-callout cnesst">📌 <strong>Bon à savoir :</strong> seule environ 4 % des grossesses se terminent exactement à la DPA. La majorité des bébés naissent entre la 38<sup>e</sup> et la 41<sup>e</sup> semaine. La DPA est un repère utile pour planifier — pas une date garantie.</div>
-
-    <h3>Le programme « Pour une maternité sans danger » (CNESST)</h3>
-    <p>Le programme <em>Pour une maternité sans danger</em> protège la santé des travailleuses enceintes ou qui allaitent au Québec. Il permet de demander à l'employeur une <strong>affectation à des tâches sans danger</strong> ou, lorsque ce n'est pas possible, un <strong>retrait préventif</strong> avec indemnités versées par la CNESST.</p>
-
-    <h4>Démarches en cinq étapes</h4>
-    <ol>
-      <li><strong>Identifiez les risques.</strong> Plusieurs facteurs peuvent justifier une demande : exposition à des agents chimiques, biologiques ou physiques (radiations, bruit, vibrations), charges lourdes, station debout prolongée, postures contraignantes, horaires de nuit, stress important, contact avec des personnes malades.</li>
-              <li><strong>Consultez votre médecin traitant.</strong> Il évalue les risques de votre poste à partir de la description que vous lui en faites. S'il juge qu'un danger existe, il remplit le <em>Certificat visant le retrait préventif et l'affectation de la travailleuse enceinte ou qui allaite</em>.</li>
-      <li><strong>Remettez le certificat à votre employeur.</strong> Celui-ci a alors l'obligation, dans la mesure du possible, de vous affecter à des tâches qui ne présentent pas le danger identifié, sans baisse de salaire ni perte d'avantages.</li>
-      <li><strong>Si l'affectation est impossible</strong>, vous êtes admissible au retrait préventif. La CNESST verse une indemnité équivalant à 90 % de votre revenu net pendant les 5 premiers jours (par l'employeur), puis 90 % du revenu net assurable jusqu'à 4 semaines avant la DPA.</li>
-      <li><strong>Préparez le passage au RQAP.</strong> Le congé de maternité du <em>Régime québécois d'assurance parentale</em> prend habituellement le relais 4 semaines avant la DPA.</li>
-    </ol>
-
-    <h3>Régime québécois d'assurance parentale (RQAP) : repères</h3>
-    <p>Le RQAP couvre les prestations de maternité, de paternité, parentales et d'adoption. Deux régimes sont disponibles :</p>
-    <ul>
-      <li><strong>Régime de base</strong> — durée plus longue, pourcentage de remplacement plus bas : 18 semaines de maternité, 5 semaines de paternité, 32 semaines parentales partageables.</li>
-      <li><strong>Régime particulier</strong> — durée plus courte, pourcentage de remplacement plus élevé : 15 semaines de maternité, 3 semaines de paternité, 25 semaines parentales partageables.</li>
-    </ul>
-    <p>Le congé de maternité peut commencer au plus tôt <strong>16 semaines avant la DPA</strong> (≈ semaine 24 de gestation) et au plus tard la semaine de l'accouchement. Le choix entre les deux régimes est irrévocable et se fait lors de la première demande, donc évaluez bien votre situation avec un conseiller du RQAP avant de soumettre votre demande.</p>
-
-    <h3>Vos étapes clés, semaine par semaine</h3>
-    <p>L'outil ci-dessus calcule automatiquement ces jalons à partir de votre DDR ou de votre DPA. Voici un résumé du parcours type d'une grossesse au Québec :</p>
-    <ul>
-      <li><strong>Semaines 1-4</strong> — Conception, implantation. Test de grossesse positif vers la semaine 4. Dès ce moment, certaines restrictions CNESST s'appliquent (charges, agents chimiques, postures).</li>
-      <li><strong>Semaines 7-8</strong> — Première visite prénatale. Moment idéal pour obtenir le certificat de retrait préventif si votre poste comporte des risques.</li>
-      <li><strong>Semaines 11-13</strong> — Échographie de datation et dépistage du premier trimestre. La DPA est précisée si la date des dernières règles était incertaine.</li>
-      <li><strong>Semaines 18-22</strong> — Échographie morphologique détaillée. À ce stade, beaucoup d'employeurs reçoivent l'avis d'affectation ou de retrait préventif.</li>
-      <li><strong>Semaine 24</strong> — Seuil de viabilité fœtale. Possibilité de commencer le congé de maternité RQAP dès maintenant si nécessaire.</li>
-      <li><strong>Semaines 28-32</strong> — Consultations prénatales aux deux semaines. Retrait préventif fréquent pour les postes physiques.</li>
-      <li><strong>Semaine 36</strong> — La CNESST recommande souvent le retrait préventif définitif pour les postes physiques. Préparation finale avant le congé de maternité.</li>
-      <li><strong>Semaine 40</strong> — Date prévue d'accouchement. L'accouchement peut survenir entre la 37<sup>e</sup> (à terme) et la 42<sup>e</sup> semaine.</li>
-    </ul>
-
-    <h3>Questions fréquentes</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>À quel moment dois-je informer mon employeur de ma grossesse ?</summary>
-        <p>Légalement, vous devez l'informer au moins <strong>3 semaines avant le début prévu de votre congé de maternité</strong>, par écrit, en joignant un certificat médical confirmant la grossesse et la date prévue d'accouchement. Dans la pratique, beaucoup de femmes informent leur employeur dès la fin du premier trimestre (semaine 12-14), surtout si elles souhaitent demander un retrait préventif ou une affectation à des tâches sans danger.</p>
-      </details>
-      <details>
-        <summary>Comment fonctionne le calcul des semaines après une fécondation in vitro (FIV) ?</summary>
-        <p>Pour une grossesse issue d'une FIV, on connaît précisément la date de la fécondation. Pour rester cohérent avec les conventions médicales et la CNESST, on ajoute 2 semaines à l'âge embryonnaire (compté à partir de la fécondation) pour obtenir l'âge gestationnel. Si votre médecin vous a donné une DPA précise, entrez-la dans le mode « Date prévue d'accouchement » et l'outil calcule correctement vos semaines.</p>
-      </details>
-      <details>
-        <summary>Mon employeur peut-il refuser le retrait préventif ?</summary>
-        <p>L'employeur ne peut pas refuser : c'est la CNESST qui évalue le dossier et qui rend la décision finale. Toutefois, l'employeur peut proposer une affectation à des tâches sans danger, ce qui est privilégié par la loi. Si vous estimez que l'affectation proposée présente toujours des risques, vous pouvez en discuter avec votre médecin et avec un conseiller de la CNESST.</p>
-      </details>
-      <details>
-        <summary>Le retrait préventif est-il payé à 100 % du salaire ?</summary>
-        <p>Pendant les 5 premiers jours ouvrables, l'employeur verse votre <strong>salaire habituel</strong> (100 %). Ensuite, la CNESST prend le relais avec une indemnité équivalant à <strong>90 % de votre revenu net assurable</strong>, jusqu'à concurrence du maximum annuel assurable fixé par la Loi sur les accidents du travail. Cette indemnité est non imposable. Le retrait se termine 4 semaines avant la date prévue d'accouchement, moment où le congé de maternité RQAP commence.</p>
-      </details>
-      <details>
-        <summary>Puis-je cumuler retrait préventif et congé de maternité ?</summary>
-        <p>Oui, dans le temps : le retrait préventif couvre la période de grossesse (jusqu'à 4 semaines avant la DPA), puis le congé de maternité RQAP prend automatiquement le relais. Les deux ne se chevauchent pas. Vous n'avez pas à faire de demande au RQAP avant la fin de votre retrait préventif, mais il est recommandé de préparer votre dossier vers la semaine 32-34 pour éviter tout retard de versement.</p>
-      </details>
-      <details>
-        <summary>L'outil tient-il compte des grossesses gémellaires ?</summary>
-        <p>Le calcul des semaines reste le même (DDR + nombre de semaines), mais les recommandations médicales et CNESST peuvent différer pour une grossesse multiple. La DPA est souvent avancée et le retrait préventif peut être justifié plus tôt. Consultez votre médecin pour une évaluation personnalisée — notre outil sert de référence générale, pas de substitut au suivi médical.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Sources officielles :</strong>
-      <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — Pour une maternité sans danger</a> ·
-      <a href="https://www.rqap.gouv.qc.ca/fr/a-propos-du-regime/principes-generaux/types-de-prestations" target="_blank" rel="noopener">RQAP — types de prestations</a> ·
-      <a href="https://www.cnesst.gouv.qc.ca/fr/demarches-formulaires/travailleurs/demande-retrait-preventif-travailleuse-enceinte" target="_blank" rel="noopener">Formulaire de retrait préventif</a> ·
-      <a href="https://www.inspq.qc.ca/" target="_blank" rel="noopener">INSPQ — Santé publique</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ Les informations présentées ici sont à titre informatif et ne remplacent pas l'avis d'un médecin, d'une sage-femme ou d'un conseiller CNESST. Chaque grossesse est unique : validez toujours votre situation avec un professionnel qualifié.</p>
-  </div>
-
-  <!-- ===================== ENGLISH ===================== -->
-  <div class="lang-only-en">
-    <h2>Understanding pregnancy week calculation in Québec</h2>
-    <p>This page helps you <strong>calculate pregnancy weeks</strong> and visualize the <strong>key dates of the <em>For a Safe Maternity Experience</em> program</strong> managed by the <strong>CNESST</strong> (Commission for Standards, Equity, Health and Safety at Work). The tool above generates a personalized timeline that shows, week by week, the important milestones of your pregnancy: first prenatal visit, end of the first trimester, morphology ultrasound, fetal viability, possible start of QPIP maternity leave, preventive withdrawal and expected due date (EDD).</p>
-
-    <h3>How gestational age is calculated</h3>
-    <p>Gestational age (the "number of pregnancy weeks") is counted from the <strong>first day of the last menstrual period (LMP)</strong>, not from the date of conception. This medical convention adds about two weeks to the actual gestation time, but it is universal: all health professionals, the CNESST and QPIP use this baseline.</p>
-    <p>The <strong>expected due date (EDD)</strong> is then estimated using <strong>Naegele's rule</strong>: 280 days (40 weeks) are added to the LMP, assuming a regular 28-day cycle. If your cycle is longer or shorter, the tool automatically adjusts the EDD.</p>
-    <p>Our calculator works in both directions: you can enter the <strong>EDD provided by your doctor</strong> (calculated from the dating ultrasound), or your <strong>last period</strong> if you haven't yet consulted. The result shows your current week, the estimated EDD, and all the key milestones.</p>
-    <div class="seo-callout cnesst">📌 <strong>Good to know:</strong> only about 4% of pregnancies end exactly on the EDD. Most babies are born between the 38th and 41st week. The EDD is a useful planning reference — not a guaranteed date.</div>
-
-    <h3>The "For a Safe Maternity Experience" program (CNESST)</h3>
-    <p>The <em>For a Safe Maternity Experience</em> program protects the health of pregnant or breastfeeding workers in Québec. It allows you to ask your employer for <strong>reassignment to safe duties</strong> or, when this is not possible, a <strong>preventive withdrawal</strong> with compensation paid by the CNESST.</p>
-
-    <h4>Five steps to follow</h4>
-    <ol>
-      <li><strong>Identify the risks.</strong> Several factors can justify a request: exposure to chemical, biological or physical agents (radiation, noise, vibration), heavy loads, prolonged standing, constraining postures, night shifts, significant stress, contact with sick people.</li>
-      <li><strong>Consult your treating physician.</strong> The doctor evaluates the risks of your position based on your description. If a hazard exists, they fill out the <em>Certificate concerning the preventive withdrawal and reassignment of a pregnant or breastfeeding worker</em>.</li>
-      <li><strong>Give the certificate to your employer.</strong> The employer must then, as far as possible, reassign you to duties that don't present the identified hazard — without any salary cut or loss of benefits.</li>
-      <li><strong>If reassignment is impossible</strong>, you are eligible for preventive withdrawal. The CNESST pays an allowance equal to 90% of your net income for the first 5 days (paid by the employer), then 90% of insurable net income until 4 weeks before the EDD.</li>
-      <li><strong>Prepare the transition to QPIP.</strong> Maternity leave under the <em>Québec Parental Insurance Plan</em> usually takes over 4 weeks before the EDD.</li>
-    </ol>
-
-    <h3>Québec Parental Insurance Plan (QPIP): key points</h3>
-    <p>QPIP covers maternity, paternity, parental and adoption benefits. Two plans are available:</p>
-    <ul>
-      <li><strong>Basic plan</strong> — longer duration, lower replacement percentage: 18 weeks of maternity leave, 5 weeks of paternity leave, 32 shareable parental weeks.</li>
-      <li><strong>Special plan</strong> — shorter duration, higher replacement percentage: 15 weeks of maternity, 3 weeks of paternity, 25 shareable parental weeks.</li>
-    </ul>
-    <p>Maternity leave can begin at the earliest <strong>16 weeks before the EDD</strong> (≈ week 24 of gestation) and at the latest the week of the birth. The choice between the two plans is irrevocable and is made at the first application, so carefully evaluate your situation with a QPIP advisor before submitting your application.</p>
-
-    <h3>Your key milestones, week by week</h3>
-    <p>The tool above automatically calculates these milestones from your LMP or EDD. Here is a summary of the typical pregnancy journey in Québec:</p>
-    <ul>
-      <li><strong>Weeks 1-4</strong> — Conception, implantation. Positive pregnancy test around week 4. From this moment, certain CNESST restrictions apply (loads, chemical agents, postures).</li>
-      <li><strong>Weeks 7-8</strong> — First prenatal visit. Best time to obtain the preventive withdrawal certificate if your position involves risks.</li>
-      <li><strong>Weeks 11-13</strong> — Dating ultrasound and first-trimester screening. The EDD is refined if the LMP was uncertain.</li>
-      <li><strong>Weeks 18-22</strong> — Detailed morphology ultrasound. At this stage, many employers receive the reassignment or preventive withdrawal notice.</li>
-      <li><strong>Week 24</strong> — Fetal viability threshold. Possibility to start QPIP maternity leave from now if needed.</li>
-      <li><strong>Weeks 28-32</strong> — Prenatal consultations every two weeks. Preventive withdrawal is common for physical positions.</li>
-      <li><strong>Week 36</strong> — CNESST often recommends definitive preventive withdrawal for physical positions. Final preparation before maternity leave.</li>
-      <li><strong>Week 40</strong> — Expected due date. Birth can occur between the 37th (full term) and 42nd week.</li>
-    </ul>
-
-    <h3>Frequently asked questions</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>When do I have to tell my employer about my pregnancy?</summary>
-        <p>Legally, you must inform them at least <strong>3 weeks before the planned start of your maternity leave</strong>, in writing, with a medical certificate confirming the pregnancy and the expected due date. In practice, many women inform their employer by the end of the first trimester (weeks 12-14), especially if they wish to request preventive withdrawal or reassignment to safe duties.</p>
-      </details>
-      <details>
-        <summary>How does week calculation work after IVF?</summary>
-        <p>For an IVF pregnancy, the exact date of fertilization is known. To remain consistent with medical conventions and the CNESST, 2 weeks are added to the embryonic age (counted from fertilization) to obtain the gestational age. If your doctor gave you a precise EDD, enter it in the "Expected due date" mode and the tool calculates your weeks correctly.</p>
-      </details>
-      <details>
-        <summary>Can my employer refuse preventive withdrawal?</summary>
-        <p>The employer cannot refuse: the CNESST is the one that evaluates the file and makes the final decision. However, the employer can propose reassignment to safe duties, which is favored by law. If you feel the proposed reassignment still presents risks, you can discuss it with your doctor and with a CNESST advisor.</p>
-      </details>
-      <details>
-        <summary>Is preventive withdrawal paid at 100% of salary?</summary>
-        <p>For the first 5 working days, the employer pays your <strong>regular salary</strong> (100%). Then the CNESST takes over with an allowance equal to <strong>90% of your insurable net income</strong>, up to the annual insurable maximum set by the Industrial Accidents and Occupational Diseases Act. This allowance is tax-free. The withdrawal ends 4 weeks before the expected due date, at which point QPIP maternity leave begins.</p>
-      </details>
-      <details>
-        <summary>Can I combine preventive withdrawal and maternity leave?</summary>
-        <p>Yes, in sequence: preventive withdrawal covers the pregnancy period (up to 4 weeks before the EDD), then QPIP maternity leave automatically takes over. The two do not overlap. You don't need to apply to QPIP before the end of your preventive withdrawal, but it's recommended to prepare your file around week 32-34 to avoid any payment delay.</p>
-      </details>
-      <details>
-        <summary>Does the tool account for twin or multiple pregnancies?</summary>
-        <p>Week calculation remains the same (LMP + number of weeks), but medical and CNESST recommendations may differ for a multiple pregnancy. The EDD is often moved earlier and preventive withdrawal may be justified sooner. Consult your doctor for a personalized assessment — our tool serves as a general reference, not a substitute for medical follow-up.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Official sources:</strong>
-      <a href="https://www.cnesst.gouv.qc.ca/en/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — Safe Maternity Experience</a> ·
-      <a href="https://www.rqap.gouv.qc.ca/en/about-the-plan/general-information/types-of-benefits" target="_blank" rel="noopener">QPIP — types of benefits</a> ·
-      <a href="https://www.cnesst.gouv.qc.ca/en/demarches-formulaires/travailleurs/demande-retrait-preventif-travailleuse-enceinte" target="_blank" rel="noopener">Preventive withdrawal form</a> ·
-      <a href="https://www.inspq.qc.ca/en" target="_blank" rel="noopener">INSPQ — Public Health</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ The information presented here is for informational purposes and does not replace the advice of a doctor, midwife or CNESST advisor. Each pregnancy is unique: always validate your situation with a qualified professional.</p>
-  </div>
-
-  <!-- ===================== ESPAÑOL ===================== -->
-  <div class="lang-only-es">
-    <h2>Entender el cálculo de las semanas de embarazo en Quebec</h2>
-    <p>Esta página le ayuda a <strong>calcular las semanas de embarazo</strong> y a visualizar las <strong>fechas clave del programa <em>Para una maternidad sin peligro</em></strong> gestionado por la <strong>CNESST</strong> (Comisión de Normas, Equidad, Salud y Seguridad en el Trabajo). La herramienta de arriba genera una cronología personalizada que indica, semana por semana, los momentos importantes de su embarazo: primera visita prenatal, fin del primer trimestre, ecografía morfológica, viabilidad fetal, inicio posible del permiso de maternidad RQAP, retiro preventivo y fecha prevista del parto (FPP).</p>
-
-    <h3>Cómo se calcula la edad gestacional</h3>
-    <p>La edad gestacional (el «número de semanas de embarazo») se cuenta a partir del <strong>primer día de la última menstruación (FUM)</strong>, y no a partir de la fecha de concepción. Esta convención médica añade unas dos semanas al tiempo real de gestación, pero es universal: todos los profesionales de la salud, la CNESST y el RQAP usan esta base.</p>
-    <p>La <strong>fecha prevista del parto (FPP)</strong> se estima entonces mediante la <strong>regla de Naegele</strong>: se suman 280 días (40 semanas) a la fecha de la última menstruación, suponiendo un ciclo regular de 28 días. Si su ciclo es más largo o más corto, la herramienta ajusta automáticamente la FPP.</p>
-    <p>Nuestra calculadora funciona en ambos sentidos: puede ingresar la <strong>FPP indicada por su médico</strong> (calculada a partir de la ecografía de datación), o sus <strong>últimas menstruaciones</strong> si aún no ha consultado. El resultado muestra su semana actual, la FPP estimada y todos los hitos clave.</p>
-    <div class="seo-callout cnesst">📌 <strong>Bueno saber:</strong> solo el 4 % de los embarazos termina exactamente en la FPP. La mayoría de los bebés nacen entre la 38<sup>a</sup> y la 41<sup>a</sup> semana. La FPP es una referencia útil de planificación — no una fecha garantizada.</div>
-
-    <h3>El programa «Para una maternidad sin peligro» (CNESST)</h3>
-    <p>El programa <em>Para una maternidad sin peligro</em> protege la salud de las trabajadoras embarazadas o que están amamantando en Quebec. Permite solicitar al empleador una <strong>reasignación a tareas sin peligro</strong> o, cuando esto no es posible, un <strong>retiro preventivo</strong> con indemnizaciones pagadas por la CNESST.</p>
-
-    <h4>Gestiones en cinco etapas</h4>
-    <ol>
-      <li><strong>Identifique los riesgos.</strong> Varios factores pueden justificar una solicitud: exposición a agentes químicos, biológicos o físicos (radiaciones, ruido, vibraciones), cargas pesadas, bipedestación prolongada, posturas forzadas, turnos nocturnos, estrés importante, contacto con personas enfermas.</li>
-      <li><strong>Consulte a su médico tratante.</strong> Él evalúa los riesgos de su puesto según la descripción que le dé. Si considera que existe un peligro, completa el <em>Certificado para el retiro preventivo y la reasignación de la trabajadora embarazada o que amamanta</em>.</li>
-      <li><strong>Entregue el certificado a su empleador.</strong> Este tiene entonces la obligación, en la medida de lo posible, de reasignarla a tareas que no presenten el peligro identificado, sin reducción de salario ni pérdida de beneficios.</li>
-      <li><strong>Si la reasignación es imposible</strong>, usted es elegible para el retiro preventivo. La CNESST paga una indemnización equivalente al 90 % de su ingreso neto durante los primeros 5 días (por el empleador), luego el 90 % del ingreso neto asegurable hasta 4 semanas antes de la FPP.</li>
-      <li><strong>Prepare el paso al RQAP.</strong> El permiso de maternidad del <em>Régimen Quebequense de Seguro Parental</em> toma habitualmente el relevo 4 semanas antes de la FPP.</li>
-    </ol>
-
-    <h3>Régimen Quebequense de Seguro Parental (RQAP): puntos clave</h3>
-    <p>El RQAP cubre las prestaciones de maternidad, paternidad, parentales y de adopción. Hay dos regímenes disponibles:</p>
-    <ul>
-      <li><strong>Régimen de base</strong> — duración más larga, porcentaje de reemplazo más bajo: 18 semanas de maternidad, 5 semanas de paternidad, 32 semanas parentales compartibles.</li>
-      <li><strong>Régimen particular</strong> — duración más corta, porcentaje de reemplazo más alto: 15 semanas de maternidad, 3 semanas de paternidad, 25 semanas parentales compartibles.</li>
-    </ul>
-    <p>El permiso de maternidad puede comenzar como muy pronto <strong>16 semanas antes de la FPP</strong> (≈ semana 24 de gestación) y como muy tarde la semana del parto. La elección entre los dos regímenes es irrevocable y se hace en la primera solicitud, así que evalúe bien su situación con un asesor del RQAP antes de presentar su solicitud.</p>
-
-    <h3>Sus hitos clave, semana por semana</h3>
-    <p>La herramienta de arriba calcula automáticamente estos hitos a partir de su FUM o su FPP. Aquí un resumen del recorrido típico de un embarazo en Quebec:</p>
-    <ul>
-      <li><strong>Semanas 1-4</strong> — Concepción, implantación. Prueba de embarazo positiva hacia la semana 4. Desde este momento, ciertas restricciones de la CNESST se aplican (cargas, agentes químicos, posturas).</li>
-      <li><strong>Semanas 7-8</strong> — Primera visita prenatal. Momento ideal para obtener el certificado de retiro preventivo si su puesto presenta riesgos.</li>
-      <li><strong>Semanas 11-13</strong> — Ecografía de datación y cribado del primer trimestre. La FPP se precisa si la fecha de la última menstruación era incierta.</li>
-      <li><strong>Semanas 18-22</strong> — Ecografía morfológica detallada. En esta etapa, muchos empleadores reciben el aviso de reasignación o retiro preventivo.</li>
-      <li><strong>Semana 24</strong> — Umbral de viabilidad fetal. Posibilidad de iniciar el permiso de maternidad RQAP desde ahora si es necesario.</li>
-      <li><strong>Semanas 28-32</strong> — Consultas prenatales cada dos semanas. El retiro preventivo es frecuente para los puestos físicos.</li>
-      <li><strong>Semana 36</strong> — La CNESST recomienda a menudo el retiro preventivo definitivo para los puestos físicos. Preparación final antes del permiso de maternidad.</li>
-      <li><strong>Semana 40</strong> — Fecha prevista del parto. El parto puede ocurrir entre la 37<sup>a</sup> (a término) y la 42<sup>a</sup> semana.</li>
-    </ul>
-
-    <h3>Preguntas frecuentes</h3>
-    <div class="seo-faq">
-      <details>
-        <summary>¿Cuándo debo informar a mi empleador de mi embarazo?</summary>
-        <p>Legalmente, debe informarle al menos <strong>3 semanas antes del inicio previsto de su permiso de maternidad</strong>, por escrito, adjuntando un certificado médico que confirme el embarazo y la fecha prevista del parto. En la práctica, muchas mujeres informan a su empleador al final del primer trimestre (semanas 12-14), sobre todo si desean solicitar un retiro preventivo o una reasignación a tareas sin peligro.</p>
-      </details>
-      <details>
-        <summary>¿Cómo funciona el cálculo de semanas tras una fecundación in vitro (FIV)?</summary>
-        <p>Para un embarazo por FIV, se conoce con precisión la fecha de la fecundación. Para mantener la coherencia con las convenciones médicas y la CNESST, se añaden 2 semanas a la edad embrionaria (contada desde la fecundación) para obtener la edad gestacional. Si su médico le dio una FPP precisa, ingrésela en el modo «Fecha prevista del parto» y la herramienta calcula correctamente sus semanas.</p>
-      </details>
-      <details>
-        <summary>¿Puede mi empleador negar el retiro preventivo?</summary>
-        <p>El empleador no puede negarlo: es la CNESST quien evalúa el expediente y toma la decisión final. Sin embargo, el empleador puede proponer una reasignación a tareas sin peligro, que es la opción favorecida por la ley. Si considera que la reasignación propuesta sigue presentando riesgos, puede discutirlo con su médico y con un asesor de la CNESST.</p>
-      </details>
-      <details>
-        <summary>¿El retiro preventivo se paga al 100 % del salario?</summary>
-        <p>Durante los primeros 5 días laborables, el empleador paga su <strong>salario habitual</strong> (100 %). Después, la CNESST toma el relevo con una indemnización equivalente al <strong>90 % de su ingreso neto asegurable</strong>, hasta el máximo anual asegurable fijado por la Ley sobre accidentes laborales. Esta indemnización está libre de impuestos. El retiro termina 4 semanas antes de la fecha prevista del parto, cuando comienza el permiso de maternidad RQAP.</p>
-      </details>
-      <details>
-        <summary>¿Puedo combinar retiro preventivo y permiso de maternidad?</summary>
-        <p>Sí, en el tiempo: el retiro preventivo cubre el periodo de embarazo (hasta 4 semanas antes de la FPP), luego el permiso de maternidad RQAP toma automáticamente el relevo. Los dos no se superponen. No es necesario presentar la solicitud al RQAP antes del fin de su retiro preventivo, pero se recomienda preparar su expediente hacia la semana 32-34 para evitar cualquier retraso en el pago.</p>
-      </details>
-      <details>
-        <summary>¿La herramienta tiene en cuenta los embarazos gemelares?</summary>
-        <p>El cálculo de las semanas sigue siendo el mismo (FUM + número de semanas), pero las recomendaciones médicas y de la CNESST pueden diferir para un embarazo múltiple. La FPP se adelanta a menudo y el retiro preventivo puede justificarse antes. Consulte a su médico para una evaluación personalizada — nuestra herramienta sirve como referencia general, no como sustituto del seguimiento médico.</p>
-      </details>
-    </div>
-
-    <div class="seo-sources">
-      <strong>Fuentes oficiales:</strong>
-      <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/pour-une-maternite-sans-danger" target="_blank" rel="noopener">CNESST — Para una maternidad sin peligro</a> ·
-      <a href="https://www.rqap.gouv.qc.ca/fr/a-propos-du-regime/principes-generaux/types-de-prestations" target="_blank" rel="noopener">RQAP — tipos de prestaciones</a> ·
-      <a href="https://www.cnesst.gouv.qc.ca/fr/demarches-formulaires/travailleurs/demande-retrait-preventif-travailleuse-enceinte" target="_blank" rel="noopener">Formulario de retiro preventivo</a> ·
-      <a href="https://www.inspq.qc.ca/" target="_blank" rel="noopener">INSPQ — Salud Pública</a>
-    </div>
-
-    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ La información presentada aquí es solo informativa y no reemplaza el consejo de un médico, una partera o un asesor de la CNESST. Cada embarazo es único: valide siempre su situación con un profesional cualificado.</p>
-  </div>
-
-  </section>
-
-  <p style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;" id="affiliateDisclosure"></p>
+</section>
+<p id="affiliateDisclosure" style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;"></p>
 </main>
-
 <footer>
-  <div class="footer-links" id="footerLinks"><a href="index.html">Calcul dates</a><a href="garde.html">Garde partagée</a><a href="rotation.html">Rotation de travail</a><a href="grossesse.html">Grossesse (CNESST)</a><a href="paie.html">Paie &amp; fiscal</a><a href="guide.html">Guide pratique</a><a href="about.html">À propos</a><a href="privacy-policy.html">Politique de conf.</a></div>
-  <div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
-  <div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
+<div class="footer-links" id="footerLinks"><a href="index.html">Calcul dates</a><a href="garde.html">Garde partagée</a><a href="rotation.html">Rotation de travail</a><a href="grossesse.html">Grossesse (CNESST)</a><a href="paie.html">Paie &amp; fiscal</a><a href="guide.html">Guide pratique</a><a href="about.html">À propos</a><a href="privacy-policy.html">Politique de conf.</a></div>
+<div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
+<div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
 </footer>
-
 <script>
 const ACTIVE_PAGE = 'grossesse';
 let lang = 'fr';
@@ -1065,7 +879,6 @@ if (document.readyState === 'loading') {
   initGrossessePage();
 }
 </script>
-
 <!-- Filet de sécurité : garantit le menu, le footer, les pubs et l'état du mode -->
 <script>
 (function(){
@@ -1105,6 +918,5 @@ if (document.readyState === 'loading') {
   window.addEventListener('load', safetyRender);
 })();
 </script>
-
 </body>
 </html>

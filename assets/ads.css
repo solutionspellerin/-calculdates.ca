@@ -455,12 +455,8 @@
    Permet d'afficher des blocs de contenu éditorial dans 3 langues sans JS.
    Par défaut : FR visible (langue principale du Québec).
    Quand <html lang="en"> ou <html lang="es"> est défini, on bascule. */
-.lang-only-en, .lang-only-es { display: none; }
-.lang-only-fr { display: block; }
-html[lang="en"] .lang-only-fr, html[lang="en"] .lang-only-es { display: none; }
-html[lang="en"] .lang-only-en { display: block; }
-html[lang="es"] .lang-only-fr, html[lang="es"] .lang-only-en { display: none; }
-html[lang="es"] .lang-only-es { display: block; }
+/* Une seule langue par page (FR racine, /en/, /es/) : toujours visible */
+.lang-only-fr, .lang-only-en, .lang-only-es { display: block; }
 
 /* ── Sections de contenu éditorial (SEO + valeur informative AdSense) ─── */
 .cd-seo {

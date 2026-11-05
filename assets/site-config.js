@@ -97,11 +97,28 @@
   };
 
   // ── Détection langue (persistance via localStorage) ──────
-  function getStoredLang() {
-    try { return localStorage.getItem('calculdates_lang') || null; } catch (e) { return null; }
+  // ── Langue = URL (FR à la racine, /en/, /es/) ───────────────
+  // Chaque langue a sa propre adresse : le bouton FR/EN/ES change de page.
+  function pageLang() {
+    var m = location.pathname.match(/^\/(en|es)(\/|$)/);
+    return m ? m[1] : 'fr';
   }
+  function pageFile() {
+    var p = location.pathname.replace(/^\/(en|es)(\/|$)/, '/');
+    var f = p.split('/').pop();
+    return f || 'index.html';
+  }
+  function langUrl(l, file) {
+    file = file || pageFile();
+    var f = (file === 'index.html') ? '' : file;
+    return (l === 'fr' ? '/' : '/' + l + '/') + f;
+  }
+  var BASE = pageLang() === 'fr' ? '' : '../';
+  function getStoredLang() { return pageLang(); }
   function setStoredLang(l) {
+    if (!l || l === pageLang()) return;
     try { localStorage.setItem('calculdates_lang', l); } catch (e) {}
+    location.href = langUrl(l) + location.search + location.hash;
   }
 
   // ── Rendu du menu ─────────────────────────────────────────
@@ -137,7 +154,7 @@
     return [
       '<a href="https://lecfomasque.com/ref/107/" target="_blank" rel="sponsored noopener" class="ad-cfo">',
       '  <div class="ad-cfo-inner">',
-      '    <img src="images/cfo-masque.svg" alt="Le CFO masqué" class="ad-cfo-logo" loading="lazy" />',
+      '    <img src="' + BASE + 'images/cfo-masque.svg" alt="Le CFO masqué" class="ad-cfo-logo" loading="lazy" />',
       '    <div class="ad-cfo-text">',
       '      <div class="ad-cfo-headline">' + t.cfoHeadline + '</div>',
       '      <div class="ad-cfo-subline">' + t.cfoSubline + '</div>',
@@ -156,7 +173,7 @@
     return [
       '<a href="https://alchimix-app.com/" target="_blank" rel="sponsored noopener" class="ad-alch">',
       '  <div class="ad-alch-inner">',
-      '    <img src="images/alchimix.png" alt="Alchimix" class="ad-alch-banner" loading="lazy" />',
+      '    <img src="' + BASE + 'images/alchimix.png" alt="Alchimix" class="ad-alch-banner" loading="lazy" />',
       '    <div class="ad-alch-text">',
       '      <div class="ad-alch-headline">' + t.alchHeadline + '</div>',
       '      <div class="ad-alch-subline">' + t.alchSubline + '</div>',
@@ -176,7 +193,7 @@
     return [
       '<a href="' + url + '" target="_blank" rel="sponsored noopener" class="ad-amz">',
       '  <div class="ad-amz-inner">',
-      '    <img src="images/amazon.svg" alt="Amazon" class="ad-amz-logo" loading="lazy" />',
+      '    <img src="' + BASE + 'images/amazon.svg" alt="Amazon" class="ad-amz-logo" loading="lazy" />',
       '    <div class="ad-amz-text">',
       '      <div class="ad-amz-headline">' + t.amazonHeadline + '</div>',
       '      <div class="ad-amz-subline">' + t.amazonSubline + '</div>',
@@ -367,6 +384,9 @@
 
   // ── Exposition globale ────────────────────────────────────
   global.CDSite = {
+    pageLang: pageLang,
+    langUrl: langUrl,
+    BASE: BASE,
     PAGES: PAGES,
     SHARED: SHARED,
     renderNav: renderNav,

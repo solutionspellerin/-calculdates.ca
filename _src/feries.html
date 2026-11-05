@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y86YEGXHVV');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" />
+<meta name="description" content="Créez la liste officielle des jours fériés de votre organisation pour le calendrier de votre personnel. Suggestions par pays (Canada, États-Unis, France, Mexique, Royaume-Uni, Allemagne). Exportez en PDF, Excel et .ics (Outlook, Google, Apple).">
+<link rel="canonical" href="https://www.calculdates.ca/feries.html" />
+<title>Jours fériés de l'organisation — Calendrier du personnel | CalculDates.ca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/ads.css?v=20260526a">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script src="assets/site-config.js?v=20260526a"></script>
+<style>
+  :root {
+    --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
+    --fond: #f4f1eb; --blanc: #ffffff; --gris: #8a8a8a;
+    --gris-clair: #e8e4dc; --texte: #1a1a1a;
+    --ombre: 0 4px 24px rgba(26,58,92,0.10);
+    --ferie: #c0392b; --custom: #8e44ad;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--fond); color: var(--texte); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+  header { width: 100%; background: var(--bleu); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.3rem; letter-spacing: 0.03em; text-decoration: none; }
+  .logo span { color: var(--blanc); font-weight: 300; }
+  .lang-toggle { display: flex; align-items: center; gap: 10px; }
+  .lang-label { color: rgba(255,255,255,0.5); font-size: 0.8rem; letter-spacing: 0.05em; }
+
+  nav.site-nav { width: 100%; background: #142d47; border-bottom: 2px solid rgba(232,197,71,0.2); }
+  nav.site-nav .nav-inner { max-width: 960px; margin: 0 auto; display: flex; align-items: center; padding: 0 16px; gap: 4px; overflow-x: auto; }
+  nav.site-nav .nav-link { display: inline-block; padding: 12px 18px; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  nav.site-nav .nav-link:hover { color: var(--blanc); }
+  nav.site-nav .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main { width: 100%; max-width: 960px; padding: 32px 16px 64px; display: flex; flex-direction: column; gap: 28px; }
+
+  .card { background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); overflow: hidden; }
+  .card-header { background: var(--bleu); padding: 24px 32px 20px; position: relative; overflow: hidden; }
+  .card-header::before { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(232,197,71,0.12); }
+  .card-header h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--blanc); margin-bottom: 6px; position: relative; z-index: 1; }
+  .card-header p { color: rgba(255,255,255,0.65); font-size: 0.88rem; font-weight: 300; position: relative; z-index: 1; }
+  .card-body { padding: 28px 32px; }
+
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 18px; }
+  .form-group-full { grid-column: 1 / -1; }
+  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+  input[type="text"], input[type="date"], input[type="number"], select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--texte); background: var(--fond); transition: border-color 0.2s; appearance: none; -webkit-appearance: none; outline: none; }
+  input[type="text"]:focus, input[type="date"]:focus, input[type="number"]:focus, select:focus { border-color: var(--bleu-clair); box-shadow: 0 0 0 3px rgba(45,106,159,0.12); background: var(--blanc); }
+
+  .btn-generate { width: 100%; padding: 16px; background: var(--bleu); color: var(--blanc); border: none; border-radius: 12px; font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 500; cursor: pointer; transition: background 0.2s, transform 0.1s; letter-spacing: 0.02em; }
+  .btn-generate:hover { background: var(--bleu-clair); }
+
+  .liste-section { display: none; }
+  .liste-section.visible { display: block; }
+  .liste-actions { display: flex; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; align-items: center; }
+  .liste-actions h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--bleu); flex: 1; min-width: 220px; }
+  .btn-action { padding: 10px 18px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500; cursor: pointer; border: none; transition: all 0.2s; color: var(--blanc); }
+  .btn-pdf { background: #d93636; }
+  .btn-pdf:hover { background: #b92e2e; }
+  .btn-xlsx { background: #1e7e34; }
+  .btn-xlsx:hover { background: #155d27; }
+  .btn-ical { background: #34a853; }
+  .btn-ical:hover { background: #2d9147; }
+  .btn-google { background: #4285f4; }
+  .btn-google:hover { background: #357ae8; }
+  .btn-print { background: var(--bleu); }
+  .btn-print:hover { background: var(--bleu-clair); }
+
+  .add-row { display: grid; grid-template-columns: 1fr 1.6fr auto; gap: 10px; align-items: end; margin-bottom: 14px; padding: 14px; background: var(--fond); border-radius: 10px; border: 1.5px dashed var(--gris-clair); }
+  .add-row label { margin-bottom: 4px; }
+  .btn-add { padding: 12px 18px; background: var(--accent); color: var(--bleu); border: none; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
+  .btn-add:hover { background: #d4b13f; }
+
+  .ferie-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
+  .ferie-table thead th { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); text-align: left; padding: 10px 12px; border-bottom: 2px solid var(--gris-clair); background: var(--fond); }
+  .ferie-table tbody td { padding: 10px 12px; border-bottom: 1px solid var(--gris-clair); font-size: 0.92rem; }
+  .ferie-table tbody tr.excluded { opacity: 0.45; }
+  .ferie-table tbody tr.excluded td.col-nom, .ferie-table tbody tr.excluded td.col-date { text-decoration: line-through; }
+  .col-check { width: 36px; text-align: center; }
+  .col-date { white-space: nowrap; font-variant-numeric: tabular-nums; width: 130px; }
+  .col-actions { width: 90px; text-align: right; }
+  .col-jour { width: 70px; color: var(--gris); font-size: 0.82rem; }
+  .col-type { width: 90px; }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+  .badge.officiel { background: rgba(192,57,43,0.12); color: var(--ferie); }
+  .badge.custom { background: rgba(142,68,173,0.12); color: var(--custom); }
+  .ferie-table tbody tr td input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--bleu); }
+  .btn-del { background: transparent; border: none; color: var(--ferie); cursor: pointer; font-size: 0.85rem; padding: 4px 8px; border-radius: 6px; transition: background 0.15s; }
+  .btn-del:hover { background: rgba(192,57,43,0.08); }
+  .btn-restore { background: transparent; border: none; color: var(--gris); cursor: pointer; font-size: 0.82rem; padding: 4px 8px; }
+  .btn-restore:hover { color: var(--bleu); }
+
+  .summary-bar { display: flex; gap: 12px; margin: 16px 0 8px; flex-wrap: wrap; }
+  .summary-item { background: var(--fond); border-radius: 10px; padding: 10px 16px; flex: 1; min-width: 130px; border-left: 4px solid var(--accent); }
+  .summary-label { font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 3px; }
+  .summary-val { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--bleu); }
+
+  .org-banner { background: linear-gradient(135deg, var(--bleu) 0%, var(--bleu-clair) 100%); color: var(--blanc); padding: 18px 24px; border-radius: 10px; margin-bottom: 18px; }
+  .org-banner .org-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); }
+  .org-banner .org-name { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-top: 2px; }
+  .org-banner .org-sub { font-size: 0.85rem; color: rgba(255,255,255,0.75); margin-top: 4px; }
+
+  footer { width: 100%; background: var(--bleu); padding: 18px 32px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: auto; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 8px; }
+  footer a:hover { color: var(--accent); }
+  .footer-links { margin-bottom: 8px; }
+
+  @media print {
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; color-adjust: exact !important; }
+    header, nav.site-nav, .card-header p, .form-card, .liste-actions .btn-action, .add-row, footer, .ads-stack, .ads-row, .ad-cfo, .ad-alch, .ad-amz { display: none !important; }
+    .ferie-table tbody tr.excluded { display: none; }
+    .col-check, .col-actions { display: none; }
+    body { background: white; }
+  }
+
+  @media (max-width: 700px) {
+    .form-grid { grid-template-columns: 1fr; }
+    .add-row { grid-template-columns: 1fr; }
+    .card-body { padding: 20px 16px; }
+    .col-jour, .col-type { display: none; }
+  }
+  @media (max-width: 480px) {
+    header { padding: 14px 16px; }
+    .lang-label { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="index.html" class="logo">Calcul<span>Dates</span>.ca</a>
+  <div class="lang-toggle">
+    <span class="lang-label" id="headerSubtitle">Outil gratuit · Québec</span>
+    <div class="lang-toggle-3" onclick="cycleLang()" id="langToggle">
+      <span class="lang-opt active" data-lang="fr">FR</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+      <span class="lang-opt" data-lang="es">ES</span>
+    </div>
+  </div>
+</header>
+
+<nav class="site-nav">
+  <div class="nav-inner" id="siteNav"></div>
+</nav>
+
+<main>
+  <div class="card form-card">
+    <div class="card-header">
+      <h1 id="pageTitle">🎉 Jours fériés de l'organisation</h1>
+      <p id="pageSubtitle">Créez la liste officielle des jours fériés pour le calendrier de votre personnel.</p>
+    </div>
+    <div class="card-body">
+      <div class="form-grid">
+        <div>
+          <label id="labelOrg">Nom de l'organisation</label>
+          <input type="text" id="orgName" placeholder="Ex.: Solutions Pellerin inc." />
+        </div>
+        <div>
+          <label id="labelPays">Pays</label>
+          <select id="pays">
+            <option value="CA">🇨🇦 Canada</option>
+            <option value="US">🇺🇸 États-Unis</option>
+            <option value="FR">🇫🇷 France</option>
+            <option value="MX">🇲🇽 Mexique</option>
+            <option value="GB">🇬🇧 Royaume-Uni</option>
+            <option value="DE">🇩🇪 Allemagne</option>
+          </select>
+        </div>
+        <div>
+          <label id="labelAnnee">Année</label>
+          <select id="annee"></select>
+        </div>
+      </div>
+      <div class="form-grid" style="grid-template-columns: 1fr 1fr; margin-bottom: 22px;">
+        <div id="regionWrap">
+          <label id="labelRegion">Province / Région</label>
+          <select id="region"></select>
+        </div>
+        <div>
+          <label id="labelInclureOpt">Inclure les fériés optionnels</label>
+          <select id="inclureOpt">
+            <option value="oui" id="optOui">Oui — tous les fériés courants</option>
+            <option value="non" id="optNon" selected>Non — seulement les fériés officiels</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-generate" onclick="chargerFeries()" id="btnCharger">✨ Charger les jours fériés</button>
+    </div>
+  </div>
+
+  <!-- Pubs (sous le formulaire, visibles immédiatement) -->
+  <div class="ads-row" id="topAds"></div>
+
+  <div class="card liste-section" id="listeSection">
+    <div class="card-body">
+      <div class="org-banner" id="orgBanner" style="display:none;">
+        <div class="org-label" id="bannerLabel">Jours fériés officiels</div>
+        <div class="org-name" id="bannerName">—</div>
+        <div class="org-sub" id="bannerSub">—</div>
+      </div>
+
+      <div class="liste-actions">
+        <h2 id="listeTitre">Votre liste officielle</h2>
+        <button class="btn-action btn-pdf" onclick="telechargerPDF()" id="btnPdf">📄 PDF</button>
+        <button class="btn-action btn-xlsx" onclick="telechargerXLSX()" id="btnXlsx">📊 Excel</button>
+        <button class="btn-action btn-ical" onclick="exporterICal()" id="btnIcal">📲 Apple / Outlook (.ics)</button>
+        <button class="btn-action btn-google" onclick="ouvrirGoogle()" id="btnGoogle">📅 Google Calendar</button>
+        <button class="btn-action btn-print" onclick="imprimerListe()" id="btnImprimer">🖨️ Imprimer</button>
+      </div>
+
+      <div class="add-row">
+        <div>
+          <label id="labelAjoutDate">Date</label>
+          <input type="date" id="addDate" />
+        </div>
+        <div>
+          <label id="labelAjoutNom">Nom du férié (personnalisé)</label>
+          <input type="text" id="addNom" placeholder="Ex.: Journée d'entreprise" />
+        </div>
+        <button class="btn-add" onclick="ajouterFerie()" id="btnAjouter">+ Ajouter</button>
+      </div>
+
+      <table class="ferie-table">
+        <thead>
+          <tr>
+            <th class="col-check"></th>
+            <th class="col-date" id="thDate">Date</th>
+            <th class="col-jour" id="thJour">Jour</th>
+            <th class="col-nom" id="thNom">Nom du jour férié</th>
+            <th class="col-type" id="thType">Type</th>
+            <th class="col-actions"></th>
+          </tr>
+        </thead>
+        <tbody id="ferieTbody"></tbody>
+      </table>
+
+      <div class="summary-bar" id="summaryBar"></div>
+    </div>
+  </div>
+
+  <!-- Pubs -->
+  <div class="ads-row" id="bottomAds"></div>
+
+  <!-- ════════════════════════════════════════════════════════════════════
+       Contenu éditorial statique (SEO + valeur informative AdSense)
+       ════════════════════════════════════════════════════════════════════ -->
+  <section class="cd-seo">
+
+  <!-- ===================== FRANÇAIS ===================== -->
+  <div class="lang-only-fr">
+    <h2>Liste officielle des jours fériés par pays et par province</h2>
+    <p>Cet outil génère la <strong>liste officielle des jours fériés</strong> pour le Canada (par province), les États-Unis (fédéraux), la France, le Mexique, le Royaume-Uni et l'Allemagne, pour l'année de votre choix. Vous pouvez ensuite <strong>exporter le calendrier</strong> en PDF (pour l'affichage en milieu de travail), en .ics (pour l'intégrer à Apple Calendar, Outlook ou Google Calendar) ou en CSV (pour l'importer dans un logiciel de paie ou RH).</p>
+
+    <h3>Pourquoi générer une liste officielle de jours fériés ?</h3>
+    <p>Les employeurs québécois et canadiens doivent respecter les jours fériés légaux pour le calcul des congés payés, des heures supplémentaires et des primes. Une liste claire affichée en milieu de travail évite les malentendus avec les employés et facilite la planification des horaires. Pour les services RH, l'exportation en .ics ou en CSV permet d'intégrer automatiquement les fériés au système de paie et au calendrier d'équipe.</p>
+
+    <h3>Les jours fériés au Québec</h3>
+    <p>Au Québec, la <em>Loi sur les normes du travail</em> reconnaît <strong>8 jours fériés et chômés</strong> payés à tous les salariés, peu importe l'ancienneté ou le nombre d'heures travaillées :</p>
+    <ul>
+      <li><strong>1<sup>er</sup> janvier</strong> — Jour de l'An</li>
+      <li><strong>Vendredi saint ou lundi de Pâques</strong> (au choix de l'employeur)</li>
+      <li><strong>Lundi qui précède le 25 mai</strong> — Journée nationale des patriotes</li>
+      <li><strong>24 juin</strong> — Fête nationale du Québec (régie par une loi distincte)</li>
+      <li><strong>1<sup>er</sup> juillet</strong> — Fête du Canada</li>
+      <li><strong>1<sup>er</sup> lundi de septembre</strong> — Fête du Travail</li>
+      <li><strong>2<sup>e</sup> lundi d'octobre</strong> — Action de grâce</li>
+      <li><strong>25 décembre</strong> — Noël</li>
+    </ul>
+    <p>De nombreuses conventions collectives et politiques d'entreprise ajoutent à cette liste <strong>2 décembre 26, le 2 janvier et/ou le Vendredi saint en plus de Pâques</strong>. Notre outil distingue les fériés <em>légaux</em> des fériés <em>optionnels courants</em>.</p>
+
+    <div class="seo-callout">📌 <strong>Bon à savoir :</strong> au Québec, lorsqu'un jour férié coïncide avec un jour normalement non ouvré pour le salarié (ex. un dimanche pour un employé du lundi au vendredi), l'employeur doit verser une <strong>indemnité compensatoire</strong> ou accorder un congé compensatoire dans les 3 semaines précédant ou suivant le férié.</div>
+
+    <h3>Les jours fériés ailleurs au Canada</h3>
+    <p>Hormis les fériés fédéraux (Jour de l'An, Vendredi saint, Fête du Canada, Fête du Travail, Jour du Souvenir, Noël), chaque province reconnaît ses propres fériés :</p>
+    <ul>
+      <li><strong>Ontario</strong> — Family Day (3<sup>e</sup> lundi de février), Victoria Day, Civic Holiday (1<sup>er</sup> lundi d'août, non payé), Boxing Day.</li>
+      <li><strong>Colombie-Britannique</strong> — Family Day (3<sup>e</sup> lundi de février), Victoria Day, BC Day, Truth and Reconciliation Day.</li>
+      <li><strong>Alberta</strong> — Family Day, Heritage Day, Remembrance Day.</li>
+      <li><strong>Provinces atlantiques</strong> — chaque province a son férié propre : Islander Day à l'Île-du-Prince-Édouard, Heritage Day en Nouvelle-Écosse, etc.</li>
+    </ul>
+    <p>Notre outil ajuste automatiquement la liste selon la province sélectionnée.</p>
+
+    <h3>Fériés payés vs fériés non payés</h3>
+    <p>Tous les jours fériés ne sont pas payés de la même façon. La distinction est importante pour la paie :</p>
+    <ul>
+      <li><strong>Fériés payés (statutory holidays)</strong> — l'employeur doit verser l'indemnité réglementaire (1/20<sup>e</sup> du salaire des 4 dernières semaines au Québec) à tout salarié admissible, même s'il ne travaille pas ce jour-là.</li>
+      <li><strong>Fériés optionnels (designated holidays)</strong> — accordés par certains employeurs comme avantage social, sans obligation légale. Souvent négociés en convention collective.</li>
+      <li><strong>Fériés religieux non statutaires</strong> — Pâques (sauf si désigné par l'employeur), Ramadan, Hanoukka, Diwali, etc. Les employés peuvent demander un aménagement raisonnable.</li>
+      <li><strong>Jours civiques</strong> — comme le 1<sup>er</sup> août dans plusieurs provinces : férié bancaire, mais le statut payé/non payé dépend de l'employeur.</li>
+    </ul>
+
+    <h3>Conseils pour la planification RH</h3>
+    <ol>
+      <li><strong>Affichez la liste officielle</strong> dès le mois de janvier, au tableau d'affichage et sur l'intranet. Évite les questions répétées et les conflits sur les indemnités.</li>
+      <li><strong>Intégrez les fériés à votre système de paie</strong> — le format CSV exporté par notre outil est compatible avec la plupart des logiciels de paie québécois (Nethris, Employeur D, Power Pay, ADP, Sage 50, QuickBooks).</li>
+      <li><strong>Synchronisez avec le calendrier d'équipe</strong> — le format .ics se publie sur Apple Calendar, Outlook et Google Calendar en un clic. Toute l'équipe voit alors les fériés et les jours de fermeture du bureau.</li>
+      <li><strong>Anticipez les ponts</strong> — quand un férié tombe un mardi ou un jeudi, certains employeurs accordent un congé le lundi ou le vendredi pour un « pont » de 4 jours. À planifier 6 mois à l'avance pour la couverture client.</li>
+    </ol>
+
+    <h3>Questions fréquentes</h3>
+    <div class="seo-faq">
+      <details>
+        <summary>L'outil inclut-il les fériés religieux non statutaires ?</summary>
+        <p>Nous incluons les fériés <strong>légaux</strong> (statutaires) et les <strong>fériés optionnels courants</strong> au choix. Les fériés religieux non statutaires (Pâques juive, Aïd, Diwali, etc.) ne sont pas inclus par défaut — ils peuvent être ajoutés manuellement à votre calendrier exporté pour respecter la diversité culturelle de votre équipe.</p>
+      </details>
+      <details>
+        <summary>Comment l'outil gère-t-il les fériés mobiles (Pâques, Action de grâce) ?</summary>
+        <p>Les fériés mobiles sont calculés selon les règles officielles : Pâques selon le calendrier ecclésiastique grégorien (premier dimanche après la pleine lune ecclésiastique du printemps), Action de grâce le 2<sup>e</sup> lundi d'octobre au Canada, le 4<sup>e</sup> jeudi de novembre aux États-Unis, etc.</p>
+      </details>
+      <details>
+        <summary>Puis-je exporter la liste pour plusieurs années ?</summary>
+        <p>L'outil génère la liste pour une année à la fois, mais vous pouvez régénérer pour chaque année et fusionner les fichiers .ics dans votre calendrier — qui les affichera tous correctement sur plusieurs années.</p>
+      </details>
+      <details>
+        <summary>L'outil est-il à jour avec les nouveaux fériés (ex. Truth and Reconciliation Day) ?</summary>
+        <p>Oui — la <strong>Journée nationale de la vérité et de la réconciliation</strong> (30 septembre) est incluse comme férié fédéral depuis 2021. Les ajouts provinciaux récents (Family Day en Nouvelle-Écosse en 2015, etc.) sont également intégrés. Si vous remarquez une omission, signalez-le à <a href="mailto:info@calculdates.ca">info@calculdates.ca</a>.</p>
+      </details>
+      <details>
+        <summary>Peut-on utiliser cette liste pour calculer les indemnités de jour férié ?</summary>
+        <p>L'outil <strong>liste</strong> les fériés. Le calcul des indemnités lui-même (1/20<sup>e</sup> du salaire au Québec, formule différente ailleurs au Canada) doit être fait par votre logiciel de paie ou votre comptable. Notre <a href="paie.html">calculateur de paie</a> peut vous aider à visualiser les périodes affectées.</p>
+      </details>
+    </div>
+
+    <div class="seo-sources">
+      <strong>Sources officielles :</strong>
+      <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/normes-du-travail/jours-feries-chomes-payes" target="_blank" rel="noopener">CNESST — Jours fériés au Québec</a> ·
+      <a href="https://www.canada.ca/fr/emploi-developpement-social/services/normes-travail/rapports/feries.html" target="_blank" rel="noopener">Gouvernement du Canada — Jours fériés</a> ·
+      <a href="https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/" target="_blank" rel="noopener">OPM — US Federal Holidays</a>
+    </div>
+
+    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ Cette liste est fournie à titre informatif. Pour les calculs d'indemnités et de congés payés, consultez le service de paie de votre employeur ou un comptable agréé.</p>
+  </div>
+
+  <!-- ===================== ENGLISH ===================== -->
+  <div class="lang-only-en">
+    <h2>Official list of statutory holidays by country and province</h2>
+    <p>This tool generates the <strong>official list of statutory holidays</strong> for Canada (by province), United States (federal), France, Mexico, United Kingdom and Germany, for the year of your choice. You can then <strong>export the calendar</strong> as PDF (for workplace display), .ics (to add to Apple Calendar, Outlook or Google Calendar) or CSV (to import into payroll or HR software).</p>
+
+    <h3>Why generate an official holiday list?</h3>
+    <p>Québec and Canadian employers must respect statutory holidays for calculating paid leave, overtime and premiums. A clear list posted at the workplace prevents misunderstandings with employees and simplifies schedule planning. For HR departments, exporting to .ics or CSV automatically integrates holidays into the payroll system and team calendar.</p>
+
+    <h3>Statutory holidays in Québec</h3>
+    <p>In Québec, the <em>Act respecting labour standards</em> recognizes <strong>8 statutory holidays</strong> paid to all employees, regardless of seniority or hours worked:</p>
+    <ul>
+      <li><strong>January 1</strong> — New Year's Day</li>
+      <li><strong>Good Friday or Easter Monday</strong> (employer's choice)</li>
+      <li><strong>Monday preceding May 25</strong> — National Patriots' Day</li>
+      <li><strong>June 24</strong> — Québec National Day (governed by a separate law)</li>
+      <li><strong>July 1</strong> — Canada Day</li>
+      <li><strong>1st Monday of September</strong> — Labour Day</li>
+      <li><strong>2nd Monday of October</strong> — Thanksgiving</li>
+      <li><strong>December 25</strong> — Christmas</li>
+    </ul>
+    <p>Many collective agreements and corporate policies add to this list <strong>December 26, January 2 and/or Good Friday in addition to Easter</strong>. Our tool distinguishes <em>legal</em> holidays from <em>common optional</em> holidays.</p>
+
+    <div class="seo-callout">📌 <strong>Good to know:</strong> in Québec, when a statutory holiday falls on a day the employee normally doesn't work (e.g., a Sunday for a Mon-Fri employee), the employer must pay a <strong>compensatory allowance</strong> or grant compensatory leave within the 3 weeks before or after the holiday.</div>
+
+    <h3>Statutory holidays elsewhere in Canada</h3>
+    <p>Beyond federal holidays (New Year's Day, Good Friday, Canada Day, Labour Day, Remembrance Day, Christmas), each province recognizes its own holidays:</p>
+    <ul>
+      <li><strong>Ontario</strong> — Family Day (3rd Monday of February), Victoria Day, Civic Holiday (1st Monday of August, unpaid), Boxing Day.</li>
+      <li><strong>British Columbia</strong> — Family Day (3rd Monday of February), Victoria Day, BC Day, Truth and Reconciliation Day.</li>
+      <li><strong>Alberta</strong> — Family Day, Heritage Day, Remembrance Day.</li>
+      <li><strong>Atlantic provinces</strong> — each province has its own holiday: Islander Day in PEI, Heritage Day in Nova Scotia, etc.</li>
+    </ul>
+    <p>Our tool automatically adjusts the list based on the selected province.</p>
+
+    <h3>Paid vs. unpaid holidays</h3>
+    <p>Not all holidays are paid the same way. The distinction matters for payroll:</p>
+    <ul>
+      <li><strong>Statutory paid holidays</strong> — the employer must pay the statutory allowance (1/20th of the salary of the last 4 weeks in Québec) to every eligible employee, even if they don't work that day.</li>
+      <li><strong>Designated holidays</strong> — granted by some employers as a social benefit, with no legal obligation. Often negotiated in collective agreements.</li>
+      <li><strong>Non-statutory religious holidays</strong> — Easter (unless designated by the employer), Ramadan, Hanukkah, Diwali, etc. Employees can request reasonable accommodation.</li>
+      <li><strong>Civic holidays</strong> — like August 1 in several provinces: bank holiday, but paid/unpaid status depends on the employer.</li>
+    </ul>
+
+    <h3>Tips for HR planning</h3>
+    <ol>
+      <li><strong>Post the official list</strong> as early as January, on the bulletin board and intranet. Avoids repeated questions and conflicts over allowances.</li>
+      <li><strong>Integrate holidays into your payroll system</strong> — the CSV format exported by our tool is compatible with most Québec payroll software (Nethris, Employeur D, Power Pay, ADP, Sage 50, QuickBooks).</li>
+      <li><strong>Sync with the team calendar</strong> — the .ics format publishes to Apple Calendar, Outlook and Google Calendar in one click. The whole team then sees holidays and office closure days.</li>
+      <li><strong>Anticipate bridge days</strong> — when a holiday falls on a Tuesday or Thursday, some employers grant a day off on the Monday or Friday for a 4-day "bridge". Plan 6 months ahead for client coverage.</li>
+    </ol>
+
+    <h3>Frequently asked questions</h3>
+    <div class="seo-faq">
+      <details>
+        <summary>Does the tool include non-statutory religious holidays?</summary>
+        <p>We include <strong>statutory (legal)</strong> holidays and <strong>common optional</strong> holidays as an option. Non-statutory religious holidays (Passover, Eid, Diwali, etc.) are not included by default — they can be added manually to your exported calendar to respect your team's cultural diversity.</p>
+      </details>
+      <details>
+        <summary>How does the tool handle moving holidays (Easter, Thanksgiving)?</summary>
+        <p>Moving holidays are calculated using official rules: Easter per the Gregorian ecclesiastical calendar (first Sunday after the spring ecclesiastical full moon), Thanksgiving on the 2nd Monday of October in Canada, the 4th Thursday of November in the US, etc.</p>
+      </details>
+      <details>
+        <summary>Can I export the list for multiple years?</summary>
+        <p>The tool generates the list one year at a time, but you can regenerate for each year and merge the .ics files in your calendar — which will display them correctly across multiple years.</p>
+      </details>
+      <details>
+        <summary>Is the tool up to date with new holidays (e.g., Truth and Reconciliation Day)?</summary>
+        <p>Yes — the <strong>National Day for Truth and Reconciliation</strong> (September 30) has been included as a federal holiday since 2021. Recent provincial additions (Family Day in Nova Scotia in 2015, etc.) are also integrated. If you notice an omission, report it to <a href="mailto:info@calculdates.ca">info@calculdates.ca</a>.</p>
+      </details>
+      <details>
+        <summary>Can this list be used to calculate holiday pay?</summary>
+        <p>The tool <strong>lists</strong> holidays. The calculation of allowances itself (1/20th of salary in Québec, different formula elsewhere in Canada) must be done by your payroll software or accountant. Our <a href="paie.html">payroll calculator</a> can help you visualize affected periods.</p>
+      </details>
+    </div>
+
+    <div class="seo-sources">
+      <strong>Official sources:</strong>
+      <a href="https://www.cnesst.gouv.qc.ca/en/working-conditions/labour-standards/statutory-general-holidays" target="_blank" rel="noopener">CNESST — Statutory holidays in Québec</a> ·
+      <a href="https://www.canada.ca/en/employment-social-development/services/labour-standards/reports/holidays.html" target="_blank" rel="noopener">Government of Canada — Holidays</a> ·
+      <a href="https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/" target="_blank" rel="noopener">OPM — US Federal Holidays</a>
+    </div>
+
+    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ This list is provided for informational purposes. For allowance and paid leave calculations, consult your employer's payroll department or a certified accountant.</p>
+  </div>
+
+  <!-- ===================== ESPAÑOL ===================== -->
+  <div class="lang-only-es">
+    <h2>Lista oficial de días festivos por país y provincia</h2>
+    <p>Esta herramienta genera la <strong>lista oficial de días festivos</strong> para Canadá (por provincia), Estados Unidos (federales), Francia, México, Reino Unido y Alemania, para el año que elija. Luego puede <strong>exportar el calendario</strong> en PDF (para visualización en el lugar de trabajo), .ics (para integrarlo a Apple Calendar, Outlook o Google Calendar) o CSV (para importarlo a un software de nómina o RRHH).</p>
+
+    <h3>¿Por qué generar una lista oficial de días festivos?</h3>
+    <p>Los empleadores quebequenses y canadienses deben respetar los días festivos legales para el cálculo de los permisos pagados, las horas extras y las primas. Una lista clara expuesta en el lugar de trabajo evita malentendidos con los empleados y facilita la planificación de horarios. Para los departamentos de RRHH, la exportación en .ics o CSV permite integrar automáticamente los festivos al sistema de nómina y al calendario de equipo.</p>
+
+    <h3>Los días festivos en Quebec</h3>
+    <p>En Quebec, la <em>Ley sobre las normas laborales</em> reconoce <strong>8 días festivos</strong> pagados a todos los empleados, sin importar la antigüedad o las horas trabajadas:</p>
+    <ul>
+      <li><strong>1 de enero</strong> — Año Nuevo</li>
+      <li><strong>Viernes Santo o Lunes de Pascua</strong> (a elección del empleador)</li>
+      <li><strong>Lunes anterior al 25 de mayo</strong> — Día Nacional de los Patriotas</li>
+      <li><strong>24 de junio</strong> — Día Nacional de Quebec (regido por una ley distinta)</li>
+      <li><strong>1 de julio</strong> — Día de Canadá</li>
+      <li><strong>1<sup>er</sup> lunes de septiembre</strong> — Día del Trabajo</li>
+      <li><strong>2º lunes de octubre</strong> — Acción de Gracias</li>
+      <li><strong>25 de diciembre</strong> — Navidad</li>
+    </ul>
+    <p>Muchos convenios colectivos y políticas empresariales añaden a esta lista el <strong>26 de diciembre, el 2 de enero y/o el Viernes Santo además de Pascua</strong>. Nuestra herramienta distingue los festivos <em>legales</em> de los festivos <em>opcionales comunes</em>.</p>
+
+    <div class="seo-callout">📌 <strong>Bueno saber:</strong> en Quebec, cuando un día festivo coincide con un día normalmente no laborable para el empleado (ej. un domingo para un empleado de lunes a viernes), el empleador debe pagar una <strong>indemnización compensatoria</strong> o conceder un permiso compensatorio en las 3 semanas anteriores o posteriores al festivo.</div>
+
+    <h3>Los días festivos en el resto de Canadá</h3>
+    <p>Además de los festivos federales (Año Nuevo, Viernes Santo, Día de Canadá, Día del Trabajo, Día del Recuerdo, Navidad), cada provincia reconoce sus propios festivos:</p>
+    <ul>
+      <li><strong>Ontario</strong> — Family Day (3<sup>er</sup> lunes de febrero), Victoria Day, Civic Holiday (1<sup>er</sup> lunes de agosto, no pagado), Boxing Day.</li>
+      <li><strong>Columbia Británica</strong> — Family Day (3<sup>er</sup> lunes de febrero), Victoria Day, BC Day, Día de la Verdad y la Reconciliación.</li>
+      <li><strong>Alberta</strong> — Family Day, Heritage Day, Día del Recuerdo.</li>
+      <li><strong>Provincias del Atlántico</strong> — cada provincia tiene su festivo propio: Islander Day en Isla del Príncipe Eduardo, Heritage Day en Nueva Escocia, etc.</li>
+    </ul>
+    <p>Nuestra herramienta ajusta automáticamente la lista según la provincia seleccionada.</p>
+
+    <h3>Festivos pagados vs festivos no pagados</h3>
+    <p>No todos los días festivos se pagan de la misma forma. La distinción es importante para la nómina:</p>
+    <ul>
+      <li><strong>Festivos legales pagados (statutory holidays)</strong> — el empleador debe pagar la indemnización reglamentaria (1/20<sup>vo</sup> del salario de las últimas 4 semanas en Quebec) a todo empleado elegible, aunque no trabaje ese día.</li>
+      <li><strong>Festivos opcionales (designated holidays)</strong> — otorgados por algunos empleadores como beneficio social, sin obligación legal. A menudo negociados en convenio colectivo.</li>
+      <li><strong>Festivos religiosos no estatutarios</strong> — Pascua (salvo si es designado por el empleador), Ramadán, Janucá, Diwali, etc. Los empleados pueden solicitar una adaptación razonable.</li>
+      <li><strong>Días cívicos</strong> — como el 1 de agosto en varias provincias: festivo bancario, pero el estatus pagado/no pagado depende del empleador.</li>
+    </ul>
+
+    <h3>Consejos para la planificación de RRHH</h3>
+    <ol>
+      <li><strong>Publique la lista oficial</strong> desde enero, en el tablón de anuncios y en la intranet. Evita preguntas repetidas y conflictos sobre indemnizaciones.</li>
+      <li><strong>Integre los festivos a su sistema de nómina</strong> — el formato CSV exportado por nuestra herramienta es compatible con la mayoría de los softwares de nómina quebequenses (Nethris, Employeur D, Power Pay, ADP, Sage 50, QuickBooks).</li>
+      <li><strong>Sincronice con el calendario del equipo</strong> — el formato .ics se publica en Apple Calendar, Outlook y Google Calendar con un clic. Todo el equipo ve entonces los festivos y los días de cierre de la oficina.</li>
+      <li><strong>Anticipe los puentes</strong> — cuando un festivo cae en martes o jueves, algunos empleadores otorgan un día libre el lunes o el viernes para un «puente» de 4 días. Planifique con 6 meses de anticipación para la cobertura al cliente.</li>
+    </ol>
+
+    <h3>Preguntas frecuentes</h3>
+    <div class="seo-faq">
+      <details>
+        <summary>¿La herramienta incluye los festivos religiosos no estatutarios?</summary>
+        <p>Incluimos los festivos <strong>legales</strong> (estatutarios) y los <strong>festivos opcionales comunes</strong> a elección. Los festivos religiosos no estatutarios (Pésaj, Eid, Diwali, etc.) no se incluyen por defecto — pueden añadirse manualmente a su calendario exportado para respetar la diversidad cultural de su equipo.</p>
+      </details>
+      <details>
+        <summary>¿Cómo gestiona la herramienta los festivos móviles (Pascua, Acción de Gracias)?</summary>
+        <p>Los festivos móviles se calculan según las reglas oficiales: Pascua según el calendario eclesiástico gregoriano (primer domingo después de la luna llena eclesiástica de primavera), Acción de Gracias el 2º lunes de octubre en Canadá, el 4º jueves de noviembre en EE. UU., etc.</p>
+      </details>
+      <details>
+        <summary>¿Puedo exportar la lista para varios años?</summary>
+        <p>La herramienta genera la lista para un año a la vez, pero puede regenerar para cada año y fusionar los archivos .ics en su calendario — que los mostrará correctamente a lo largo de varios años.</p>
+      </details>
+      <details>
+        <summary>¿La herramienta está actualizada con los nuevos festivos (ej. Día de la Verdad y la Reconciliación)?</summary>
+        <p>Sí — el <strong>Día Nacional de la Verdad y la Reconciliación</strong> (30 de septiembre) está incluido como festivo federal desde 2021. Las incorporaciones provinciales recientes (Family Day en Nueva Escocia en 2015, etc.) también están integradas. Si nota una omisión, repórtela a <a href="mailto:info@calculdates.ca">info@calculdates.ca</a>.</p>
+      </details>
+      <details>
+        <summary>¿Se puede usar esta lista para calcular las indemnizaciones de día festivo?</summary>
+        <p>La herramienta <strong>lista</strong> los festivos. El cálculo de las indemnizaciones en sí (1/20<sup>vo</sup> del salario en Quebec, fórmula diferente en el resto de Canadá) debe hacerse con su software de nómina o su contador. Nuestra <a href="paie.html">calculadora de nómina</a> puede ayudarle a visualizar los períodos afectados.</p>
+      </details>
+    </div>
+
+    <div class="seo-sources">
+      <strong>Fuentes oficiales:</strong>
+      <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/normes-du-travail/jours-feries-chomes-payes" target="_blank" rel="noopener">CNESST — Días festivos en Quebec</a> ·
+      <a href="https://www.canada.ca/fr/emploi-developpement-social/services/normes-travail/rapports/feries.html" target="_blank" rel="noopener">Gobierno de Canadá — Días festivos</a> ·
+      <a href="https://www.opm.gov/policy-data-oversight/pay-leave/federal-holidays/" target="_blank" rel="noopener">OPM — Festivos federales de EE. UU.</a>
+    </div>
+
+    <p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ Esta lista se proporciona con fines informativos. Para los cálculos de indemnizaciones y permisos pagados, consulte el departamento de nómina de su empleador o un contador certificado.</p>
+  </div>
+
+  </section>
+
+  <p style="font-size:0.72rem;color:var(--gris);text-align:center;max-width:720px;margin:0 auto;line-height:1.5;" id="affiliateDisclosure"></p>
+</main>
+
+<footer>
+  <div class="footer-links" id="footerLinks"></div>
+  <div id="footerText">© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.</div>
+  <div style="margin-top:6px;"><a href="mailto:info@calculdates.ca" style="color:rgba(255,255,255,0.5);">info@calculdates.ca</a></div>
+</footer>
+
+<script>
+const ACTIVE_PAGE = 'feries';
+let lang = 'fr';
+let currentList = []; // [{id, dateISO, nom, type:'officiel'|'custom', incluse:bool}]
+let currentMeta = { pays: 'CA', region: 'QC', annee: new Date().getFullYear(), org: '' };
+
+// ── i18n ─────────────────────────────────────────────────────────────────
+const i18n = {
+  fr: {
+    headerSubtitle: 'Outil gratuit · Québec',
+    pageTitle: '🎉 Jours fériés de l\'organisation',
+    pageSubtitle: 'Créez la liste officielle des jours fériés pour le calendrier de votre personnel.',
+    labelOrg: 'Nom de l\'organisation',
+    labelPays: 'Pays',
+    labelAnnee: 'Année',
+    labelRegion: 'Province / Région',
+    labelInclureOpt: 'Inclure les fériés optionnels',
+    optOui: 'Oui — tous les fériés courants',
+    optNon: 'Non — seulement les fériés officiels',
+    btnCharger: '✨ Charger les jours fériés',
+    listeTitre: 'Votre liste officielle',
+    bannerLabel: 'Jours fériés officiels',
+    btnPdf: '📄 PDF', btnXlsx: '📊 Excel', btnIcal: '📲 Apple / Outlook (.ics)', btnGoogle: '📅 Google Calendar', btnImprimer: '🖨️ Imprimer',
+    labelAjoutDate: 'Date',
+    labelAjoutNom: 'Nom du férié (personnalisé)',
+    btnAjouter: '+ Ajouter',
+    thDate: 'Date', thJour: 'Jour', thNom: 'Nom du jour férié', thType: 'Type',
+    typeOfficiel: 'Officiel', typeCustom: 'Personnalisé',
+    actionRetirer: 'Retirer',
+    actionRetablir: 'Rétablir',
+    summaryTotal: 'Fériés inclus',
+    summaryOfficiel: 'Officiels',
+    summaryCustom: 'Personnalisés',
+    summaryRetires: 'Retirés',
+    placeholderOrg: 'Ex.: Solutions Pellerin inc.',
+    placeholderCustomNom: 'Ex.: Journée d\'entreprise',
+    bannerSub: '{pays} · {region} · {annee} · {n} fériés',
+    alertNoDate: 'Veuillez choisir une date pour le férié personnalisé.',
+    alertNoNom: 'Veuillez saisir un nom pour le férié personnalisé.',
+    alertPdfErr: 'Erreur lors de la génération du PDF.',
+    alertXlsxErr: 'Erreur lors de la génération du fichier Excel.',
+    icalMsg: '✅ Fichier .ics téléchargé !\n\n📱 iPhone / Mac : Double-cliquez pour importer dans Calendrier Apple.\n💻 Outlook : Fichier → Ouvrir → Importer.\n📅 Google Calendar : Paramètres → Importer.',
+    printTip: '🖨️ Conseil d\'impression\n\nPour que les couleurs apparaissent correctement, cochez « Graphiques d\'arrière-plan » dans la boîte de dialogue d\'impression.',
+    footerText: '© 2026 CalculDates.ca — Outil informatif uniquement. Consultez un professionnel pour votre situation personnelle.',
+    joursSemaine: ['Dim.','Lun.','Mar.','Mer.','Jeu.','Ven.','Sam.'],
+    moisLong: ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
+    pdfTitle: 'Jours fériés officiels',
+    pdfFor: 'Pour',
+    pdfPeriode: 'Année',
+    xlsxSheetName: 'Jours fériés',
+    xlsxColDate: 'Date', xlsxColJour: 'Jour', xlsxColNom: 'Nom', xlsxColType: 'Type',
+  },
+  en: {
+    headerSubtitle: 'Free tool · Québec',
+    pageTitle: '🎉 Organization holidays',
+    pageSubtitle: 'Build the official list of public holidays for your staff calendar.',
+    labelOrg: 'Organization name',
+    labelPays: 'Country',
+    labelAnnee: 'Year',
+    labelRegion: 'Province / Region',
+    labelInclureOpt: 'Include optional holidays',
+    optOui: 'Yes — all common holidays',
+    optNon: 'No — only statutory holidays',
+    btnCharger: '✨ Load holidays',
+    listeTitre: 'Your official list',
+    bannerLabel: 'Official public holidays',
+    btnPdf: '📄 PDF', btnXlsx: '📊 Excel', btnIcal: '📲 Apple / Outlook (.ics)', btnGoogle: '📅 Google Calendar', btnImprimer: '🖨️ Print',
+    labelAjoutDate: 'Date',
+    labelAjoutNom: 'Holiday name (custom)',
+    btnAjouter: '+ Add',
+    thDate: 'Date', thJour: 'Day', thNom: 'Holiday name', thType: 'Type',
+    typeOfficiel: 'Official', typeCustom: 'Custom',
+    actionRetirer: 'Remove',
+    actionRetablir: 'Restore',
+    summaryTotal: 'Included holidays',
+    summaryOfficiel: 'Official',
+    summaryCustom: 'Custom',
+    summaryRetires: 'Removed',
+    placeholderOrg: 'e.g.: Acme Inc.',
+    placeholderCustomNom: 'e.g.: Company day',
+    bannerSub: '{pays} · {region} · {annee} · {n} holidays',
+    alertNoDate: 'Please pick a date for the custom holiday.',
+    alertNoNom: 'Please enter a name for the custom holiday.',
+    alertPdfErr: 'Error generating PDF.',
+    alertXlsxErr: 'Error generating Excel file.',
+    icalMsg: '✅ .ics file downloaded!\n\n📱 iPhone / Mac: Double-click to import into Apple Calendar.\n💻 Outlook: File → Open → Import.\n📅 Google Calendar: Settings → Import.',
+    printTip: '🖨️ Print tip\n\nTo display colors correctly, check "Background graphics" in the print dialog.',
+    footerText: '© 2026 CalculDates.ca — For informational purposes only. Please consult a professional.',
+    joursSemaine: ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'],
+    moisLong: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+    pdfTitle: 'Official public holidays',
+    pdfFor: 'For',
+    pdfPeriode: 'Year',
+    xlsxSheetName: 'Holidays',
+    xlsxColDate: 'Date', xlsxColJour: 'Day', xlsxColNom: 'Name', xlsxColType: 'Type',
+  },
+  es: {
+    headerSubtitle: 'Herramienta gratuita · Québec',
+    pageTitle: '🎉 Días festivos de la organización',
+    pageSubtitle: 'Cree la lista oficial de días festivos para el calendario de su personal.',
+    labelOrg: 'Nombre de la organización',
+    labelPays: 'País',
+    labelAnnee: 'Año',
+    labelRegion: 'Provincia / Región',
+    labelInclureOpt: 'Incluir festivos opcionales',
+    optOui: 'Sí — todos los festivos habituales',
+    optNon: 'No — solo los festivos oficiales',
+    btnCharger: '✨ Cargar los festivos',
+    listeTitre: 'Su lista oficial',
+    bannerLabel: 'Días festivos oficiales',
+    btnPdf: '📄 PDF', btnXlsx: '📊 Excel', btnIcal: '📲 Apple / Outlook (.ics)', btnGoogle: '📅 Google Calendar', btnImprimer: '🖨️ Imprimir',
+    labelAjoutDate: 'Fecha',
+    labelAjoutNom: 'Nombre del festivo (personalizado)',
+    btnAjouter: '+ Añadir',
+    thDate: 'Fecha', thJour: 'Día', thNom: 'Nombre del festivo', thType: 'Tipo',
+    typeOfficiel: 'Oficial', typeCustom: 'Personalizado',
+    actionRetirer: 'Quitar',
+    actionRetablir: 'Restaurar',
+    summaryTotal: 'Festivos incluidos',
+    summaryOfficiel: 'Oficiales',
+    summaryCustom: 'Personalizados',
+    summaryRetires: 'Quitados',
+    placeholderOrg: 'Ej.: Acme S.A.',
+    placeholderCustomNom: 'Ej.: Día de empresa',
+    bannerSub: '{pays} · {region} · {annee} · {n} festivos',
+    alertNoDate: 'Por favor, elija una fecha para el festivo personalizado.',
+    alertNoNom: 'Por favor, escriba un nombre para el festivo personalizado.',
+    alertPdfErr: 'Error al generar el PDF.',
+    alertXlsxErr: 'Error al generar el archivo Excel.',
+    icalMsg: '✅ ¡Archivo .ics descargado!\n\n📱 iPhone / Mac: Haga doble clic para importar al Calendario de Apple.\n💻 Outlook: Archivo → Abrir → Importar.\n📅 Google Calendar: Configuración → Importar.',
+    printTip: '🖨️ Consejo de impresión\n\nPara que los colores aparezcan correctamente, marque «Gráficos de fondo» en el cuadro de diálogo de impresión.',
+    footerText: '© 2026 CalculDates.ca — Solo con fines informativos. Consulte a un profesional para su situación personal.',
+    joursSemaine: ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'],
+    moisLong: ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+    pdfTitle: 'Días festivos oficiales',
+    pdfFor: 'Para',
+    pdfPeriode: 'Año',
+    xlsxSheetName: 'Festivos',
+    xlsxColDate: 'Fecha', xlsxColJour: 'Día', xlsxColNom: 'Nombre', xlsxColType: 'Tipo',
+  }
+};
+
+// ── Étiquettes pays & régions, traduites ─────────────────────────────────
+const PAYS_LABELS = {
+  fr: { CA: '🇨🇦 Canada', US: '🇺🇸 États-Unis', FR: '🇫🇷 France', MX: '🇲🇽 Mexique', GB: '🇬🇧 Royaume-Uni', DE: '🇩🇪 Allemagne' },
+  en: { CA: '🇨🇦 Canada', US: '🇺🇸 United States', FR: '🇫🇷 France', MX: '🇲🇽 Mexico', GB: '🇬🇧 United Kingdom', DE: '🇩🇪 Germany' },
+  es: { CA: '🇨🇦 Canadá', US: '🇺🇸 Estados Unidos', FR: '🇫🇷 Francia', MX: '🇲🇽 México', GB: '🇬🇧 Reino Unido', DE: '🇩🇪 Alemania' },
+};
+
+const REGIONS = {
+  CA: [
+    { code: 'FED', label: { fr: 'Fédéral', en: 'Federal', es: 'Federal' } },
+    { code: 'QC',  label: { fr: 'Québec', en: 'Quebec', es: 'Quebec' } },
+    { code: 'ON',  label: { fr: 'Ontario', en: 'Ontario', es: 'Ontario' } },
+    { code: 'BC',  label: { fr: 'Colombie-Britannique', en: 'British Columbia', es: 'Columbia Británica' } },
+    { code: 'AB',  label: { fr: 'Alberta', en: 'Alberta', es: 'Alberta' } },
+    { code: 'NS',  label: { fr: 'Nouvelle-Écosse', en: 'Nova Scotia', es: 'Nueva Escocia' } },
+  ],
+  US: [
+    { code: 'FED', label: { fr: 'Fédéral', en: 'Federal', es: 'Federal' } },
+  ],
+  FR: [ { code: 'FR', label: { fr: 'France métropolitaine', en: 'Mainland France', es: 'Francia metropolitana' } } ],
+  MX: [ { code: 'MX', label: { fr: 'Fédéral', en: 'Federal', es: 'Federal' } } ],
+  GB: [
+    { code: 'EW', label: { fr: 'Angleterre & Pays de Galles', en: 'England & Wales', es: 'Inglaterra y Gales' } },
+    { code: 'SCT', label: { fr: 'Écosse', en: 'Scotland', es: 'Escocia' } },
+    { code: 'NIR', label: { fr: 'Irlande du Nord', en: 'Northern Ireland', es: 'Irlanda del Norte' } },
+  ],
+  DE: [ { code: 'DE', label: { fr: 'Fédéral (jours nationaux)', en: 'Federal (national days)', es: 'Federal (nacionales)' } } ],
+};
+
+// ── Calcul de Pâques (Meeus/Jones/Butcher) ────────────────────────────────
+function easter(year) {
+  const a = year % 19;
+  const b = Math.floor(year / 100);
+  const c = year % 100;
+  const d = Math.floor(b / 4);
+  const e = b % 4;
+  const f = Math.floor((b + 8) / 25);
+  const g = Math.floor((b - f + 1) / 3);
+  const h = (19*a + b - d - g + 15) % 30;
+  const i = Math.floor(c / 4);
+  const k = c % 4;
+  const L = (32 + 2*e + 2*i - h - k) % 7;
+  const m = Math.floor((a + 11*h + 22*L) / 451);
+  const month = Math.floor((h + L - 7*m + 114) / 31);
+  const day = ((h + L - 7*m + 114) % 31) + 1;
+  return new Date(year, month - 1, day);
+}
+function addDays(d, n) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
+function toISO(d) { return d.toISOString().split('T')[0]; }
+
+// Nth weekday of month (n=1..5, weekday: 0=Sunday)
+function nthWeekday(year, month, weekday, n) {
+  const first = new Date(year, month, 1);
+  const offset = (weekday - first.getDay() + 7) % 7;
+  return new Date(year, month, 1 + offset + (n - 1) * 7);
+}
+// Last weekday of month
+function lastWeekday(year, month, weekday) {
+  const last = new Date(year, month + 1, 0);
+  const offset = (last.getDay() - weekday + 7) % 7;
+  return new Date(year, month, last.getDate() - offset);
+}
+// Closest weekday observance (US-style): if Sat → Fri before, if Sun → Mon after
+function observedUS(d) {
+  const wd = d.getDay();
+  if (wd === 6) return addDays(d, -1);
+  if (wd === 0) return addDays(d, 1);
+  return d;
+}
+
+// ── Définitions des fériés par pays/région ───────────────────────────────
+// Chaque entrée retourne {dateISO, names:{fr,en,es}, optional:bool}
+function buildHolidays(pays, region, year, includeOptional) {
+  const E = easter(year);
+  const goodFriday = addDays(E, -2);
+  const easterMonday = addDays(E, 1);
+  const ascension = addDays(E, 39);
+  const whitMonday = addDays(E, 50);
+  const out = [];
+  const push = (date, names, optional) => out.push({ dateISO: toISO(date), names: names, optional: !!optional });
+
+  if (pays === 'CA') {
+    push(new Date(year, 0, 1), { fr: "Jour de l'An", en: "New Year's Day", es: 'Año Nuevo' });
+    push(goodFriday, { fr: 'Vendredi saint', en: 'Good Friday', es: 'Viernes Santo' });
+    if (region === 'QC' || region === 'AB' || region === 'NS') {
+      push(easterMonday, { fr: 'Lundi de Pâques', en: 'Easter Monday', es: 'Lunes de Pascua' }, region === 'NS');
+    } else if (region === 'FED' || region === 'ON' || region === 'BC') {
+      push(easterMonday, { fr: 'Lundi de Pâques', en: 'Easter Monday', es: 'Lunes de Pascua' }, true);
+    }
+    // Victoria Day (Journée nationale des patriotes au QC) — le lundi précédant le 25 mai
+    let vic = new Date(year, 4, 24);
+    while (vic.getDay() !== 1) vic = addDays(vic, -1);
+    if (region === 'QC') {
+      push(vic, { fr: 'Journée nationale des patriotes', en: 'National Patriots\' Day', es: 'Día Nacional de los Patriotas' });
+    } else {
+      push(vic, { fr: 'Fête de la Reine (Victoria)', en: 'Victoria Day', es: 'Día de Victoria' });
+    }
+    if (region === 'QC') {
+      push(new Date(year, 5, 24), { fr: 'Fête nationale du Québec', en: 'Saint-Jean-Baptiste Day', es: 'Día Nacional de Quebec' });
+    }
+    push(new Date(year, 6, 1), { fr: 'Fête du Canada', en: 'Canada Day', es: 'Día de Canadá' });
+    // Fête civique 1er lundi d'août (sauf QC où optionnelle)
+    const civic = nthWeekday(year, 7, 1, 1);
+    push(civic, { fr: 'Congé civique', en: 'Civic Holiday', es: 'Día Cívico' }, region === 'QC');
+    // Fête du Travail — 1er lundi de septembre
+    push(nthWeekday(year, 8, 1, 1), { fr: 'Fête du Travail', en: 'Labour Day', es: 'Día del Trabajo' });
+    // Action de grâce — 2e lundi d'octobre
+    push(nthWeekday(year, 9, 1, 2), { fr: 'Action de grâce', en: 'Thanksgiving', es: 'Acción de Gracias' });
+    // Jour du Souvenir — 11 novembre (férié fédéral mais pas au QC ni ON)
+    push(new Date(year, 10, 11), { fr: 'Jour du Souvenir', en: 'Remembrance Day', es: 'Día del Recuerdo' }, region === 'QC' || region === 'ON');
+    push(new Date(year, 11, 25), { fr: 'Noël', en: 'Christmas Day', es: 'Navidad' });
+    push(new Date(year, 11, 26), { fr: 'Lendemain de Noël', en: 'Boxing Day', es: 'Día de San Esteban' }, region === 'QC' || region === 'AB' || region === 'BC');
+  } else if (pays === 'US') {
+    push(observedUS(new Date(year, 0, 1)), { fr: "Jour de l'An", en: "New Year's Day", es: 'Año Nuevo' });
+    push(nthWeekday(year, 0, 1, 3), { fr: 'Jour de Martin Luther King', en: 'Martin Luther King Jr. Day', es: 'Día de Martin Luther King' });
+    push(nthWeekday(year, 1, 1, 3), { fr: 'Jour des Présidents', en: "Presidents' Day", es: 'Día de los Presidentes' });
+    push(lastWeekday(year, 4, 1), { fr: 'Memorial Day', en: 'Memorial Day', es: 'Día de los Caídos' });
+    push(observedUS(new Date(year, 5, 19)), { fr: 'Juneteenth', en: 'Juneteenth', es: 'Juneteenth' });
+    push(observedUS(new Date(year, 6, 4)), { fr: 'Fête de l\'Indépendance', en: 'Independence Day', es: 'Día de la Independencia' });
+    push(nthWeekday(year, 8, 1, 1), { fr: 'Fête du Travail', en: 'Labor Day', es: 'Día del Trabajo' });
+    push(nthWeekday(year, 9, 1, 2), { fr: 'Columbus Day', en: 'Columbus Day', es: 'Día de Colón' }, true);
+    push(observedUS(new Date(year, 10, 11)), { fr: 'Veterans Day', en: 'Veterans Day', es: 'Día de los Veteranos' });
+    push(nthWeekday(year, 10, 4, 4), { fr: 'Thanksgiving', en: 'Thanksgiving', es: 'Acción de Gracias' });
+    // Black Friday (lendemain de Thanksgiving) - optionnel
+    const tg = nthWeekday(year, 10, 4, 4);
+    push(addDays(tg, 1), { fr: 'Black Friday', en: 'Day after Thanksgiving', es: 'Día después de Acción de Gracias' }, true);
+    push(observedUS(new Date(year, 11, 25)), { fr: 'Noël', en: 'Christmas Day', es: 'Navidad' });
+  } else if (pays === 'FR') {
+    push(new Date(year, 0, 1), { fr: "Jour de l'An", en: "New Year's Day", es: 'Año Nuevo' });
+    push(easterMonday, { fr: 'Lundi de Pâques', en: 'Easter Monday', es: 'Lunes de Pascua' });
+    push(new Date(year, 4, 1), { fr: 'Fête du Travail', en: 'Labour Day', es: 'Día del Trabajo' });
+    push(new Date(year, 4, 8), { fr: 'Victoire 1945', en: 'Victory in Europe Day', es: 'Día de la Victoria' });
+    push(ascension, { fr: 'Ascension', en: 'Ascension Day', es: 'Día de la Ascensión' });
+    push(whitMonday, { fr: 'Lundi de Pentecôte', en: 'Whit Monday', es: 'Lunes de Pentecostés' });
+    push(new Date(year, 6, 14), { fr: 'Fête nationale', en: 'Bastille Day', es: 'Fiesta Nacional' });
+    push(new Date(year, 7, 15), { fr: 'Assomption', en: 'Assumption of Mary', es: 'Asunción' });
+    push(new Date(year, 10, 1), { fr: 'Toussaint', en: 'All Saints\' Day', es: 'Todos los Santos' });
+    push(new Date(year, 10, 11), { fr: 'Armistice 1918', en: 'Armistice Day', es: 'Día del Armisticio' });
+    push(new Date(year, 11, 25), { fr: 'Noël', en: 'Christmas Day', es: 'Navidad' });
+  } else if (pays === 'MX') {
+    push(new Date(year, 0, 1), { fr: "Nouvel An", en: "New Year's Day", es: 'Año Nuevo' });
+    push(nthWeekday(year, 1, 1, 1), { fr: 'Jour de la Constitution', en: 'Constitution Day', es: 'Día de la Constitución' });
+    push(nthWeekday(year, 2, 1, 3), { fr: 'Anniversaire de Benito Juárez', en: 'Benito Juárez\'s Birthday', es: 'Natalicio de Benito Juárez' });
+    push(new Date(year, 4, 1), { fr: 'Fête du Travail', en: 'Labour Day', es: 'Día del Trabajo' });
+    push(new Date(year, 8, 16), { fr: 'Fête de l\'Indépendance', en: 'Independence Day', es: 'Día de la Independencia' });
+    push(nthWeekday(year, 10, 1, 3), { fr: 'Jour de la Révolution', en: 'Revolution Day', es: 'Día de la Revolución' });
+    push(new Date(year, 11, 25), { fr: 'Noël', en: 'Christmas Day', es: 'Navidad' });
+    // Optionnels populaires
+    push(goodFriday, { fr: 'Vendredi saint', en: 'Good Friday', es: 'Viernes Santo' }, true);
+    push(new Date(year, 10, 2), { fr: 'Jour des Morts', en: 'Day of the Dead', es: 'Día de los Muertos' }, true);
+    push(new Date(year, 11, 12), { fr: 'Notre-Dame de Guadalupe', en: 'Our Lady of Guadalupe', es: 'Virgen de Guadalupe' }, true);
+  } else if (pays === 'GB') {
+    push(new Date(year, 0, 1), { fr: "Jour de l'An", en: "New Year's Day", es: 'Año Nuevo' });
+    if (region === 'SCT') {
+      push(new Date(year, 0, 2), { fr: '2 janvier', en: '2 January', es: '2 de enero' });
+    }
+    push(goodFriday, { fr: 'Vendredi saint', en: 'Good Friday', es: 'Viernes Santo' });
+    if (region !== 'SCT') {
+      push(easterMonday, { fr: 'Lundi de Pâques', en: 'Easter Monday', es: 'Lunes de Pascua' });
+    }
+    push(nthWeekday(year, 4, 1, 1), { fr: 'Early May Bank Holiday', en: 'Early May Bank Holiday', es: 'Festivo de mayo' });
+    push(lastWeekday(year, 4, 1), { fr: 'Spring Bank Holiday', en: 'Spring Bank Holiday', es: 'Festivo de primavera' });
+    if (region === 'NIR') {
+      push(new Date(year, 6, 12), { fr: 'Bataille de la Boyne', en: 'Battle of the Boyne', es: 'Batalla del Boyne' });
+    }
+    if (region === 'SCT') {
+      push(nthWeekday(year, 7, 1, 1), { fr: 'Summer Bank Holiday', en: 'Summer Bank Holiday', es: 'Festivo de verano' });
+    } else {
+      push(lastWeekday(year, 7, 1), { fr: 'Summer Bank Holiday', en: 'Summer Bank Holiday', es: 'Festivo de verano' });
+    }
+    if (region === 'SCT') {
+      push(observedUS(new Date(year, 10, 30)), { fr: 'Saint-André', en: 'St Andrew\'s Day', es: 'Día de San Andrés' });
+    }
+    push(new Date(year, 11, 25), { fr: 'Noël', en: 'Christmas Day', es: 'Navidad' });
+    push(new Date(year, 11, 26), { fr: 'Boxing Day', en: 'Boxing Day', es: 'Día de San Esteban' });
+  } else if (pays === 'DE') {
+    push(new Date(year, 0, 1), { fr: "Jour de l'An", en: "New Year's Day", es: 'Año Nuevo' });
+    push(goodFriday, { fr: 'Vendredi saint', en: 'Good Friday', es: 'Viernes Santo' });
+    push(easterMonday, { fr: 'Lundi de Pâques', en: 'Easter Monday', es: 'Lunes de Pascua' });
+    push(new Date(year, 4, 1), { fr: 'Fête du Travail', en: 'Labour Day', es: 'Día del Trabajo' });
+    push(ascension, { fr: 'Ascension', en: 'Ascension Day', es: 'Día de la Ascensión' });
+    push(whitMonday, { fr: 'Lundi de Pentecôte', en: 'Whit Monday', es: 'Lunes de Pentecostés' });
+    push(new Date(year, 9, 3), { fr: 'Jour de l\'Unité allemande', en: 'German Unity Day', es: 'Día de la Unidad Alemana' });
+    push(new Date(year, 11, 25), { fr: 'Noël', en: 'Christmas Day', es: 'Navidad' });
+    push(new Date(year, 11, 26), { fr: '2e jour de Noël', en: 'St Stephen\'s Day', es: '2.º día de Navidad' });
+  }
+
+  // Filtrer optionnels selon choix
+  const filtered = includeOptional ? out : out.filter(h => !h.optional);
+  // Trier par date
+  filtered.sort((a,b) => a.dateISO.localeCompare(b.dateISO));
+  return filtered;
+}
+
+// ── Rendu général de la page ─────────────────────────────────────────────
+function renderAll() {
+  CDSite.renderNav(lang, ACTIVE_PAGE, 'siteNav');
+  CDSite.renderFooterLinks(lang, 'footerLinks');
+  const adsHtml = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+  const topAds = document.getElementById('topAds');
+  if (topAds) topAds.innerHTML = adsHtml;
+  document.getElementById('bottomAds').innerHTML = adsHtml;
+  document.getElementById('affiliateDisclosure').textContent = CDSite.SHARED[lang].affiliateDisclosure;
+}
+
+function cycleLang() {
+  lang = CDSite.cycleLang(lang);
+  CDSite.setStoredLang(lang);
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  applyTranslations();
+}
+
+function applyTranslations() {
+  const t = i18n[lang];
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+  set('headerSubtitle', t.headerSubtitle);
+  set('pageTitle', t.pageTitle);
+  set('pageSubtitle', t.pageSubtitle);
+  set('labelOrg', t.labelOrg);
+  set('labelPays', t.labelPays);
+  set('labelAnnee', t.labelAnnee);
+  set('labelRegion', t.labelRegion);
+  set('labelInclureOpt', t.labelInclureOpt);
+  set('optOui', t.optOui);
+  set('optNon', t.optNon);
+  set('btnCharger', t.btnCharger);
+  set('listeTitre', t.listeTitre);
+  set('bannerLabel', t.bannerLabel);
+  set('btnPdf', t.btnPdf); set('btnXlsx', t.btnXlsx); set('btnIcal', t.btnIcal); set('btnGoogle', t.btnGoogle); set('btnImprimer', t.btnImprimer);
+  set('labelAjoutDate', t.labelAjoutDate);
+  set('labelAjoutNom', t.labelAjoutNom);
+  set('btnAjouter', t.btnAjouter);
+  set('thDate', t.thDate); set('thJour', t.thJour); set('thNom', t.thNom); set('thType', t.thType);
+  set('footerText', t.footerText);
+  document.getElementById('orgName').placeholder = t.placeholderOrg;
+  document.getElementById('addNom').placeholder = t.placeholderCustomNom;
+
+  // Mettre à jour les libellés du select pays
+  const paysSel = document.getElementById('pays');
+  [...paysSel.options].forEach(o => { o.textContent = PAYS_LABELS[lang][o.value] || o.value; });
+
+  // Rafraîchir les options de régions
+  renderRegionOptions();
+  // Rafraîchir liste si présente
+  if (currentList.length) renderListe();
+  renderAll();
+}
+
+function renderRegionOptions() {
+  const pays = document.getElementById('pays').value;
+  const sel = document.getElementById('region');
+  const arr = REGIONS[pays] || [];
+  const prevVal = sel.value;
+  sel.innerHTML = arr.map(r => `<option value="${r.code}">${r.label[lang] || r.label.fr}</option>`).join('');
+  // Réessaie de garder la sélection précédente, sinon défaut
+  if (arr.find(r => r.code === prevVal)) sel.value = prevVal;
+  else if (pays === 'CA') sel.value = 'QC';
+  // Cacher le wrapper si une seule option
+  document.getElementById('regionWrap').style.display = arr.length > 1 ? '' : (arr.length === 1 ? '' : 'none');
+}
+
+function renderAnneeOptions() {
+  const sel = document.getElementById('annee');
+  const cur = new Date().getFullYear();
+  const opts = [];
+  for (let y = cur - 1; y <= cur + 3; y++) opts.push(y);
+  sel.innerHTML = opts.map(y => `<option value="${y}"${y === cur ? ' selected' : ''}>${y}</option>`).join('');
+}
+
+// ── Charger la liste à partir des choix de l'utilisateur ──────────────────
+function chargerFeries() {
+  const pays = document.getElementById('pays').value;
+  const region = document.getElementById('region').value || (REGIONS[pays] && REGIONS[pays][0] && REGIONS[pays][0].code) || '';
+  const annee = parseInt(document.getElementById('annee').value);
+  const includeOptional = document.getElementById('inclureOpt').value === 'oui';
+  const org = document.getElementById('orgName').value.trim();
+
+  const hols = buildHolidays(pays, region, annee, includeOptional);
+  currentList = hols.map((h, i) => ({
+    id: 'h' + i,
+    dateISO: h.dateISO,
+    names: h.names,
+    type: 'officiel',
+    incluse: true
+  }));
+  currentMeta = { pays, region, annee, org };
+
+  // Popup don (1× par session)
+  if (window.CDSite) setTimeout(function(){ CDSite.showDonatePopup(lang); }, 600);
+
+  document.getElementById('listeSection').classList.add('visible');
+  renderListe();
+  document.getElementById('listeSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderListe() {
+  const t = i18n[lang];
+  const tb = document.getElementById('ferieTbody');
+  // Trier par date pour l'affichage
+  currentList.sort((a,b) => a.dateISO.localeCompare(b.dateISO));
+  tb.innerHTML = currentList.map(h => {
+    const d = new Date(h.dateISO + 'T00:00:00');
+    const jourLabel = t.joursSemaine[d.getDay()];
+    const dateLabel = formatDateLong(d);
+    const nom = h.names[lang] || h.names.fr;
+    const badgeCls = h.type === 'officiel' ? 'officiel' : 'custom';
+    const badgeLbl = h.type === 'officiel' ? t.typeOfficiel : t.typeCustom;
+    const rowCls = h.incluse ? '' : 'excluded';
+    const actionBtn = h.incluse
+      ? `<button class="btn-del" onclick="retirerFerie('${h.id}')">${t.actionRetirer}</button>`
+      : `<button class="btn-restore" onclick="restaurerFerie('${h.id}')">↺ ${t.actionRetablir}</button>`;
+    return `<tr class="${rowCls}" data-id="${h.id}">
+      <td class="col-check"><input type="checkbox" ${h.incluse ? 'checked' : ''} onchange="togglerFerie('${h.id}', this.checked)"></td>
+      <td class="col-date">${dateLabel}</td>
+      <td class="col-jour">${jourLabel}</td>
+      <td class="col-nom">${escapeHtml(nom)}</td>
+      <td class="col-type"><span class="badge ${badgeCls}">${badgeLbl}</span></td>
+      <td class="col-actions">${actionBtn}</td>
+    </tr>`;
+  }).join('');
+
+  // Banner
+  const banner = document.getElementById('orgBanner');
+  if (currentMeta.org) {
+    banner.style.display = '';
+    document.getElementById('bannerName').textContent = currentMeta.org;
+  } else {
+    banner.style.display = '';
+    document.getElementById('bannerName').textContent = '—';
+  }
+  const paysLbl = PAYS_LABELS[lang][currentMeta.pays] || currentMeta.pays;
+  const regionLbl = (REGIONS[currentMeta.pays] || []).find(r => r.code === currentMeta.region);
+  const regionTxt = regionLbl ? (regionLbl.label[lang] || regionLbl.label.fr) : '';
+  const nInclus = currentList.filter(h => h.incluse).length;
+  document.getElementById('bannerSub').textContent = t.bannerSub
+    .replace('{pays}', paysLbl)
+    .replace('{region}', regionTxt)
+    .replace('{annee}', currentMeta.annee)
+    .replace('{n}', nInclus);
+
+  // Sommaire
+  const off = currentList.filter(h => h.incluse && h.type === 'officiel').length;
+  const cus = currentList.filter(h => h.incluse && h.type === 'custom').length;
+  const ret = currentList.filter(h => !h.incluse).length;
+  document.getElementById('summaryBar').innerHTML = `
+    <div class="summary-item"><div class="summary-label">${t.summaryTotal}</div><div class="summary-val">${nInclus}</div></div>
+    <div class="summary-item" style="border-color: var(--ferie)"><div class="summary-label">${t.summaryOfficiel}</div><div class="summary-val">${off}</div></div>
+    <div class="summary-item" style="border-color: var(--custom)"><div class="summary-label">${t.summaryCustom}</div><div class="summary-val">${cus}</div></div>
+    <div class="summary-item" style="border-color: var(--gris)"><div class="summary-label">${t.summaryRetires}</div><div class="summary-val">${ret}</div></div>
+  `;
+}
+
+function formatDateLong(d) {
+  const t = i18n[lang];
+  const day = d.getDate();
+  const mois = t.moisLong[d.getMonth()];
+  const annee = d.getFullYear();
+  if (lang === 'en') {
+    return `${capitalize(mois)} ${day}, ${annee}`;
+  }
+  if (lang === 'es') {
+    return `${day} de ${mois} de ${annee}`;
+  }
+  return `${day} ${mois} ${annee}`;
+}
+function capitalize(s){ return s.charAt(0).toUpperCase() + s.slice(1); }
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c])); }
+// Strip emojis (drapeaux, symboles divers) pour le PDF, car jsPDF ne les supporte pas avec ses polices de base
+function stripEmoji(s) {
+  if (!s) return '';
+  return String(s)
+    .replace(/[\u{1F1E6}-\u{1F1FF}]/gu, '')  // Drapeaux (Regional Indicator Symbols)
+    .replace(/[\u{1F300}-\u{1F9FF}]/gu, '')  // Pictogrammes, symboles, transports, etc.
+    .replace(/[\u{2600}-\u{27BF}]/gu, '')    // Symboles divers & flèches
+    .replace(/[\u{FE00}-\u{FE0F}]/gu, '')    // Variation selectors
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function togglerFerie(id, checked) {
+  const h = currentList.find(x => x.id === id);
+  if (!h) return;
+  h.incluse = !!checked;
+  renderListe();
+}
+function retirerFerie(id) {
+  const h = currentList.find(x => x.id === id);
+  if (!h) return;
+  // Personnalisé : suppression réelle ; officiel : marqué non-inclus
+  if (h.type === 'custom') {
+    currentList = currentList.filter(x => x.id !== id);
+  } else {
+    h.incluse = false;
+  }
+  renderListe();
+}
+function restaurerFerie(id) {
+  const h = currentList.find(x => x.id === id);
+  if (!h) return;
+  h.incluse = true;
+  renderListe();
+}
+function ajouterFerie() {
+  const t = i18n[lang];
+  const dateVal = document.getElementById('addDate').value;
+  const nomVal = document.getElementById('addNom').value.trim();
+  if (!dateVal) { alert(t.alertNoDate); return; }
+  if (!nomVal) { alert(t.alertNoNom); return; }
+  const newId = 'c' + Date.now();
+  currentList.push({
+    id: newId,
+    dateISO: dateVal,
+    names: { fr: nomVal, en: nomVal, es: nomVal },
+    type: 'custom',
+    incluse: true
+  });
+  document.getElementById('addDate').value = '';
+  document.getElementById('addNom').value = '';
+  renderListe();
+}
+
+// ── Exports ───────────────────────────────────────────────────────────────
+function getListeIncluse() {
+  return currentList.filter(h => h.incluse).slice().sort((a,b) => a.dateISO.localeCompare(b.dateISO));
+}
+function fileSuffix() {
+  const t = i18n[lang];
+  const org = (currentMeta.org || '').replace(/[^a-z0-9-]/gi, '_').replace(/_+/g,'_').replace(/^_|_$/g,'');
+  const orgPart = org ? `-${org}` : '';
+  return `feries${orgPart}-${currentMeta.annee}`;
+}
+
+function exporterICal() {
+  const t = i18n[lang];
+  const liste = getListeIncluse();
+  if (!liste.length) { alert('Aucun férié inclus.'); return; }
+  const now = new Date().toISOString().replace(/[-:]/g,'').split('.')[0]+'Z';
+  let ics = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//CalculDates.ca//Organization Holidays//EN',
+    'CALSCALE:GREGORIAN',
+    'METHOD:PUBLISH',
+    `X-WR-CALNAME:${currentMeta.org ? currentMeta.org + ' — ' : ''}${t.bannerLabel} ${currentMeta.annee}`,
+    'X-WR-TIMEZONE:America/Toronto',
+  ];
+  liste.forEach(h => {
+    const d = new Date(h.dateISO + 'T00:00:00');
+    const dEnd = addDays(d, 1);
+    const dateIcs = h.dateISO.replace(/-/g,'');
+    const endIcs = toISO(dEnd).replace(/-/g,'');
+    const titre = '🎉 ' + (h.names[lang] || h.names.fr);
+    const uid = (h.id + '-' + currentMeta.annee + '@calculdates.ca').replace(/\s+/g,'');
+    ics = ics.concat([
+      'BEGIN:VEVENT',
+      `UID:${uid}`,
+      `DTSTAMP:${now}`,
+      `DTSTART;VALUE=DATE:${dateIcs}`,
+      `DTEND;VALUE=DATE:${endIcs}`,
+      `SUMMARY:${titre}`,
+      'TRANSP:TRANSPARENT',
+      'END:VEVENT',
+    ]);
+  });
+  ics.push('END:VCALENDAR');
+  const blob = new Blob([ics.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = fileSuffix() + '.ics'; a.click();
+  URL.revokeObjectURL(url);
+  alert(t.icalMsg);
+}
+
+function ouvrirGoogle() {
+  exporterICal();
+  setTimeout(() => {
+    window.open('https://calendar.google.com/calendar/u/0/r/settings/export', '_blank');
+  }, 600);
+}
+
+function imprimerListe() {
+  if (confirm(i18n[lang].printTip)) window.print();
+}
+
+function telechargerXLSX() {
+  const t = i18n[lang];
+  try {
+    const liste = getListeIncluse();
+    const rows = [[t.xlsxColDate, t.xlsxColJour, t.xlsxColNom, t.xlsxColType]];
+    liste.forEach(h => {
+      const d = new Date(h.dateISO + 'T00:00:00');
+      rows.push([
+        h.dateISO,
+        t.joursSemaine[d.getDay()],
+        h.names[lang] || h.names.fr,
+        h.type === 'officiel' ? t.typeOfficiel : t.typeCustom
+      ]);
+    });
+    const ws = XLSX.utils.aoa_to_sheet(rows);
+    // Largeurs de colonnes
+    ws['!cols'] = [{ wch: 14 }, { wch: 10 }, { wch: 38 }, { wch: 14 }];
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, t.xlsxSheetName);
+    // Métadonnées
+    wb.Props = {
+      Title: t.pdfTitle + ' — ' + currentMeta.annee,
+      Author: 'CalculDates.ca',
+      Company: currentMeta.org || 'CalculDates.ca'
+    };
+    XLSX.writeFile(wb, fileSuffix() + '.xlsx');
+  } catch (e) {
+    console.error(e);
+    alert(t.alertXlsxErr);
+  }
+}
+
+function telechargerPDF() {
+  const t = i18n[lang];
+  try {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const pageW = 210, pageH = 297;
+    const marginX = 14;
+    let y = 18;
+
+    // Titre
+    doc.setFont('times', 'bold');
+    doc.setFontSize(18);
+    doc.setTextColor(26, 58, 92);
+    doc.text(stripEmoji(t.pdfTitle), pageW/2, y, { align: 'center' });
+    y += 7;
+
+    // Sous-titre : organisation
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(11);
+    doc.setTextColor(90, 90, 90);
+    if (currentMeta.org) {
+      doc.text(stripEmoji(`${t.pdfFor} : ${currentMeta.org}`), pageW/2, y, { align: 'center' });
+      y += 5.5;
+    }
+    const paysLbl = stripEmoji(PAYS_LABELS[lang][currentMeta.pays] || currentMeta.pays);
+    const regionLbl = (REGIONS[currentMeta.pays] || []).find(r => r.code === currentMeta.region);
+    const regionTxt = regionLbl ? stripEmoji(regionLbl.label[lang] || regionLbl.label.fr) : '';
+    doc.text(`${paysLbl} · ${regionTxt} · ${t.pdfPeriode} ${currentMeta.annee}`, pageW/2, y, { align: 'center' });
+    y += 9;
+
+    // Ligne de séparation
+    doc.setDrawColor(232, 197, 71);
+    doc.setLineWidth(0.6);
+    doc.line(marginX, y, pageW - marginX, y);
+    y += 7;
+
+    // En-tête de tableau
+    const liste = getListeIncluse();
+    const colDateX = marginX;
+    const colJourX = marginX + 36;
+    const colNomX = marginX + 60;
+    const colTypeX = pageW - marginX - 32;
+
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8.5);
+    doc.setTextColor(138, 138, 138);
+    doc.text(stripEmoji(t.xlsxColDate).toUpperCase(), colDateX, y);
+    doc.text(stripEmoji(t.xlsxColJour).toUpperCase(), colJourX, y);
+    doc.text(stripEmoji(t.xlsxColNom).toUpperCase(), colNomX, y);
+    doc.text(stripEmoji(t.xlsxColType).toUpperCase(), colTypeX, y);
+    y += 2;
+    doc.setDrawColor(220, 215, 205);
+    doc.setLineWidth(0.3);
+    doc.line(marginX, y, pageW - marginX, y);
+    y += 5;
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(10.5);
+    doc.setTextColor(40, 40, 40);
+
+    liste.forEach((h, idx) => {
+      if (y > pageH - 22) {
+        doc.addPage();
+        y = 18;
+      }
+      const d = new Date(h.dateISO + 'T00:00:00');
+      const dateAff = stripEmoji(formatDateLong(d));
+      const jourAff = stripEmoji(t.joursSemaine[d.getDay()]);
+      const nom = stripEmoji(h.names[lang] || h.names.fr);
+      const typeAff = stripEmoji(h.type === 'officiel' ? t.typeOfficiel : t.typeCustom);
+
+      // Alternance
+      if (idx % 2 === 0) {
+        doc.setFillColor(248, 246, 240);
+        doc.rect(marginX - 2, y - 4, pageW - 2*marginX + 4, 7, 'F');
+      }
+      doc.setTextColor(26, 58, 92);
+      doc.setFont('helvetica', 'bold');
+      doc.text(dateAff, colDateX, y);
+      doc.setFont('helvetica', 'normal');
+      doc.setTextColor(120, 120, 120);
+      doc.text(jourAff, colJourX, y);
+      doc.setTextColor(40, 40, 40);
+      // Truncate nom si trop long
+      let nomAff = nom;
+      const maxW = colTypeX - colNomX - 4;
+      while (doc.getTextWidth(nomAff) > maxW && nomAff.length > 1) nomAff = nomAff.slice(0, -1);
+      if (nomAff !== nom) nomAff = nomAff.slice(0, -1) + '…';
+      doc.text(nomAff, colNomX, y);
+      // Type
+      if (h.type === 'custom') {
+        doc.setFillColor(142, 68, 173);
+        doc.setTextColor(255, 255, 255);
+      } else {
+        doc.setFillColor(192, 57, 43);
+        doc.setTextColor(255, 255, 255);
+      }
+      const tw = doc.getTextWidth(typeAff);
+      doc.roundedRect(colTypeX - 1, y - 3.2, tw + 4, 5, 1, 1, 'F');
+      doc.setFontSize(8);
+      doc.text(typeAff, colTypeX + 1, y - 0.2);
+      doc.setFontSize(10.5);
+      doc.setTextColor(40, 40, 40);
+      doc.setFont('helvetica', 'normal');
+
+      y += 7;
+    });
+
+    // Pied de page
+    const pageCount = doc.internal.getNumberOfPages();
+    for (let p = 1; p <= pageCount; p++) {
+      doc.setPage(p);
+      doc.setFont('helvetica', 'normal');
+      doc.setFontSize(7.5);
+      doc.setTextColor(138, 138, 138);
+      doc.text('CalculDates.ca', pageW/2, pageH - 6, { align: 'center' });
+    }
+
+    doc.save(fileSuffix() + '.pdf');
+  } catch (e) {
+    console.error(e);
+    alert(t.alertPdfErr);
+  }
+}
+
+// ── Initialisation ────────────────────────────────────────────────────────
+function initFeriesPage() {
+  try {
+    if (window.CDSite && typeof CDSite.getStoredLang === 'function') {
+      lang = CDSite.getStoredLang() || 'fr';
+    }
+  } catch(e) { lang = 'fr'; }
+  document.documentElement.lang = lang;
+  document.body.className = 'lang-' + lang;
+  document.querySelectorAll('#langToggle .lang-opt').forEach(o => {
+    o.classList.toggle('active', o.dataset.lang === lang);
+  });
+  renderAnneeOptions();
+  renderRegionOptions();
+  // Quand on change de pays, recharger les régions
+  document.getElementById('pays').addEventListener('change', renderRegionOptions);
+
+  try { applyTranslations(); } catch(e) { console.warn('applyTranslations:', e); }
+  try { renderAll(); } catch(e) { console.warn('renderAll:', e); }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFeriesPage);
+} else {
+  initFeriesPage();
+}
+</script>
+
+<!-- Filet de sécurité : garantit le menu, le footer, les pubs -->
+<script>
+(function(){
+  function safetyRender() {
+    try {
+      if (!window.CDSite) return;
+      var curLang = (typeof lang === 'string' && lang) ? lang : 'fr';
+      var nav = document.getElementById('siteNav');
+      if (nav && nav.innerHTML.trim().length === 0) {
+        CDSite.renderNav(curLang, 'feries', 'siteNav');
+      }
+      var fl = document.getElementById('footerLinks');
+      if (fl && fl.innerHTML.trim().length === 0) {
+        CDSite.renderFooterLinks(curLang, 'footerLinks');
+      }
+      var adsHtml = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      var topAds = document.getElementById('topAds');
+      if (topAds && topAds.innerHTML.trim().length === 0) {
+        topAds.innerHTML = adsHtml;
+      }
+      var ads = document.getElementById('bottomAds');
+      if (ads && ads.innerHTML.trim().length === 0) {
+        ads.innerHTML = adsHtml;
+      }
+      var disc = document.getElementById('affiliateDisclosure');
+      if (disc && !disc.textContent.trim()) {
+        disc.textContent = CDSite.SHARED[curLang].affiliateDisclosure;
+      }
+    } catch(e) { console.warn('safetyRender feries:', e); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safetyRender);
+  } else {
+    safetyRender();
+  }
+  window.addEventListener('load', safetyRender);
+})();
+</script>
+
+</body>
+</html>

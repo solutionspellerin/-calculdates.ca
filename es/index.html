@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=G-Y86YEGXHVV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-Y86YEGXHVV');
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Calculadora de fechas gratuita: sume o reste días, semanas, meses o años y calcule plazos legales y administrativos en Quebec." name="description"/>
+<meta content="jXhNUrsAIoFqQ1_uFSZ2SlcuDVoL7qo7_Jvtgv_lFHk" name="google-site-verification"/>
+<title>Calculadora de fechas gratuita para Quebec | CalculDates.ca</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=DM+Sans:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="../assets/ads.css?v=20260526a" rel="stylesheet"/>
+<script async="" crossorigin="anonymous" src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7530479618507451"></script>
+<style>
+  :root {
+    --bleu: #1a3a5c; --bleu-clair: #2d6a9f; --accent: #e8c547;
+    --fond: #f4f1eb; --blanc: #ffffff; --gris: #8a8a8a;
+    --gris-clair: #e8e4dc; --texte: #1a1a1a;
+    --ombre: 0 4px 24px rgba(26,58,92,0.10);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--fond); color: var(--texte); min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
+
+  header { width: 100%; background: var(--bleu); padding: 18px 32px; display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Playfair Display', serif; color: var(--accent); font-size: 1.3rem; letter-spacing: 0.03em; text-decoration: none; }
+  .logo span { color: var(--blanc); font-weight: 300; }
+  .header-right { display: flex; align-items: center; gap: 14px; }
+  .lang-label { color: rgba(255,255,255,0.55); font-size: 0.78rem; letter-spacing: 0.05em; }
+
+  nav.site-nav { width: 100%; background: #142d47; border-bottom: 2px solid rgba(232,197,71,0.2); }
+  nav.site-nav .nav-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; padding: 0 16px; gap: 4px; overflow-x: auto; }
+  nav.site-nav .nav-link { display: inline-block; padding: 12px 16px; color: rgba(255,255,255,0.6); font-size: 0.85rem; font-weight: 500; text-decoration: none; letter-spacing: 0.03em; white-space: nowrap; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s; }
+  nav.site-nav .nav-link:hover { color: var(--blanc); }
+  nav.site-nav .nav-link.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  main { width: 100%; max-width: 1080px; padding: 24px 16px 64px; display: grid; grid-template-columns: 1fr 320px; gap: 28px; align-items: start; }
+
+  .card { background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); overflow: hidden; }
+  .card-header { background: var(--bleu); padding: 24px 32px 20px; position: relative; overflow: hidden; }
+  .card-header::before { content: ''; position: absolute; right: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; background: rgba(232,197,71,0.12); }
+  .card-header::after { content: ''; position: absolute; right: 20px; top: 20px; width: 80px; height: 80px; border-radius: 50%; background: rgba(232,197,71,0.08); }
+  .card-header h1 { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--blanc); margin-bottom: 6px; position: relative; z-index: 1; }
+  .card-header p { color: rgba(255,255,255,0.65); font-size: 0.88rem; font-weight: 300; position: relative; z-index: 1; }
+  .card-body { padding: 32px; }
+
+  .direction-toggle { display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 28px; background: var(--fond); border-radius: 12px; padding: 14px 20px; border: 1.5px solid var(--gris-clair); flex-wrap: wrap; }
+  .dir-label { font-size: 0.82rem; font-weight: 500; color: var(--gris); transition: color 0.25s; white-space: nowrap; text-align: center; }
+  .dir-label.active { color: var(--bleu); font-weight: 600; }
+  .dir-switch { position: relative; width: 52px; height: 26px; background: var(--bleu); border-radius: 13px; cursor: pointer; flex-shrink: 0; border: none; outline: none; }
+  .dir-switch-thumb { position: absolute; left: 3px; top: 3px; width: 20px; height: 20px; background: var(--accent); border-radius: 50%; transition: transform 0.3s cubic-bezier(.4,0,.2,1); }
+  body.dir-backward .dir-switch-thumb { transform: translateX(26px); }
+
+  .form-group { margin-bottom: 22px; }
+  label { display: block; font-size: 0.78rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris); margin-bottom: 8px; }
+  input[type="date"], input[type="number"], select { width: 100%; padding: 13px 16px; border: 1.5px solid var(--gris-clair); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 1rem; color: var(--texte); background: var(--fond); transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; outline: none; }
+  input[type="date"]:focus, input[type="number"]:focus, select:focus { border-color: var(--bleu-clair); box-shadow: 0 0 0 3px rgba(45,106,159,0.12); background: var(--blanc); }
+  .select-wrapper { position: relative; }
+  .select-wrapper::after { content: '▾'; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: var(--gris); pointer-events: none; }
+  .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .result-box { margin-top: 8px; background: var(--bleu); border-radius: 12px; padding: 24px 28px; position: relative; overflow: hidden; }
+  .result-box::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: var(--accent); border-radius: 4px 0 0 4px; }
+  .result-label { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); margin-bottom: 8px; }
+  .result-date { font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--blanc); min-height: 2.4rem; transition: all 0.3s ease; }
+  .result-day { font-size: 0.88rem; color: var(--accent); margin-top: 6px; font-weight: 500; min-height: 1.2rem; }
+  .result-delta { font-size: 0.82rem; color: rgba(255,255,255,0.5); margin-top: 4px; min-height: 1rem; }
+  .result-date.empty { color: rgba(255,255,255,0.2); font-size: 1rem; font-family: 'DM Sans', sans-serif; font-weight: 300; padding-top: 6px; }
+
+  .sidebar { display: flex; flex-direction: column; gap: 16px; }
+  .info-card { background: var(--blanc); border-radius: 14px; box-shadow: var(--ombre); padding: 22px 24px; }
+  .info-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--bleu); margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1.5px solid var(--gris-clair); }
+  .info-item { display: flex; justify-content: space-between; align-items: center; padding: 9px 0; border-bottom: 1px solid var(--gris-clair); font-size: 0.88rem; }
+  .info-item:last-child { border-bottom: none; }
+  .info-item .label { color: var(--gris); text-transform: none; letter-spacing: 0; font-weight: 400; margin-bottom: 0; }
+  .info-item .value { font-weight: 500; color: var(--bleu); }
+
+  .scenarios { grid-column: 1 / -1; background: var(--blanc); border-radius: 16px; box-shadow: var(--ombre); padding: 28px 32px; }
+  .scenarios h2 { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--bleu); margin-bottom: 20px; }
+  .scenarios-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .scenario-btn { background: var(--fond); border: 1.5px solid var(--gris-clair); border-radius: 10px; padding: 14px 16px; cursor: pointer; text-align: left; transition: all 0.2s; font-family: 'DM Sans', sans-serif; }
+  .scenario-btn:hover { border-color: var(--bleu-clair); background: var(--blanc); box-shadow: 0 2px 12px rgba(45,106,159,0.10); }
+  .scenario-btn .s-title { font-size: 0.85rem; font-weight: 500; color: var(--bleu); margin-bottom: 3px; }
+  .scenario-btn .s-desc  { font-size: 0.75rem; color: var(--gris); }
+
+  .disclaimer-scenarios { margin-top: 20px; padding: 14px 18px; background: #fff8e6; border-left: 3px solid var(--accent); border-radius: 8px; font-size: 0.8rem; line-height: 1.7; color: #666; }
+
+  footer { width: 100%; background: var(--bleu); padding: 20px 32px; text-align: center; color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: auto; }
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; margin: 0 8px; }
+  footer a:hover { color: var(--accent); }
+  .footer-links { margin-bottom: 10px; }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .animate { animation: fadeUp 0.3s ease forwards; }
+
+  @media (max-width: 900px) { main { grid-template-columns: 1fr; } .scenarios-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .scenarios-grid { grid-template-columns: 1fr; } .row-2 { grid-template-columns: 1fr; } header { padding: 14px 16px; } .lang-label { display: none; } }
+</style>
+<link href="https://www.calculdates.ca/es/" rel="canonical"/><link href="https://www.calculdates.ca/" hreflang="fr" rel="alternate"/><link href="https://www.calculdates.ca/en/" hreflang="en" rel="alternate"/><link href="https://www.calculdates.ca/es/" hreflang="es" rel="alternate"/><link href="https://www.calculdates.ca/" hreflang="x-default" rel="alternate"/></head>
+<body>
+<header>
+<a class="logo" href="index.html">Calcul<span>Dates</span>.ca</a>
+<div class="header-right">
+<span class="lang-label" id="headerSubtitle">Herramienta gratuita · Québec</span>
+<div class="lang-toggle-3" id="langToggle" onclick="toggleLang()" title="Language">
+<span class="lang-opt" data-lang="fr">FR</span>
+<span class="lang-opt" data-lang="en">EN</span>
+<span class="lang-opt" data-lang="es">ES</span>
+</div>
+</div>
+</header>
+<nav class="site-nav">
+<div class="nav-inner" id="siteNav"></div>
+</nav>
+<main>
+<div class="card">
+<div class="card-header">
+<h1 id="mainTitle">Calcular fechas</h1>
+<p id="mainSubtitle">Agregue días, semanas, meses o años a una fecha de inicio</p>
+</div>
+<div class="card-body">
+<div class="direction-toggle">
+<span class="dir-label active" id="dirLabelForward">Fecha inicio → Fecha límite</span>
+<button class="dir-switch" id="dirSwitch" onclick="toggleDirection()" title="Inverser le sens">
+<div class="dir-switch-thumb"></div>
+</button>
+<span class="dir-label" id="dirLabelBackward">Fecha límite → Fecha inicio</span>
+</div>
+<div class="form-group">
+<label id="labelStart">Date de départ <span id="startDayLabel" style="color:var(--bleu-clair);font-weight:500;text-transform:none;letter-spacing:0;font-size:0.85rem;"></span></label>
+<input id="startDate" type="date"/>
+</div>
+<div class="row-2">
+<div class="form-group">
+<label id="labelQty">Cantidad</label>
+<input id="quantity" min="0" placeholder="ex: 18" type="number"/>
+</div>
+<div class="form-group">
+<label id="labelUnit">Unidad</label>
+<div class="select-wrapper">
+<select id="unit">
+<option id="optChoose" value="">— Elegir —</option>
+<option id="optDay" value="day">Día(s)</option>
+<option id="optWeek" value="week">Semana(s)</option>
+<option id="optMonth" value="month">Mes(es)</option>
+<option id="optYear" value="year">Año(s)</option>
+</select>
+</div>
+</div>
+</div>
+<div class="result-box">
+<div class="result-label" id="resultLabel">Fecha límite</div>
+<div class="result-date empty" id="resultDate">Remplissez les champs ci-dessus</div>
+<div class="result-day" id="resultDay"></div>
+<div class="result-delta" id="resultDelta"></div>
+</div>
+</div>
+</div>
+<aside class="sidebar">
+<div class="info-card">
+<h3 id="infoTitle">📋 Información calculada</h3>
+<div class="info-item"><span class="label" id="labelTotalDays">Días totales</span><span class="value" id="infoJours">—</span></div>
+<div class="info-item"><span class="label" id="labelWeeks">Semanas completas</span><span class="value" id="infoSemaines">—</span></div>
+<div class="info-item"><span class="label" id="labelMonths">Meses completos</span><span class="value" id="infoMois">—</span></div>
+<div class="info-item"><span class="label" id="labelDayOfWeek">Día de la semana</span><span class="value" id="infoJourSemaine">—</span></div>
+<div class="info-item"><span class="label" id="labelSundayWeek">Inicio semana civil</span><span class="value" id="infoDimanche">—</span></div>
+</div>
+</aside>
+<div class="scenarios">
+<h2 id="scenariosTitle">⚡ Escenarios frecuentes en Quebec</h2>
+<div class="scenarios-grid" id="scenariosGrid"><button class="scenario-btn" onclick="applyScenario(21,'week','forward')"><div class="s-title">🤱 Maternidad — sector público</div><div class="s-desc">21 semanas (convenio colectivo)</div></button><button class="scenario-btn" onclick="applyScenario(18,'week','forward')"><div class="s-title">🤱 Maternidad — plan base</div><div class="s-desc">18 semanas (RQAP)</div></button><button class="scenario-btn" onclick="applyScenario(15,'week','forward')"><div class="s-title">🤱 Maternidad — plan especial</div><div class="s-desc">15 semanas (RQAP)</div></button><button class="scenario-btn" onclick="applyScenario(5,'week','forward')"><div class="s-title">👨 Permiso paternidad</div><div class="s-desc">5 semanas (RQAP)</div></button><button class="scenario-btn" onclick="applyScenario(32,'week','forward')"><div class="s-title">👶 Permiso parental</div><div class="s-desc">32 semanas compartibles</div></button><button class="scenario-btn" onclick="applyScenario(45,'day','forward')"><div class="s-title">⚖️ Denuncia despido</div><div class="s-desc">45 días (Normas laborales)</div></button><button class="scenario-btn" onclick="applyScenario(3,'month','backward')"><div class="s-title">🏠 Terminación arrendamiento</div><div class="s-desc">Fin contrato → cuándo enviar aviso (3 meses)</div></button><button class="scenario-btn" onclick="applyScenario(1,'year','forward')"><div class="s-title">📅 Fin garantía</div><div class="s-desc">1 año tras compra/construcción</div></button></div>
+<div class="disclaimer-scenarios" id="disclaimerScenarios">⚠️ Estos escenarios son solo informativos. Los plazos legales varían según su situación, convenio colectivo o leyes vigentes.</div>
+</div>
+<div style="grid-column: 1 / -1;">
+<div class="ads-row" id="bottomAds"></div>
+</div>
+<!-- ════════════════════════════════════════════════════════════════════
+       Contenu éditorial statique (SEO + valeur informative AdSense)
+       Rendu en HTML statique en 3 langues — toggle via class lang-only-*.
+       ════════════════════════════════════════════════════════════════════ -->
+<section class="cd-seo" style="grid-column: 1 / -1;">
+<!-- ===================== FRANÇAIS ===================== -->
+<!-- ===================== ENGLISH ===================== -->
+<!-- ===================== ESPAÑOL ===================== -->
+<div class="lang-only-es">
+<h2>Calculadora de fechas para Quebec — herramienta gratuita trilingüe</h2>
+<p><strong>CalculDates.ca</strong> es una herramienta quebequense gratuita que ayuda a padres, trabajadores, estudiantes, gerentes y profesionales a <strong>calcular rápidamente fechas importantes</strong>: plazos administrativos, días festivos, plazos legales, semanas de embarazo, calendarios de custodia compartida, rotaciones laborales y períodos de nómina. El sitio es totalmente gratuito, sin registro, y está disponible en francés, inglés y español.</p>
+<p>Ya sea que necesite planificar su regreso al trabajo después de un permiso parental, verificar el plazo para impugnar un despido, organizar el calendario de custodia de sus hijos o simplemente agregar 90 días a una fecha de compra para verificar una garantía, esta calculadora le da la respuesta en segundos — con el día de la semana, el número de días hábiles y la semana civil correspondiente.</p>
+<h3>Cómo usar la calculadora de fechas</h3>
+<ol>
+<li><strong>Elija la dirección del cálculo</strong> con el interruptor superior: «Fecha de inicio → Fecha límite» (cálculo hacia adelante) o «Fecha límite → Fecha de inicio» (cálculo hacia atrás, útil para saber cuándo enviar un aviso).</li>
+<li><strong>Seleccione la fecha de referencia</strong> con el selector. El día de la semana se muestra automáticamente para confirmar su elección.</li>
+<li><strong>Ingrese la cantidad y la unidad de tiempo</strong>: días, semanas, meses o años. Para un plazo de 45 días, por ejemplo, seleccione «45» y «Día(s)».</li>
+<li><strong>Lea el resultado</strong>: la fecha calculada, el día de la semana correspondiente y la información complementaria (total de días, semanas completas, meses completos, inicio de la semana civil).</li>
+</ol>
+<p>También puede utilizar los <strong>escenarios frecuentes en Quebec</strong> que aparecen debajo de la calculadora: con un clic se rellenan los valores adecuados para plazos comunes como permiso de maternidad (RQAP), aviso de fin de contrato de arrendamiento, denuncia ante las Normas Laborales o vencimiento de garantía.</p>
+<h3>Nuestras calculadoras especializadas</h3>
+<div class="seo-cards">
+<div class="seo-card">
+<h4>📅 Calendario de custodia compartida</h4>
+<p>Genere un calendario visual personalizado para su custodia (7/7, 3-2-2-3, 2-2-3, 5/2, fines de semana alternos). Exporte a PDF, Apple, Outlook, Google Calendar.</p>
+<p><a href="garde.html">Abrir la calculadora de custodia →</a></p>
+</div>
+<div class="seo-card">
+<h4>🔁 Rotación laboral</h4>
+<p>Horarios 2/2, 14/14, 7/7 o rotación personalizada. Ideal para trabajo en campamentos, construcción, FIFO y turnos atípicos.</p>
+<p><a href="rotation.html">Calcular mi rotación →</a></p>
+</div>
+<div class="seo-card">
+<h4>🤰 Embarazo (CNESST)</h4>
+<p>Semanas de embarazo, fechas clave del programa <em>Para una maternidad sin peligro</em> de la CNESST, hitos del RQAP, retiro preventivo.</p>
+<p><a href="grossesse.html">Calcular mis semanas →</a></p>
+</div>
+<div class="seo-card">
+<h4>💸 Nómina &amp; fiscal</h4>
+<p>Períodos de nómina semanal, quincenal, bimensual o mensual. Fechas de envío de hojas de horas y depósitos alineadas con su año fiscal.</p>
+<p><a href="paie.html">Configurar mi nómina →</a></p>
+</div>
+<div class="seo-card">
+<h4>🎉 Días festivos</h4>
+<p>Lista oficial de días festivos de Canadá, Estados Unidos, Francia, México, Reino Unido y Alemania, por año y por provincia o región.</p>
+<p><a href="feries.html">Ver los días festivos →</a></p>
+</div>
+<div class="seo-card">
+<h4>📚 Guía práctica</h4>
+<p>Comprender los plazos, permisos y calendarios que marcan la vida en Quebec: RQAP, CNESST, Normas Laborales, arrendamiento residencial, explicados con claridad.</p>
+<p><a href="guide.html">Leer la guía →</a></p>
+</div>
+</div>
+<h3>Para qué sirve una calculadora de fechas en el día a día</h3>
+<p>Muchas situaciones administrativas o legales en Quebec dependen de un plazo preciso expresado en días, semanas o meses. Algunos ejemplos concretos:</p>
+<ul>
+<li><strong>Aviso de fin de contrato de arrendamiento residencial</strong>: según el <em>Tribunal administratif du logement</em>, el inquilino debe enviar su aviso de no renovación entre 3 y 6 meses antes del fin del contrato (según la duración). Nuestra herramienta calcula hacia atrás la fecha límite desde la fecha de fin de contrato.</li>
+<li><strong>Denuncia por despido injustificado</strong>: la <em>Ley sobre las normas laborales</em> establece un plazo de 45 días desde el despido para presentar una denuncia ante la CNESST. Calcule la fecha tope para no perderla.</li>
+<li><strong>Períodos del Régimen Quebequense de Seguro Parental (RQAP)</strong>: permiso de maternidad (15 o 18 semanas según el régimen), permiso de paternidad (3 o 5 semanas), permiso parental (25 o 32 semanas compartibles). Visualice las fechas exactas según cuándo planee comenzar.</li>
+<li><strong>Garantía legal y contractual</strong>: 1 año para defectos aparentes, hasta 5 años para defectos ocultos según la ley quebequense. Sume la duración a la fecha de compra para conocer el vencimiento.</li>
+<li><strong>Plazo de prescripción civil</strong>: 3 años para la mayoría de las acciones de responsabilidad civil (artículo 2925 del <em>Código Civil de Quebec</em>). Imprescindible para saber si aún se puede demandar.</li>
+<li><strong>Períodos fiscales y declaraciones</strong>: alinee sus fechas de fin de período y vencimientos fiscales con su año contable.</li>
+</ul>
+<div class="seo-callout">💡 <strong>Consejo:</strong> los plazos contados en días generalmente empiezan <em>al día siguiente</em> del evento desencadenante (artículo 83 del <em>Código de Procedimiento Civil de Quebec</em>). Si el último día cae en sábado, domingo o festivo, se traslada al siguiente día hábil. Para situaciones delicadas, valide siempre la fecha con un abogado o asesor competente.</div>
+<h3>Preguntas frecuentes</h3>
+<div class="seo-faq">
+<details>
+<summary>¿Es confiable la calculadora de fechas?</summary>
+<p>La herramienta utiliza las funciones estándar de cálculo de fechas del calendario gregoriano (el calendario civil oficial de Quebec y Canadá). Tiene en cuenta los años bisiestos, las longitudes variables de los meses y los cambios de año. Para los plazos legales o administrativos, sin embargo, le recomendamos validar la fecha obtenida con la fuente oficial o un profesional — algunos plazos tienen reglas particulares (conteo desde el día siguiente, traslado al día hábil siguiente, etc.).</p>
+</details>
+<details>
+<summary>¿Se guardan mis datos?</summary>
+<p>No. Todas las operaciones se realizan directamente en su navegador, sin envío a un servidor. CalculDates.ca no almacena ninguna fecha ni información personal. Solo se guarda localmente su preferencia de idioma (en <code>localStorage</code>) para que no tenga que elegirla en cada visita.</p>
+</details>
+<details>
+<summary>¿Puedo usar esta calculadora fuera de Quebec?</summary>
+<p>Sí — las operaciones con fechas funcionan en cualquier lugar. Sin embargo, los escenarios propuestos (aviso de arrendamiento, permisos RQAP, denuncias laborales, etc.) se basan en la legislación quebequense. Para otras jurisdicciones, use la calculadora libre y verifique los plazos aplicables con las autoridades locales.</p>
+</details>
+<details>
+<summary>¿Cómo calculo una fecha hacia atrás?</summary>
+<p>Active el interruptor «Fecha límite → Fecha de inicio» en la parte superior. Luego ingrese la fecha límite y la duración a restar. Ejemplo: para saber cuándo enviar un aviso 3 meses antes del fin de su contrato el 30 de junio de 2026, seleccione el modo hacia atrás, la fecha 2026-06-30, y «3 Meses» — la herramienta le dará la fecha límite de envío.</p>
+</details>
+<details>
+<summary>¿Cómo cuento los días hábiles?</summary>
+<p>Para los calendarios de custodia, rotación o nómina, nuestras herramientas especializadas tienen en cuenta los días hábiles, los fines de semana y los festivos. Para un cálculo puntual de días hábiles, use la página <a href="feries.html">Días festivos</a> para exportar los festivos del año y luego réstelos manualmente de su período.</p>
+</details>
+<details>
+<summary>¿Por qué hay anuncios en el sitio?</summary>
+<p>CalculDates.ca es totalmente gratuito. Para cubrir los gastos de alojamiento y desarrollo, el sitio muestra algunos anuncios (Google AdSense) y participa en programas de afiliados (Amazon Associates, Le CFO masqué). Ninguno de estos anuncios le sigue fuera del sitio, y nuestra <a href="privacy-policy.html">política de privacidad</a> detalla exactamente qué datos se comparten.</p>
+</details>
+</div>
+<div class="seo-sources">
+<strong>Recursos oficiales citados en este sitio:</strong>
+<a href="https://www.cnesst.gouv.qc.ca/" rel="noopener" target="_blank">CNESST</a> · <a href="https://www.rqap.gouv.qc.ca/" rel="noopener" target="_blank">RQAP</a> · <a href="https://www.cnesst.gouv.qc.ca/fr/conditions-travail/normes-du-travail" rel="noopener" target="_blank">Normas Laborales</a> · <a href="https://www.tal.gouv.qc.ca/" rel="noopener" target="_blank">Tribunal Administrativo de Vivienda</a> · <a href="https://www.legisquebec.gouv.qc.ca/" rel="noopener" target="_blank">LégisQuébec</a>
+</div>
+<p style="margin-top:18px;font-size:0.86rem;color:#666;">⚠️ CalculDates.ca es una herramienta informativa. Los cálculos y escenarios propuestos no constituyen asesoramiento legal, médico, fiscal ni profesional. Para decisiones importantes, consulte a un profesional cualificado o las fuentes oficiales citadas anteriormente.</p>
+</div>
+</section>
+</main>
+<footer>
+<div class="footer-links" id="footerLinks"><a href="index.html">Calcul dates</a><a href="garde.html">Garde partagée</a><a href="rotation.html">Rotation de travail</a><a href="grossesse.html">Grossesse (CNESST)</a><a href="paie.html">Paie &amp; fiscal</a><a href="guide.html">Guide pratique</a><a href="about.html">À propos</a><a href="privacy-policy.html">Politique de conf.</a></div>
+<div id="footerText">© 2026 CalculDates.ca — Solo con fines informativos. Consulte a un profesional para su situación personal.</div>
+<div style="margin-top:8px;font-size:0.72rem;">
+<a href="mailto:info@calculdates.ca">info@calculdates.ca</a>
+</div>
+</footer>
+<script src="../assets/site-config.js?v=20260526a"></script>
+<script>
+const ACTIVE_PAGE = 'home';
+let lang = (window.CDSite && CDSite.getStoredLang()) || 'fr';
+let direction = 'forward';
+
+const i18n = {
+  fr: {
+    mainTitle:'Calcul dates',
+    mainSubtitleForward:'Ajoutez des jours, semaines, mois ou années à une date de début',
+    mainSubtitleBackward:"Calculez la date de début à partir d'une date d'échéance",
+    dirLabelForward:"Date de début → Date d'échéance",
+    dirLabelBackward:"Date d'échéance → Date de début",
+    labelStartForward:'Date de début', labelStartBackward:"Date d'échéance",
+    labelQty:'Quantité', labelUnit:'Unité',
+    optChoose:'— Choisir —', optDay:'Jour(s)', optWeek:'Semaine(s)', optMonth:'Mois', optYear:'Année(s)',
+    resultLabelForward:"Date d'échéance", resultLabelBackward:'Date de début',
+    resultEmpty:'Remplissez les champs ci-dessus',
+    infoTitle:'📋 Infos calculées',
+    labelTotalDays:'Jours totaux', labelWeeks:'Semaines complètes', labelMonths:'Mois complets',
+    labelDayOfWeek:'Jour de la semaine', labelSundayWeek:'Semaine civile débute',
+    scenariosTitle:'⚡ Scénarios fréquents au Québec',
+    disclaimerScenarios:"⚠️ Ces scénarios sont fournis à titre indicatif seulement. Les délais légaux peuvent varier selon votre situation personnelle, votre convention collective ou les lois en vigueur.",
+    deltaTextForward:(n)=>`${n} jours après la date de début`,
+    deltaTextBackward:(n)=>`${n} jours avant la date d'échéance`,
+    daysUnit:'j', weeksUnit:'sem.', monthsUnit:'mois',
+    days:['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'],
+    months:['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'],
+    scenarios:[
+      {title:'🤱 Maternité — secteur public',desc:'21 semaines (convention collective)',qty:21,unit:'week',dir:'forward'},
+      {title:'🤱 Maternité — régime de base',desc:'18 semaines (RQAP)',qty:18,unit:'week',dir:'forward'},
+      {title:'🤱 Maternité — régime particulier',desc:'15 semaines (RQAP)',qty:15,unit:'week',dir:'forward'},
+      {title:'👨 Congé paternité',desc:'5 semaines (RQAP)',qty:5,unit:'week',dir:'forward'},
+      {title:'👶 Congé parental',desc:'32 semaines partageables',qty:32,unit:'week',dir:'forward'},
+      {title:'⚖️ Plainte congédiement',desc:'45 jours (Normes du travail)',qty:45,unit:'day',dir:'forward'},
+      {title:'🏠 Préavis résiliation bail',desc:'Date de fin de bail → quand envoyer le préavis (3 mois)',qty:3,unit:'month',dir:'backward'},
+      {title:'📅 Fin de garantie',desc:'1 an après achat/construction',qty:1,unit:'year',dir:'forward'},
+    ]
+  },
+  en: {
+    mainTitle:'Date Calculator',
+    mainSubtitleForward:'Add days, weeks, months or years to a start date',
+    mainSubtitleBackward:'Calculate the start date from a deadline',
+    dirLabelForward:'Start date → Deadline', dirLabelBackward:'Deadline → Start date',
+    labelStartForward:'Start date', labelStartBackward:'Deadline',
+    labelQty:'Quantity', labelUnit:'Unit',
+    optChoose:'— Choose —', optDay:'Day(s)', optWeek:'Week(s)', optMonth:'Month(s)', optYear:'Year(s)',
+    resultLabelForward:'Deadline', resultLabelBackward:'Start date',
+    resultEmpty:'Fill in the fields above',
+    infoTitle:'📋 Calculated info',
+    labelTotalDays:'Total days', labelWeeks:'Full weeks', labelMonths:'Full months',
+    labelDayOfWeek:'Day of the week', labelSundayWeek:'Civil week starts',
+    scenariosTitle:'⚡ Common Québec scenarios',
+    disclaimerScenarios:"⚠️ These scenarios are for informational purposes only. Legal deadlines vary based on your situation, collective agreement, or applicable laws.",
+    deltaTextForward:(n)=>`${n} days after the start date`,
+    deltaTextBackward:(n)=>`${n} days before the deadline`,
+    daysUnit:'d', weeksUnit:'wks', monthsUnit:'mo',
+    days:['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+    months:['January','February','March','April','May','June','July','August','September','October','November','December'],
+    scenarios:[
+      {title:'🤱 Maternity — public sector',desc:'21 weeks (collective agreement)',qty:21,unit:'week',dir:'forward'},
+      {title:'🤱 Maternity — base plan',desc:'18 weeks (QPIP)',qty:18,unit:'week',dir:'forward'},
+      {title:'🤱 Maternity — special plan',desc:'15 weeks (QPIP)',qty:15,unit:'week',dir:'forward'},
+      {title:'👨 Paternity leave',desc:'5 weeks (QPIP)',qty:5,unit:'week',dir:'forward'},
+      {title:'👶 Parental leave',desc:'32 shareable weeks',qty:32,unit:'week',dir:'forward'},
+      {title:'⚖️ Wrongful dismissal',desc:'45 days (Labour Standards)',qty:45,unit:'day',dir:'forward'},
+      {title:'🏠 Lease termination',desc:'Lease end date → when to send notice (3 months)',qty:3,unit:'month',dir:'backward'},
+      {title:'📅 Warranty expiry',desc:'1 year after purchase/construction',qty:1,unit:'year',dir:'forward'},
+    ]
+  },
+  es: {
+    mainTitle:'Calcular fechas',
+    mainSubtitleForward:'Agregue días, semanas, meses o años a una fecha de inicio',
+    mainSubtitleBackward:'Calcule la fecha de inicio a partir de una fecha límite',
+    dirLabelForward:'Fecha inicio → Fecha límite', dirLabelBackward:'Fecha límite → Fecha inicio',
+    labelStartForward:'Fecha de inicio', labelStartBackward:'Fecha límite',
+    labelQty:'Cantidad', labelUnit:'Unidad',
+    optChoose:'— Elegir —', optDay:'Día(s)', optWeek:'Semana(s)', optMonth:'Mes(es)', optYear:'Año(s)',
+    resultLabelForward:'Fecha límite', resultLabelBackward:'Fecha de inicio',
+    resultEmpty:'Complete los campos arriba',
+    infoTitle:'📋 Información calculada',
+    labelTotalDays:'Días totales', labelWeeks:'Semanas completas', labelMonths:'Meses completos',
+    labelDayOfWeek:'Día de la semana', labelSundayWeek:'Inicio semana civil',
+    scenariosTitle:'⚡ Escenarios frecuentes en Quebec',
+    disclaimerScenarios:"⚠️ Estos escenarios son solo informativos. Los plazos legales varían según su situación, convenio colectivo o leyes vigentes.",
+    deltaTextForward:(n)=>`${n} días después de la fecha de inicio`,
+    deltaTextBackward:(n)=>`${n} días antes de la fecha límite`,
+    daysUnit:'d', weeksUnit:'sem.', monthsUnit:'mes',
+    days:['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'],
+    months:['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'],
+    scenarios:[
+      {title:'🤱 Maternidad — sector público',desc:'21 semanas (convenio colectivo)',qty:21,unit:'week',dir:'forward'},
+      {title:'🤱 Maternidad — plan base',desc:'18 semanas (RQAP)',qty:18,unit:'week',dir:'forward'},
+      {title:'🤱 Maternidad — plan especial',desc:'15 semanas (RQAP)',qty:15,unit:'week',dir:'forward'},
+      {title:'👨 Permiso paternidad',desc:'5 semanas (RQAP)',qty:5,unit:'week',dir:'forward'},
+      {title:'👶 Permiso parental',desc:'32 semanas compartibles',qty:32,unit:'week',dir:'forward'},
+      {title:'⚖️ Denuncia despido',desc:'45 días (Normas laborales)',qty:45,unit:'day',dir:'forward'},
+      {title:'🏠 Terminación arrendamiento',desc:'Fin contrato → cuándo enviar aviso (3 meses)',qty:3,unit:'month',dir:'backward'},
+      {title:'📅 Fin garantía',desc:'1 año tras compra/construcción',qty:1,unit:'year',dir:'forward'},
+    ]
+  }
+};
+
+function toggleDirection() {
+  direction = direction === 'forward' ? 'backward' : 'forward';
+  document.body.classList.toggle('dir-backward', direction === 'backward');
+  updateDirectionLabels();
+  document.getElementById('startDate').value = '';
+  document.getElementById('startDayLabel').textContent = '';
+  resetResult();
+}
+
+function updateDirectionLabels() {
+  const t = i18n[lang];
+  const isBack = direction === 'backward';
+  document.getElementById('dirLabelForward').classList.toggle('active', !isBack);
+  document.getElementById('dirLabelBackward').classList.toggle('active', isBack);
+  document.getElementById('dirLabelForward').textContent  = t.dirLabelForward;
+  document.getElementById('dirLabelBackward').textContent = t.dirLabelBackward;
+  const ls = document.getElementById('labelStart');
+  const sp = ls.querySelector('span');
+  ls.textContent = (isBack ? t.labelStartBackward : t.labelStartForward) + ' ';
+  ls.appendChild(sp);
+  document.getElementById('resultLabel').textContent = isBack ? t.resultLabelBackward : t.resultLabelForward;
+  document.getElementById('mainSubtitle').textContent = isBack ? t.mainSubtitleBackward : t.mainSubtitleForward;
+}
+
+function resetResult() {
+  const t = i18n[lang];
+  const rDate = document.getElementById('resultDate');
+  rDate.textContent = t.resultEmpty;
+  rDate.className = 'result-date empty';
+  document.getElementById('resultDay').textContent = '';
+  document.getElementById('resultDelta').textContent = '';
+  ['infoJours','infoSemaines','infoMois','infoJourSemaine','infoDimanche'].forEach(id=>document.getElementById(id).textContent='—');
+}
+
+function updateLangToggleUI() {
+  document.querySelectorAll('#langToggle .lang-opt').forEach(el => {
+    el.classList.toggle('active', el.dataset.lang === lang);
+  });
+}
+
+function toggleLang() {
+  lang = CDSite.cycleLang(lang);
+  CDSite.setStoredLang(lang);
+  document.documentElement.lang = lang;
+  updateLangToggleUI();
+  applyTranslations();
+  calculate();
+}
+
+function applyTranslations() {
+  const t = i18n[lang];
+  const s = CDSite.SHARED[lang];
+  document.getElementById('headerSubtitle').textContent = s.headerSubtitle;
+  document.getElementById('mainTitle').textContent      = t.mainTitle;
+  document.getElementById('labelQty').textContent       = t.labelQty;
+  document.getElementById('labelUnit').textContent      = t.labelUnit;
+  document.getElementById('optChoose').textContent      = t.optChoose;
+  document.getElementById('optDay').textContent         = t.optDay;
+  document.getElementById('optWeek').textContent        = t.optWeek;
+  document.getElementById('optMonth').textContent       = t.optMonth;
+  document.getElementById('optYear').textContent        = t.optYear;
+  document.getElementById('infoTitle').textContent      = t.infoTitle;
+  document.getElementById('labelTotalDays').textContent = t.labelTotalDays;
+  document.getElementById('labelWeeks').textContent     = t.labelWeeks;
+  document.getElementById('labelMonths').textContent    = t.labelMonths;
+  document.getElementById('labelDayOfWeek').textContent = t.labelDayOfWeek;
+  document.getElementById('labelSundayWeek').textContent= t.labelSundayWeek;
+  document.getElementById('scenariosTitle').textContent = t.scenariosTitle;
+  document.getElementById('disclaimerScenarios').textContent = t.disclaimerScenarios;
+  document.getElementById('footerText').textContent     = s.footerText;
+  document.getElementById('scenariosGrid').innerHTML = t.scenarios.map(sc =>
+    `<button class="scenario-btn" onclick="applyScenario(${sc.qty},'${sc.unit}','${sc.dir}')"><div class="s-title">${sc.title}</div><div class="s-desc">${sc.desc}</div></button>`
+  ).join('');
+  updateDirectionLabels();
+  CDSite.renderNav(lang, ACTIVE_PAGE);
+  CDSite.renderFooterLinks(lang, 'footerLinks');
+  document.getElementById('bottomAds').innerHTML   = CDSite.amazonAd(lang) + CDSite.cfoMasqueAd(lang) + CDSite.alchimixAd(lang);
+}
+
+function formatDate(d) { const t = i18n[lang]; return `${d.getDate()} ${t.months[d.getMonth()]} ${d.getFullYear()}`; }
+function getSunday(d) { const c=new Date(d); c.setDate(c.getDate()-c.getDay()); return c; }
+
+function calculate() {
+  const t       = i18n[lang];
+  const dateVal = document.getElementById('startDate').value;
+  const qty     = parseInt(document.getElementById('quantity').value);
+  const unit    = document.getElementById('unit').value;
+  const sdl     = document.getElementById('startDayLabel');
+
+  if(dateVal) { const sd = new Date(dateVal+'T00:00:00'); sdl.textContent = '— ' + t.days[sd.getDay()]; }
+  else { sdl.textContent = ''; }
+
+  if(!dateVal || isNaN(qty) || qty < 0 || !unit) { resetResult(); return; }
+
+  const inputDate = new Date(dateVal+'T00:00:00');
+  let resultDate  = new Date(inputDate);
+
+  if(direction === 'forward') {
+    if(unit==='day')   resultDate.setDate(resultDate.getDate()+qty-1);
+    if(unit==='week')  resultDate.setDate(resultDate.getDate()+qty*7-1);
+    if(unit==='month') { resultDate.setMonth(resultDate.getMonth()+qty); resultDate.setDate(resultDate.getDate()-1); }
+    if(unit==='year')  { resultDate.setFullYear(resultDate.getFullYear()+qty); resultDate.setDate(resultDate.getDate()-1); }
+  } else {
+    if(unit==='day')   resultDate.setDate(resultDate.getDate()-qty+1);
+    if(unit==='week')  resultDate.setDate(resultDate.getDate()-qty*7+1);
+    if(unit==='month') { resultDate.setMonth(resultDate.getMonth()-qty); resultDate.setDate(resultDate.getDate()+1); }
+    if(unit==='year')  { resultDate.setFullYear(resultDate.getFullYear()-qty); resultDate.setDate(resultDate.getDate()+1); }
+  }
+
+  const diff   = Math.abs(Math.round((resultDate-inputDate)/(1000*60*60*24))) + 1;
+  const sunday = getSunday(resultDate);
+
+  const rDate = document.getElementById('resultDate');
+  rDate.textContent = formatDate(resultDate);
+  rDate.className = 'result-date animate';
+  setTimeout(()=>rDate.classList.remove('animate'), 400);
+
+  document.getElementById('resultDay').textContent   = t.days[resultDate.getDay()];
+  document.getElementById('resultDelta').textContent = direction==='forward' ? t.deltaTextForward(diff) : t.deltaTextBackward(diff);
+  document.getElementById('infoJours').textContent       = diff+' '+t.daysUnit;
+  document.getElementById('infoSemaines').textContent    = Math.floor(diff/7)+' '+t.weeksUnit;
+  document.getElementById('infoMois').textContent        = Math.floor(diff/30.44).toFixed(0)+' '+t.monthsUnit;
+  document.getElementById('infoJourSemaine').textContent = t.days[resultDate.getDay()];
+  document.getElementById('infoDimanche').textContent    = formatDate(sunday);
+}
+
+function applyScenario(qty, unit, dir) {
+  if(dir && dir !== direction) {
+    direction = dir;
+    document.body.classList.toggle('dir-backward', direction === 'backward');
+    updateDirectionLabels(); resetResult();
+  }
+  if(!document.getElementById('startDate').value)
+    document.getElementById('startDate').value = new Date().toISOString().split('T')[0];
+  document.getElementById('quantity').value = qty;
+  document.getElementById('unit').value = unit;
+  calculate();
+  // Popup don (1× par session) — délai pour laisser le résultat s'afficher
+  if (window.CDSite) setTimeout(function(){ CDSite.showDonatePopup(lang); }, 600);
+}
+
+document.getElementById('startDate').addEventListener('change', calculate);
+document.getElementById('quantity').addEventListener('input', calculate);
+document.getElementById('unit').addEventListener('change', calculate);
+
+document.documentElement.lang = lang;
+updateLangToggleUI();
+applyTranslations();
+</script>
+<!-- Filet de sécurité : garantit menu, footer et pubs même si une erreur plus haut interrompt l'initialisation -->
+<script>
+(function(){
+  function safetyRender() {
+    try {
+      if (!window.CDSite) return;
+      var curLang = (typeof lang === 'string' && lang) ? lang : ((CDSite.getStoredLang && CDSite.getStoredLang()) || 'fr');
+      var nav = document.getElementById('siteNav');
+      if (nav && nav.innerHTML.trim().length === 0) {
+        CDSite.renderNav(curLang, 'home', 'siteNav');
+      }
+      var fl = document.getElementById('footerLinks');
+      if (fl && fl.innerHTML.trim().length === 0) {
+        CDSite.renderFooterLinks(curLang, 'footerLinks');
+      }
+      var ads = document.getElementById('bottomAds');
+      if (ads && ads.innerHTML.trim().length === 0) {
+        ads.innerHTML = CDSite.amazonAd(curLang) + CDSite.cfoMasqueAd(curLang) + CDSite.alchimixAd(curLang);
+      }
+    } catch(e) { console.warn('safetyRender index:', e); }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', safetyRender);
+  } else {
+    safetyRender();
+  }
+  window.addEventListener('load', safetyRender);
+})();
+</script>
+</body>
+</html>
