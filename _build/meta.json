@@ -4,21 +4,21 @@
   "pages": {
     "index.html": {
       "fr": [
-        "Calculateur de dates gratuit au Québec | CalculDates.ca",
-        "Calculateur de dates gratuit : ajoutez ou soustrayez des jours, semaines, mois ou années, calculez des délais légaux et des échéances au Québec."
+        "Calcul de date : ajouter des jours, semaines ou mois | CalculDates.ca",
+        "Calcul de date gratuit : ajoutez ou soustrayez des jours, des semaines, des mois ou des années à une date, ou calculez à rebours une date limite. Résultat instantané avec le jour de la semaine."
       ],
       "en": [
-        "Free Date Calculator for Québec | CalculDates.ca",
-        "Free date calculator: add or subtract days, weeks, months or years, and work out legal and administrative deadlines in Québec."
+        "Date Calculator: Add Days, Weeks or Months to a Date | CalculDates.ca",
+        "Free date calculator: add or subtract days, weeks, months or years from a date, or count back to find a deadline. Instant result, including the day of the week."
       ],
       "es": [
-        "Calculadora de fechas gratuita para Quebec | CalculDates.ca",
-        "Calculadora de fechas gratuita: sume o reste días, semanas, meses o años y calcule plazos legales y administrativos en Quebec."
+        "Calculadora de fechas: sumar días, semanas o meses | CalculDates.ca",
+        "Calculadora de fechas gratuita: sume o reste días, semanas, meses o años a una fecha, o calcule hacia atrás una fecha límite. Resultado inmediato con el día de la semana."
       ]
     },
     "garde.html": {
       "fr": [
-        "Calendrier de garde partagée (7/7, 2-2-3, 2-2-5-5) | CalculDates.ca",
+        "Calendrier de garde partagée gratuit (7/7, 2-2-5-5, 2-2-3) | CalculDates.ca",
         "Calendrier de garde partagée gratuit — 7/7, 3-2-2-3, 2-2-3, 5/2, fins de semaine et plus. Exportez en PDF ou ajoutez à Apple, Outlook ou Google Agenda."
       ],
       "en": [
@@ -131,6 +131,9 @@
   },
   "fr_only": [
     "garde-partagee-comparer-horaires.html",
-    "rotation-travail-jours-par-annee.html"
+    "rotation-travail-jours-par-annee.html",
+    "horaire-garde-2-2-5-5.html",
+    "garde-classique-fin-de-semaine-sur-deux.html",
+    "garde-partagee-fetes-conges.html"
   ]
 }

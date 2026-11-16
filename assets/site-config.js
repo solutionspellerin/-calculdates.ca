@@ -149,7 +149,14 @@
   }
 
   // ── Génération du bloc pub CFO masqué ─────────────────────
+  // ── Un seul bloc partenaire par page, choisi selon le sujet ──
+  // Pages travail/paie : formations Excel (CFO masqué) ; autres : Amazon.
+  // Alchimix retiré (sans lien avec le contenu du site).
+  var CFO_PAGES = ['paie.html', 'feries.html', 'rotation.html', 'rotation-travail-jours-par-annee.html'];
+  function partnerFor() { return CFO_PAGES.indexOf(pageFile()) >= 0 ? 'cfo' : 'amazon'; }
+
   function cfoMasqueAd(lang) {
+    if (partnerFor() !== 'cfo') return '';
     const t = SHARED[lang] || SHARED.fr;
     return [
       '<a href="https://lecfomasque.com/ref/107/" target="_blank" rel="sponsored noopener" class="ad-cfo">',
@@ -169,6 +176,7 @@
 
   // ── Génération du bloc pub Alchimix ───────────────────────
   function alchimixAd(lang) {
+    return '';
     const t = SHARED[lang] || SHARED.fr;
     return [
       '<a href="https://alchimix-app.com/" target="_blank" rel="sponsored noopener" class="ad-alch">',
@@ -188,6 +196,7 @@
   // ── Pub Amazon (lien affilié simple) ──────────────────────
   // Le tag est : amazingam068f-20
   function amazonAd(lang) {
+    if (partnerFor() !== 'amazon') return '';
     const t = SHARED[lang] || SHARED.fr;
     const url = 'https://www.amazon.ca/?tag=amazingam068f-20';
     return [
